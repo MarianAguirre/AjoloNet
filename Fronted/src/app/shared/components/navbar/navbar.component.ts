@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  search(term:string): void{
+    console.log('desde bycapitalpage')
+    console.log({term})
+  }
 
 }

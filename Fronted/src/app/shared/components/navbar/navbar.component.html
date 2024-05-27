@@ -12,11 +12,18 @@
         <li class="nav-item" routerLink="Ejemplo">
           <button class="nav-link active" aria-current="page" >Ejemplo</button>
         </li>
+        <li class="nav-item" routerLink="Equipos">
+          <button class="nav-link active" aria-current="page" >Equipos</button>
+        </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+
+      <shared-search-box
+
+      (valor)="search($event)"
+      placeholder="Search"></shared-search-box>
+
     </div>
+
+
   </div>
 </nav>
