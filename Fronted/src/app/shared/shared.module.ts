@@ -4,6 +4,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { EjemploPageComponent } from './pages/ejemplo-page/ejemplo-page.component';
 
 @NgModule({
   imports: [
@@ -12,11 +14,14 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
   ],
   exports: [
     SidebarComponent,
-    HomePageComponent
+    HomePageComponent,
+    EjemploPageComponent
   ],
   declarations: [
     SidebarComponent,
-    HomePageComponent
+    HomePageComponent,
+    NavbarComponent,
+    EjemploPageComponent
   ]
 })
 export class SharedModule { }
