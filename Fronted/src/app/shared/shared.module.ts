@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EjemploPageComponent } from './pages/ejemplo-page/ejemplo-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 @NgModule({
   imports: [
@@ -15,13 +16,16 @@ import { EjemploPageComponent } from './pages/ejemplo-page/ejemplo-page.componen
   exports: [
     SidebarComponent,
     HomePageComponent,
-    EjemploPageComponent
+    EjemploPageComponent,
+    NavbarComponent,
+    LoginPageComponent
   ],
   declarations: [
     SidebarComponent,
     HomePageComponent,
     NavbarComponent,
-    EjemploPageComponent
+    EjemploPageComponent,
+    LoginPageComponent
   ]
 })
 export class SharedModule { }
