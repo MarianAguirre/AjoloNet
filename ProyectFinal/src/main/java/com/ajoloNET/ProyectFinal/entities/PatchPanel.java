@@ -5,18 +5,19 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "Router")
-public class Router {
+@Table(name = "Patch")
+public class PatchPanel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "router", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "PatchPanel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Port> ports;
 
-    @Column(name = "Marca_Router")
-    private String marca;
+    @ManyToOne
+    @JoinColumn(name = "rack_id")
+    private Rack rack;
 
 
     //Getters and Setters
@@ -37,11 +38,11 @@ public class Router {
         this.ports = ports;
     }
 
-    public String getMarca() {
-        return marca;
+    public Rack getRack() {
+        return rack;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setRack(Rack rack) {
+        this.rack = rack;
     }
 }
