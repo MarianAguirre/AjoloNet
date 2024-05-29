@@ -1,5 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
-body{
+  /* body{
 
-  background-color: rgb(156, 156, 156);
-}
+    background-color: rgb(156, 156, 156);
+  } */
+
+  body {
+    --text-color: #222;
+    --background-color: #fff;
+
+
+  }
+
+  body.dark-theme {
+    --text-color: #fff;
+    --background-color: rgb(54, 54, 54);
+  }
+  body {
+    background: var(--background-color);
+  }
+
+  h1,
+  p {
+    color: var(--text-color);
+  }
+  button {
+    border: none;
+    background-color: transparent;
+  }
+

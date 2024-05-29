@@ -1,0 +1,21 @@
+<h1>Agregar nuevo equipo</h1>
+    <form class="row" (ngSubmit)="emitEquip()"  >
+
+      <input
+      required
+      type="text"
+      name="name"
+      class="from-control mb-2"
+      placeholder="Nombre del equipo">
+
+      <select required name="select">
+        <option disabled selected>Tipo de equipo</option>
+        <option value="value1">Value 1</option>
+        <option value="value2">Value 2</option>
+      </select>
+
+      <button type="submit"class="btn btn-primary" >
+        Agregar
+      </button>
+
+    </form>

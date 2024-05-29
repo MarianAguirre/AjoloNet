@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './shared/pages/home-page/home-page.component';
 import { EjemploPageComponent } from './shared/pages/ejemplo-page/ejemplo-page.component';
 import { EquiposComponent } from './shared/pages/equipos-page/equipos.component';
+import { LoginPageComponent } from './shared/pages/login-page/login-page.component';
+import { AgregarEquipoComponent } from './shared/pages/agregar-equipo/agregar-equipo.component';
 
 const routes: Routes = [
   {
@@ -18,9 +20,9 @@ const routes: Routes = [
     component: EquiposComponent
   },
   {
-    path: '',
-    component: HomePageComponent
-  },
+    path: 'Agregar',
+    component: AgregarEquipoComponent
+  }
 
 ];
 

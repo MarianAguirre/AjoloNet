@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'shared-login-page',
   templateUrl: './login-page.component.html',
@@ -7,7 +8,5 @@ import { Component } from '@angular/core';
 })
 export class LoginPageComponent {
 
-  login(){
 
-  }
 }
