@@ -3,6 +3,7 @@ package com.ajoloNET.ProyectFinal.entities;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Physical_Ports")
 public class Port {
 
     @Id

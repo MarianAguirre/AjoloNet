@@ -2,6 +2,7 @@ package com.ajoloNET.ProyectFinal.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,10 +13,11 @@ public class Rack {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "Power_Split")
     private String powerSplit;
 
     @OneToMany(mappedBy = "rack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Switch aSwitch;
+    private List<Switch> aSwitch;
 
     @OneToMany(mappedBy = "rack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<PatchPanel> patchPanels;
@@ -38,11 +40,11 @@ public class Rack {
         this.powerSplit = powerSplit;
     }
 
-    public Switch getaSwitch() {
+    public List<Switch> getaSwitch() {
         return aSwitch;
     }
 
-    public void setaSwitch(Switch aSwitch) {
+    public void setaSwitch(List<Switch> aSwitch) {
         this.aSwitch = aSwitch;
     }
 

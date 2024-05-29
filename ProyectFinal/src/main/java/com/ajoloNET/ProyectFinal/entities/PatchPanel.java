@@ -12,7 +12,7 @@ public class PatchPanel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "PatchPanel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patchPanel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Port> ports;
 
     @ManyToOne

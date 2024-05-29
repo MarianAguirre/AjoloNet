@@ -15,8 +15,8 @@ public class Router {
     @OneToMany(mappedBy = "router", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Port> ports;
 
-    @Column(name = "Marca_Router")
-    private String marca;
+    @Column(name = "Name_Router")
+    private String name;
 
 
     //Getters and Setters
@@ -37,11 +37,11 @@ public class Router {
         this.ports = ports;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getName() {
+        return name;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setName(String name) {
+        this.name = name;
     }
 }

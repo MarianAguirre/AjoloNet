@@ -12,18 +12,20 @@ public class Switch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Marca_Switch")
-    private String marca;
+    @Column(name = "Nombre_Switch")
+    private String name;
 
-    @OneToMany(mappedBy = "aSwitch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sSwitch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Port> ports;
 
     @ManyToOne
     @JoinColumn(name = "rack_id")
     private Rack rack;
 
+    @Column(name = "Es_Poe")
     private boolean poe;
 
+    @Column(name = "Es_Administrable")
     private boolean administrable;
 
 
@@ -37,12 +39,12 @@ public class Switch {
         this.id = id;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getName() {
+        return name;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<Port> getPorts() {
