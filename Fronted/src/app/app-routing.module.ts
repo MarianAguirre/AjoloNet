@@ -12,6 +12,10 @@ const routes: Routes = [
     component: HomePageComponent
   },
   {
+    path: 'Login/Home',
+    component: HomePageComponent
+  },
+  {
     path: 'Ejemplo',
     component: EjemploPageComponent
   },
@@ -20,9 +24,13 @@ const routes: Routes = [
     component: EquiposComponent
   },
   {
-    path: 'Agregar',
+    path: 'Equipos/Agregar',
     component: AgregarEquipoComponent
-  }
+  },
+  {
+    path: 'Login',
+    component: LoginPageComponent
+  },
 
 ];
 

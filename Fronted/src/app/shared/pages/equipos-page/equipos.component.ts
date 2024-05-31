@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
+import { EquiposServices } from '../../services/equipos.service';
 
 @Component({
   selector: 'shared-equipos-pages',
@@ -7,7 +8,16 @@ import { Dispositivo } from '../../../interfaces/Dispositivo';
 })
 export class EquiposComponent {
 
-  @Input()
-  public dispositivos: Dispositivo[]=[]
+  // constructor(private EquipoServices:EquiposServices){}
+  // @Input()
+  // public dispositivos: Dispositivo[]=[]
 
+  // get equipos(): Dispositivo[]{
+  //   return[...this.EquipoServices.equipos]
+  // }
+
+
+  // newEquip(equipo:Dispositivo):void{
+  //   this.EquipoServices.addEquip(equipo)
+  // }
 }

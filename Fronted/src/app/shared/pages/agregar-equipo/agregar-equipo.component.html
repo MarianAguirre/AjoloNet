@@ -1,21 +1,60 @@
-<h1>Agregar nuevo equipo</h1>
-    <form class="row" (ngSubmit)="emitEquip()"  >
+<div class="row" style="margin: 5% ">
+<div class="col">
+<h1 style="font-size: 300%;text-align: center;" >Agregar nuevo equipo</h1>
+  <br>
+<form (ngSubmit)="emitEquip()" >
 
       <input
       required
       type="text"
       name="name"
+      [(ngModel)]="equipo.name"
       class="from-control mb-2"
       placeholder="Nombre del equipo">
 
-      <select required name="select">
-        <option disabled selected>Tipo de equipo</option>
-        <option value="value1">Value 1</option>
-        <option value="value2">Value 2</option>
+      <br>
+
+
+      <select
+        class="mb-2"
+        required
+        name="select">
+        <option disabled selected value="1">Tipo de equipo</option>
+        <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
       </select>
 
-      <button type="submit"class="btn btn-primary" >
-        Agregar
-      </button>
 
+
+
+
+
+
+      <br>
+      <button
+      type="submit"
+      class="btn btn-success"
+      style="margin-top: 1%;margin-left: 12px;"
+      >
+        Guardar
+    </button>
     </form>
+  </div>
+  <div class="col">
+    <div class="d-flex justify-content-end">
+      <button
+      type="submit"
+      class="btn btn-danger "
+      style="margin-top: 1%;margin-left: 12px;"
+      (click)="goBack()"
+      >
+        Volver
+    </button>
+  </div>
+    <p>A</p>
+    <p>A</p>
+    <p>A</p>
+    <p>A</p>
+    <p>A</p>
+  </div>
+</div>
+

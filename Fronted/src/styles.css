@@ -4,7 +4,7 @@
     background-color: rgb(156, 156, 156);
   } */
 
-  body {
+  body{
     --text-color: #222;
     --background-color: #fff;
 
@@ -15,7 +15,7 @@
     --text-color: #fff;
     --background-color: rgb(54, 54, 54);
   }
-  body {
+  body, table {
     background: var(--background-color);
   }
 

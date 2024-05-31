@@ -1,0 +1,18 @@
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input,select{
+  width: 70%;
+  border-radius: 10px;
+  border: 1px solid #000;
+  font-size: 16px;
+  padding: 8px 12px;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+
+}

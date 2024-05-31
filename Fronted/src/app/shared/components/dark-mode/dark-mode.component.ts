@@ -6,6 +6,7 @@ import { Component, signal } from '@angular/core';
   styleUrl: './dark-mode.component.css'
 })
 export class DarkModeComponent {
+
   toggleDarkTheme(): void {
     document.body.classList.toggle('dark-theme');
   }

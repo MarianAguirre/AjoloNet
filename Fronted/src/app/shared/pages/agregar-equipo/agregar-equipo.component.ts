@@ -1,4 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { Dispositivo } from '../../../interfaces/Dispositivo';
+// import {v4 as uuid} from 'uuid'
+
 
 @Component({
   selector: 'shared-agregar-equipo',
@@ -7,15 +11,37 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class AgregarEquipoComponent {
 
-  @Output()
-  public newEquip: EventEmitter<string> = new EventEmitter
+  constructor(private router: Router) { }
 
-  // public equipo: Equipos ={
-  //   name: ''
-  // }
+  @Output()
+  public newEquip: EventEmitter<Dispositivo> = new EventEmitter
+
+  public equipo:Dispositivo ={
+    name: ''
+  }
 
   emitEquip():void{
+    console.log(this.equipo);
+    this.newEquip.emit(this.equipo)
+    this.equipo = {name:''}
+  }
+
+  goBack() {
+    this.router.navigate(['/Equipos']);
+  }
+
+
+
+  public opciones:string[] = [
+    'Switch',
+    'Router',
+    'Dispositivo final',
+    'Patch Panel'
+  ]
+
+
+
 
   }
 
-}
+
