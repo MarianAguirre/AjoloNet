@@ -9,8 +9,10 @@ import java.util.Optional;
 
 public interface RouterRepository extends JpaRepository<Router, Long> {
 
-    //@Query("select r from Router r where upper(r.name) like concat(upper(?1), '%')")
-    //List<Router> findMatchByName(String name);
+    /*
+    @Query("SELECT r FROM router r WHERE r.name_router ILIKE ?1 || '%';")
+    List<Router> findMatchByName(String name);
+    */
 
     Optional<Router>findByName(String name);
 }

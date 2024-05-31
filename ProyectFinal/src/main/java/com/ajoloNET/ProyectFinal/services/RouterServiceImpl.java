@@ -24,7 +24,7 @@ public class RouterServiceImpl implements RouterService{
     @Override
     public Router readByName(String name) {
         return this.routerRepository.findByName(name)
-                .orElseThrow(()-> new NoSuchElementException("Router no encontrado"));
+                .orElseThrow(()-> new NoSuchElementException("Router not found"));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class RouterServiceImpl implements RouterService{
     @Override
     public Router update(Router router, String name) {
         var routerToUpdate = this.routerRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Router no encontrado"));
+                .orElseThrow(()->new NoSuchElementException("Router not found"));
         routerToUpdate.setId(router.getId());
         routerToUpdate.setName(router.getName());
         routerToUpdate.setPorts(router.getPorts());
@@ -56,20 +56,27 @@ public class RouterServiceImpl implements RouterService{
     @Override
     public void delete(String name) {
         var routerToDelete = this.routerRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Router no encontrado"));
+                .orElseThrow(()->new NoSuchElementException("Router not found"));
         this.routerRepository.delete(routerToDelete);
     }
 
     @Override
     public void deleteById(Long id) {
         var routerToDeleteById = this.routerRepository.findById(id)
-                .orElseThrow(()->new NoSuchElementException("Router no encontrado"));
+                .orElseThrow(()->new NoSuchElementException("Router not found"));
         this.routerRepository.delete(routerToDeleteById);
     }
 
     @Override
     public List<Router> getEverything() {
-        return (List<Router>) routerRepository.findAll() ;
+        return (List<Router>) routerRepository.findAll();
     }
+
+    /*
+     @Override
+    public List<Router> findMatchByName(String name) {
+        return routerRepository.findMatchByName(name);
+     }
+    */
 
 }

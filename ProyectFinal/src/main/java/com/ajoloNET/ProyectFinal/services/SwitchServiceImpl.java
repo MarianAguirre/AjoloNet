@@ -24,7 +24,7 @@ public class SwitchServiceImpl implements SwitchService {
     @Override
     public Switch readByName(String name) {
         return this.switchRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Switch no encontrado"));
+                .orElseThrow(()->new NoSuchElementException("Switch not found"));
     }
 
     @Override
@@ -45,23 +45,29 @@ public class SwitchServiceImpl implements SwitchService {
     @Override
     public Switch update(Switch aSwitch, String name) {
         var switchToUpdate = this.switchRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Switch no encontrado"));
+                .orElseThrow(()->new NoSuchElementException("Switch not found"));
         switchToUpdate.setId(aSwitch.getId());
         switchToUpdate.setName(aSwitch.getName());
         switchToUpdate.setPorts(aSwitch.getPorts());
         switchToUpdate.setRack(aSwitch.getRack());
         switchToUpdate.setPoe(aSwitch.isPoe());
-        switchToUpdate.setAdministrable(aSwitch.isAdministrable());
+        switchToUpdate.setManageable(aSwitch.isManageable());
         return this.switchRepository.save(switchToUpdate);
     }
 
     @Override
     public void delete(String name) {
+        var switchToDelete = this.switchRepository.findByName(name)
+                .orElseThrow(()->new NoSuchElementException("Switch not found"));
+        this.switchRepository.delete(switchToDelete);
 
     }
 
     @Override
     public void deleteById(Long id) {
+        var switchToDeleteById = this.switchRepository.findById(id)
+                .orElseThrow(()->new NoSuchElementException("Switch not found"));
+        this.switchRepository.delete(switchToDeleteById);
 
     }
 

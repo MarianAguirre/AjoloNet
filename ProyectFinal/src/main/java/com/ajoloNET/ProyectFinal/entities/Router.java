@@ -18,6 +18,10 @@ public class Router {
     @Column(name = "Name_Router")
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "rack_id")
+    private Rack rack;
+
 
     //Getters and Setters
 
@@ -43,5 +47,13 @@ public class Router {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Rack getRack() {
+        return rack;
+    }
+
+    public void setRack(Rack rack) {
+        this.rack = rack;
     }
 }

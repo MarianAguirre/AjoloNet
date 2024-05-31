@@ -12,7 +12,7 @@ public class Switch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Nombre_Switch")
+    @Column(name = "Name_Switch")
     private String name;
 
     @OneToMany(mappedBy = "sSwitch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -22,11 +22,11 @@ public class Switch {
     @JoinColumn(name = "rack_id")
     private Rack rack;
 
-    @Column(name = "Es_Poe")
+    @Column(name = "is_Poe")
     private boolean poe;
 
-    @Column(name = "Es_Administrable")
-    private boolean administrable;
+    @Column(name = "is_Manageable")
+    private boolean manageable;
 
 
     //Getters and Setters
@@ -71,11 +71,11 @@ public class Switch {
         this.poe = poe;
     }
 
-    public boolean isAdministrable() {
-        return administrable;
+    public boolean isManageable() {
+        return manageable;
     }
 
-    public void setAdministrable(boolean administrable) {
-        this.administrable = administrable;
+    public void setManageable(boolean manageable) {
+        this.manageable = manageable;
     }
 }

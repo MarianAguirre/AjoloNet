@@ -22,6 +22,9 @@ public class Rack {
     @OneToMany(mappedBy = "rack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<PatchPanel> patchPanels;
 
+    @OneToMany(mappedBy = "rack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Router> routers;
+
 
     //Getters and Setters
     public Long getId() {
@@ -54,5 +57,13 @@ public class Rack {
 
     public void setPatchPanels(Set<PatchPanel> patchPanels) {
         this.patchPanels = patchPanels;
+    }
+
+    public List<Router> getRouters() {
+        return routers;
+    }
+
+    public void setRouters(List<Router> routers) {
+        this.routers = routers;
     }
 }
