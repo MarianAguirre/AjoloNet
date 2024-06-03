@@ -21,7 +21,8 @@ public class EndDeviceServiceImpl implements EndDeviceService{
 
     @Override
     public Optional<EndDevice> findById(Long id) {
-        return endDeviceRepository.findById(id);
+        return Optional.ofNullable(this.endDeviceRepository.findById(id)
+                .orElseThrow(()->new NoSuchElementException("End Device not found")));
     }
 
     @Override

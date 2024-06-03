@@ -19,7 +19,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SwitchServiceImpl implements SwitchService {
 
-    private final SwitchRepository switchRepository;
+    private SwitchRepository switchRepository;
 
     @Override
     public Switch readByName(String name) {
@@ -29,7 +29,8 @@ public class SwitchServiceImpl implements SwitchService {
 
     @Override
     public Optional<Switch> findById(Long id) {
-        return switchRepository.findById(id);
+        return Optional.ofNullable(this.switchRepository.findById(id)
+                .orElseThrow(()->new NoSuchElementException("Switch not found")));
     }
 
     @Override

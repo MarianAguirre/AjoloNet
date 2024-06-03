@@ -19,7 +19,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class RouterServiceImpl implements RouterService{
 
-    private final RouterRepository routerRepository;
+    private RouterRepository routerRepository;
 
     @Override
     public Router readByName(String name) {
@@ -29,7 +29,8 @@ public class RouterServiceImpl implements RouterService{
 
     @Override
     public Optional<Router> findById(Long id) {
-        return routerRepository.findById(id);
+        return Optional.ofNullable(this.routerRepository.findById(id)
+                .orElseThrow(()->new NoSuchElementException("Router not found")));
     }
 
     @Override

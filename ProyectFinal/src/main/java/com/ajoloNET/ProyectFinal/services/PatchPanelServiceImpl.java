@@ -15,7 +15,8 @@ public class PatchPanelServiceImpl implements PatchPanelService{
 
     @Override
     public Optional<PatchPanel> findById(Long id) {
-        return this.patchPanelRepository.findById(id);
+        return Optional.ofNullable(this.patchPanelRepository.findById(id)
+                .orElseThrow(()->new NoSuchElementException("Patch Panel not found")));
     }
 
     @Override
