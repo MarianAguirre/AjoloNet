@@ -5,32 +5,54 @@ import { EjemploPageComponent } from './shared/pages/ejemplo-page/ejemplo-page.c
 import { EquiposComponent } from './shared/pages/equipos-page/equipos.component';
 import { LoginPageComponent } from './shared/pages/login-page/login-page.component';
 import { AgregarEquipoComponent } from './shared/pages/agregar-equipo/agregar-equipo.component';
+import { AuthModule } from './auth/auth.module';
+import { Error404PageComponent } from './shared/pages/error404-page/error404-page.component';
 
 const routes: Routes = [
+  // {
+  //   path: 'Login/Home',
+  //   component: HomePageComponent
+  // },
+  // {
+  //   path: 'Ejemplo',
+  //   component: EjemploPageComponent
+  // },
+  // {
+  //   path: 'Equipos',
+  //   component: EquiposComponent
+  // },
+  // {
+  //   path: 'Equipos/Agregar',
+  //   component: AgregarEquipoComponent
+  // },
+  // {
+  //   path: 'Login',
+  //   component: LoginPageComponent
+  // },{
+  //   path: 'Home',
+  //   component: HomePageComponent
+  // },
   {
-    path: 'Home',
-    component: HomePageComponent
+    path:'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path: 'Login/Home',
-    component: HomePageComponent
+    path:'red',
+    loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule)
   },
   {
-    path: 'Ejemplo',
-    component: EjemploPageComponent
+    path: '404',
+    component: Error404PageComponent
   },
   {
-    path: 'Equipos',
-    component: EquiposComponent
+    path:'',
+    redirectTo: 'shared',
+    pathMatch: 'full'
   },
   {
-    path: 'Equipos/Agregar',
-    component: AgregarEquipoComponent
-  },
-  {
-    path: 'Login',
-    component: LoginPageComponent
-  },
+    path:'**',
+    redirectTo: '404'
+  }
 
 ];
 

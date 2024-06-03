@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { ButtonModule } from 'primeng/button';
+import { TreeTableModule } from 'primeng/treetable';
 
 
 @NgModule({
@@ -20,7 +21,10 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     SharedModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ButtonModule,
+    TreeTableModule,
+
 
 
   ],

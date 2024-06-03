@@ -19,7 +19,8 @@
       <shared-dark-mode></shared-dark-mode>
       <shared-search-box
 
-      (valor)="search($event)"
+      (onDebounce)="search($event)"
+      (onValue)="search($event)"
       placeholder="Search"></shared-search-box>
 
     </div>

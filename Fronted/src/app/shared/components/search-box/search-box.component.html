@@ -2,7 +2,7 @@
   <input
   class="form-control me-2"
   [placeholder]="placeholder"
-  (keyup.enter)="emitValue(txtInput.value)"
+  (keyup)="onKeyPress(txtInput.value)"
   #txtInput
   >
   <button class="btn btn-outline-success" type="submit" (click)="emitValue(txtInput.value)">Search</button>

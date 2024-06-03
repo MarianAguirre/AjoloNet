@@ -14,16 +14,18 @@
 
       <br>
 
-
+      <p>Tipo de equipo</p>
       <select
         class="mb-2"
         required
+        [(ngModel)]="equipo.type"
         name="select">
-        <option disabled selected value="1">Tipo de equipo</option>
+        <option  selected value="1">Tipo de equipo</option>
         <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
       </select>
 
       <br>
+      <p>Puerto</p>
       <input
       required
       type="number"

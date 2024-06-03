@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Dispositivo } from '../../../interfaces/Dispositivo';
 
 @Component({
   selector: 'shared-tabla',
@@ -6,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class TablaComponent {
 
+  public orederBy:keyof Dispositivo | undefined| ''= '';
+
+
+
+  changeOrder(value: keyof Dispositivo){
+    this.orederBy= value;
+  }
 }

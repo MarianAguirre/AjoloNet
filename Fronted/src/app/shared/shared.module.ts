@@ -13,12 +13,23 @@ import { TablaComponent } from './components/tabla/tabla.component';
 import { DarkModeComponent } from './components/dark-mode/dark-mode.component';
 import { AgregarEquipoComponent } from './pages/agregar-equipo/agregar-equipo.component';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { TreeTableModule } from 'primeng/treetable';
+import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+import { Error404PageComponent } from './pages/error404-page/error404-page.component';
+import { RedRoutingModule } from './red-routing.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    ButtonModule,
+    TreeTableModule,
+    RedRoutingModule
+
+
   ],
   exports: [
     SidebarComponent,
@@ -26,7 +37,8 @@ import { FormsModule } from '@angular/forms';
     EjemploPageComponent,
     NavbarComponent,
     LoginPageComponent,
-    DarkModeComponent
+    DarkModeComponent,
+    Error404PageComponent
   ],
   declarations: [
     SidebarComponent,
@@ -38,7 +50,15 @@ import { FormsModule } from '@angular/forms';
     EquiposComponent,
     TablaComponent,
     DarkModeComponent,
-    AgregarEquipoComponent
-  ]
+    AgregarEquipoComponent,
+    LayoutPageComponent,
+    Error404PageComponent,
+
+
+
+
+
+  ],
+
 })
 export class SharedModule { }
