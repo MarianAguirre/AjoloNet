@@ -19,7 +19,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class RouterServiceImpl implements RouterService{
 
-    private RouterRepository routerRepository;
+    private final RouterRepository routerRepository;
 
     @Override
     public Router readByName(String name) {

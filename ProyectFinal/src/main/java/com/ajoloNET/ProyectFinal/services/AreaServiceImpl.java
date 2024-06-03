@@ -2,14 +2,22 @@ package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.Area;
 import com.ajoloNET.ProyectFinal.repositories.AreaRepository;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@Service
+@Transactional
+@Slf4j
+@AllArgsConstructor
 public class AreaServiceImpl implements AreaService{
 
-    private AreaRepository areaRepository;
+    private final AreaRepository areaRepository;
 
     @Override
     public Area readByName(String name) {

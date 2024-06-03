@@ -3,15 +3,23 @@ package com.ajoloNET.ProyectFinal.services;
 import com.ajoloNET.ProyectFinal.entities.PatchPanel;
 import com.ajoloNET.ProyectFinal.entities.PortType;
 import com.ajoloNET.ProyectFinal.repositories.PatchPanelRepository;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
+@Service
+@Transactional
+@Slf4j
+@AllArgsConstructor
 public class PatchPanelServiceImpl implements PatchPanelService{
 
-    private PatchPanelRepository patchPanelRepository;
+    private final PatchPanelRepository patchPanelRepository;
 
     @Override
     public Optional<PatchPanel> findById(Long id) {

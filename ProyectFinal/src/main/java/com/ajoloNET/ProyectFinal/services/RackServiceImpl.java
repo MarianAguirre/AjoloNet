@@ -2,14 +2,22 @@ package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.Rack;
 import com.ajoloNET.ProyectFinal.repositories.RackRepository;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@Service
+@Transactional
+@Slf4j
+@AllArgsConstructor
 public class RackServiceImpl implements RackService{
 
-    private RackRepository rackRepository;
+    private final RackRepository rackRepository;
 
     @Override
     public Optional<Rack> findById(Long id) {

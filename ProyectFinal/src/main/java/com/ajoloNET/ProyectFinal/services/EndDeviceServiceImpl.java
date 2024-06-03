@@ -3,15 +3,23 @@ package com.ajoloNET.ProyectFinal.services;
 import com.ajoloNET.ProyectFinal.entities.EndDevice;
 import com.ajoloNET.ProyectFinal.entities.PortType;
 import com.ajoloNET.ProyectFinal.repositories.EndDeviceRepository;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
+@Service
+@Transactional
+@Slf4j
+@AllArgsConstructor
 public class EndDeviceServiceImpl implements EndDeviceService{
 
-    private EndDeviceRepository endDeviceRepository;
+    private final EndDeviceRepository endDeviceRepository;
 
     @Override
     public EndDevice readByName(String name) {

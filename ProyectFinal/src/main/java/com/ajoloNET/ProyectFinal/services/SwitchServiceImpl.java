@@ -19,7 +19,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SwitchServiceImpl implements SwitchService {
 
-    private SwitchRepository switchRepository;
+    private final SwitchRepository switchRepository;
 
     @Override
     public Switch readByName(String name) {
