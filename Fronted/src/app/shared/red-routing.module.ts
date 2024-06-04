@@ -12,7 +12,7 @@ const routes : Routes =[
     component:LayoutPageComponent,
     children: [
       {
-        path: 'nuevo-equipo', component: AgregarEquipoComponent
+        path: 'equipos/nuevo-equipo', component: AgregarEquipoComponent
       },
       {
         path: 'equipos', component: EquiposComponent
@@ -23,6 +23,9 @@ const routes : Routes =[
       {
         path: 'home', component: HomePageComponent
       },
+      {
+        path: '**', redirectTo: 'home'
+      }
     ]
   }
 ]

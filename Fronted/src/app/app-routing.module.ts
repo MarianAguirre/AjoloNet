@@ -9,29 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { Error404PageComponent } from './shared/pages/error404-page/error404-page.component';
 
 const routes: Routes = [
-  // {
-  //   path: 'Login/Home',
-  //   component: HomePageComponent
-  // },
-  // {
-  //   path: 'Ejemplo',
-  //   component: EjemploPageComponent
-  // },
-  // {
-  //   path: 'Equipos',
-  //   component: EquiposComponent
-  // },
-  // {
-  //   path: 'Equipos/Agregar',
-  //   component: AgregarEquipoComponent
-  // },
-  // {
-  //   path: 'Login',
-  //   component: LoginPageComponent
-  // },{
-  //   path: 'Home',
-  //   component: HomePageComponent
-  // },
+
   {
     path:'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
@@ -46,7 +24,7 @@ const routes: Routes = [
   },
   {
     path:'',
-    redirectTo: 'shared',
+    redirectTo: 'red',
     pathMatch: 'full'
   },
   {

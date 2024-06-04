@@ -28,6 +28,7 @@ export class AgregarEquipoComponent {
 
 
 
+
   emitEquip():void{
     if(this.equipo.name.length === 0 ) return
       Swal.fire({
@@ -39,6 +40,7 @@ export class AgregarEquipoComponent {
     });
     if(!this.opciones.includes(this.equipo.type))
     return
+
     console.log(this.equipo);
     this.newEquip.emit(this.equipo)
     this.equipo = { id:uuid(), name:'', type:'',port: 0}
@@ -53,7 +55,7 @@ export class AgregarEquipoComponent {
   }
 
   goBack() {
-    this.router.navigate(['/Equipos']);
+    this.router.navigate(['red/equipos']);
   }
 
 

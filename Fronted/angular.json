@@ -35,6 +35,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css",
               "primeicons/primeicons.css",
               "node_modules/primeng/resources/primeng.min.css"

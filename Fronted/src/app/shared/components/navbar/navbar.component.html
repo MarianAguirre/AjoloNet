@@ -1,18 +1,19 @@
+
 <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="Home">AjoloNet</a>
+    <a class="navbar-brand" routerLink="home">AjoloNet</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item" routerLink="Home">
+        <li class="nav-item" routerLink="home">
           <button class="nav-link active" aria-current="page" >Home</button>
         </li>
-        <li class="nav-item" routerLink="Ejemplo">
+        <li class="nav-item" routerLink="ejemplo">
           <button class="nav-link active" aria-current="page" >Ejemplo</button>
         </li>
-        <li class="nav-item" routerLink="Equipos">
+        <li class="nav-item" routerLink="equipos">
           <button class="nav-link active" aria-current="page" >Equipos</button>
         </li>
       </ul>
@@ -22,9 +23,12 @@
       (onDebounce)="search($event)"
       (onValue)="search($event)"
       placeholder="Search"></shared-search-box>
+      <button  routerLink="/auth" >Salir</button>
 
     </div>
 
 
+
   </div>
 </nav>
+

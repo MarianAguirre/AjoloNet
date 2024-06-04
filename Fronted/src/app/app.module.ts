@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
 import { TreeTableModule } from 'primeng/treetable';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 @NgModule({
@@ -28,7 +29,9 @@ import { TreeTableModule } from 'primeng/treetable';
 
 
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
