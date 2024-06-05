@@ -22,6 +22,9 @@ public class Router {
     @JoinColumn(name = "rack_id")
     private Rack rack;
 
+    @Column(name = "number_of_ports")
+    private int numberOfPorts;
+
 
     //Getters and Setters
 
@@ -55,5 +58,13 @@ public class Router {
 
     public void setRack(Rack rack) {
         this.rack = rack;
+    }
+
+    public int getNumberOfPorts() {
+        return numberOfPorts;
+    }
+
+    public void setNumberOfPorts(int numberOfPorts) {
+        this.numberOfPorts = numberOfPorts;
     }
 }

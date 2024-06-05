@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "router")
+@RequestMapping(path = "/router")
 @Slf4j
 public class RouterController {
 

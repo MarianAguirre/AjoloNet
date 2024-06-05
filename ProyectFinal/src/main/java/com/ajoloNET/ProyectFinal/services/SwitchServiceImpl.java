@@ -1,17 +1,16 @@
 package com.ajoloNET.ProyectFinal.services;
 
+import com.ajoloNET.ProyectFinal.entities.Port;
 import com.ajoloNET.ProyectFinal.entities.PortType;
 import com.ajoloNET.ProyectFinal.entities.Switch;
+import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import com.ajoloNET.ProyectFinal.repositories.SwitchRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -20,6 +19,8 @@ import java.util.Optional;
 public class SwitchServiceImpl implements SwitchService {
 
     private final SwitchRepository switchRepository;
+
+    private final PortRepository portRepository;
 
     @Override
     public Switch readByName(String name) {
@@ -35,11 +36,6 @@ public class SwitchServiceImpl implements SwitchService {
 
     @Override
     public Switch create(Switch aSwitch) {
-        aSwitch.getPorts().forEach(port -> {
-            if (Objects.isNull(port.getPortType())){
-                port.setPortType(PortType.SWITCH);
-            }
-        });
         return this.switchRepository.save(aSwitch);
     }
 
@@ -73,7 +69,23 @@ public class SwitchServiceImpl implements SwitchService {
     }
 
     @Override
+    public Switch createPortsForSwitch(Switch aSwitch) {
+        Set<Port> ports = new HashSet<>();
+        for (int i = 1; i <= aSwitch.getNumberOfPorts(); i++) {
+            Port port = new Port();
+            port.setsSwitch(aSwitch);
+            port.setPortType(PortType.SWITCH);
+            port.setPortNumber(i);
+            ports.add(port);
+        }
+        portRepository.saveAll(ports);
+        aSwitch.setPorts(ports);
+        return aSwitch;
+    }
+
+    @Override
     public List<Switch> getEverything() {
         return (List<Switch>) switchRepository.findAll();
     }
 }
+

@@ -28,6 +28,9 @@ public class Switch {
     @Column(name = "is_Manageable")
     private boolean manageable;
 
+    @Column(name = "number_of_ports")
+    private int numberOfPorts;
+
 
     //Getters and Setters
 
@@ -77,5 +80,13 @@ public class Switch {
 
     public void setManageable(boolean manageable) {
         this.manageable = manageable;
+    }
+
+    public int getNumberOfPorts() {
+        return numberOfPorts;
+    }
+
+    public void setNumberOfPorts(int numberOfPorts) {
+        this.numberOfPorts = numberOfPorts;
     }
 }

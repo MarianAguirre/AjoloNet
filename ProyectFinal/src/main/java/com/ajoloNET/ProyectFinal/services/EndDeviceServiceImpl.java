@@ -1,17 +1,16 @@
 package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.EndDevice;
+import com.ajoloNET.ProyectFinal.entities.Port;
 import com.ajoloNET.ProyectFinal.entities.PortType;
 import com.ajoloNET.ProyectFinal.repositories.EndDeviceRepository;
+import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -20,6 +19,8 @@ import java.util.Optional;
 public class EndDeviceServiceImpl implements EndDeviceService{
 
     private final EndDeviceRepository endDeviceRepository;
+
+    private final PortRepository portRepository;
 
     @Override
     public EndDevice readByName(String name) {
@@ -51,6 +52,7 @@ public class EndDeviceServiceImpl implements EndDeviceService{
         enDeviceToUpdate.setName(endDevice.getName());
         enDeviceToUpdate.setPorts(endDevice.getPorts());
         enDeviceToUpdate.setArea(endDevice.getArea());
+        enDeviceToUpdate.setNumberOfPorts(endDevice.getNumberOfPorts());
         return this.endDeviceRepository.save(enDeviceToUpdate);
     }
 
@@ -68,6 +70,21 @@ public class EndDeviceServiceImpl implements EndDeviceService{
                 .orElseThrow(()->new NoSuchElementException("End Device not found"));
         this.endDeviceRepository.delete(enDeviceToDeleteById);
 
+    }
+
+    @Override
+    public EndDevice createPortsForEndDevice(EndDevice endDevice) {
+        Set<Port> ports = new HashSet<>();
+        for (int i = 1; i <= endDevice.getNumberOfPorts(); i++) {
+            Port port = new Port();
+            port.setEndDevice(endDevice);
+            port.setPortType(PortType.END_DEVICE);
+            port.setPortNumber(i);
+            ports.add(port);
+        }
+        portRepository.saveAll(ports);
+        endDevice.setPorts(ports);
+        return endDevice;
     }
 
     @Override

@@ -12,5 +12,7 @@ public interface PatchPanelService {
     PatchPanel update(PatchPanel patchPanel, Long id);
     void deleteById(Long id);
 
+    PatchPanel createPortsForPatchPanel(PatchPanel patchPanel);
+
     List<PatchPanel> getEverything();
 }

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "switch")
+@RequestMapping(path = "/switch")
 @Slf4j
 public class SwitchController {
 
@@ -63,4 +63,6 @@ public class SwitchController {
         this.switchService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    public ResponseEntity
 }

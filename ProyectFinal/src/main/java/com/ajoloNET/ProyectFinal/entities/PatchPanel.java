@@ -19,10 +19,13 @@ public class PatchPanel {
     @JoinColumn(name = "rack_id")
     private Rack rack;
 
+    @Column(name = "number_of_ports")
+    private int numberOfPorts;
+
 
     //Getters and Setters
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -44,5 +47,13 @@ public class PatchPanel {
 
     public void setRack(Rack rack) {
         this.rack = rack;
+    }
+
+    public int getNumberOfPorts() {
+        return numberOfPorts;
+    }
+
+    public void setNumberOfPorts(int numberOfPorts) {
+        this.numberOfPorts = numberOfPorts;
     }
 }

@@ -1,17 +1,16 @@
 package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.PatchPanel;
+import com.ajoloNET.ProyectFinal.entities.Port;
 import com.ajoloNET.ProyectFinal.entities.PortType;
 import com.ajoloNET.ProyectFinal.repositories.PatchPanelRepository;
+import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -21,6 +20,8 @@ public class PatchPanelServiceImpl implements PatchPanelService{
 
     private final PatchPanelRepository patchPanelRepository;
 
+    private final PortRepository portRepository;
+
     @Override
     public Optional<PatchPanel> findById(Long id) {
         return Optional.ofNullable(this.patchPanelRepository.findById(id)
@@ -29,11 +30,6 @@ public class PatchPanelServiceImpl implements PatchPanelService{
 
     @Override
     public PatchPanel create(PatchPanel patchPanel) {
-        patchPanel.getPorts().forEach(port -> {
-            if (Objects.isNull(port.getPortType())){
-                port.setPortType(PortType.PATCH_PANEL);
-            }
-        });
         return this.patchPanelRepository.save(patchPanel);
     }
 
@@ -53,6 +49,21 @@ public class PatchPanelServiceImpl implements PatchPanelService{
                 .orElseThrow(()->new NoSuchElementException("Patch Panel not found"));
         this.patchPanelRepository.delete(patchToDeleteById);
 
+    }
+
+    @Override
+    public PatchPanel createPortsForPatchPanel(PatchPanel patchPanel) {
+        Set<Port> ports = new HashSet<>();
+        for (int i = 1; i <= patchPanel.getNumberOfPorts(); i++) {
+            Port port = new Port();
+            port.setPatchPanel(patchPanel);
+            port.setPortType(PortType.PATCH_PANEL);
+            port.setPortNumber(i);
+            ports.add(port);
+        }
+        portRepository.saveAll(ports);
+        patchPanel.setPorts(ports);
+        return patchPanel;
     }
 
     @Override

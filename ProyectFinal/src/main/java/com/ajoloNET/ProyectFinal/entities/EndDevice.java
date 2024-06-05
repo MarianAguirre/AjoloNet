@@ -2,7 +2,7 @@ package com.ajoloNET.ProyectFinal.entities;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "End_Device")
@@ -13,7 +13,7 @@ public class EndDevice {
     private Long id;
 
     @OneToMany(mappedBy = "endDevice",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Port> ports;
+    private Set<Port> ports;
 
     @Column(name = "Name_Device")
     private String name;
@@ -21,6 +21,9 @@ public class EndDevice {
     @ManyToOne
     @JoinColumn(name = "area_id")
     private Area area;
+
+    @Column(name = "number_of_ports")
+    private int numberOfPorts;
 
 
     //Getters and Setters
@@ -32,11 +35,11 @@ public class EndDevice {
         this.id = id;
     }
 
-    public List<Port> getPorts() {
+    public Set<Port> getPorts() {
         return ports;
     }
 
-    public void setPorts(List<Port> ports) {
+    public void setPorts(Set<Port> ports) {
         this.ports = ports;
     }
 
@@ -56,4 +59,11 @@ public class EndDevice {
         this.area = area;
     }
 
+    public int getNumberOfPorts() {
+        return numberOfPorts;
+    }
+
+    public void setNumberOfPorts(int numberOfPorts) {
+        this.numberOfPorts = numberOfPorts;
+    }
 }

@@ -14,6 +14,8 @@ public interface EndDeviceService {
     void delete(String name);
     void deleteById(Long id);
 
+    EndDevice createPortsForEndDevice(EndDevice endDevice);
+
     List<EndDevice> getEverything();
     //List<EndDevice>findMatchByName(String name);
 }

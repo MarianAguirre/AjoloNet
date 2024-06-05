@@ -14,5 +14,7 @@ public interface SwitchService {
     void delete(String name);
     void deleteById(Long id);
 
+    Switch createPortsForSwitch(Switch aSwitch);
+
     List<Switch>getEverything();
 }

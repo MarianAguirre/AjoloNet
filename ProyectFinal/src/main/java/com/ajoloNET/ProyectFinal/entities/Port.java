@@ -2,6 +2,9 @@ package com.ajoloNET.ProyectFinal.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "physical_ports")
 public class Port {
@@ -29,6 +32,15 @@ public class Port {
     @Column(columnDefinition = "port_type")
     @Enumerated(value = EnumType.STRING)
     private PortType portType;
+
+    @Column(name = "port_number")
+    private int portNumber;
+
+    @OneToOne(mappedBy = "sourcePort", cascade = CascadeType.ALL, orphanRemoval = true)
+    private PortConnection sourceConnection;
+
+    @OneToOne(mappedBy = "destinationPort", cascade = CascadeType.ALL, orphanRemoval = true)
+    private PortConnection destinationConnection;
 
 
     //Getters and Setters
@@ -79,5 +91,29 @@ public class Port {
 
     public void setPortType(PortType portType) {
         this.portType = portType;
+    }
+
+    public int getPortNumber() {
+        return portNumber;
+    }
+
+    public void setPortNumber(int portNumber) {
+        this.portNumber = portNumber;
+    }
+
+    public PortConnection getSourceConnection() {
+        return sourceConnection;
+    }
+
+    public void setSourceConnection(PortConnection sourceConnection) {
+        this.sourceConnection = sourceConnection;
+    }
+
+    public PortConnection getDestinationConnection() {
+        return destinationConnection;
+    }
+
+    public void setDestinationConnection(PortConnection destinationConnection) {
+        this.destinationConnection = destinationConnection;
     }
 }

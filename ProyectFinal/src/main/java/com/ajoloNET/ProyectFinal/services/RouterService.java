@@ -14,6 +14,8 @@ public interface RouterService {
     void delete(String name);
     void deleteById(Long id);
 
+    Router createPortsForRouter(Router router);
+
     List<Router>getEverything();
     //List<Router>findMatchByName(String name);
 
