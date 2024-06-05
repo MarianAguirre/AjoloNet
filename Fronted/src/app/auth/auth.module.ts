@@ -20,7 +20,8 @@ import { DarkModeModule } from '../shared/components/dark-mode/dark-mode.module'
     CommonModule,
     AuthRoutingModule,
     MaterialModule,
-    DarkModeModule
+    DarkModeModule,
+
 
   ]
 })

@@ -10,7 +10,7 @@ import { SearchBoxComponent } from './components/search-box/search-box.component
 import { EquiposComponent } from './pages/equipos-page/equipos.component';
 import { TablaComponent } from './components/tabla/tabla.component';
 import { AgregarEquipoComponent } from './pages/agregar-equipo/agregar-equipo.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TreeTableModule } from 'primeng/treetable';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
@@ -29,7 +29,8 @@ import { DarkModeModule } from './components/dark-mode/dark-mode.module';
     TreeTableModule,
     RedRoutingModule,
     MaterialModule,
-    DarkModeModule
+    DarkModeModule,
+    ReactiveFormsModule
 
 
   ],

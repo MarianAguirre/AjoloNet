@@ -16,3 +16,16 @@ input,select{
   text-align: center;
 
 }
+
+.contenido{
+
+  display: flex;
+  width: 150%;
+
+}
+
+.Text-checkbox {
+  width: 300%;
+  margin-right: 1%;
+  text-align: center;
+}

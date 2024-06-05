@@ -2,7 +2,8 @@
 <div class="col">
 <h1 style="font-size: 300%;text-align: center;" >Agregar nuevo equipo</h1>
   <br>
-<form (ngSubmit)="emitEquip()" >
+<form (ngSubmit)="emitEquip()"  >
+  <!-- [formGroup]="myform" -->
 
       <input
       required
@@ -19,11 +20,23 @@
         class="mb-2"
         required
         [(ngModel)]="equipo.type"
-        name="select">
+        name="select"
+        >
+      <!-- formControlName="type" -->
+
         <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
       </select>
 
-      <br>
+      <p>¿Conectado con?</p>
+      <select
+        class="mb-2"
+        required
+        [(ngModel)]="equipo.conection"
+        name="select"
+        >
+        <option *ngFor="let conect of conections" [value]="conect">{{conect}}</option>
+      </select>
+
       <p>Puerto</p>
       <input
       #port
@@ -38,9 +51,37 @@
       placeholder="Puerto">
 
       <br>
+      <div *ngIf="equipo.type === 'Switch'" >
+      <div class="contenido">
+      <p class="Text-checkbox">¿Es poe? </p><input
+      required
+      name="poe"
+      [(ngModel)]="equipo.poe"
+      class="from-control mb-2"
+      type="checkbox"
+      >
+    </div>
 
-
-
+    <div class="contenido">
+      <p class="Text-checkbox">¿Es administrable? </p><input
+      required
+      name="manageable"
+      [(ngModel)]="equipo.manageable"
+      class="from-control mb-2"
+      type="checkbox">
+    </div>
+  </div>
+  <div *ngIf="equipo.type==='Dispositivo final'">
+      <br>
+      <input
+      required
+      type="text"
+      name="area"
+      [(ngModel)]="equipo.area"
+      class="from-control mb-2"
+      placeholder="En que area esta">
+    </div>
+      <br>
 
       <br>
       <button

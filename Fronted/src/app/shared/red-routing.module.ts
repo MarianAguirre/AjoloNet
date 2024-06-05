@@ -18,7 +18,7 @@ const routes : Routes =[
         path: 'equipos', component: EquiposComponent
       },
       {
-        path: 'ejemplos', component: EjemploPageComponent
+        path: 'ejemplo', component: EjemploPageComponent
       },
       {
         path: 'home', component: HomePageComponent

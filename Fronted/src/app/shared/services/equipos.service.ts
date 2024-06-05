@@ -8,6 +8,9 @@ export class EquiposServices {
   constructor(private http:HttpClient) {
   }
 
+
+
+
   // private saveToLocalStorage(){
 
   // }

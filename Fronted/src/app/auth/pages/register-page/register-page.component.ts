@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register-page',
@@ -27,4 +29,29 @@ export class RegisterPageComponent {
       Swal.fire("You agreed with T&C :)");
     }
   }
+
+
+  registerForm = new FormGroup({
+    user: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl ('', Validators.required)
+  })
+
+  constructor(private authservices:AuthService){}
+
+  signIn():void{
+    const credentials:any = this.registerForm.value;
+    this.authservices.logIn(credentials)
+  }
+
+  get userControl(): FormControl{
+    return this.registerForm.get('user') as FormControl
+  }
+  get emailControl(): FormControl{
+    return this.registerForm.get('email') as FormControl
+  }
+  get passwordControl(): FormControl{
+    return this.registerForm.get('password') as FormControl
+  }
+
 }

@@ -2,3 +2,11 @@ input{
   width: fit-content;
 }
 
+.ng-touched.ng-invalid:is(input, textarea),
+.ng-dirty.ng-invalid:is(input, textarea){
+  outline: 2px solid rgb(180, 6, 6);
+}
+
+.ng-dirty.ng-pending:is(input, textarea){
+  outline: 2px solid rgb(190, 190, 6);
+}

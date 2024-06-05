@@ -1,10 +1,11 @@
 export interface Dispositivo {
-  id?:string
+  id:string
   name: string;
   type: string;
+  conection?: string;
   port: number;
-  rack?: string;
   poe?: boolean;
   manageable?: boolean;
   area?: string;
+
 }

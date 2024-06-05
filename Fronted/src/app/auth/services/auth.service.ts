@@ -1,10 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../interfaces/user.interfaces';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+
+  private loggedIn = new BehaviorSubject<boolean>(true);
+  loggedIn$ = this.loggedIn.asObservable()
+
+  constructor(private router:Router){}
+
+  logIn(credentials:User):void{
+    this.loggedIn.next(true);
+    this.redirecToHome()
+  }
+
+  logOut():void{
+    this.loggedIn.next(false);
+    this.redirecToHome()
+  }
+
+  private redirecToHome():void{
+    this.router.navigate(['/'])
+  }
 
   // private baseUrl =
   // private user?: User;
