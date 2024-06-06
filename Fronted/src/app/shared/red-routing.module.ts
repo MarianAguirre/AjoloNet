@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { AgregarEquipoComponent } from './pages/agregar-equipo/agregar-equipo.component';
 import { EquiposComponent } from './pages/equipos-page/equipos.component';
-import { EjemploPageComponent } from './pages/ejemplo-page/ejemplo-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { ConectionPageComponent } from './pages/conection-page/conection-page.component';
 
 const routes : Routes =[
   {
@@ -18,7 +18,7 @@ const routes : Routes =[
         path: 'equipos', component: EquiposComponent
       },
       {
-        path: 'ejemplo', component: EjemploPageComponent
+        path: 'conexiones', component: ConectionPageComponent
       },
       {
         path: 'home', component: HomePageComponent

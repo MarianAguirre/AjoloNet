@@ -1,24 +1,17 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import {v4 as uuid} from 'uuid'
-import Swal from 'sweetalert2'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 
 @Component({
-  selector: 'shared-agregar-equipo',
-  templateUrl: './agregar-equipo.component.html',
-  styleUrl: './agregar-equipo.component.css'
+  selector: 'shared-conection-page',
+  templateUrl: './conection-page.component.html',
+  styleUrl: './conection-page.component.css'
 })
-export class AgregarEquipoComponent implements OnInit{
+export class ConectionPageComponent {
+  constructor(private router: Router) { }
 
-  constructor(private router: Router, private fb:FormBuilder) { }
-
-
-  ngOnInit(): void {
-
-  }
 
 
   @Output()
@@ -79,5 +72,3 @@ export class AgregarEquipoComponent implements OnInit{
   ]
 
   }
-
-

@@ -9,3 +9,7 @@ export interface Dispositivo {
   area?: string;
 
 }
+
+export interface Rack{
+  id: string
+}

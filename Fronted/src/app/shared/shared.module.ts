@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { EjemploPageComponent } from './pages/ejemplo-page/ejemplo-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { EquiposComponent } from './pages/equipos-page/equipos.component';
@@ -18,6 +17,7 @@ import { Error404PageComponent } from './pages/error404-page/error404-page.compo
 import { RedRoutingModule } from './red-routing.module';
 import { MaterialModule } from '../material/material.module';
 import { DarkModeModule } from './components/dark-mode/dark-mode.module';
+import { ConectionPageComponent } from './pages/conection-page/conection-page.component';
 
 
 @NgModule({
@@ -30,13 +30,13 @@ import { DarkModeModule } from './components/dark-mode/dark-mode.module';
     RedRoutingModule,
     MaterialModule,
     DarkModeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
 
 
   ],
   exports: [
     HomePageComponent,
-    EjemploPageComponent,
+    ConectionPageComponent,
     NavbarComponent,
     LoginPageComponent,
     DarkModeModule,
@@ -45,7 +45,7 @@ import { DarkModeModule } from './components/dark-mode/dark-mode.module';
   declarations: [
     HomePageComponent,
     NavbarComponent,
-    EjemploPageComponent,
+    ConectionPageComponent,
     LoginPageComponent,
     SearchBoxComponent,
     EquiposComponent,
