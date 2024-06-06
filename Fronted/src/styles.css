@@ -15,7 +15,7 @@
 
   body.dark-theme {
     --text-color: #fff;
-    --background-color: rgb(54, 54, 54);
+    --background-color: rgb(40, 40, 43);
   }
   body, table {
     background: var(--background-color);

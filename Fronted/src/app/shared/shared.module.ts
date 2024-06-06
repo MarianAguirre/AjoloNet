@@ -19,6 +19,7 @@ import { MaterialModule } from '../material/material.module';
 import { DarkModeModule } from './components/dark-mode/dark-mode.module';
 import { ConectionPageComponent } from './pages/conection-page/conection-page.component';
 import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
     AgregarEquipoComponent,
     LayoutPageComponent,
     Error404PageComponent,
+    AdminPageComponent,
 
 
 

@@ -78,11 +78,12 @@
       >Volver</button>
 
     </div>
-  <p>A</p>
-  <p>A</p>
-  <p>A</p>
-  <p>A</p>
-  <p>A</p>
+    <div class="d-flex justify-content-center">
+    <img  *ngIf="equipo.type === 'Switch'" src="assets/switch.png" width="256" height="256">
+    <img  *ngIf="equipo.type === 'Router'" src="assets/router.png"  width="256" height="256">
+    <img  *ngIf="equipo.type === 'Dispositivo final'" src="assets/found_9694708.png"  width="256" height="256">
+    <img  *ngIf="equipo.type === 'Patch panel'" src="assets/patch.png"  width="256" height="256" >
+  </div>
   </div>
   <div class="botones justify-content-end">
     <button type="submit" class="btn btn-info " style="margin-top: 1%;margin-left: 12px;" (click)="goConection()">Ir a conexiones</button>

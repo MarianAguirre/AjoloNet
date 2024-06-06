@@ -3,71 +3,31 @@
     <h1 style="font-size: 300%;text-align: center;" >Crear conexiones</h1>
     <br>
     <form (ngSubmit)="emitEquip()"  >
+      <p>Tipo de equipo</p>
+      <select class="mb-2" required
+          [(ngModel)]="equipo.type" name="select">
+        <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
+      </select>
 
-    <input required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
-
-    <br>
-
-    <p>Tipo de equipo</p>
-    <select class="mb-2" required
-        [(ngModel)]="equipo.type" name="select">
+      <p>Nombre del equipo</p>
+      <select class="mb-2" required
+          [(ngModel)]="equipo.type" name="select">
+        <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
+      </select>
 
 
-      <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
-    </select>
 
-    <p>Puertos</p>
-    <input
-    #port
-    required
-    type="number"
-    name="port"
-    min="0"
-    max="128"
-    oninput="validity.valid||(value='');"
-    [(ngModel)]="equipo.port"
-    class="from-control mb-2"
-    placeholder="Puerto">
 
-    <br>
-      <div *ngIf="equipo.type === 'Switch'" >
-        <div class="contenido">
-          <p class="Text-checkbox">¿Es poe? </p><input
-          required
-          name="poe"
-          [(ngModel)]="equipo.poe"
-          class="from-control mb-2"
-          type="checkbox"
-          >
-        </div>
-
-        <div class="contenido">
-          <p class="Text-checkbox">¿Es administrable? </p><input
-          required
-          name="manageable"
-          [(ngModel)]="equipo.manageable"
-          class="from-control mb-2"
-          type="checkbox">
-        </div>
-      </div>
-    <div *ngIf="equipo.type==='Dispositivo final'" class="area">
-      <br>
-      <input
-      required
-      type="text"
-      name="area"
-      [(ngModel)]="equipo.area"
-      class="from-control mb-2"
-      placeholder="En que area esta">
-    </div>
-      <br>
-
-      <br>
 
       <button type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;">Guardar</button>
-
     </form>
+
+
   </div>
+
+
+
+
   <div class="col">
     <div class="d-flex justify-content-end">
       <button
@@ -83,8 +43,5 @@
   <p>A</p>
   <p>A</p>
   <p>A</p>
-  </div>
-  <div class="botones justify-content-end">
-    <button type="submit" class="btn btn-info " style="margin-top: 1%;margin-left: 12px;" (click)="goConection()">Ir a conexiones</button>
   </div>
 </div>

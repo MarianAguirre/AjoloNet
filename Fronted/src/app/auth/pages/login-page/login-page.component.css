@@ -10,3 +10,7 @@ input{
 .ng-dirty.ng-pending:is(input, textarea){
   outline: 2px solid rgb(190, 190, 6);
 }
+
+.body{
+  background: linear-gradient(135deg,#0e25f1, #181818);
+}
