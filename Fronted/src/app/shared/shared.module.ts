@@ -18,6 +18,7 @@ import { RedRoutingModule } from './red-routing.module';
 import { MaterialModule } from '../material/material.module';
 import { DarkModeModule } from './components/dark-mode/dark-mode.module';
 import { ConectionPageComponent } from './pages/conection-page/conection-page.component';
+import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ConectionPageComponent } from './pages/conection-page/conection-page.co
     MaterialModule,
     DarkModeModule,
     ReactiveFormsModule,
+    MdbCollapseModule
 
 
   ],
