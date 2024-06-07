@@ -3,7 +3,7 @@ export interface Dispositivo {
   name: string;
   type: string;
   conection?: string;
-  port: number;
+  port?: number;
   poe?: boolean;
   manageable?: boolean;
   area?: string;

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
 import { EquiposServices } from '../../services/equipos.service';
 
@@ -7,21 +7,32 @@ import { EquiposServices } from '../../services/equipos.service';
   selector: 'shared-equipos-pages',
   templateUrl: './equipos.component.html',
 })
-export class EquiposComponent {
+export class EquiposComponent implements OnInit {
+  dispositivos: Dispositivo[] = [];
+
+
+  constructor(private equiposServices: EquiposServices) {}
+
+  ngOnInit(): void {
+    this.equiposServices.getRouters().subscribe((data: any) => {
+      this.dispositivos = data
+
+    });
+  }
 
 
 
+  public isUpperCase: boolean = false
 
-  // constructor(private EquipoServices:EquiposServices){}
-  // @Input()
-  // public dispositivos: Dispositivo[]=[]
-
-  // get equipos(): Dispositivo[]{
-  //   return[...this.EquipoServices.equipos]
-  // }
+  toggleUpperCase():void{
+    this.isUpperCase = !this.isUpperCase
+  }
 
 
-  // newEquip(equipo:Dispositivo):void{
-  //   this.EquipoServices.addEquip(equipo)
-  // }
+  public orederBy:keyof Dispositivo | undefined| ''= '';
+
+  changeOrder(value: keyof Dispositivo){
+    this.orederBy= value;
+  }
+
 }

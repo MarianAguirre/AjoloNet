@@ -15,11 +15,5 @@ export class NavbarComponent {
     console.log({term})
   }
 
-  ngAfterViewInit(): void {
-    const navbarToggler = document.getElementById('navbarSupportedContent');
-    navbarToggler!.addEventListener('click', () => {
-      console.log('Navbar toggler clicked!');
-    });
-  }
 
 }

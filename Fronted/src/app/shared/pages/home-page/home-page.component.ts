@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EquiposServices } from '../../services/equipos.service';
 
 @Component({
   selector: 'shared-home-page',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent {
+
+
+
 
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Dispositivo } from '../../interfaces/Dispositivo';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Injectable({providedIn: 'root'})
@@ -9,6 +10,10 @@ export class EquiposServices {
   }
 
 
+
+  getRouters():Observable<Dispositivo[]>{
+    return this.http.get<Dispositivo[]>('http://localhost:4000')
+  }
 
 
   // private saveToLocalStorage(){

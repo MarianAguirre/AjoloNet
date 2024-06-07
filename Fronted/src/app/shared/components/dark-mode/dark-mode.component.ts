@@ -8,7 +8,13 @@ import { Component, signal } from '@angular/core';
 export class DarkModeComponent {
 
   toggleDarkTheme(): void {
-    document.body.classList.toggle('dark-theme');
+    const checkbox = document.querySelector('input')
+    if(checkbox?.checked){
+      document.body.classList.add('dark-theme');
+    }else{
+      document.body.classList.remove('dark-theme');
+    }
+
   }
 
 

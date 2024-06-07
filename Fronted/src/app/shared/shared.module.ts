@@ -7,7 +7,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { EquiposComponent } from './pages/equipos-page/equipos.component';
-import { TablaComponent } from './components/tabla/tabla.component';
 import { AgregarEquipoComponent } from './pages/agregar-equipo/agregar-equipo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -20,7 +19,9 @@ import { DarkModeModule } from './components/dark-mode/dark-mode.module';
 import { ConectionPageComponent } from './pages/conection-page/conection-page.component';
 import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
-
+import {TableModule} from 'primeng/table'
+import { SortByPipe } from './pipe/sortBy.pipe';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   imports: [
@@ -33,7 +34,10 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
     MaterialModule,
     DarkModeModule,
     ReactiveFormsModule,
-    MdbCollapseModule
+    MdbCollapseModule,
+    TableModule,
+    SortByPipe,
+    InputSwitchModule
 
 
   ],
@@ -43,7 +47,9 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
     NavbarComponent,
     LoginPageComponent,
     DarkModeModule,
-    Error404PageComponent
+    Error404PageComponent,
+    TableModule,
+
   ],
   declarations: [
     HomePageComponent,
@@ -52,11 +58,11 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
     LoginPageComponent,
     SearchBoxComponent,
     EquiposComponent,
-    TablaComponent,
     AgregarEquipoComponent,
     LayoutPageComponent,
     Error404PageComponent,
     AdminPageComponent,
+
 
 
 
