@@ -2,17 +2,13 @@
   <div class="col">
     <h1 style="font-size: 300%;text-align: center;" >Agregar nuevo equipo</h1>
     <br>
+
     <form (ngSubmit)="emitEquip()"  >
-
     <input required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
-
     <br>
-
     <p>Tipo de equipo</p>
     <select class="mb-2" required
         [(ngModel)]="equipo.type" name="select">
-
-
       <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
     </select>
 
@@ -64,7 +60,7 @@
 
       <br>
 
-      <button type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;">Guardar</button>
+      <button type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newDevice()">Guardar</button>
 
     </form>
   </div>

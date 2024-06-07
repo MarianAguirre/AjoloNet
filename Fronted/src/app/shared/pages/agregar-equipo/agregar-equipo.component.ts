@@ -4,6 +4,7 @@ import { Dispositivo } from '../../../interfaces/Dispositivo';
 import {v4 as uuid} from 'uuid'
 import Swal from 'sweetalert2'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AgregarEquipoComponent implements OnInit{
 
-  constructor(private router: Router, private fb:FormBuilder) { }
+  constructor(private router: Router, private http:HttpClient) { }
 
 
   ngOnInit(): void {
@@ -77,6 +78,14 @@ export class AgregarEquipoComponent implements OnInit{
     'Dispositivo final',
     'Patch Panel'
   ]
+
+  newDevice():void{
+    this.http.post<Dispositivo>('http://localhost:4000/new', this.equipo).subscribe(
+      (data) =>{
+
+      }
+    )
+  }
 
   }
 

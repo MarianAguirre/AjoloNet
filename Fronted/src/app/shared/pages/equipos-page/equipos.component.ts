@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
 import { EquiposServices } from '../../services/equipos.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -11,7 +13,7 @@ export class EquiposComponent implements OnInit {
   dispositivos: Dispositivo[] = [];
 
 
-  constructor(private equiposServices: EquiposServices) {}
+  constructor(private equiposServices: EquiposServices, private http:HttpClient) {}
 
   ngOnInit(): void {
     this.equiposServices.getRouters().subscribe((data: any) => {
@@ -20,12 +22,16 @@ export class EquiposComponent implements OnInit {
     });
   }
 
+  // ngOnInit(): void {
+  //   this.getDevices().subscribe(
+  //     (data) =>{
+  //       this.dispositivos =data
+  //     }
+  //   )
+  // }
 
-
-  public isUpperCase: boolean = false
-
-  toggleUpperCase():void{
-    this.isUpperCase = !this.isUpperCase
+  getDevices(): Observable<Dispositivo[]>{
+    return this.http.get<Dispositivo[]>('htpp://localhost:4000')
   }
 
 
@@ -35,4 +41,15 @@ export class EquiposComponent implements OnInit {
     this.orederBy= value;
   }
 
+  deleteDevice(id: string): void {
+    this.http.delete(`http://localhost:4000/delete/${id}`).subscribe(
+        () => {
+            // Actualizar la lista de dispositivos después de eliminar
+            this.dispositivos = this.dispositivos.filter(device => device.id !== id);
+        },
+        error => {
+            console.error("Error al eliminar dispositivo:", error);
+        }
+    );
+}
 }
