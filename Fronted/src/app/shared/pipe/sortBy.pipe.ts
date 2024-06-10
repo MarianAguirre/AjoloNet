@@ -11,8 +11,8 @@ export class SortByPipe implements PipeTransform {
     switch(sortBy){
       case 'name':
         return dispositivos.sort((a,b) => (a.name > b.name)? 1:-1);
-      case 'id':
-        return dispositivos.sort((a, b) => (a.id > b.id) ? 1 : -1);
+      // case 'id':
+      //   return dispositivos.sort((a, b) => (a.id > b.id) ? 1 : -1);
       case 'type':
         return dispositivos.sort((a,b) => (a.type > b.type)? 1:-1);
 

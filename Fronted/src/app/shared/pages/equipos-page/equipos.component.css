@@ -1,3 +1,7 @@
 .tabla{
-  width: 80%;margin-left: 10%;margin-top: 1%;
+  width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;
 }
+#tabla{
+  width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;
+}
+

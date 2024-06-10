@@ -1,44 +1,44 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interfaces';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { catchError, map, Observable, of, tap } from 'rxjs';
+
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  private loggedIn = new BehaviorSubject<boolean>(true);
-  loggedIn$ = this.loggedIn.asObservable()
+  private baseUrl = 'http://localhost:4000/'
+  private user?: User
 
-  constructor(private router:Router){}
+  constructor(private http:HttpClient){}
 
-  logIn(credentials:User):void{
-    this.loggedIn.next(true);
-    this.redirecToHome()
+  get currentUser(): User|undefined{
+    if(!this.user) return undefined;
+    return structuredClone(this.user);
   }
 
-  logOut():void{
-    this.loggedIn.next(false);
-    this.redirecToHome()
+  login(email:string, password:string):Observable<User>{
+    return this.http.get<User>(`${this.baseUrl}/users/1`)
+    .pipe(
+      tap(user => {this.user = user; }),
+      tap(user => localStorage.setItem('token', '1234864gjfhgjxdr'))
+    )
   }
 
-  private redirecToHome():void{
-    this.router.navigate(['/'])
+  checkAuthentication():Observable<boolean> {
+    if(!localStorage.getItem('token')) return of(false)
+      const token = localStorage.getItem('token')
+
+    return this.http.get<User>(`${this.baseUrl}/users/1`)
+    .pipe(
+      tap(user => this.user =user),
+      map(user => !!user),
+      catchError(err => of (false))
+    )
   }
 
-  // private baseUrl =
-  // private user?: User;
-
-
-  // constructor(private http:HttpClient) { }
-
-  // get currentUser(): User|undefined{
-  //   if(!this.user) return undefined;
-  //   return structuredClone( this.user)
-  // }
-
-  // login(email:string, password:string): Observable<User>{
-  //   this.http.get<User>(`${this.baseUrl}/user/1`)
-  // }
-
+  logout(){
+    this.user = undefined;
+    localStorage.clear();
+  }
 }

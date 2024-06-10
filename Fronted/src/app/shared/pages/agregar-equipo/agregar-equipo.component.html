@@ -12,16 +12,16 @@
       <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
     </select>
 
-    <p>Puertos</p>
+    <p>Número de puertos</p>
     <input
-    #port
+    #numberOfPorts
     required
     type="number"
-    name="port"
+    name="numberOfPorts"
     min="0"
     max="128"
     oninput="validity.valid||(value='');"
-    [(ngModel)]="equipo.port"
+    [(ngModel)]="equipo.numberOfPorts"
     class="from-control mb-2"
     placeholder="Puerto">
 

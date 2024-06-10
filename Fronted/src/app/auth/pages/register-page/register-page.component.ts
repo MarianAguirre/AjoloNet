@@ -37,12 +37,12 @@ export class RegisterPageComponent {
     password: new FormControl ('', Validators.required)
   })
 
-  constructor(private authservices:AuthService){}
+  // constructor(private authservices:AuthService){}
 
-  signIn():void{
-    const credentials:any = this.registerForm.value;
-    this.authservices.logIn(credentials)
-  }
+  // signIn():void{
+  //   const credentials:any = this.registerForm.value;
+  //   this.authservices.logIn(credentials)
+  // }
 
   get userControl(): FormControl{
     return this.registerForm.get('user') as FormControl

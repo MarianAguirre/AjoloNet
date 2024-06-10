@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -8,24 +9,17 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login-page.component.css'
 })
 export class LoginPageComponent {
+  constructor(private authservices:AuthService,
+    private router:Router
+  ){}
 
-  loginForm = new FormGroup({
-    userEmail: new FormControl('', Validators.required),
-    password: new FormControl ('', Validators.required)
-  })
+  onLogin():void{
+    this.authservices.login('si','12')
+    .subscribe(user =>{
+      this.router.navigate(['/red/home'])
+    })
 
-  constructor(private authservices:AuthService){}
 
-  signIn():void{
-    const credentials:any = this.loginForm.value;
-    this.authservices.logIn(credentials)
-  }
-
-  get userEmailControl(): FormControl{
-    return this.loginForm.get('userEmail') as FormControl
-  }
-  get passwordControl(): FormControl{
-    return this.loginForm.get('password') as FormControl
   }
 
 }

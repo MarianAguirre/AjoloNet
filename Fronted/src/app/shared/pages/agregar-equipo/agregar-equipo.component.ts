@@ -28,10 +28,10 @@ export class AgregarEquipoComponent implements OnInit{
 
 
   public equipo:Dispositivo ={
-    id: uuid().replace(/-/g,''),
+    // id: uuid().replace(/-/g,''),
     name: '',
     type: '',
-    port: 0,
+    numberOfPorts: 0,
     poe: false,
     manageable: false,
     area: ''
@@ -53,7 +53,7 @@ export class AgregarEquipoComponent implements OnInit{
 
     console.log(this.equipo);
     this.newEquip.emit(this.equipo)
-    this.equipo = { id:uuid(), name:'', type:'',port: 0, poe: false, manageable: false, area: ''}
+    this.equipo = {name:'', type:'',numberOfPorts: 0, poe: false, manageable: false, area: ''}
 
     Swal.fire({
       position: "center",
@@ -80,7 +80,8 @@ export class AgregarEquipoComponent implements OnInit{
   ]
 
   newDevice():void{
-    this.http.post<Dispositivo>('http://localhost:4000/new', this.equipo).subscribe(
+    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.type)) return;
+    this.http.post<Dispositivo>('http://172.17.207.87:8001/router', this.equipo).subscribe(
       (data) =>{
 
       }

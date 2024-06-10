@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'shared-equipos-pages',
-  templateUrl: './equipos.component.html',
+  templateUrl: './equipos.component.html'
 })
 export class EquiposComponent implements OnInit {
   dispositivos: Dispositivo[] = [];
@@ -22,16 +22,9 @@ export class EquiposComponent implements OnInit {
     });
   }
 
-  // ngOnInit(): void {
-  //   this.getDevices().subscribe(
-  //     (data) =>{
-  //       this.dispositivos =data
-  //     }
-  //   )
-  // }
 
   getDevices(): Observable<Dispositivo[]>{
-    return this.http.get<Dispositivo[]>('htpp://localhost:4000')
+    return this.http.get<Dispositivo[]>('http://172.17.207.87:8001/router')
   }
 
 
@@ -52,4 +45,8 @@ export class EquiposComponent implements OnInit {
         }
     );
 }
+
+
+
+
 }

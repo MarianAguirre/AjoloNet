@@ -6,6 +6,7 @@ import { LoginPageComponent } from './shared/pages/login-page/login-page.compone
 import { AgregarEquipoComponent } from './shared/pages/agregar-equipo/agregar-equipo.component';
 import { AuthModule } from './auth/auth.module';
 import { Error404PageComponent } from './shared/pages/error404-page/error404-page.component';
+import { AuthGuard } from './auth/guards/auth.guard';
 
 const routes: Routes = [
 
@@ -15,7 +16,9 @@ const routes: Routes = [
   },
   {
     path:'red',
-    loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule)
+    loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule),
+    // canActivate: [AuthGuard],
+    // canMatch: [AuthGuard],
   },
   {
     path: '404',

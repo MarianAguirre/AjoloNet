@@ -12,7 +12,7 @@ export class EquiposServices {
 
 
   getRouters():Observable<Dispositivo[]>{
-    return this.http.get<Dispositivo[]>('http://localhost:4000')
+    return this.http.get<Dispositivo[]>('http://172.17.207.87:8001/router')
   }
 
 

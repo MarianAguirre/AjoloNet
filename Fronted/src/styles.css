@@ -1,23 +1,47 @@
 
+@import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
-/* You can add global styles to this file, and also import other style files */
-  /* body{
 
-    background-color: rgb(156, 156, 156);
-  } */
+/* Order */
+@layer reset, primeng;
+
+/* Reset CSS */
+@layer reset {
+  .p-datatable .p-datatable-header {
+    --text-color: #666666;
+    --background-color: transparent;
+    border: transparent;
+  }
+  .p-datatable.dark-theme .p-datatable-header.dark-theme {
+    --text-color: #fff;
+    --background-color: rgb(40, 40, 43);
+  }
+  .p-datatable .p-datatable-header {
+    background: var(--background-color);
+
+  }
+
+  .p-paginator{
+    background-color: transparent ;
+
+    border: transparent;
+
+
+  }
+}
+
+
 
   body{
     --text-color: #222;
     --background-color: #fff;
-
-
   }
 
   body.dark-theme {
     --text-color: #fff;
     --background-color: rgb(40, 40, 43);
   }
-  body, table {
+  body {
     background: var(--background-color);
   }
 
@@ -32,12 +56,6 @@
 
 
 html, body { height: 100%; }
-/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
 
-/* Order */
-@layer reset, primeng;
-@import "bootstrap-reboot.css" layer(bootstrap-rebooot);
-
-/* Reset CSS */
 
 

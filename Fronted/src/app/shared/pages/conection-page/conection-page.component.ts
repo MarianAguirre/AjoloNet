@@ -23,7 +23,7 @@ export class ConectionPageComponent {
     id: uuid().replace(/-/g,''),
     name: '',
     type: '',
-    port: 0,
+    numberOfPorts: 0,
     poe: false,
     manageable: false,
     area: ''
@@ -45,7 +45,7 @@ export class ConectionPageComponent {
 
     console.log(this.equipo);
     this.newEquip.emit(this.equipo)
-    this.equipo = { id:uuid(), name:'', type:'',port: 0, poe: false, manageable: false, area: ''}
+    this.equipo = { id:uuid(), name:'', type:'',numberOfPorts: 0, poe: false, manageable: false, area: ''}
 
     Swal.fire({
       position: "center",

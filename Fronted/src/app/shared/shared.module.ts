@@ -22,6 +22,11 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import {TableModule} from 'primeng/table'
 import { SortByPipe } from './pipe/sortBy.pipe';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextModule } from 'primeng/inputtext';
+import { TagModule } from 'primeng/tag';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+
 
 @NgModule({
   imports: [
@@ -37,7 +42,11 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     MdbCollapseModule,
     TableModule,
     SortByPipe,
-    InputSwitchModule
+    InputSwitchModule,
+    InputTextModule,
+    TagModule,
+    IconFieldModule,
+    InputIconModule
 
 
   ],
