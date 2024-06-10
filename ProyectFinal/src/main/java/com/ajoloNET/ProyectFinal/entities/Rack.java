@@ -13,6 +13,9 @@ public class Rack {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "rack_name")
+    private String name;
+
     @Column(name = "Power_Split")
     private String powerSplit;
 
@@ -33,6 +36,14 @@ public class Rack {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPowerSplit() {

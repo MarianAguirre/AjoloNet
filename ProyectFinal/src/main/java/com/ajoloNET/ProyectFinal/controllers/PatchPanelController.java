@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/patchPanel")
+@RequestMapping("/patchPanel")
 @Slf4j
 public class PatchPanelController {
 
@@ -23,28 +23,29 @@ public class PatchPanelController {
         return ResponseEntity.ok(patchPanelService.getEverything());
     }
 
-    @GetMapping(path = "{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Optional<PatchPanel>> getId(@PathVariable Long id){
         log.info("GET_id; Patch Panel{}", id);
         return ResponseEntity.ok(this.patchPanelService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<PatchPanel> post(@RequestBody PatchPanel patchPanel){
-        log.info("POST: Patch panel {}",patchPanel.getId());
+    public ResponseEntity<Void> post(@RequestBody PatchPanel patchPanel) {
+        log.info("POST: Patch panel {}", patchPanel.getId());
+        PatchPanel createdPatchPanel = patchPanelService.create(patchPanel);
         return ResponseEntity.created(
-                URI.create(this.patchPanelService.create(patchPanel).getId()))
+                        URI.create("/api/patch-panels/" + createdPatchPanel.getId().toString()))
                 .build();
     }
 
-    @PutMapping(path = "{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<PatchPanel> put(@RequestBody PatchPanel patchPanel,
                                           @RequestBody Long id){
         log.info("PUT: Patch Panel {}", id);
         return ResponseEntity.ok(this.patchPanelService.update(patchPanel, id));
     }
 
-    @DeleteMapping(path = "{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         log.info("DELETE: Patch Panel {}", id);
         this.patchPanelService.deleteById(id);

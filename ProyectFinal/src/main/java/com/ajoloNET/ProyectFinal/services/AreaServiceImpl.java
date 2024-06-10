@@ -55,14 +55,6 @@ public class AreaServiceImpl implements AreaService{
     }
 
     @Override
-    public void deleteById(Long id) {
-        var AreaToDeleteById = this.areaRepository.findById(id)
-                .orElseThrow(()->new NoSuchElementException("Area not found"));
-        this.areaRepository.delete(AreaToDeleteById);
-
-    }
-
-    @Override
     public List<Area> getEverything() {
         return (List<Area>) areaRepository.findAll();
     }

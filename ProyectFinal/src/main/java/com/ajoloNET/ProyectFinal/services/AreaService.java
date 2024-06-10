@@ -12,7 +12,6 @@ public interface AreaService {
     Area crate(Area area);
     Area update(Area area, String name);
     void delete(String name);
-    void deleteById(Long id);
 
     List<Area>getEverything();
 }

@@ -60,13 +60,7 @@ public class SwitchServiceImpl implements SwitchService {
 
     }
 
-    @Override
-    public void deleteById(Long id) {
-        var switchToDeleteById = this.switchRepository.findById(id)
-                .orElseThrow(()->new NoSuchElementException("Switch not found"));
-        this.switchRepository.delete(switchToDeleteById);
 
-    }
 
     @Override
     public Switch createPortsForSwitch(Switch aSwitch) {

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/router")
+@RequestMapping("/router")
 @Slf4j
 public class RouterController {
 
@@ -23,17 +23,11 @@ public class RouterController {
         return ResponseEntity.ok(routerService.getEverything());
     }
 
-    @GetMapping(path = "{name}")
+    @GetMapping("/{name}")
     public ResponseEntity<Router>get(@PathVariable String name){
         log.info("GET: Router {}",name);
         return  ResponseEntity.ok(this.routerService.readByName(name));
 
-    }
-
-    @GetMapping(path = "{id}")
-    public ResponseEntity<Optional<Router>> getId(@PathVariable Long id){
-        log.info("GET_id: Router{}",id);
-        return ResponseEntity.ok(this.routerService.findById(id));
     }
 
     @PostMapping
@@ -44,7 +38,7 @@ public class RouterController {
                 .build();
     }
 
-    @PutMapping(path = "{name}")
+    @PutMapping("/{name}")
     public ResponseEntity<Router> put(@RequestBody Router router,
                                       @PathVariable String name){
         log.info("PUT: Router {}", name);
@@ -52,7 +46,7 @@ public class RouterController {
 
     }
 
-    @DeleteMapping(path = "{name}")
+    @DeleteMapping("/{name}")
     public ResponseEntity<?> delete(@PathVariable String name){
         log.info("DELETE: Router {}", name);
         this.routerService.delete(name);
@@ -60,11 +54,5 @@ public class RouterController {
 
     }
 
-    @DeleteMapping(path = "{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Long id){
-        log.info("DELETE id: Router{}", id);
-        this.routerService.deleteById(id);
-        return ResponseEntity.noContent().build();
 
-    }
 }

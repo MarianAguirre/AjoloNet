@@ -7,10 +7,13 @@ import java.util.Optional;
 
 public interface RackService {
 
+    Rack readByName(String name);
     Optional<Rack> findById(Long id);
     Rack create(Rack rack);
-    Rack update(Rack rack, Long id);
-    void deleteById(Long id);
+
+    Rack update(Rack rack, String name);
+
+    void delete(String name);
 
     List<Rack>getEverything();
 }

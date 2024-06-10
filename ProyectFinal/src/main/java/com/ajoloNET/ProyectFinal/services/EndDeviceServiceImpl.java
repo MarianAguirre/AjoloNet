@@ -64,13 +64,6 @@ public class EndDeviceServiceImpl implements EndDeviceService{
 
     }
 
-    @Override
-    public void deleteById(Long id) {
-        var enDeviceToDeleteById = this.endDeviceRepository.findById(id)
-                .orElseThrow(()->new NoSuchElementException("End Device not found"));
-        this.endDeviceRepository.delete(enDeviceToDeleteById);
-
-    }
 
     @Override
     public EndDevice createPortsForEndDevice(EndDevice endDevice) {

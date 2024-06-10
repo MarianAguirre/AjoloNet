@@ -12,9 +12,8 @@ public interface RouterService {
     Router create(Router router);
     Router update(Router router, String name);
     void delete(String name);
-    void deleteById(Long id);
 
-    Router createPortsForRouter(Router router);
+    //Router createPortsForRouter(Router router);
 
     List<Router>getEverything();
     //List<Router>findMatchByName(String name);

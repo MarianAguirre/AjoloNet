@@ -60,12 +60,6 @@ public class RouterServiceImpl implements RouterService{
         this.routerRepository.delete(routerToDelete);
     }
 
-    @Override
-    public void deleteById(Long id) {
-        var routerToDeleteById = this.routerRepository.findById(id)
-                .orElseThrow(()->new NoSuchElementException("Router not found"));
-        this.routerRepository.delete(routerToDeleteById);
-    }
 
     @Override
     public Router createPortsForRouter(Router router) {

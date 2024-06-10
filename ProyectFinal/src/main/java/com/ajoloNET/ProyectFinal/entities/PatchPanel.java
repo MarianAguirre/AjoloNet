@@ -25,7 +25,8 @@ public class PatchPanel {
 
     //Getters and Setters
 
-    public String getId() {
+
+    public Long getId() {
         return id;
     }
 

@@ -12,7 +12,6 @@ public interface EndDeviceService {
     EndDevice create(EndDevice endDevice);
     EndDevice update(EndDevice endDevice, String name);
     void delete(String name);
-    void deleteById(Long id);
 
     EndDevice createPortsForEndDevice(EndDevice endDevice);
 
