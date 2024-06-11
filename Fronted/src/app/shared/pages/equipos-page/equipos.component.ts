@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { enavironments } from '../../../../environments/envarionments';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class EquiposComponent implements OnInit {
   dispositivos: Dispositivo[] = [];
+  baseUrl: string = enavironments.baseUrl;
 
 
   constructor(private equiposServices: EquiposServices, private http:HttpClient) {}
@@ -20,11 +22,16 @@ export class EquiposComponent implements OnInit {
       this.dispositivos = data
 
     });
+    // this.equiposServices.getSwitch().subscribe((data: any) => {
+    //   this.dispositivos = data });
   }
 
 
-  getDevices(): Observable<Dispositivo[]>{
-    return this.http.get<Dispositivo[]>('http://172.17.207.87:8001/router')
+  getRouters(): Observable<Dispositivo[]>{
+    return this.http.get<Dispositivo[]>(`${this.baseUrl}/router/`)
+  }
+  getSwitch(): Observable<Dispositivo[]>{
+    return this.http.get<Dispositivo[]>(`${this.baseUrl}/switch/`)
   }
 
 
@@ -34,19 +41,44 @@ export class EquiposComponent implements OnInit {
     this.orederBy= value;
   }
 
-  deleteDevice(id: string): void {
-    this.http.delete(`http://localhost:4000/delete/${id}`).subscribe(
-        () => {
-            // Actualizar la lista de dispositivos después de eliminar
-            this.dispositivos = this.dispositivos.filter(device => device.id !== id);
-        },
-        error => {
-            console.error("Error al eliminar dispositivo:", error);
-        }
-    );
+  productDialog: boolean = false;
+
+  products!: Dispositivo[];
+
+  product!: Dispositivo;
+
+  selectedProducts!: Dispositivo[] | null;
+
+  submitted: boolean = false;
+
+  statuses!: any[];
+
+
+
+
+  editProduct(product: Dispositivo) {
+      this.product = { ...product };
+      this.productDialog = true;
+      console.log(this.product.name)
+  }
+
+  deleteProduct(product: Dispositivo) {
+
+  }
+
+  hideDialog() {
+      this.productDialog = false;
+      this.submitted = false;
+  }
+
+  saveProduct(): void {
+  }
+
+
+
+
+
+
 }
 
 
-
-
-}

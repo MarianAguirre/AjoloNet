@@ -4,9 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
-import { EquiposComponent } from './pages/equipos-page/equipos.component';
+
 import { AgregarEquipoComponent } from './pages/agregar-equipo/agregar-equipo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -26,6 +25,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { EquiposComponent } from './pages/equipos-page/equipos.component';
+import { DialogModule } from 'primeng/dialog';
+import { DetallesPageComponent } from './pages/detalles-page/detalles-page.component';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import { InputIconModule } from 'primeng/inputicon';
     InputTextModule,
     TagModule,
     IconFieldModule,
-    InputIconModule
+    InputIconModule,
+    DialogModule
 
 
   ],
@@ -54,7 +57,7 @@ import { InputIconModule } from 'primeng/inputicon';
     HomePageComponent,
     ConectionPageComponent,
     NavbarComponent,
-    LoginPageComponent,
+
     DarkModeModule,
     Error404PageComponent,
     TableModule,
@@ -64,13 +67,14 @@ import { InputIconModule } from 'primeng/inputicon';
     HomePageComponent,
     NavbarComponent,
     ConectionPageComponent,
-    LoginPageComponent,
+
     SearchBoxComponent,
     EquiposComponent,
     AgregarEquipoComponent,
     LayoutPageComponent,
     Error404PageComponent,
     AdminPageComponent,
+    DetallesPageComponent,
 
 
 

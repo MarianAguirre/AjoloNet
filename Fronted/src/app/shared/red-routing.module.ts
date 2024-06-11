@@ -6,6 +6,7 @@ import { EquiposComponent } from './pages/equipos-page/equipos.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ConectionPageComponent } from './pages/conection-page/conection-page.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { DetallesPageComponent } from './pages/detalles-page/detalles-page.component';
 
 const routes : Routes =[
   {
@@ -26,6 +27,9 @@ const routes : Routes =[
       },
       {
         path: 'home', component: HomePageComponent
+      },
+      {
+        path: 'detalles', component: DetallesPageComponent
       },
       {
         path: '**', redirectTo: 'home'

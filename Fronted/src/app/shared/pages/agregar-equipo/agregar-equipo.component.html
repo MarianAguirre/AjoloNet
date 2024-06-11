@@ -60,7 +60,10 @@
 
       <br>
 
-      <button type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newDevice()">Guardar</button>
+      <button *ngIf="equipo.type === 'Router'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newRouter()">Guardar</button>
+      <button *ngIf="equipo.type === 'Switch'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newSwitch()">Guardar</button>
+      <button *ngIf="equipo.type === 'Dispositivo final'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newDispositivo()">Guardar</button>
+      <button *ngIf="equipo.type === 'Patch panel'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newPatch()">Guardar</button>
 
     </form>
   </div>

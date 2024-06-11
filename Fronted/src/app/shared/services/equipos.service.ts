@@ -1,7 +1,9 @@
+import { Dispositivo } from './../../interfaces/Dispositivo';
 import { Injectable } from '@angular/core';
-import { Dispositivo } from '../../interfaces/Dispositivo';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { enavironments } from '../../../environments/envarionments';
+
 
 
 @Injectable({providedIn: 'root'})
@@ -11,31 +13,33 @@ export class EquiposServices {
 
 
 
+dispositivo: Dispositivo[] =[]
+private baseUrl: string = enavironments.baseUrl
+
+
   getRouters():Observable<Dispositivo[]>{
-    return this.http.get<Dispositivo[]>('http://172.17.207.87:8001/router')
+    return this.http.get<Dispositivo[]>(`${this.baseUrl}/router `)
   }
 
+  getSwitch():Observable<Dispositivo[]>{
+    return this.http.get<Dispositivo[]>(`${this.baseUrl}/switch `)
+  }
 
-  // private saveToLocalStorage(){
+  updateRouter(router:Dispositivo):Observable<Dispositivo>{
+    return this.http.patch<Dispositivo>(`${this.baseUrl}/router`, router)
+  }
 
-  // }
-  // private loadFromLocalStorage(){
+  addRouter(router:Dispositivo):Observable<Dispositivo>{
+    if (!router.id) throw Error('Router id is required')
+    return this.http.patch<Dispositivo>(`${this.baseUrl}/router/${router.id}`, router)
+  }
 
-  // }
-
-
-
-//   public equipos: Dispositivo[]=[{
-//     id: uuid(),
-//     name: ''
-//   }]
-
-
-
-// addEquip(equipo:Dispositivo):void{
-//   const newEquip: Dispositivo = {id: uuid(),...equipo}
-//   this.equipos.push(equipo)
-// }
+  deleteRouter(id:string):Observable<boolean>{
+    return this.http.delete(`${this.baseUrl}/router/${id}`)
+    .pipe(
+      catchError(err => of(false)),
+    map(resp => true))
+  }
 
 }
 

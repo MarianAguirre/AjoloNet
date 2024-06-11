@@ -1,10 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
-import {v4 as uuid} from 'uuid'
 import Swal from 'sweetalert2'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { enavironments } from '../../../../environments/envarionments';
 
 
 @Component({
@@ -12,23 +11,17 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './agregar-equipo.component.html',
   styleUrl: './agregar-equipo.component.css'
 })
-export class AgregarEquipoComponent implements OnInit{
+export class AgregarEquipoComponent{
 
   constructor(private router: Router, private http:HttpClient) { }
-
-
-  ngOnInit(): void {
-
-  }
-
 
   @Output()
   public newEquip: EventEmitter<Dispositivo> = new EventEmitter
 
+  baseUrl = enavironments.baseUrl
 
 
   public equipo:Dispositivo ={
-    // id: uuid().replace(/-/g,''),
     name: '',
     type: '',
     numberOfPorts: 0,
@@ -79,14 +72,38 @@ export class AgregarEquipoComponent implements OnInit{
     'Patch Panel'
   ]
 
-  newDevice():void{
+  newRouter():void{
     if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.type)) return;
-    this.http.post<Dispositivo>('http://172.17.207.87:8001/router', this.equipo).subscribe(
+    this.http.post<Dispositivo>(`${this.baseUrl}/router`, this.equipo).subscribe(
       (data) =>{
-
       }
     )
   }
+  newSwitch():void{
+    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.type)) return;
+    this.http.post<Dispositivo>(`${this.baseUrl}/switch`, this.equipo).subscribe(
+      (data) =>{
+      }
+    )
+  }
+  newDispositivo():void{
+    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.type)) return;
+    this.http.post<Dispositivo>(`${this.baseUrl}/endDivices`, this.equipo).subscribe(
+      (data) =>{
+      }
+    )
+  }
+  newPatch():void{
+    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.type)) return;
+    this.http.post<Dispositivo>(`${this.baseUrl}/patch`, this.equipo).subscribe(
+      (data) =>{
+      }
+    )
+  }
+
+
+
+
 
   }
 
