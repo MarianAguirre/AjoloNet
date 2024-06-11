@@ -2,8 +2,10 @@ package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.Port;
 import com.ajoloNET.ProyectFinal.entities.PortType;
+import com.ajoloNET.ProyectFinal.entities.Router;
 import com.ajoloNET.ProyectFinal.entities.Switch;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
+import com.ajoloNET.ProyectFinal.repositories.RouterRepository;
 import com.ajoloNET.ProyectFinal.repositories.SwitchRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -19,7 +21,6 @@ import java.util.*;
 public class SwitchServiceImpl implements SwitchService {
 
     private final SwitchRepository switchRepository;
-
     private final PortRepository portRepository;
 
     @Override
@@ -36,7 +37,13 @@ public class SwitchServiceImpl implements SwitchService {
 
     @Override
     public Switch create(Switch aSwitch) {
-        return this.switchRepository.save(aSwitch);
+        Switch savedSwitch = this.switchRepository.save(aSwitch);
+
+        // Crea los puertos para el router
+        createPortsForSwitch(savedSwitch);
+
+        // Guarda nuevamente el router con los puertos (opcional)
+        return this.switchRepository.save(savedSwitch);
     }
 
     @Override
@@ -46,10 +53,23 @@ public class SwitchServiceImpl implements SwitchService {
         switchToUpdate.setId(aSwitch.getId());
         switchToUpdate.setName(aSwitch.getName());
         switchToUpdate.setPorts(aSwitch.getPorts());
+        switchToUpdate.setNumberOfPorts(aSwitch.getNumberOfPorts());
         switchToUpdate.setRack(aSwitch.getRack());
         switchToUpdate.setPoe(aSwitch.isPoe());
         switchToUpdate.setManageable(aSwitch.isManageable());
         return this.switchRepository.save(switchToUpdate);
+    }
+
+    @Override
+    public Switch updateById(Switch aSwitch, Long id) {
+        var switchToUpdateId = this.switchRepository.findById(id)
+                .orElseThrow(()->new NoSuchElementException("Switch not found"));
+        switchToUpdateId.setName(aSwitch.getName());
+        switchToUpdateId.setPorts(aSwitch.getPorts());
+        switchToUpdateId.setRack(aSwitch.getRack());
+        switchToUpdateId.setPoe(aSwitch.isPoe());
+        switchToUpdateId.setManageable(aSwitch.isManageable());
+        return this.switchRepository.save(switchToUpdateId);
     }
 
     @Override
@@ -60,6 +80,11 @@ public class SwitchServiceImpl implements SwitchService {
 
     }
 
+    @Override
+    public void deleteById(Long id) {
+        this.switchRepository.deleteById(id);
+
+    }
 
 
     @Override
@@ -68,7 +93,6 @@ public class SwitchServiceImpl implements SwitchService {
         for (int i = 1; i <= aSwitch.getNumberOfPorts(); i++) {
             Port port = new Port();
             port.setsSwitch(aSwitch);
-            port.setPortType(PortType.SWITCH);
             port.setPortNumber(i);
             ports.add(port);
         }
@@ -80,6 +104,7 @@ public class SwitchServiceImpl implements SwitchService {
     @Override
     public List<Switch> getEverything() {
         return (List<Switch>) switchRepository.findAll();
+        
     }
 }
 

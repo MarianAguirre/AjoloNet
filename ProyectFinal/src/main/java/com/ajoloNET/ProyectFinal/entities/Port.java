@@ -1,5 +1,6 @@
 package com.ajoloNET.ProyectFinal.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -15,23 +16,27 @@ public class Port {
 
     @ManyToOne
     @JoinColumn(name = "router_id")
+    @JsonBackReference(value = "router-port")
     private Router router;
 
     @ManyToOne
     @JoinColumn(name = "switch_id")
+    @JsonBackReference(value = "switch-port")
     private Switch sSwitch;
 
     @ManyToOne
     @JoinColumn(name = "patch_id")
+    @JsonBackReference(value = "patch-port")
     private PatchPanel patchPanel;
 
     @ManyToOne
     @JoinColumn(name = "end_device_id")
+    @JsonBackReference(value = "device-port")
     private EndDevice endDevice;
 
-    @Column(columnDefinition = "port_type")
-    @Enumerated(value = EnumType.STRING)
-    private PortType portType;
+//    @Column(columnDefinition = "port_type")
+//    @Enumerated(value = EnumType.STRING)
+//    private PortType portType;
 
     @Column(name = "port_number")
     private int portNumber;
@@ -85,13 +90,13 @@ public class Port {
         this.endDevice = endDevice;
     }
 
-    public PortType getPortType() {
-        return portType;
-    }
-
-    public void setPortType(PortType portType) {
-        this.portType = portType;
-    }
+//    public PortType getPortType() {
+//        return portType;
+//    }
+//
+//    public void setPortType(PortType portType) {
+//        this.portType = portType;
+//    }
 
     public int getPortNumber() {
         return portNumber;

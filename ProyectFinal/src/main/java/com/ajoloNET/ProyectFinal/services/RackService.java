@@ -12,8 +12,10 @@ public interface RackService {
     Rack create(Rack rack);
 
     Rack update(Rack rack, String name);
+    Rack updateById(Rack rack, Long id);
 
     void delete(String name);
+    void deleteById(Long id);
 
     List<Rack>getEverything();
 }

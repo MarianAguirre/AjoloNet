@@ -1,5 +1,6 @@
 package com.ajoloNET.ProyectFinal.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -13,6 +14,7 @@ public class PatchPanel {
     private Long id;
 
     @OneToMany(mappedBy = "patchPanel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "patch-port")
     private Set<Port> ports;
 
     @ManyToOne

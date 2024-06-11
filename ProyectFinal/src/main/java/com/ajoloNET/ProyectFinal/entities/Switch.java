@@ -1,5 +1,6 @@
 package com.ajoloNET.ProyectFinal.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -16,6 +17,7 @@ public class Switch {
     private String name;
 
     @OneToMany(mappedBy = "sSwitch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "switch-port")
     private Set<Port> ports;
 
     @ManyToOne

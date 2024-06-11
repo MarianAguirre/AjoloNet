@@ -36,7 +36,13 @@ public class RouterServiceImpl implements RouterService{
 
     @Override
     public Router create(Router router) {
-        return this.routerRepository.save(router);
+        Router savedRouter = this.routerRepository.save(router);
+
+        // Crea los puertos para el router
+        createPortsForRouter(savedRouter);
+
+        // Guarda nuevamente el router con los puertos (opcional)
+        return this.routerRepository.save(savedRouter);
     }
 
 
@@ -44,7 +50,6 @@ public class RouterServiceImpl implements RouterService{
     public Router update(Router router, String name) {
         var routerToUpdate = this.routerRepository.findByName(name)
                 .orElseThrow(()->new NoSuchElementException("Router not found"));
-        routerToUpdate.setId(router.getId());
         routerToUpdate.setName(router.getName());
         routerToUpdate.setPorts(router.getPorts());
         routerToUpdate.setNumberOfPorts(router.getNumberOfPorts());
@@ -54,10 +59,28 @@ public class RouterServiceImpl implements RouterService{
     }
 
     @Override
+    public Router updateById(Router router, Long id) {
+        var routerUpdateId = this.routerRepository.findById(id)
+                .orElseThrow(()->new NoSuchElementException("Router not found"));
+        routerUpdateId.setName(router.getName());
+        routerUpdateId.setNumberOfPorts(router.getNumberOfPorts());
+        routerUpdateId.setPorts(router.getPorts());
+        routerUpdateId.setRack(router.getRack());
+
+        return this.routerRepository.save(routerUpdateId);
+    }
+
+    @Override
     public void delete(String name) {
         var routerToDelete = this.routerRepository.findByName(name)
                 .orElseThrow(()->new NoSuchElementException("Router not found"));
         this.routerRepository.delete(routerToDelete);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        this.routerRepository.deleteById(id);
+
     }
 
 
@@ -67,7 +90,6 @@ public class RouterServiceImpl implements RouterService{
         for (int i = 1; i <= router.getNumberOfPorts(); i++) {
             Port port = new Port();
             port.setRouter(router);
-            port.setPortType(PortType.ROUTER);
             port.setPortNumber(i);
             ports.add(port);
         }

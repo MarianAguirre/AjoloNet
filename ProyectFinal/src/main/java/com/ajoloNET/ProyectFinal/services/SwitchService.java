@@ -11,7 +11,9 @@ public interface SwitchService {
     Optional<Switch> findById(Long id);
     Switch create(Switch aSwitch);
     Switch update(Switch aSwitch, String name);
+    Switch updateById(Switch aSwitch, Long id);
     void delete(String name);
+    void deleteById(Long id);
 
     Switch createPortsForSwitch(Switch aSwitch);
 

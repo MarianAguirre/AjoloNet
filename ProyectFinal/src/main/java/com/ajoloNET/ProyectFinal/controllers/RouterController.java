@@ -30,6 +30,12 @@ public class RouterController {
 
     }
 
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Optional<Router>> getId(@PathVariable Long id){
+        log.info("GET_ID: Router {}",id);
+        return ResponseEntity.ok(this.routerService.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Router> post(@RequestBody Router router){
         log.info("POST: Router {}", router.getName());
@@ -46,12 +52,27 @@ public class RouterController {
 
     }
 
+    @PutMapping("/id/{id}")
+    public ResponseEntity<Router> putId(@RequestBody Router router,
+                                      @PathVariable Long id){
+        log.info("PUT_ID: Router {}", id);
+        return ResponseEntity.ok(this.routerService.updateById(router, id));
+
+    }
+
     @DeleteMapping("/{name}")
     public ResponseEntity<?> delete(@PathVariable String name){
         log.info("DELETE: Router {}", name);
         this.routerService.delete(name);
         return ResponseEntity.noContent().build();
 
+    }
+
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
+        log.info("DELETE_ID: Router {}", id);
+        this.routerService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 

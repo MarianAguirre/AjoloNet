@@ -29,6 +29,12 @@ public class EndDeviceController {
         return ResponseEntity.ok(this.endDeviceService.readByName(name));
     }
 
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Optional<EndDevice>> getId(@PathVariable Long id){
+        log.info("GET_ID: End Device {}",id);
+        return ResponseEntity.ok(this.endDeviceService.findById(id));
+    }
+
 
     @PostMapping
     public ResponseEntity<EndDevice> post(@RequestBody EndDevice endDevice){
@@ -45,10 +51,24 @@ public class EndDeviceController {
         return ResponseEntity.ok(this.endDeviceService.update(endDevice, name));
     }
 
+    @PutMapping("/id/{id}")
+    public ResponseEntity<EndDevice> putId(@RequestBody EndDevice endDevice,
+                                         @PathVariable Long id){
+        log.info("PUT_ID: End Device {}", id);
+        return ResponseEntity.ok(this.endDeviceService.updateById(endDevice, id));
+    }
+
     @DeleteMapping("/{name}")
     public ResponseEntity<?> delete(@PathVariable String name){
         log.info("DELETE: End Device {}", name);
         this.endDeviceService.delete(name);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<?> deleteId(@PathVariable Long id){
+        log.info("DELETE_ID: End Device {}", id);
+        this.endDeviceService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 

@@ -11,9 +11,11 @@ public interface RouterService {
     Optional<Router> findById (Long id);
     Router create(Router router);
     Router update(Router router, String name);
+    Router updateById(Router router, Long id);
     void delete(String name);
+    void deleteById(Long id);
 
-    //Router createPortsForRouter(Router router);
+    Router createPortsForRouter(Router router);
 
     List<Router>getEverything();
     //List<Router>findMatchByName(String name);

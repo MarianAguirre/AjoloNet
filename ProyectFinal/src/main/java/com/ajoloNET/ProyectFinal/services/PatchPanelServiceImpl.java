@@ -37,7 +37,6 @@ public class PatchPanelServiceImpl implements PatchPanelService{
     public PatchPanel update(PatchPanel patchPanel, Long id) {
         var patchToUpdateById = this.patchPanelRepository.findById(id)
                 .orElseThrow(()->new NoSuchElementException("Patch Panel not found"));
-        patchToUpdateById.setId(patchPanel.getId());
         patchToUpdateById.setPorts(patchPanel.getPorts());
         patchToUpdateById.setRack(patchPanel.getRack());
         return this.patchPanelRepository.save(patchToUpdateById);
@@ -57,7 +56,6 @@ public class PatchPanelServiceImpl implements PatchPanelService{
         for (int i = 1; i <= patchPanel.getNumberOfPorts(); i++) {
             Port port = new Port();
             port.setPatchPanel(patchPanel);
-            port.setPortType(PortType.PATCH_PANEL);
             port.setPortNumber(i);
             ports.add(port);
         }

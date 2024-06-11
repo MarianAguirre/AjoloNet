@@ -30,12 +30,12 @@ public class PatchPanelController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> post(@RequestBody PatchPanel patchPanel) {
+    public ResponseEntity<PatchPanel> post(@RequestBody PatchPanel patchPanel) {
         log.info("POST: Patch panel {}", patchPanel.getId());
         PatchPanel createdPatchPanel = patchPanelService.create(patchPanel);
         return ResponseEntity.created(
                         URI.create("/api/patch-panels/" + createdPatchPanel.getId().toString()))
-                .build();
+                        .build();
     }
 
     @PutMapping("/{id}")

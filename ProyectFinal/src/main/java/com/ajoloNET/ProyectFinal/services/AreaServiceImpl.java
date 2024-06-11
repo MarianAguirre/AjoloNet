@@ -47,11 +47,25 @@ public class AreaServiceImpl implements AreaService{
     }
 
     @Override
+    public Area updateById(Area area, Long id) {
+        var AreaToUpdateId = this.areaRepository.findById(id)
+                .orElseThrow(()->new NoSuchElementException("Area not found"));
+        AreaToUpdateId.setName(area.getName());
+        AreaToUpdateId.setEndDevices(area.getEndDevices());
+        return this.areaRepository.save(AreaToUpdateId);
+    }
+
+    @Override
     public void delete(String name) {
         var AreaToDelete = this.areaRepository.findByName(name)
                 .orElseThrow(()->new NoSuchElementException("Area not found"));
         this.areaRepository.delete(AreaToDelete);
 
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        this.areaRepository.deleteById(id);
     }
 
     @Override

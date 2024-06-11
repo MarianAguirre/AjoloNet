@@ -1,5 +1,6 @@
 package com.ajoloNET.ProyectFinal.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -13,6 +14,7 @@ public class EndDevice {
     private Long id;
 
     @OneToMany(mappedBy = "endDevice",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "device-port")
     private Set<Port> ports;
 
     @Column(name = "Name_Device")

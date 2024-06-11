@@ -29,6 +29,12 @@ public class SwitchController {
         return ResponseEntity.ok(this.switchService.readByName(name));
     }
 
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Optional<Switch>> getId(@PathVariable Long id){
+        log.info("GET_ID: Switch {}", id);
+        return ResponseEntity.ok(this.switchService.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Switch> post(@RequestBody Switch aSwitch){
         log.info("POST: Switch   {}", aSwitch.getName());
@@ -44,10 +50,24 @@ public class SwitchController {
         return ResponseEntity.ok(this.switchService.update(aSwitch, name));
     }
 
+    @PutMapping("/id/{id}")
+    public ResponseEntity<Switch> putId(@RequestBody Switch aSwitch,
+                                      @PathVariable Long id){
+        log.info("PUT_ID: Switch {}", id);
+        return ResponseEntity.ok(this.switchService.updateById(aSwitch, id));
+    }
+
     @DeleteMapping("/{name}")
     public ResponseEntity<?> delete(@PathVariable String name){
         log.info("DELETE: Switch {}", name);
         this.switchService.delete(name);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<?> deleteId(@PathVariable Long id){
+        log.info("DELETE_ID: Switch {}",id);
+        this.switchService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 

@@ -29,6 +29,12 @@ public class RackController {
         return ResponseEntity.ok(this.rackService.readByName(name));
     }
 
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Optional<Rack>> getId(@PathVariable Long id){
+        log.info("GET_ID: Rack {}", id);
+        return ResponseEntity.ok(this.rackService.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Rack> post(@RequestBody Rack rack){
         log.info("POST: Rack {}", rack.getName());
@@ -44,10 +50,24 @@ public class RackController {
         return ResponseEntity.ok(this.rackService.update(rack, name));
     }
 
+    @PutMapping("/id/{id}")
+    public ResponseEntity<Rack> putId(@RequestBody Rack rack,
+                                    @PathVariable Long id){
+        log.info("PUT_ID: Rack {}", id);
+        return ResponseEntity.ok(this.rackService.updateById(rack,id));
+    }
+
     @DeleteMapping("/{name}")
     public ResponseEntity<?> delete(@PathVariable String name){
         log.info("DELETE: Rack {}", name);
         this.rackService.delete(name);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<?> deleteId(@PathVariable Long id){
+        log.info("DELETE_ID: RAck {}",id);
+        this.rackService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 

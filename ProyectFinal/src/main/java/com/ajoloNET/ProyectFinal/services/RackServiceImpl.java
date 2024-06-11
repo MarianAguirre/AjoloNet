@@ -50,10 +50,28 @@ public class RackServiceImpl implements RackService{
     }
 
     @Override
+    public Rack updateById(Rack rack, Long id) {
+        var RackToUpdateId = this.rackRepository.findById(id)
+                .orElseThrow(()->new NoSuchElementException("Rack not found"));
+        RackToUpdateId.setName(rack.getName());
+        RackToUpdateId.setPowerSplit(rack.getPowerSplit());
+        RackToUpdateId.setaSwitch(rack.getaSwitch());
+        RackToUpdateId.setRouters(rack.getRouters());
+        RackToUpdateId.setPatchPanels(rack.getPatchPanels());
+        return this.rackRepository.save(RackToUpdateId);
+    }
+
+    @Override
     public void delete(String name) {
     var RackToDelete = this.rackRepository.findByName(name)
             .orElseThrow(()-> new NoSuchElementException("Rack not found"));
     this.rackRepository.delete(RackToDelete);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        this.rackRepository.findById(id);
+
     }
 
     @Override

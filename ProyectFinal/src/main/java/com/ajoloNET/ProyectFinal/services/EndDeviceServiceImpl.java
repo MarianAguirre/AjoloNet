@@ -2,7 +2,6 @@ package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.EndDevice;
 import com.ajoloNET.ProyectFinal.entities.Port;
-import com.ajoloNET.ProyectFinal.entities.PortType;
 import com.ajoloNET.ProyectFinal.repositories.EndDeviceRepository;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import jakarta.transaction.Transactional;
@@ -36,12 +35,7 @@ public class EndDeviceServiceImpl implements EndDeviceService{
 
     @Override
     public EndDevice create(EndDevice endDevice) {
-        endDevice.getPorts().forEach(port -> {
-            if (Objects.isNull(port.getPortType())){
-                port.setPortType(PortType.END_DEVICE);
-            }
-        });
-        return this.endDeviceRepository.save(endDevice);
+        return endDeviceRepository.save(endDevice);
     }
 
     @Override
@@ -57,10 +51,27 @@ public class EndDeviceServiceImpl implements EndDeviceService{
     }
 
     @Override
+    public EndDevice updateById(EndDevice endDevice, Long id) {
+        var enDeviceToUpdateId = this.endDeviceRepository.findById(id)
+                .orElseThrow(()->new NoSuchElementException("End Device not found"));
+        enDeviceToUpdateId.setName(endDevice.getName());
+        enDeviceToUpdateId.setPorts(endDevice.getPorts());
+        enDeviceToUpdateId.setArea(endDevice.getArea());
+        enDeviceToUpdateId.setNumberOfPorts(endDevice.getNumberOfPorts());
+        return this.endDeviceRepository.save(enDeviceToUpdateId);
+    }
+
+    @Override
     public void delete(String name) {
         var enDeviceToDelete = this.endDeviceRepository.findByName(name)
                 .orElseThrow(()->new NoSuchElementException("End Device not found"));
         this.endDeviceRepository.delete(enDeviceToDelete);
+
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        this.endDeviceRepository.deleteById(id);
 
     }
 
@@ -71,7 +82,6 @@ public class EndDeviceServiceImpl implements EndDeviceService{
         for (int i = 1; i <= endDevice.getNumberOfPorts(); i++) {
             Port port = new Port();
             port.setEndDevice(endDevice);
-            port.setPortType(PortType.END_DEVICE);
             port.setPortNumber(i);
             ports.add(port);
         }
@@ -91,4 +101,5 @@ public class EndDeviceServiceImpl implements EndDeviceService{
         return List.of();
     }
     */
+
 }
