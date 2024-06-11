@@ -17,12 +17,12 @@ export class AuthService {
     return structuredClone(this.user);
   }
 
-  login(email:string, password:string):Observable<User>{
-    return this.http.get<User>(`${this.baseUrl}/users/1`)
-    .pipe(
-      tap(user => {this.user = user; }),
-      tap(user => localStorage.setItem('token', '1234864gjfhgjxdr'))
-    )
+  login(email: string, password: string): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/login`, { email, password }).pipe(
+      tap(user => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      })
+    );
   }
 
   checkAuthentication():Observable<boolean> {

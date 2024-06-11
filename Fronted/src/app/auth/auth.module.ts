@@ -6,6 +6,8 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { MaterialModule } from '../material/material.module';
 import { DarkModeModule } from '../shared/components/dark-mode/dark-mode.module';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -21,6 +23,7 @@ import { DarkModeModule } from '../shared/components/dark-mode/dark-mode.module'
     AuthRoutingModule,
     MaterialModule,
     DarkModeModule,
+    ReactiveFormsModule
 
 
   ]

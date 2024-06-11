@@ -12,28 +12,38 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.get('/users', (rec, res)=>{
-    res.send(dispositivos.users)
-})
+// app.get('/users', (rec, res)=>{
+//     res.send(dispositivos.users)
+// })
 
-app.get('/dispositivos', (rec, res)=>{
-    res.send(dispositivos.dispositivos)
-})
+// app.get('/dispositivos', (rec, res)=>{
+//     res.send(dispositivos.dispositivos)
+// })
 
-app.post("/new", (req,res)=>{
-    dispositivos.push(req.body);
-    res.send(req.body).status(204)
-});
+// app.post("/new", (req,res)=>{
+//     dispositivos.push(req.body);
+//     res.send(req.body).status(204)
+// });
 
 app.get('/users/:id', (req, res) => {
     const userId = req.params.id;
     const user = dispositivos.users.find(user => user.id === userId);
     if (user) {
-    res.send(user);
+        res.send(user);
     } else {
-    res.status(404).send({ message: 'User not found' });
+        res.status(404).send({ message: 'User not found' });
     }
 });
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    const user = dispositivos.users.find(user => user.email === email && user.password === password);
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(401).send({ message: 'Unauthorized' });
+    }
+  });
+
 
 
 

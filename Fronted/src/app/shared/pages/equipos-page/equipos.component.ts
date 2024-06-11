@@ -22,8 +22,8 @@ export class EquiposComponent implements OnInit {
       this.dispositivos = data
 
     });
-    // this.equiposServices.getSwitch().subscribe((data: any) => {
-    //   this.dispositivos = data });
+      // this.equiposServices.getSwitch().subscribe((data: any) => {
+      //   this.dispositivos = data });
   }
 
 
@@ -35,10 +35,10 @@ export class EquiposComponent implements OnInit {
   }
 
 
-  public orederBy:keyof Dispositivo | undefined| ''= '';
+  public orderBy:keyof Dispositivo | undefined| ''= '';
 
   changeOrder(value: keyof Dispositivo){
-    this.orederBy= value;
+    this.orderBy= value;
   }
 
   productDialog: boolean = false;
