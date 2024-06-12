@@ -1,7 +1,15 @@
-.tabla{
-  width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;
-}
-#tabla{
-  width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;
+.switch-row {
+  background-color: lightblue;
 }
 
+.router-row {
+  background-color: lightgreen;
+}
+
+.final-device-row {
+  background-color: lightcoral;
+}
+
+.patch-panel-row {
+  background-color: lightgoldenrodyellow;
+}

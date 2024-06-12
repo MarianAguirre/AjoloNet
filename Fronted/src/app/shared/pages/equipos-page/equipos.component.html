@@ -1,6 +1,7 @@
 <p-table
-    [value]="dispositivos | sortBy: orderBy"
-    [globalFilterFields]="['equipo.id', 'equipo.name', 'equipo.type']"
+  #dt1
+    [value]="dispositivos "
+    [globalFilterFields]="['id', 'name']"
     selectionMode="single"
     dataKey="id"
     [rows]="7"
@@ -17,6 +18,7 @@
                 <input
                     pInputText type="text"
                     style="margin-right: 2%;"
+
                     placeholder="Global Search" />
                     <th style=" width: 80%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
                       <button class="btn btn-outline-success tabla" type="submit" [routerLink]="['nuevo-equipo']">Agregar</button>
@@ -26,23 +28,24 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="equipo.id" style="width:25%" (onClick)="changeOrder('id')">
-                    Id <p-sortIcon field="equipo.id"  />
+                <th pSortableColumn="id" style="width:25%" >
+                    Id <p-sortIcon field="id"  />
                 </th>
-                <th pSortableColumn="equipo.name" style="width:25%" (onClick)="changeOrder('name')">
-                    Nombre <p-sortIcon field="equipo.name" />
+                <th pSortableColumn="name" style="width:25%" >
+                    Nombre <p-sortIcon field="name" />
                 </th>
+
                 <th style="width:25%">
                 </th>
             </tr>
         </ng-template>
       <ng-template pTemplate="body" let-equipo>
           <tr [pSelectableRow]="equipo">
-              <td (onClick)="changeOrder('id')">
+              <td >
                   <span class="p-column-title" >Id</span>
                   {{ equipo.id }}
               </td>
-              <td (onClick)="changeOrder('name')">
+              <td >
                   <span class="p-column-title" >Nombre</span>
                   <span class="ml-1 vertical-align-middle">{{ equipo.name }}</span>
               </td>
@@ -54,17 +57,17 @@
       </ng-template>
       <ng-template pTemplate="body" let-equipo>
           <tr [pSelectableRow]="equipo">
-              <td (onClick)="changeOrder('id')">
+              <td>
                   <span class="p-column-title" >Id</span>
                   {{ equipo.id }}
               </td>
-              <td (onClick)="changeOrder('name')">
+              <td>
                   <span class="p-column-title" >Name</span>
-                  <span class="ml-1 vertical-align-middle">{{ equipo.name }}</span>
+                  <span  class="ml-1 vertical-align-middle">{{ equipo.name }}</span>
               </td>
 
               <td>
-                <button class="btn btn-outline-dark" style="margin-left: 50%;" type="submit" (click)="editProduct(product)" >Detalles</button>
+                <button class="btn btn-outline-dark" style="margin-left: 50%;" (click)="editProduct(equipo)" type="submit" >Detalles</button>
               </td>
           </tr>
       </ng-template>
@@ -76,9 +79,9 @@
 </p-table>
 
 <p-dialog
-        [(visible)]="productDialog"
+        [(visible)]="equipoDialog"
         [style]="{ width: '450px' }"
-        header="Product Details"
+        header="Equip Details"
         [modal]="true"
         styleClass="p-fluid">
             <ng-template pTemplate="content">
@@ -88,10 +91,10 @@
                         type="text"
                         pInputText
                         id="name"
-                        [(ngModel)]="product.name"
+                        [(ngModel)]="equipo.name"
                         required
                         autofocus />
-                    <small class="p-error" *ngIf="submitted && !product.name">
+                    <small class="p-error" *ngIf="submitted && !equipo.name">
                         Name is required.
                     </small>
                 </div>
@@ -116,7 +119,7 @@
                     label="Save"
                     icon="pi pi-check"
                     [text]="true"
-                    (click)="saveProduct()" />
+                    (click)="saveEquip()" />
             </ng-template>
     </p-dialog>
 

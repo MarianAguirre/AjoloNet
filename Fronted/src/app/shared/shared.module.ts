@@ -19,7 +19,6 @@ import { ConectionPageComponent } from './pages/conection-page/conection-page.co
 import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import {TableModule} from 'primeng/table'
-import { SortByPipe } from './pipe/sortBy.pipe';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
@@ -43,7 +42,6 @@ import { DetallesPageComponent } from './pages/detalles-page/detalles-page.compo
     ReactiveFormsModule,
     MdbCollapseModule,
     TableModule,
-    SortByPipe,
     InputSwitchModule,
     InputTextModule,
     TagModule,

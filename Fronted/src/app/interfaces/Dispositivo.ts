@@ -6,9 +6,15 @@ export interface Dispositivo {
   numberOfPorts?: number;
   poe?: boolean;
   manageable?: boolean;
-  area?: string;
+  area: string;
 
 }
+
+// export interface PatchPanel{
+//   type: string;
+//   numberOfPorts?: number;
+// }
+
 
 export interface Rack{
   id: string

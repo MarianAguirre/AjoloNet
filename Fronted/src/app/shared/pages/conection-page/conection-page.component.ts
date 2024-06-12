@@ -31,7 +31,7 @@ export class ConectionPageComponent {
 
 
   emitEquip():void{
-    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.type)) {
+    if (this.equipo.name?.length === 0 ||!this.opciones.includes(this.equipo.type)) {
       Swal.fire({
         position: "center",
         icon: "error",

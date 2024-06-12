@@ -4,13 +4,17 @@
     <br>
 
     <form (ngSubmit)="emitEquip()"  >
-    <input required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
-    <br>
+
     <p>Tipo de equipo</p>
     <select class="mb-2" required
         [(ngModel)]="equipo.type" name="select">
       <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
     </select>
+    <br>
+    <input *ngIf="equipo.type === 'Router'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
+    <input *ngIf="equipo.type === 'Switch'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
+    <input *ngIf="equipo.type === 'Dispositivo final'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
+    <br>
 
     <p>Número de puertos</p>
     <input
@@ -48,13 +52,10 @@
       </div>
     <div *ngIf="equipo.type==='Dispositivo final'" class="area">
       <br>
-      <input
-      required
-      type="text"
-      name="area"
-      [(ngModel)]="equipo.area"
-      class="from-control mb-2"
-      placeholder="En que area esta">
+      <select class="mb-2" required
+        [(ngModel)]="equipo.area" name="select">
+      <option *ngFor="let area of areas" [value]="area">{{area}}</option>
+    </select>
     </div>
       <br>
 

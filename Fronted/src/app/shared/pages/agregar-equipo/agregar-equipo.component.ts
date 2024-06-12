@@ -32,7 +32,7 @@ export class AgregarEquipoComponent{
 
 
   emitEquip():void{
-    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.type)) {
+    if (!this.opciones.includes(this.equipo.type)) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -72,6 +72,12 @@ export class AgregarEquipoComponent{
     'Patch Panel'
   ]
 
+  public areas:string[]=[
+    'Sistemas',
+    'Baño',
+    'Cocina'
+  ]
+
   newRouter():void{
     if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.type)) return;
     this.http.post<Dispositivo>(`${this.baseUrl}/router`, this.equipo).subscribe(
@@ -87,15 +93,15 @@ export class AgregarEquipoComponent{
     )
   }
   newDispositivo():void{
-    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.type)) return;
-    this.http.post<Dispositivo>(`${this.baseUrl}/endDivices`, this.equipo).subscribe(
+    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.type) || this.areas.includes(this.equipo.area)) return;
+    this.http.post<Dispositivo>(`${this.baseUrl}/endDevice`, this.equipo).subscribe(
       (data) =>{
       }
     )
   }
   newPatch():void{
-    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.type)) return;
-    this.http.post<Dispositivo>(`${this.baseUrl}/patch`, this.equipo).subscribe(
+    if (!this.opciones.includes(this.equipo.type)) return;
+    this.http.post<Dispositivo>(`${this.baseUrl}/patchPanel`, this.equipo).subscribe(
       (data) =>{
       }
     )

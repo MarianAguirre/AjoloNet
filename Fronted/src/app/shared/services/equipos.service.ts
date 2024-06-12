@@ -16,7 +16,14 @@ export class EquiposServices {
 dispositivo: Dispositivo[] =[]
 private baseUrl: string = enavironments.baseUrl
 
-
+getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patchPanels: Dispositivo[], endDevices: Dispositivo[] }> {
+  return this.http.get<{ routers: Dispositivo[], switches: Dispositivo[], patchPanels: Dispositivo[], endDevices: Dispositivo[] }>(`${this.baseUrl}/Devices`).pipe(
+    catchError(error => {
+      console.error('Error fetching devices', error);
+      return of({ routers: [], switches: [], patchPanels: [], endDevices: [] });
+    })
+  );
+}
   getRouters():Observable<Dispositivo[]>{
     return this.http.get<Dispositivo[]>(`${this.baseUrl}/router `)
   }
