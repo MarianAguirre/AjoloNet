@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
 import { enavironments } from '../../../../environments/envarionments';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'shared-equipos-pages',
@@ -41,39 +41,6 @@ export class EquiposComponent implements OnInit {
     });
   }
 
-  getRouters(): Observable<Dispositivo[]> {
-    return this.http.get<Dispositivo[]>(`${this.baseUrl}/router/`);
-  }
-
-  getSwitch(): Observable<Dispositivo[]> {
-    return this.http.get<Dispositivo[]>(`${this.baseUrl}/switch/`);
-  }
-
-  getIdRouters(id: number): Observable<Dispositivo[]> {
-    return this.http.get<Dispositivo[]>(`${this.baseUrl}/router/id/${id}`);
-  }
-
-  showRouterDetails(equipo: Dispositivo): void {
-    if (equipo && equipo.id) {
-      const id = Number(equipo.id);  // Convertir id a número
-      if (!isNaN(id)) {
-        this.getIdRouters(id).subscribe((data: Dispositivo[]) => {
-          console.log(`Detalles del router con id ${id}:`, data);
-        });
-      } else {
-        console.error('El id del equipo no es un número válido');
-      }
-    } else {
-      console.error('Equipo no está definido o no tiene un id');
-    }
-  }
-
-  public orderBy: keyof Dispositivo | undefined | '' = '';
-
-  changeOrder(value: keyof Dispositivo): void {
-    this.orderBy = value;
-  }
-
   equipoDialog: boolean = false;
   selectedEquipos!: Dispositivo[] | null;
   submitted: boolean = false;
@@ -86,7 +53,44 @@ export class EquiposComponent implements OnInit {
   }
 
   deleteEquip(equipo: Dispositivo): void {
-    // Implementación de la lógica de eliminación
+    if (!equipo.id) {
+      Swal.fire(
+        'Error',
+        'El ID del equipo es indefinido.',
+        'error'
+      );
+      return;
+    }
+
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `¿Seguro que quieres eliminar el equipo ${equipo.name}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.equiposServices.deleteEquipo(equipo.id!).subscribe(
+          () => {
+            this.dispositivos = this.dispositivos.filter(d => d.id !== equipo.id);
+            Swal.fire(
+              'Eliminado!',
+              'El equipo ha sido eliminado.',
+              'success'
+            );
+          },
+          (error) => {
+            Swal.fire(
+              'Error',
+              'Hubo un problema al eliminar el equipo.',
+              'error'
+            );
+          }
+        );
+      }
+    });
   }
 
   hideDialog(): void {

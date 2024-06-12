@@ -13,3 +13,17 @@
 .patch-panel-row {
   background-color: lightgoldenrodyellow;
 }
+
+
+
+.trash{
+  width: 10px;
+  display: flex;
+  align-items: center;
+
+}
+
+.btn-group {
+  display: flex;
+  gap: 5px;
+}

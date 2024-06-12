@@ -32,22 +32,13 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
     return this.http.get<Dispositivo[]>(`${this.baseUrl}/switch `)
   }
 
-  updateRouter(router:Dispositivo):Observable<Dispositivo>{
-    return this.http.patch<Dispositivo>(`${this.baseUrl}/router`, router)
+  deleteEquipo(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/router/id/${id}`);
   }
 
-  addRouter(router:Dispositivo):Observable<Dispositivo>{
-    if (!router.id) throw Error('Router id is required')
-    return this.http.patch<Dispositivo>(`${this.baseUrl}/router/${router.id}`, router)
-  }
-
-  deleteRouter(id:string):Observable<boolean>{
-    return this.http.delete(`${this.baseUrl}/router/${id}`)
-    .pipe(
-      catchError(err => of(false)),
-    map(resp => true))
-  }
-
+  // updateEquipo(id: string): Observable<void> {
+  //   return this.http.put<void>(`${this.baseUrl}/patchPanel/id/${id}`);
+  // }
 }
 
 
