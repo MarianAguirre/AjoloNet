@@ -1,7 +1,6 @@
 package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.Port;
-import com.ajoloNET.ProyectFinal.entities.PortType;
 import com.ajoloNET.ProyectFinal.entities.Router;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import com.ajoloNET.ProyectFinal.repositories.RouterRepository;
@@ -16,7 +15,7 @@ import java.util.*;
 @Transactional
 @Slf4j
 @AllArgsConstructor
-public class RouterServiceImpl implements RouterService{
+public class RouterServiceImpl implements RouterService {
 
     private final RouterRepository routerRepository;
 
@@ -25,13 +24,13 @@ public class RouterServiceImpl implements RouterService{
     @Override
     public Router readByName(String name) {
         return this.routerRepository.findByName(name)
-                .orElseThrow(()-> new NoSuchElementException("Router not found"));
+                .orElseThrow(() -> new NoSuchElementException("Router not found"));
     }
 
     @Override
     public Optional<Router> findById(Long id) {
         return Optional.ofNullable(this.routerRepository.findById(id)
-                .orElseThrow(()->new NoSuchElementException("Router not found")));
+                .orElseThrow(() -> new NoSuchElementException("Router not found")));
     }
 
     @Override
@@ -49,7 +48,7 @@ public class RouterServiceImpl implements RouterService{
     @Override
     public Router update(Router router, String name) {
         var routerToUpdate = this.routerRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Router not found"));
+                .orElseThrow(() -> new NoSuchElementException("Router not found"));
         routerToUpdate.setName(router.getName());
         routerToUpdate.setPorts(router.getPorts());
         routerToUpdate.setNumberOfPorts(router.getNumberOfPorts());
@@ -61,7 +60,7 @@ public class RouterServiceImpl implements RouterService{
     @Override
     public Router updateById(Router router, Long id) {
         var routerUpdateId = this.routerRepository.findById(id)
-                .orElseThrow(()->new NoSuchElementException("Router not found"));
+                .orElseThrow(() -> new NoSuchElementException("Router not found"));
         routerUpdateId.setName(router.getName());
         routerUpdateId.setNumberOfPorts(router.getNumberOfPorts());
         routerUpdateId.setPorts(router.getPorts());
@@ -73,7 +72,7 @@ public class RouterServiceImpl implements RouterService{
     @Override
     public void delete(String name) {
         var routerToDelete = this.routerRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Router not found"));
+                .orElseThrow(() -> new NoSuchElementException("Router not found"));
         this.routerRepository.delete(routerToDelete);
     }
 
@@ -103,11 +102,10 @@ public class RouterServiceImpl implements RouterService{
         return (List<Router>) routerRepository.findAll();
     }
 
-    /*
-     @Override
-    public List<Router> findMatchByName(String name) {
-        return routerRepository.findMatchByName(name);
-     }
-    */
 
+//    @Override
+//    public List<Router> findMatchByName(String name) {
+//        return routerRepository.findMatchByName(name);
+//
+//    }
 }

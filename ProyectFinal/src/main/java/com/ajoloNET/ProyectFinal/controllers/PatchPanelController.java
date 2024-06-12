@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @RestController
@@ -20,6 +22,7 @@ public class PatchPanelController {
 
     @GetMapping
     public ResponseEntity<?> getEverything(){
+        log.info("GET ALL Patch Panels");
         return ResponseEntity.ok(patchPanelService.getEverything());
     }
 
@@ -33,8 +36,10 @@ public class PatchPanelController {
     public ResponseEntity<PatchPanel> post(@RequestBody PatchPanel patchPanel) {
         log.info("POST: Patch panel {}", patchPanel.getId());
         PatchPanel createdPatchPanel = patchPanelService.create(patchPanel);
+        // Codificar la URI correctamente
+        String encodedId = URLEncoder.encode(createdPatchPanel.getId().toString(), StandardCharsets.UTF_8);
         return ResponseEntity.created(
-                        URI.create("/api/patch-panels/" + createdPatchPanel.getId().toString()))
+                        URI.create("/patchPanel/" + createdPatchPanel.getId().toString()))
                         .build();
     }
 

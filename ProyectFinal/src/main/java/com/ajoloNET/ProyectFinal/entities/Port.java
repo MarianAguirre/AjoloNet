@@ -34,10 +34,6 @@ public class Port {
     @JsonBackReference(value = "device-port")
     private EndDevice endDevice;
 
-//    @Column(columnDefinition = "port_type")
-//    @Enumerated(value = EnumType.STRING)
-//    private PortType portType;
-
     @Column(name = "port_number")
     private int portNumber;
 

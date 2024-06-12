@@ -13,7 +13,7 @@ public class PatchPanel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "patchPanel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patchPanel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "patch-port")
     private Set<Port> ports;
 
@@ -23,6 +23,9 @@ public class PatchPanel {
 
     @Column(name = "number_of_ports")
     private int numberOfPorts;
+
+    @Column(name = "name", nullable = false)
+    private String name = "Patch Panel";
 
 
     //Getters and Setters
@@ -58,5 +61,13 @@ public class PatchPanel {
 
     public void setNumberOfPorts(int numberOfPorts) {
         this.numberOfPorts = numberOfPorts;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

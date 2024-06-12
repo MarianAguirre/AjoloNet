@@ -20,6 +20,7 @@ public class PortConnectionController {
 
     @GetMapping
     public ResponseEntity<?> getEverything(){
+        log.info("GET ALL Connections");
         return ResponseEntity.ok(portConnectionService.getAllConnections());
     }
 

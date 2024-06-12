@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Optional;
@@ -20,6 +21,7 @@ public class EndDeviceController {
 
     @GetMapping
     public ResponseEntity<?> getEverything(){
+        log.info("GET ALL End Devices");
         return ResponseEntity.ok(endDeviceService.getEverything());
     }
 
@@ -39,9 +41,14 @@ public class EndDeviceController {
     @PostMapping
     public ResponseEntity<EndDevice> post(@RequestBody EndDevice endDevice){
         log.info("POST: End Device {}", endDevice.getName());
-        return ResponseEntity.created(
-                URI.create(this.endDeviceService.create(endDevice).getName()))
-                .build();
+        EndDevice savedEndDevice = this.endDeviceService.create(endDevice);
+
+        // Crear la URI con UriComponentsBuilder
+        URI location = UriComponentsBuilder.fromPath("/endDevice/{id}")
+                .buildAndExpand(savedEndDevice.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{name}")

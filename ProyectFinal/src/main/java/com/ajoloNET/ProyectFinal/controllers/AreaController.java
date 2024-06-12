@@ -20,6 +20,7 @@ public class AreaController {
 
     @GetMapping
     public ResponseEntity<?> getEverything(){
+        log.info("GET ALL Areas");
         return ResponseEntity.ok(areaService.getEverything());
     }
 

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Optional;
@@ -20,6 +21,7 @@ public class RouterController {
 
     @GetMapping
     public ResponseEntity<?> getEverything(){
+        log.info("GET ALL Routers");
         return ResponseEntity.ok(routerService.getEverything());
     }
 
@@ -39,9 +41,14 @@ public class RouterController {
     @PostMapping
     public ResponseEntity<Router> post(@RequestBody Router router){
         log.info("POST: Router {}", router.getName());
-        return ResponseEntity.created(
-                URI.create(this.routerService.create(router).getName()))
-                .build();
+        Router savedRouter = this.routerService.create(router);
+
+        // Crear la URI con UriComponentsBuilder
+        URI location = UriComponentsBuilder.fromPath("/router/{id}")
+                .buildAndExpand(savedRouter.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{name}")

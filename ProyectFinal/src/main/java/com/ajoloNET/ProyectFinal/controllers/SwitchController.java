@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Optional;
@@ -20,6 +21,7 @@ public class SwitchController {
 
     @GetMapping
         public ResponseEntity<?> getEverything(){
+        log.info("GET ALL Switches");
         return ResponseEntity.ok(switchService.getEverything());
     }
 
@@ -38,9 +40,14 @@ public class SwitchController {
     @PostMapping
     public ResponseEntity<Switch> post(@RequestBody Switch aSwitch){
         log.info("POST: Switch   {}", aSwitch.getName());
-        return ResponseEntity.created(
-                URI.create(this.switchService.create(aSwitch).getName()))
-                .build();
+        Switch savedSwitch = this.switchService.create(aSwitch);
+
+        // Crear la URI con UriComponentsBuilder
+        URI location = UriComponentsBuilder.fromPath("/switch/{id}")
+                .buildAndExpand(savedSwitch.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{name}")

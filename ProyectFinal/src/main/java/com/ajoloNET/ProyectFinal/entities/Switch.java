@@ -16,7 +16,7 @@ public class Switch {
     @Column(name = "Name_Switch")
     private String name;
 
-    @OneToMany(mappedBy = "sSwitch", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sSwitch", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "switch-port")
     private Set<Port> ports;
 

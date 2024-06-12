@@ -1,11 +1,8 @@
 package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.Port;
-import com.ajoloNET.ProyectFinal.entities.PortType;
-import com.ajoloNET.ProyectFinal.entities.Router;
 import com.ajoloNET.ProyectFinal.entities.Switch;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
-import com.ajoloNET.ProyectFinal.repositories.RouterRepository;
 import com.ajoloNET.ProyectFinal.repositories.SwitchRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;

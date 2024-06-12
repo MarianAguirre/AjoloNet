@@ -2,7 +2,6 @@ package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.PatchPanel;
 import com.ajoloNET.ProyectFinal.entities.Port;
-import com.ajoloNET.ProyectFinal.entities.PortType;
 import com.ajoloNET.ProyectFinal.repositories.PatchPanelRepository;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import jakarta.transaction.Transactional;
@@ -30,7 +29,15 @@ public class PatchPanelServiceImpl implements PatchPanelService{
 
     @Override
     public PatchPanel create(PatchPanel patchPanel) {
-        return this.patchPanelRepository.save(patchPanel);
+        patchPanel.setName("Patch Panel");
+
+        PatchPanel savedPatch = this.patchPanelRepository.save(patchPanel);
+
+        // Crea los puertos para el router
+        createPortsForPatchPanel(savedPatch);
+
+        // Guarda nuevamente el router con los puertos (opcional)
+        return this.patchPanelRepository.save(savedPatch);
     }
 
     @Override

@@ -20,6 +20,7 @@ public class RackController {
 
     @GetMapping
     public ResponseEntity<?> getEverything(){
+        log.info("GET ALL Racks");
         return ResponseEntity.ok(rackService.getEverything());
     }
 
