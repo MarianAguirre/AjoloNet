@@ -30,6 +30,7 @@ public class PatchPanelServiceImpl implements PatchPanelService{
     @Override
     public PatchPanel create(PatchPanel patchPanel) {
         patchPanel.setName("Patch Panel");
+        patchPanel.setDeviceType("patchPanel");
 
         PatchPanel savedPatch = this.patchPanelRepository.save(patchPanel);
 
@@ -53,7 +54,7 @@ public class PatchPanelServiceImpl implements PatchPanelService{
     public void deleteById(Long id) {
         var patchToDeleteById = this.patchPanelRepository.findById(id)
                 .orElseThrow(()->new NoSuchElementException("Patch Panel not found"));
-        this.patchPanelRepository.delete(patchToDeleteById);
+        this.patchPanelRepository.deleteById(id);
 
     }
 

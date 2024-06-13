@@ -27,6 +27,9 @@ public class EndDevice {
     @Column(name = "number_of_ports")
     private int numberOfPorts;
 
+    @Column(name = "device_type", nullable = false)
+    private String deviceType = "endDevice";
+
 
     //Getters and Setters
     public Long getId() {
@@ -67,5 +70,13 @@ public class EndDevice {
 
     public void setNumberOfPorts(int numberOfPorts) {
         this.numberOfPorts = numberOfPorts;
+    }
+
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 }

@@ -27,6 +27,9 @@ public class PatchPanel {
     @Column(name = "name", nullable = false)
     private String name = "Patch Panel";
 
+    @Column(name = "device_name")
+    private String deviceType = "patchPanel";
+
 
     //Getters and Setters
 
@@ -69,5 +72,13 @@ public class PatchPanel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 }

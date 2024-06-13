@@ -34,6 +34,7 @@ public class SwitchServiceImpl implements SwitchService {
 
     @Override
     public Switch create(Switch aSwitch) {
+        aSwitch.setDeviceType("switch");
         Switch savedSwitch = this.switchRepository.save(aSwitch);
 
         // Crea los puertos para el router

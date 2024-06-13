@@ -36,6 +36,7 @@ public class EndDeviceServiceImpl implements EndDeviceService{
 
     @Override
     public EndDevice create(EndDevice endDevice) {
+        endDevice.setDeviceType("endDevice");
         EndDevice savedEndDevice = this.endDeviceRepository.save(endDevice);
 
         // Crea los puertos para el router

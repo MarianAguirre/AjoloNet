@@ -30,6 +30,9 @@ public class Switch {
     @Column(name = "is_Manageable")
     private boolean manageable;
 
+    @Column(name = "device_type")
+    private String deviceType = "switch";
+
     @Column(name = "number_of_ports")
     private int numberOfPorts;
 
@@ -90,5 +93,13 @@ public class Switch {
 
     public void setNumberOfPorts(int numberOfPorts) {
         this.numberOfPorts = numberOfPorts;
+    }
+
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 }

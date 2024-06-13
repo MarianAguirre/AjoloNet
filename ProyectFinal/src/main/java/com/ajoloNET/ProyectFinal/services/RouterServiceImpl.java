@@ -35,6 +35,7 @@ public class RouterServiceImpl implements RouterService {
 
     @Override
     public Router create(Router router) {
+        router.setDeviceType("router");
         Router savedRouter = this.routerRepository.save(router);
 
         // Crea los puertos para el router

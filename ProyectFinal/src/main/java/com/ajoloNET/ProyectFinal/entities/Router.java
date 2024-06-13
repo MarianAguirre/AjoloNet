@@ -27,6 +27,9 @@ public class Router {
     @Column(name = "number_of_ports")
     private int numberOfPorts;
 
+    @Column(name = "device_type",nullable = false)
+    private String deviceType = "router";
+
 
     //Getters and Setters
 
@@ -68,5 +71,13 @@ public class Router {
 
     public void setNumberOfPorts(int numberOfPorts) {
         this.numberOfPorts = numberOfPorts;
+    }
+
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 }
