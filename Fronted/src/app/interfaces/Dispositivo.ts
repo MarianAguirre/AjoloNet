@@ -1,7 +1,7 @@
 export interface Dispositivo {
   id?:string
   name: string;
-  type: string;
+  deviceType: string;
   conection?: string;
   numberOfPorts?: number;
   poe?: boolean;

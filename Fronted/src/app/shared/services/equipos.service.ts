@@ -24,6 +24,8 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
     })
   );
 }
+
+
   getRouters():Observable<Dispositivo[]>{
     return this.http.get<Dispositivo[]>(`${this.baseUrl}/router `)
   }
@@ -31,14 +33,39 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
   getSwitch():Observable<Dispositivo[]>{
     return this.http.get<Dispositivo[]>(`${this.baseUrl}/switch `)
   }
-
-  deleteEquipo(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/router/id/${id}`);
+  getPatch():Observable<Dispositivo[]>{
+    return this.http.get<Dispositivo[]>(`${this.baseUrl}/patchPanel `)
   }
+  getEnd():Observable<Dispositivo[]>{
+    return this.http.get<Dispositivo[]>(`${this.baseUrl}/endDevices `)
+  }
+
+
+  deleteEquipo(id: string,deviceType:string): Observable<void> {
+    console.log(id,deviceType)
+    return this.http.delete<void>(`${this.baseUrl}/Devices/${deviceType}/${id}`);
+  }
+  // deleteSwitch(id: string,deviceType:string): Observable<void>  {
+  //   console.log(id,deviceType)
+  //   return this.http.delete<void>(`${this.baseUrl}/Devices/${deviceType}/${id}`);
+  // }
+  // deleteRouter(id: string): Observable<void> {
+  //   return this.http.delete<void>(`${this.baseUrl}/Devices/routers/${id}`);
+  // }
+  // deletePatch(id: string): Observable<void> {
+  //   return this.http.delete<void>(`${this.baseUrl}/patchPanel/${id}`);
+  // }
+  // deleteEnd(id: string): Observable<void> {
+  //   return this.http.delete<void>(`${this.baseUrl}/endDevice/id/${id}`);
+  // }
 
   // updateEquipo(id: string): Observable<void> {
   //   return this.http.put<void>(`${this.baseUrl}/patchPanel/id/${id}`);
   // }
+
+  getDeviceNamesByType(type: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/devices/`);
+  }
 }
 
 

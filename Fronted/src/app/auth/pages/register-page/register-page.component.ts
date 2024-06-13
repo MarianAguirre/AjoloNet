@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { AuthService } from '../../services/auth.service';
+import { User } from '../../interfaces/user.interfaces';
+import { ValidatorsService } from '../../services/validators.service';
 
 @Component({
   selector: 'app-register-page',
@@ -10,48 +11,64 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegisterPageComponent {
 
+  constructor (private fb:FormBuilder,
+    private validatorsServices: ValidatorsService
+  ){}
+
+  @Output()
+  public newUser: EventEmitter<User> = new EventEmitter
+
+
   async registrar():Promise<void>{
     const { value: accept } = await Swal.fire({
-      title: "Terms and conditions",
+      title: "Terminos y condiciones",
       input: "checkbox",
       inputValue: 1,
       inputPlaceholder: `
-        I agree with the terms and conditions
+        Estoy de acuerdo con las condiciones
       `,
       confirmButtonText: `
         Continue&nbsp;<i class="fa fa-arrow-right"></i>
       `,
       inputValidator: (result) => {
-        return !result && "You need to agree with T&C";
+        return !result && "Debes aceptar los terminos y condiciones terminos y condiciones";
       }
     });
     if (accept) {
-      Swal.fire("You agreed with T&C :)");
+      Swal.fire("Haz aceptado los terminos y condiciones ");
     }
+
+
   }
 
 
-  registerForm = new FormGroup({
-    user: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl ('', Validators.required)
+  public registerForm:FormGroup = this.fb.group({
+    user: ['', [Validators.required, , this.validatorsServices.cantBeStrider, Validators.minLength(3)]],
+    email: ['', [Validators.required, Validators.pattern(this.validatorsServices.emailPattern)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    password2: ['', [Validators.required]],
   })
 
-  // constructor(private authservices:AuthService){}
+  isValidField(field:string){
+    return this.validatorsServices.isvalidFild(this.registerForm, field)
+  }
 
-  // signIn():void{
-  //   const credentials:any = this.registerForm.value;
-  //   this.authservices.logIn(credentials)
+  onSubmit(){
+    this.registerForm.markAllAsTouched
+  }
+
+
+  // get userControl(): FormControl{
+  //   return this.registerForm.get('user') as FormControl
   // }
-
-  get userControl(): FormControl{
-    return this.registerForm.get('user') as FormControl
-  }
-  get emailControl(): FormControl{
-    return this.registerForm.get('email') as FormControl
-  }
-  get passwordControl(): FormControl{
-    return this.registerForm.get('password') as FormControl
-  }
+  // get emailControl(): FormControl{
+  //   return this.registerForm.get('email') as FormControl
+  // }
+  // get passwordControl(): FormControl{
+  //   return this.registerForm.get('password') as FormControl
+  // }
+  // get passwordControl2(): FormControl{
+  //   return this.registerForm.get('password2') as FormControl
+  // }
 
 }

@@ -7,13 +7,13 @@
 
     <p>Tipo de equipo</p>
     <select class="mb-2" required
-        [(ngModel)]="equipo.type" name="select">
+        [(ngModel)]="equipo.deviceType" name="select">
       <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
     </select>
     <br>
-    <input *ngIf="equipo.type === 'Router'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
-    <input *ngIf="equipo.type === 'Switch'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
-    <input *ngIf="equipo.type === 'Dispositivo final'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
+    <input *ngIf="equipo.deviceType === 'Router'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
+    <input *ngIf="equipo.deviceType === 'Switch'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
+    <input *ngIf="equipo.deviceType === 'Dispositivo final'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
     <br>
 
     <p>Número de puertos</p>
@@ -30,7 +30,7 @@
     placeholder="Puerto">
 
     <br>
-      <div *ngIf="equipo.type === 'Switch'" >
+      <div *ngIf="equipo.deviceType === 'Switch'" >
         <div class="contenido">
           <p class="Text-checkbox">¿Es poe? </p><input
           required
@@ -50,7 +50,7 @@
           type="checkbox">
         </div>
       </div>
-    <div *ngIf="equipo.type==='Dispositivo final'" class="area">
+    <div *ngIf="equipo.deviceType==='Dispositivo final'" class="area">
       <br>
       <select class="mb-2" required
         [(ngModel)]="equipo.area" name="select">
@@ -61,10 +61,10 @@
 
       <br>
 
-      <button *ngIf="equipo.type === 'Router'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newRouter()">Guardar</button>
-      <button *ngIf="equipo.type === 'Switch'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newSwitch()">Guardar</button>
-      <button *ngIf="equipo.type === 'Dispositivo final'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newDispositivo()">Guardar</button>
-      <button *ngIf="equipo.type === 'Patch Panel'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newPatch()">Guardar</button>
+      <button *ngIf="equipo.deviceType === 'Router'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newRouter()">Guardar</button>
+      <button *ngIf="equipo.deviceType === 'Switch'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newSwitch()">Guardar</button>
+      <button *ngIf="equipo.deviceType === 'Dispositivo final'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newDispositivo()">Guardar</button>
+      <button *ngIf="equipo.deviceType === 'Patch Panel'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newPatch()">Guardar</button>
 
     </form>
   </div>
@@ -79,10 +79,10 @@
 
     </div>
     <div class="d-flex justify-content-center">
-    <img  *ngIf="equipo.type === 'Switch'" src="assets/switch.png" width="256" height="256">
-    <img  *ngIf="equipo.type === 'Router'" src="assets/router.png"  width="256" height="256">
-    <img  *ngIf="equipo.type === 'Dispositivo final'" src="assets/found_9694708.png"  width="256" height="256">
-    <img  *ngIf="equipo.type === 'Patch Panel'" src="assets/patch.png"  width="256" height="256" >
+    <img  *ngIf="equipo.deviceType === 'Switch'" src="assets/switch.png" width="256" height="256">
+    <img  *ngIf="equipo.deviceType === 'Router'" src="assets/router.png"  width="256" height="256">
+    <img  *ngIf="equipo.deviceType === 'Dispositivo final'" src="assets/found_9694708.png"  width="256" height="256">
+    <img  *ngIf="equipo.deviceType === 'Patch Panel'" src="assets/patch.png"  width="256" height="256" >
   </div>
   </div>
   <div class="botones justify-content-end">

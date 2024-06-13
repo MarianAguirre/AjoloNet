@@ -29,6 +29,7 @@ export class EquiposComponent implements OnInit {
 
   ngOnInit(): void {
     this.equiposServices.getDevices().subscribe((data: any) => {
+      console.log(data)
       if (data && typeof data === 'object') {
         this.routers = data.routers || [];
         this.switches = data.switches || [];
@@ -52,7 +53,8 @@ export class EquiposComponent implements OnInit {
     console.log(this.equipo.name);
   }
 
-  deleteEquip(equipo: Dispositivo): void {
+
+  deleteDevices(equipo: Dispositivo): void {
     if (!equipo.id) {
       Swal.fire(
         'Error',
@@ -61,7 +63,7 @@ export class EquiposComponent implements OnInit {
       );
       return;
     }
-
+    console.log(equipo)
     Swal.fire({
       title: '¿Estás seguro?',
       text: `¿Seguro que quieres eliminar el equipo ${equipo.name}?`,
@@ -71,27 +73,31 @@ export class EquiposComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, eliminarlo'
     }).then((result) => {
-      if (result.isConfirmed) {
-        this.equiposServices.deleteEquipo(equipo.id!).subscribe(
-          () => {
-            this.dispositivos = this.dispositivos.filter(d => d.id !== equipo.id);
-            Swal.fire(
-              'Eliminado!',
-              'El equipo ha sido eliminado.',
-              'success'
-            );
-          },
-          (error) => {
-            Swal.fire(
-              'Error',
-              'Hubo un problema al eliminar el equipo.',
-              'error'
-            );
-          }
-        );
+      if (result.isConfirmed) {{
+          this.equiposServices.deleteEquipo(equipo.id!, equipo.deviceType).subscribe(
+            () => {
+              this.dispositivos = this.dispositivos.filter(d => d.id !== equipo.id);
+              Swal.fire(
+                'Eliminado!',
+                'El equipo ha sido eliminado.',
+                'success'
+              );
+            },
+            (error:any) => {
+              Swal.fire(
+                'Error',
+                'Hubo un problema al eliminar el equipo.',
+                'error'
+              );
+            }
+          );
+        }
       }
+
     });
   }
+
+
 
   hideDialog(): void {
     this.equipoDialog = false;

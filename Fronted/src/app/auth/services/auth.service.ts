@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.interfaces';
 import { catchError, map, Observable, of, tap } from 'rxjs';
+import { enavironments } from '../../../environments/envarionments';
 
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  private baseUrl = 'http://localhost:4000/'
+  private baseUrl = enavironments.baseUrl
   private user?: User
 
   constructor(private http:HttpClient){}
