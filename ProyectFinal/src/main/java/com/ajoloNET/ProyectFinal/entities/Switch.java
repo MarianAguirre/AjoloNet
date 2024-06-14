@@ -30,7 +30,7 @@ public class Switch {
     @Column(name = "is_Manageable")
     private boolean manageable;
 
-    @Column(name = "device_type")
+    @Column(name = "device_type", nullable = false)
     private String deviceType = "switch";
 
     @Column(name = "number_of_ports")

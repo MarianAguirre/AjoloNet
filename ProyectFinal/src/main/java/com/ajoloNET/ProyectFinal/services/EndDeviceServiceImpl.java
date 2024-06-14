@@ -1,7 +1,6 @@
 package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.EndDevice;
-import com.ajoloNET.ProyectFinal.entities.PatchPanel;
 import com.ajoloNET.ProyectFinal.entities.Port;
 import com.ajoloNET.ProyectFinal.repositories.EndDeviceRepository;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
@@ -36,7 +35,7 @@ public class EndDeviceServiceImpl implements EndDeviceService{
 
     @Override
     public EndDevice create(EndDevice endDevice) {
-        endDevice.setDeviceType("endDevice");
+        endDevice.setDeviceType("end-device");
         EndDevice savedEndDevice = this.endDeviceRepository.save(endDevice);
 
         // Crea los puertos para el router

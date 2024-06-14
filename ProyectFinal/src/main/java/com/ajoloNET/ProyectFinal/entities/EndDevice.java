@@ -1,5 +1,6 @@
 package com.ajoloNET.ProyectFinal.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -22,13 +23,14 @@ public class EndDevice {
 
     @ManyToOne
     @JoinColumn(name = "area_id")
+    @JsonBackReference
     private Area area;
 
     @Column(name = "number_of_ports")
     private int numberOfPorts;
 
     @Column(name = "device_type", nullable = false)
-    private String deviceType = "endDevice";
+    private String deviceType = "end-device";
 
 
     //Getters and Setters

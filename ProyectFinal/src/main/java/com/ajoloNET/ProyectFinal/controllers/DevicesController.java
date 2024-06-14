@@ -27,24 +27,23 @@ public class DevicesController {
         return ResponseEntity.ok(devices);
     }
 
-    @DeleteMapping("/{deviceType}/{id}")
-    public ResponseEntity<Void> deleteDeviceById(@PathVariable String deviceType, @PathVariable Long id) {
-        log.info("DELETE Device [{}]: {}", deviceType, id);
+    @DeleteMapping("/{deviceType}/{deviceId}")
+    public ResponseEntity<Void> deleteDeviceById(@PathVariable String deviceType, @PathVariable Long deviceId) {
+        log.info("DELETE Device [{}]: {}", deviceType, deviceId);
 
         switch (deviceType.toLowerCase()) {
             case "router":
-                routerService.deleteById(id);
+                routerService.deleteById(deviceId);
                 break;
             case "switch":
-                switchService.deleteById(id);
+                switchService.deleteById(deviceId);
                 break;
-            case "patchPanel":
-                patchPanelService.deleteById(id);
+            case "patch-panel":
+                patchPanelService.deleteById(deviceId);
                 break;
-            case "endDevice":
-                endDeviceService.deleteById(id);
+            case "end-device":
+                endDeviceService.deleteById(deviceId);
                 break;
-            // Agregar casos para otros tipos de dispositivos según sea necesario
             default:
                 return ResponseEntity.badRequest().build();
         }

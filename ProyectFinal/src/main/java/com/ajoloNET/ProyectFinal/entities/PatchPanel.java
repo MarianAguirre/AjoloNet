@@ -27,8 +27,8 @@ public class PatchPanel {
     @Column(name = "name", nullable = false)
     private String name = "Patch Panel";
 
-    @Column(name = "device_name")
-    private String deviceType = "patchPanel";
+    @Column(name = "device_name", nullable = false)
+    private String deviceType = "patch-panel";
 
 
     //Getters and Setters

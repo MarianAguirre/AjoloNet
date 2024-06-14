@@ -3,9 +3,6 @@ package com.ajoloNET.ProyectFinal.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Entity
 @Table(name = "physical_ports")
 public class Port {
