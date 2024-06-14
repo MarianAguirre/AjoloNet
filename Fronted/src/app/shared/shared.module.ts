@@ -27,6 +27,9 @@ import { InputIconModule } from 'primeng/inputicon';
 import { EquiposComponent } from './pages/equipos-page/equipos.component';
 import { DialogModule } from 'primeng/dialog';
 import { DetallesPageComponent } from './pages/detalles-page/detalles-page.component';
+import { AreasPageComponent } from './pages/areas-page/areas-page.component';
+import { ToastModule } from 'primeng/toast';
+
 
 
 @NgModule({
@@ -47,7 +50,8 @@ import { DetallesPageComponent } from './pages/detalles-page/detalles-page.compo
     TagModule,
     IconFieldModule,
     InputIconModule,
-    DialogModule
+    DialogModule,
+    ToastModule,
 
 
   ],
@@ -65,7 +69,6 @@ import { DetallesPageComponent } from './pages/detalles-page/detalles-page.compo
     HomePageComponent,
     NavbarComponent,
     ConectionPageComponent,
-
     SearchBoxComponent,
     EquiposComponent,
     AgregarEquipoComponent,
@@ -73,14 +76,7 @@ import { DetallesPageComponent } from './pages/detalles-page/detalles-page.compo
     Error404PageComponent,
     AdminPageComponent,
     DetallesPageComponent,
-
-
-
-
-
-
-
-
+    AreasPageComponent,
 
   ],
 

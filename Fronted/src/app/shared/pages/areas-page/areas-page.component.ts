@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { TableRowExpandEvent, TableRowCollapseEvent } from 'primeng/table';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
+import Swal from 'sweetalert2';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
 import { enavironments } from '../../../../environments/envarionments';
-import Swal from 'sweetalert2';
-import { debounceTime, Subject, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'shared-equipos-pages',
-  templateUrl: './equipos.component.html',
-  styleUrl: './equipos.component.css'
+  selector: 'areas-page',
+  templateUrl: './areas-page.component.html',
+  styleUrl: './areas-page.component.css'
 })
-export class EquiposComponent implements OnInit, OnDestroy {
+export class AreasPageComponent implements OnInit {
   dispositivos: Dispositivo[] = [];
   routers: Dispositivo[] = [];
   switches: Dispositivo[] = [];
@@ -41,14 +41,6 @@ export class EquiposComponent implements OnInit, OnDestroy {
         console.error('Error: data is not an object', data);
       }
     });
-
-    this.debouncerSuscription = this.debouncer
-    .pipe(
-      debounceTime(300)
-    )
-    .subscribe(value =>{
-      this.onDebounce.emit(value)
-    })
   }
 
   equipoDialog: boolean = false;
@@ -59,7 +51,6 @@ export class EquiposComponent implements OnInit, OnDestroy {
   editProduct(equipo: Dispositivo): void {
     this.equipo = { ...equipo };
     this.equipoDialog = true;
-    this.equiposServices.getEquipo
     console.log(this.equipo.name);
   }
 
@@ -114,62 +105,26 @@ export class EquiposComponent implements OnInit, OnDestroy {
     this.submitted = false;
   }
 
-  detaillsEquip(): void {
-    this.equiposServices.getEquipo
+  saveEquip(): void {
+    // Implementación de la lógica de guardado
   }
 
 
-  get poeText(): string {
-    return this.equipo.poe ? 'Sí' : 'No';
-  }
-  get manageableText(): string {
-    return this.equipo.manageable ? 'Sí' : 'No';
-  }
-
-
-  onKeyPress(searchTerm:string){
-    this.debouncer.next(searchTerm)
-  }
-  private debouncer: Subject<string> = new Subject<string>();
-
-  private debouncerSuscription?: Subscription;
-
-
-  @Input()
-  public placeholder: string = '';
-
-  @Output()
-  public onValue = new EventEmitter<string>();
-
-  @Output()
-  public onDebounce = new EventEmitter<string>();
-
-
-  ngOnDestroy():void{
-    this.debouncerSuscription?.unsubscribe();
+  products!: Dispositivo[];
+  expandedRows = {};
+  expandAll() {
+    this.expandedRows = this.products.reduce((acc, p) => {
+      if (p.id !== undefined) {
+        acc[p.id] = true;
+      }
+      return acc;
+    }, {} as { [key: string]: boolean });
   }
 
-  emitValue( value: string ):void {
-    this.onValue.emit( value );
-  }
-
-  search(term:string):void{
-    if (term.length === 0) {
-      this.equiposServices.getDevices().subscribe((data: any) => {
-        if (data && typeof data === 'object') {
-          this.routers = data.routers || [];
-          this.switches = data.switches || [];
-          this.patchPanels = data.patchPanels || [];
-          this.endDevices = data.endDevices || [];
-          this.dispositivos = [...this.routers, ...this.switches, ...this.patchPanels, ...this.endDevices];
-        } else {
-          console.error('Error: data is not an object', data);
-        }
-      });
-      return;
-  }
-  this.equiposServices.serarchDevices(term).subscribe((resp: Dispositivo[]) => {
-    this.dispositivos = resp;
-  });
+collapseAll() {
+    this.expandedRows = {};
 }
+
+
 }
+

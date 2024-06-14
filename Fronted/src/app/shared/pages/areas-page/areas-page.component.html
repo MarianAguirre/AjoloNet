@@ -8,24 +8,30 @@
   [paginator]="true"
   stateStorage="session"
   stateKey="statedemo-session"
-  [tableStyle]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'} ">
+  [tableStyle]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}"
+  [expandedRowKeys]="expandedRows"
+  >
 
 
   <!-- Encabezado de la tabla -->
   <ng-template pTemplate="caption" >
-    <h1 style=" width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">EQUIPOS</h1>
+    <h1 style=" width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">AREAS</h1>
     <p-iconField iconPosition="left" [style]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'} " >
       <p-inputIcon>
         <i class="pi pi-search"></i>
       </p-inputIcon>
-      <input (onDebounce)="search(txtInput.value)" (onValue)="search(txtInput.value)" (keyup)="onKeyPress(txtInput.value)" #txtInput pInputText type="text" style="margin-right: 2%;" placeholder="Global Search" />
+      <input pInputText type="text" style="margin-right: 2%;" placeholder="Global Search" />
       <th style=" width: 80%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
         <button class="btn btn-outline-success tabla" type="submit" [routerLink]="['nuevo-equipo']">Agregar</button>
       </th>
     </p-iconField>
-  </ng-template>
 
-  <!-- Cuerpo de la tabla -->
+    <div class="flex flex-wrap justify-content-end gap-2">
+      <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
+      <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
+  </div>
+
+  </ng-template>
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="id" style="width:25%" >Id <p-sortIcon field="id"/></th>
@@ -34,8 +40,12 @@
     </tr>
   </ng-template>
 
-  <ng-template pTemplate="body" let-equipo>
+<!-- Cuerpo de la tabla -->
+  <ng-template pTemplate="body" let-equipo let-expanded="expanded">
     <tr [pSelectableRow]="equipo">
+      <td>
+        <p-button type="button" pRipple [pRowToggler]="equipo" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+      </td>
       <td ><span class="p-column-title" >Id</span>{{ equipo.id }}</td>
       <td ><span class="p-column-title" >Nombre</span><span class="ml-1 vertical-align-middle">{{ equipo.name }}</span></td>
       <td ><button class="btn btn-outline-dark" style="margin-left: 55%;" type="submit"  >Detalles</button></td>
@@ -54,11 +64,40 @@
           </div></td>
     </tr>
   </ng-template>
-  <ng-template pTemplate="emptymessage">
+  <ng-template pTemplate="rowexpansion" let-quipo>
     <tr>
-      <td colspan="4" > No customers found.</td>
+        <td colspan="7">
+            <div class="p-3">
+                <p-table  dataKey="id">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="id">a <p-sortIcon field="price" /></th>
+                            <th pSortableColumn="customer">A <p-sortIcon field="customer" /></th>
+                            <th pSortableColumn="date">A <p-sortIcon field="date" /></th>
+                            <th pSortableColumn="amount">A <p-sortIcon field="amount" /></th>
+                            <th style="width: 4rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-order>
+                        <tr>
+                            <td>A</td>
+                            <td>A</td>
+                            <td>A</td>
+                            <td>A</td>
+                            <td>A</td>
+                            <td><p-button type="button" icon="pi pi-search" /></td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="6">There are no order for this product yet.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </td>
     </tr>
-  </ng-template>
+</ng-template>
 </p-table>
 
 
@@ -66,18 +105,13 @@
 <p-dialog
   [(visible)]="equipoDialog"
   [style]="{ width: '450px' }"
-  header="Detalles del equipo"
+  header="Equip Details"
   [modal]="true"
   styleClass="p-fluid">
 
   <ng-template pTemplate="content">
-
     <div class="field">
-      <div style="display: flex;justify-content: space-between; font-weight: bold;">
-        <label for="name">Nombre</label>
-        <label  >Id {{equipo.id}}</label>
-
-    </div>
+      <label for="name">Name</label>
       <input
         type="text"
         pInputText
@@ -85,40 +119,27 @@
         [(ngModel)]="equipo.name"
         required
         autofocus />
+      <small class="p-error" *ngIf="submitted && !equipo.name">Name is required.</small>
     </div>
-
     <div class="field">
-      <label style="font-weight: bold;" for="deviceType">Tipo</label>
-      <input
-      disabled="content"
-        type="text"
-        pInputText
-        id="name"
-        [(ngModel)]="equipo.deviceType"
-        required
-        autofocus />
+      <label class="mb-3">Category</label>
+        <div class="formgrid grid"></div>
     </div>
-
-    <div class="field">
-      <label style="font-weight: bold;" for="name">Numero de puertos</label>
-      <input
-        type="text"
-        pInputText
-        id="name"
-        [(ngModel)]="equipo.numberOfPorts"
-        required
-        autofocus />
-    </div>
-
-    <div *ngIf="equipo.deviceType === 'switch'" style="display: flex;justify-content: space-between;" class="field">
-      <label style="font-weight: bold;" for="name">Poe: {{ poeText }}</label>
-      <label style="font-weight: bold;" for="name" >Administrable: {{ manageableText }}</label>
-    </div>
-
-    <div *ngIf="equipo.deviceType === 'endDevices'" style="display: flex;justify-content: space-between;" class="field">
-      <label for="name">Area: {{ equipo.area }}</label>
-    </div>
-
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      [text]="true"
+      (click)="hideDialog()" />
+    <p-button
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      [text]="true"
+      (click)="saveEquip()" />
   </ng-template>
 </p-dialog>
 
+    <!-- <p-confirmDialog [style]="{ width: '450px' }" /> -->

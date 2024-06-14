@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { User } from '../../interfaces/user.interfaces';
 import { ValidatorsService } from '../../services/validators.service';
+import { EmailValidator } from '../../validators/email-validators.service';
 
 @Component({
   selector: 'app-register-page',
@@ -11,8 +12,10 @@ import { ValidatorsService } from '../../services/validators.service';
 })
 export class RegisterPageComponent {
 
-  constructor (private fb:FormBuilder,
-    private validatorsServices: ValidatorsService
+  constructor (
+    private fb:FormBuilder,
+    private validatorsServices: ValidatorsService,
+    private emailValidator: EmailValidator
   ){}
 
   @Output()
@@ -20,6 +23,7 @@ export class RegisterPageComponent {
 
 
   async registrar():Promise<void>{
+    if(!this.registerForm.value) return;
     const { value: accept } = await Swal.fire({
       title: "Terminos y condiciones",
       input: "checkbox",
@@ -43,8 +47,8 @@ export class RegisterPageComponent {
 
 
   public registerForm:FormGroup = this.fb.group({
-    user: ['', [Validators.required, , this.validatorsServices.cantBeStrider, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.pattern(this.validatorsServices.emailPattern)]],
+    user: ['', [Validators.required, Validators.pattern(this.validatorsServices.firstNameAndLastnamePattern)]],
+    email: ['', [Validators.required, Validators.pattern(this.validatorsServices.emailPattern)], [this.emailValidator]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     password2: ['', [Validators.required]],
   })
@@ -54,21 +58,8 @@ export class RegisterPageComponent {
   }
 
   onSubmit(){
-    this.registerForm.markAllAsTouched
+    this.registerForm.markAllAsTouched();
   }
 
-
-  // get userControl(): FormControl{
-  //   return this.registerForm.get('user') as FormControl
-  // }
-  // get emailControl(): FormControl{
-  //   return this.registerForm.get('email') as FormControl
-  // }
-  // get passwordControl(): FormControl{
-  //   return this.registerForm.get('password') as FormControl
-  // }
-  // get passwordControl2(): FormControl{
-  //   return this.registerForm.get('password2') as FormControl
-  // }
 
 }

@@ -45,27 +45,20 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
     console.log(id,deviceType)
     return this.http.delete<void>(`${this.baseUrl}/Devices/${deviceType}/${id}`);
   }
-  // deleteSwitch(id: string,deviceType:string): Observable<void>  {
-  //   console.log(id,deviceType)
-  //   return this.http.delete<void>(`${this.baseUrl}/Devices/${deviceType}/${id}`);
-  // }
-  // deleteRouter(id: string): Observable<void> {
-  //   return this.http.delete<void>(`${this.baseUrl}/Devices/routers/${id}`);
-  // }
-  // deletePatch(id: string): Observable<void> {
-  //   return this.http.delete<void>(`${this.baseUrl}/patchPanel/${id}`);
-  // }
-  // deleteEnd(id: string): Observable<void> {
-  //   return this.http.delete<void>(`${this.baseUrl}/endDevice/id/${id}`);
-  // }
 
-  // updateEquipo(id: string): Observable<void> {
-  //   return this.http.put<void>(`${this.baseUrl}/patchPanel/id/${id}`);
-  // }
 
+  getEquipo(id: string,deviceType:string): Observable<void> {
+    console.log(id,deviceType)
+    return this.http.get<void>(`${this.baseUrl}/Devices/${deviceType}/${id}`);
+  }
   getDeviceNamesByType(type: string): Observable<string[]> {
     return this.http.get<string[]>(`${this.baseUrl}/devices/`);
   }
-}
 
+  serarchDevices(term:string):Observable<Dispositivo[]> {
+    return this.http.get<Dispositivo[]>(`${this.baseUrl}/Devices`, {
+      params: { q: term }
+    });
+  }
+}
 
