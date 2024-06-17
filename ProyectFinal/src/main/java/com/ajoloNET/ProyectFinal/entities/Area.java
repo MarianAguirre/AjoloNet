@@ -1,6 +1,8 @@
 package com.ajoloNET.ProyectFinal.entities;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -19,6 +21,16 @@ public class Area {
     @OneToMany(mappedBy = "area", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<EndDevice> endDevices;
+
+    public Area() {
+        // Constructor por defecto
+    }
+
+    @JsonCreator
+    public Area(@JsonProperty("name") String name) {
+        this.name = name;
+    }
+
 
 
     //Getters and Setters

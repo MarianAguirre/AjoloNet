@@ -1,8 +1,10 @@
 package com.ajoloNET.ProyectFinal.services;
 
+import com.ajoloNET.ProyectFinal.entities.Area;
 import com.ajoloNET.ProyectFinal.entities.EndDevice;
 import com.ajoloNET.ProyectFinal.entities.Port;
 import com.ajoloNET.ProyectFinal.entities.Router;
+import com.ajoloNET.ProyectFinal.repositories.AreaRepository;
 import com.ajoloNET.ProyectFinal.repositories.EndDeviceRepository;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import jakarta.transaction.Transactional;
@@ -19,7 +21,7 @@ import java.util.*;
 public class EndDeviceServiceImpl implements EndDeviceService{
 
     private final EndDeviceRepository endDeviceRepository;
-
+    private final AreaRepository areaRepository;
     private final PortRepository portRepository;
 
     @Override
@@ -37,29 +39,45 @@ public class EndDeviceServiceImpl implements EndDeviceService{
     @Override
     public EndDevice create(EndDevice endDevice) {
         endDevice.setDeviceType("end-device");
-        EndDevice savedEndDevice = this.endDeviceRepository.save(endDevice);
+        if (endDevice.getAreaName() != null) {
+            Area area = areaRepository.findByName(endDevice.getAreaName())
+                    .orElseThrow(() -> new NoSuchElementException("Area not found"));
+            endDevice.setArea(area);
+        }
 
-        // Crea los puertos para el router
-        createPortsForEndDevice(endDevice);
+        // Guardar el EndDevice inicialmente
+        EndDevice savedEndDevice = endDeviceRepository.save(endDevice);
 
-        // Guarda nuevamente el router con los puertos (opcional)
-        return this.endDeviceRepository.save(savedEndDevice);
+        // Crear los puertos para el EndDevice
+        createPortsForEndDevice(savedEndDevice);
+
+        // Guardar nuevamente el EndDevice con los puertos
+        return endDeviceRepository.save(savedEndDevice);
     }
 
     @Override
     public EndDevice update(EndDevice endDevice, String name) {
         var enDeviceToUpdate = this.endDeviceRepository.findByName(name)
                 .orElseThrow(()->new NoSuchElementException("End Device not found"));
-        enDeviceToUpdate.setId(endDevice.getId());
         enDeviceToUpdate.setName(endDevice.getName());
         enDeviceToUpdate.setPorts(endDevice.getPorts());
-        enDeviceToUpdate.setArea(endDevice.getArea());
         enDeviceToUpdate.setNumberOfPorts(endDevice.getNumberOfPorts());
 
+        if (endDevice.getAreaName() != null) {
+            Area area = areaRepository.findByName(endDevice.getAreaName())
+                    .orElseThrow(() -> new NoSuchElementException("Area not found"));
+            enDeviceToUpdate.setArea(area);
+        } else {
+            enDeviceToUpdate.setArea(null); // Limpiar la asociación si areaName es null
+        }
         // Actualiza los puertos del router según el número de puertos
         updatePortsForEndDevice(enDeviceToUpdate);
 
-        return this.endDeviceRepository.save(enDeviceToUpdate);
+
+        // Guardar el EndDevice actualizado
+        EndDevice updatedEndDevice = endDeviceRepository.save(enDeviceToUpdate);
+        return updatedEndDevice;
+
     }
 
     @Override
@@ -68,13 +86,22 @@ public class EndDeviceServiceImpl implements EndDeviceService{
                 .orElseThrow(()->new NoSuchElementException("End Device not found"));
         enDeviceToUpdateId.setName(endDevice.getName());
         enDeviceToUpdateId.setPorts(endDevice.getPorts());
-        enDeviceToUpdateId.setArea(endDevice.getArea());
         enDeviceToUpdateId.setNumberOfPorts(endDevice.getNumberOfPorts());
 
         // Actualiza los puertos del router según el número de puertos
         updatePortsForEndDevice(enDeviceToUpdateId);
 
-        return this.endDeviceRepository.save(enDeviceToUpdateId);
+        if (endDevice.getAreaName() != null) {
+            Area area = areaRepository.findByName(endDevice.getAreaName())
+                    .orElseThrow(() -> new NoSuchElementException("Area not found"));
+            enDeviceToUpdateId.setArea(area);
+        } else {
+            enDeviceToUpdateId.setArea(null); // Limpiar la asociación si areaName es null
+        }
+
+        // Guardar el EndDevice actualizado
+        EndDevice updatedEndDevice = endDeviceRepository.save(enDeviceToUpdateId);
+        return updatedEndDevice;
     }
 
     @Override

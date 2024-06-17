@@ -33,6 +33,9 @@ public class EndDevice {
     @Column(name = "device_type", nullable = false)
     private String deviceType = "end-device";
 
+    @Transient
+    private String areaName;
+
 
     //Getters and Setters
     public Long getId() {
@@ -87,5 +90,13 @@ public class EndDevice {
 
     public void setDeviceType(String deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public String getAreaName() {
+        return areaName;
+    }
+
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
 }
