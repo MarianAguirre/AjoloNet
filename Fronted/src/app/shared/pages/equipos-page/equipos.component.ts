@@ -1,32 +1,33 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
 import { enavironments } from '../../../../environments/envarionments';
 import Swal from 'sweetalert2';
-import { debounceTime, Subject, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'shared-equipos-pages',
   templateUrl: './equipos.component.html',
   styleUrl: './equipos.component.css'
 })
-export class EquiposComponent implements OnInit, OnDestroy {
-  dispositivos: Dispositivo[] = [];
-  routers: Dispositivo[] = [];
-  switches: Dispositivo[] = [];
-  patchPanels: Dispositivo[] = [];
-  endDevices: Dispositivo[] = [];
-  baseUrl: string = enavironments.baseUrl;
+export class EquiposComponent implements OnInit{
 
+  constructor(private equiposServices: EquiposServices, private http: HttpClient) {}
 
+  public dispositivos: Dispositivo[] = [];
+  public routers: Dispositivo[] = [];
+  public switches: Dispositivo[] = [];
+  public patchPanels: Dispositivo[] = [];
+  public endDevices: Dispositivo[] = [];
+  public equipos!: Dispositivo[];
+  public baseUrl: string = enavironments.baseUrl;
 
   @Input()
   public equipo!: Dispositivo;
 
-  public equipos!: Dispositivo[];
 
-  constructor(private equiposServices: EquiposServices, private http: HttpClient) {}
+
 
   ngOnInit(): void {
     this.equiposServices.getDevices().subscribe((data: any) => {
@@ -41,14 +42,6 @@ export class EquiposComponent implements OnInit, OnDestroy {
         console.error('Error: data is not an object', data);
       }
     });
-
-    this.debouncerSuscription = this.debouncer
-    .pipe(
-      debounceTime(300)
-    )
-    .subscribe(value =>{
-      this.onDebounce.emit(value)
-    })
   }
 
   equipoDialog: boolean = false;
@@ -127,49 +120,4 @@ export class EquiposComponent implements OnInit, OnDestroy {
   }
 
 
-  onKeyPress(searchTerm:string){
-    this.debouncer.next(searchTerm)
-  }
-  private debouncer: Subject<string> = new Subject<string>();
-
-  private debouncerSuscription?: Subscription;
-
-
-  @Input()
-  public placeholder: string = '';
-
-  @Output()
-  public onValue = new EventEmitter<string>();
-
-  @Output()
-  public onDebounce = new EventEmitter<string>();
-
-
-  ngOnDestroy():void{
-    this.debouncerSuscription?.unsubscribe();
-  }
-
-  emitValue( value: string ):void {
-    this.onValue.emit( value );
-  }
-
-  search(term:string):void{
-    if (term.length === 0) {
-      this.equiposServices.getDevices().subscribe((data: any) => {
-        if (data && typeof data === 'object') {
-          this.routers = data.routers || [];
-          this.switches = data.switches || [];
-          this.patchPanels = data.patchPanels || [];
-          this.endDevices = data.endDevices || [];
-          this.dispositivos = [...this.routers, ...this.switches, ...this.patchPanels, ...this.endDevices];
-        } else {
-          console.error('Error: data is not an object', data);
-        }
-      });
-      return;
-  }
-  this.equiposServices.serarchDevices(term).subscribe((resp: Dispositivo[]) => {
-    this.dispositivos = resp;
-  });
-}
 }

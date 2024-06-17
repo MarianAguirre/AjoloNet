@@ -1,11 +1,4 @@
 <div class="d-flex" role="search">
-  <input
-  class="form-control me-2"
-  [placeholder]="placeholder"
-  (keyup)="onKeyPress(txtInput.value)"
-  #txtInput
-  >
-  <button class="btn btn-outline-success" type="submit" (click)="emitValue(txtInput.value)">Search</button>
   <span>{{user?.email}}</span>
   <button class="btn btn-outline-danger" (click)="onLogout()" style="margin-left: 5px;" >Salir</button>
 </div>

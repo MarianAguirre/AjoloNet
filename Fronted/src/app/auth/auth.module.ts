@@ -4,7 +4,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { MaterialModule } from '../material/material.module';
+import { MaterialModule } from '../modulos/material/material.module';
 import { DarkModeModule } from '../shared/components/dark-mode/dark-mode.module';
 import { ReactiveFormsModule } from '@angular/forms';
 

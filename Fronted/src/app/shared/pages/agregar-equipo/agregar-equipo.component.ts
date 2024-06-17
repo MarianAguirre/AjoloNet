@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
 import Swal from 'sweetalert2'
 import { HttpClient } from '@angular/common/http';
 import { enavironments } from '../../../../environments/envarionments';
+import { EquiposServices } from '../../services/equipos.service';
 
 
 @Component({
@@ -11,9 +12,9 @@ import { enavironments } from '../../../../environments/envarionments';
   templateUrl: './agregar-equipo.component.html',
   styleUrl: './agregar-equipo.component.css'
 })
-export class AgregarEquipoComponent{
+export class AgregarEquipoComponent implements OnInit{
 
-  constructor(private router: Router, private http:HttpClient) { }
+  constructor(private router: Router, private http:HttpClient, private equiposServices:EquiposServices) { }
 
   @Output()
   public newEquip: EventEmitter<Dispositivo> = new EventEmitter
@@ -27,16 +28,16 @@ export class AgregarEquipoComponent{
     numberOfPorts: 0,
     poe: false,
     manageable: false,
-    area: ''
+    areaName: ''
   }
 
 
   emitEquip():void{
-    if (!this.opciones.includes(this.equipo.deviceType)) {
+    if (!this.opciones.includes(this.equipo.deviceType) ) {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Falta el nombre o el tipo",
+        title: "Faltan datos",
         showConfirmButton: false,
         timer: 1000
       });
@@ -46,7 +47,7 @@ export class AgregarEquipoComponent{
 
     console.log(this.equipo);
     this.newEquip.emit(this.equipo)
-    this.equipo = {name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, area: ''}
+    this.equipo = {name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: ''}
 
     Swal.fire({
       position: "center",
@@ -72,11 +73,6 @@ export class AgregarEquipoComponent{
     'Patch Panel'
   ]
 
-  public areas:string[]=[
-    'Sistemas',
-    'Baño',
-    'Cocina'
-  ]
 
   newRouter():void{
     if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.deviceType)) return;
@@ -93,7 +89,7 @@ export class AgregarEquipoComponent{
     )
   }
   newDispositivo():void{
-    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.deviceType) || this.areas.includes(this.equipo.area)) return;
+    if (this.equipo.name.length === 0 ) return;
     this.http.post<Dispositivo>(`${this.baseUrl}/endDevice`, this.equipo).subscribe(
       (data) =>{
       }
@@ -107,9 +103,13 @@ export class AgregarEquipoComponent{
     )
   }
 
+  public areas: string[] = [];
 
-
-
+  ngOnInit(): void {
+    this.equiposServices.getArea().subscribe((areas: string[]) => {
+      this.areas = areas;
+    });
+  }
 
   }
 

@@ -34,7 +34,7 @@ export class ConectionPageComponent implements OnInit{
     numberOfPorts: 0,
     poe: false,
     manageable: false,
-    area: ''
+    areaName: ''
   }
 
 
@@ -53,7 +53,7 @@ export class ConectionPageComponent implements OnInit{
 
     console.log(this.equipo);
     this.newEquip.emit(this.equipo)
-    this.equipo = { id:uuid(), name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, area: ''}
+    this.equipo = { id:uuid(), name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: ''}
 
     Swal.fire({
       position: "center",

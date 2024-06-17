@@ -6,7 +6,7 @@ export interface Dispositivo {
   numberOfPorts?: number;
   poe?: boolean;
   manageable?: boolean;
-  area: string;
+  areaName: string;
 
 }
 

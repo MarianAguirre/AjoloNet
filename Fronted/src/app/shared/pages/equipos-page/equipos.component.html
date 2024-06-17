@@ -15,10 +15,10 @@
   <ng-template pTemplate="caption" >
     <h1 style=" width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">EQUIPOS</h1>
     <p-iconField iconPosition="left" [style]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'} " >
-      <p-inputIcon>
+      <!-- <p-inputIcon>
         <i class="pi pi-search"></i>
-      </p-inputIcon>
-      <input (onDebounce)="search(txtInput.value)" (onValue)="search(txtInput.value)" (keyup)="onKeyPress(txtInput.value)" #txtInput pInputText type="text" style="margin-right: 2%;" placeholder="Global Search" />
+      </p-inputIcon> -->
+      <!-- <input pInputText type="text" style="margin-right: 2%;" placeholder="Global Search" /> -->
       <th style=" width: 80%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
         <button class="btn btn-outline-success tabla" type="submit" [routerLink]="['nuevo-equipo']">Agregar</button>
       </th>
@@ -63,62 +63,40 @@
 
 
 <!-- Boton de detalles -->
-<p-dialog
-  [(visible)]="equipoDialog"
-  [style]="{ width: '450px' }"
-  header="Detalles del equipo"
-  [modal]="true"
-  styleClass="p-fluid">
+<p-dialog [(visible)]="equipoDialog" [style]="{ width: '450px' }" header="Detalles del equipo" [modal]="true" styleClass="p-fluid">
 
   <ng-template pTemplate="content">
-
+    <!-- Nombre -->
     <div class="field">
       <div style="display: flex;justify-content: space-between; font-weight: bold;">
         <label for="name">Nombre</label>
         <label  >Id {{equipo.id}}</label>
-
-    </div>
-      <input
-        type="text"
-        pInputText
-        id="name"
-        [(ngModel)]="equipo.name"
-        required
-        autofocus />
+      </div>
+      <input type="text" pInputText id="name" [(ngModel)]="equipo.name" required autofocus />
     </div>
 
+    <!-- Tipo -->
     <div class="field">
       <label style="font-weight: bold;" for="deviceType">Tipo</label>
-      <input
-      disabled="content"
-        type="text"
-        pInputText
-        id="name"
-        [(ngModel)]="equipo.deviceType"
-        required
-        autofocus />
+      <input disabled="content" type="text" pInputText id="name" [(ngModel)]="equipo.deviceType" required autofocus />
     </div>
 
+    <!-- Numero de puertos -->
     <div class="field">
       <label style="font-weight: bold;" for="name">Numero de puertos</label>
-      <input
-        type="text"
-        pInputText
-        id="name"
-        [(ngModel)]="equipo.numberOfPorts"
-        required
-        autofocus />
+      <input type="text" pInputText id="name" [(ngModel)]="equipo.numberOfPorts" required autofocus />
     </div>
 
+    <!-- Datos extra para el Router -->
     <div *ngIf="equipo.deviceType === 'switch'" style="display: flex;justify-content: space-between;" class="field">
       <label style="font-weight: bold;" for="name">Poe: {{ poeText }}</label>
       <label style="font-weight: bold;" for="name" >Administrable: {{ manageableText }}</label>
     </div>
 
+    <!-- Datos extra para los End Devices -->
     <div *ngIf="equipo.deviceType === 'endDevices'" style="display: flex;justify-content: space-between;" class="field">
-      <label for="name">Area: {{ equipo.area }}</label>
+      <button class="btn btn-outline-success tabla" style="display: flex; justify-content: center;" type="submit" [routerLink]="['areas']">Areas</button>
     </div>
 
   </ng-template>
 </p-dialog>
-

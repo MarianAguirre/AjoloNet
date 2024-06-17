@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ButtonModule } from 'primeng/button';
-import { TreeTableModule } from 'primeng/treetable';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { SharedModule } from './shared/shared.module';
+
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
@@ -24,7 +24,7 @@ import { MdbScrollspyModule } from 'mdb-angular-ui-kit/scrollspy';
 import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -35,13 +35,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    SharedModule,
+    BrowserModule,
     FormsModule,
     HttpClientModule,
-    ButtonModule,
-    TreeTableModule,
     MdbAccordionModule,
     MdbCarouselModule,
     MdbCheckboxModule,
@@ -58,6 +55,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     MdbTooltipModule,
     MdbValidationModule,
     NoopAnimationsModule,
+    SharedModule,
 
 
 

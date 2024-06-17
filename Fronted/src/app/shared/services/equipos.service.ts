@@ -55,10 +55,14 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
     return this.http.get<string[]>(`${this.baseUrl}/devices/`);
   }
 
-  serarchDevices(term:string):Observable<Dispositivo[]> {
-    return this.http.get<Dispositivo[]>(`${this.baseUrl}/Devices`, {
-      params: { q: term }
-    });
+  getArea(): Observable<string[]> {
+    return this.http.get<{ name: string }[]>(`${this.baseUrl}/area`).pipe(
+      map(areas => areas.map(area => area.name)),
+      catchError(error => {
+        console.error('Error fetching areas', error);
+        return of([]);
+      })
+    );
   }
 }
 
