@@ -42,7 +42,6 @@ public class PortConnectionServiceImpl implements PortConnectionService{
 
         return portConnectionRepository.save(connection);
     }
-
     @Override
     public PortConnection update(PortConnection portConnection, Long id) {
         PortConnection existingConnection = portConnectionRepository.findById(id)
