@@ -51,7 +51,7 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
     console.log(id,deviceType)
     return this.http.get<void>(`${this.baseUrl}/Devices/${deviceType}/${id}`);
   }
-  getDeviceNamesByType(type: string): Observable<string[]> {
+  getDeviceNamesByType(): Observable<string[]> {
     return this.http.get<string[]>(`${this.baseUrl}/devices/`);
   }
 
@@ -60,6 +60,25 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
       map(areas => areas.map(area => area.name)),
       catchError(error => {
         console.error('Error fetching areas', error);
+        return of([]);
+      })
+    );
+  }
+
+  getNombresRouters():Observable<string[]> {
+    return this.http.get<{ name: string }[]>(`${this.baseUrl}/router`).pipe(
+      map(routers => routers.map(router => router.name)),
+      catchError(error => {
+        console.error('Error fetching routers', error);
+        return of([]);
+      })
+    );
+  }
+  getTipos():Observable<string[]> {
+    return this.http.get<{ name: string }[]>(`${this.baseUrl}/Devices`).pipe(
+      map(tipos => tipos.map(tipo => tipo.name)),
+      catchError(error => {
+        console.error('Error fetching tipos', error);
         return of([]);
       })
     );

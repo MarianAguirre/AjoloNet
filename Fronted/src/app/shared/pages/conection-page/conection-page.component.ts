@@ -16,10 +16,13 @@ export class ConectionPageComponent implements OnInit{
   constructor(private router: Router, private equiposServices: EquiposServices, private http: HttpClient) { }
   baseUrl: string = enavironments.baseUrl;
 
-
+  public routers: string[] = [];
 
   ngOnInit(): void {
 
+    this.equiposServices.getNombresRouters().subscribe((routers: string[]) => {
+      this.routers = routers;
+    });
   }
 
   @Output()
@@ -79,11 +82,6 @@ export class ConectionPageComponent implements OnInit{
 
   ]
 
-  onTypeChange() {
-    this.equiposServices.getDeviceNamesByType(this.equipo.deviceType).subscribe((names: string[]) => {
-      this.nombres = names;
-    });
-  }
 
 
   }

@@ -21,14 +21,17 @@ export class EquiposComponent implements OnInit{
   public patchPanels: Dispositivo[] = [];
   public endDevices: Dispositivo[] = [];
   public equipos!: Dispositivo[];
+  public equipoDialog: boolean = false;
+  public selectedEquipos!: Dispositivo[] | null;
+  public submitted: boolean = false;
+  public statuses!: any[];
   public baseUrl: string = enavironments.baseUrl;
+
 
   @Input()
   public equipo!: Dispositivo;
 
-
-
-
+  // Obtiene los dispositivos por tipo que existan y lo lista en la tabla
   ngOnInit(): void {
     this.equiposServices.getDevices().subscribe((data: any) => {
       console.log(data)
@@ -44,19 +47,16 @@ export class EquiposComponent implements OnInit{
     });
   }
 
-  equipoDialog: boolean = false;
-  selectedEquipos!: Dispositivo[] | null;
-  submitted: boolean = false;
-  statuses!: any[];
-
-  editProduct(equipo: Dispositivo): void {
-    this.equipo = { ...equipo };
-    this.equipoDialog = true;
-    this.equiposServices.getEquipo
-    console.log(this.equipo.name);
+  // Transforma los datos booleanos del poe o el administrable y los transforma en si o no para visualizarlo en detalles
+  get poeText(): string {
+    return this.equipo.poe ? 'Sí' : 'No';
+  }
+  get manageableText(): string {
+    return this.equipo.manageable ? 'Sí' : 'No';
   }
 
 
+  // Funcion que elimina un equipo
   deleteDevices(equipo: Dispositivo): void {
     if (!equipo.id) {
       Swal.fire(
@@ -77,46 +77,34 @@ export class EquiposComponent implements OnInit{
       confirmButtonText: 'Sí, eliminarlo'
     }).then((result) => {
       if (result.isConfirmed) {{
-          this.equiposServices.deleteEquipo(equipo.id!, equipo.deviceType).subscribe(
-            () => {
-              this.dispositivos = this.dispositivos.filter(d => d.id !== equipo.id);
-              Swal.fire(
-                'Eliminado!',
-                'El equipo ha sido eliminado.',
-                'success'
+        this.equiposServices.deleteEquipo(equipo.id!, equipo.deviceType).subscribe(
+          () => {
+            this.dispositivos = this.dispositivos.filter(d => d.id !== equipo.id);
+            Swal.fire(
+              'Eliminado!',
+              'El equipo ha sido eliminado.',
+              'success'
               );
             },
             (error:any) => {
-              Swal.fire(
-                'Error',
-                'Hubo un problema al eliminar el equipo.',
-                'error'
-              );
-            }
-          );
-        }
+            Swal.fire(
+              'Error',
+              'Hubo un problema al eliminar el equipo.',
+              'error'
+            );
+          }
+        );}
       }
-
     });
   }
 
+  // Hace que los detalles se muestren
 
-
-  hideDialog(): void {
-    this.equipoDialog = false;
-    this.submitted = false;
-  }
-
-  detaillsEquip(): void {
+  editProduct(equipo: Dispositivo): void {
+    this.equipo = { ...equipo };
+    this.equipoDialog = true;
     this.equiposServices.getEquipo
-  }
-
-
-  get poeText(): string {
-    return this.equipo.poe ? 'Sí' : 'No';
-  }
-  get manageableText(): string {
-    return this.equipo.manageable ? 'Sí' : 'No';
+    console.log(this.equipo.name);
   }
 
 

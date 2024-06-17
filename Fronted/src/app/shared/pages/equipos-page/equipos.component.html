@@ -87,15 +87,15 @@
       <input type="text" pInputText id="name" [(ngModel)]="equipo.numberOfPorts" required autofocus />
     </div>
 
-    <!-- Datos extra para el Router -->
+    <!-- Datos extra para el Switch -->
     <div *ngIf="equipo.deviceType === 'switch'" style="display: flex;justify-content: space-between;" class="field">
       <label style="font-weight: bold;" for="name">Poe: {{ poeText }}</label>
       <label style="font-weight: bold;" for="name" >Administrable: {{ manageableText }}</label>
     </div>
 
     <!-- Datos extra para los End Devices -->
-    <div *ngIf="equipo.deviceType === 'endDevices'" style="display: flex;justify-content: space-between;" class="field">
-      <button class="btn btn-outline-success tabla" style="display: flex; justify-content: center;" type="submit" [routerLink]="['areas']">Areas</button>
+    <div *ngIf="equipo.deviceType === 'end-device'" style="display: flex;justify-content: space-between;" class="field">
+      <button class="btn btn-outline-secondary tabla" style="display: flex; justify-content: center;" type="submit" [routerLink]="['areas']">Areas</button>
     </div>
 
   </ng-template>

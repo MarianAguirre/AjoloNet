@@ -14,13 +14,7 @@ import { EquiposServices } from '../../services/equipos.service';
 })
 export class AgregarEquipoComponent implements OnInit{
 
-  constructor(private router: Router, private http:HttpClient, private equiposServices:EquiposServices) { }
-
-  @Output()
-  public newEquip: EventEmitter<Dispositivo> = new EventEmitter
-
-  baseUrl = enavironments.baseUrl
-
+  constructor(private router: Router, private http:HttpClient, private equiposServices:EquiposServices) {}
 
   public equipo:Dispositivo ={
     name: '',
@@ -30,10 +24,21 @@ export class AgregarEquipoComponent implements OnInit{
     manageable: false,
     areaName: ''
   }
+  public areas: string[] = [];
+  public baseUrl = enavironments.baseUrl;
+  public opciones:string[] = [
+    'Switch',
+    'Router',
+    'Dispositivo final',
+    'Patch Panel'
+  ]
 
+  @Output()
+  public newEquip: EventEmitter<Dispositivo> = new EventEmitter
 
+  // Envia los datos al backend
   emitEquip():void{
-    if (!this.opciones.includes(this.equipo.deviceType) ) {
+    if (!this.opciones.includes(this.equipo.deviceType) || this.equipo.numberOfPorts === 0 ) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -43,12 +48,9 @@ export class AgregarEquipoComponent implements OnInit{
       });
       return;
     }
-
-
     console.log(this.equipo);
     this.newEquip.emit(this.equipo)
     this.equipo = {name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: ''}
-
     Swal.fire({
       position: "center",
       icon: "success",
@@ -58,6 +60,7 @@ export class AgregarEquipoComponent implements OnInit{
     });
   }
 
+  // Botones para ir a la tabla y a las conexiones
   goBack() {
     this.router.navigate(['red/equipos']);
   }
@@ -66,45 +69,38 @@ export class AgregarEquipoComponent implements OnInit{
   }
 
 
-  public opciones:string[] = [
-    'Switch',
-    'Router',
-    'Dispositivo final',
-    'Patch Panel'
-  ]
-
-
+  // Funciones para agregar nuevos equipos dependiendo del tipo
   newRouter():void{
-    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.deviceType)) return;
+    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.deviceType) ||  this.equipo.numberOfPorts === 0) return;
     this.http.post<Dispositivo>(`${this.baseUrl}/router`, this.equipo).subscribe(
       (data) =>{
       }
     )
   }
   newSwitch():void{
-    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.deviceType)) return;
+    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.deviceType) ||  this.equipo.numberOfPorts === 0) return;
     this.http.post<Dispositivo>(`${this.baseUrl}/switch`, this.equipo).subscribe(
       (data) =>{
       }
     )
   }
   newDispositivo():void{
-    if (this.equipo.name.length === 0 ) return;
+    if (this.equipo.name.length === 0 || this.equipo.numberOfPorts === 0) return;
     this.http.post<Dispositivo>(`${this.baseUrl}/endDevice`, this.equipo).subscribe(
       (data) =>{
       }
     )
   }
   newPatch():void{
-    if (!this.opciones.includes(this.equipo.deviceType)) return;
+    if (this.equipo.numberOfPorts === 0) return;
     this.http.post<Dispositivo>(`${this.baseUrl}/patchPanel`, this.equipo).subscribe(
       (data) =>{
       }
     )
   }
 
-  public areas: string[] = [];
 
+  // Obtiene las areas y las relfeja en el select de areas
   ngOnInit(): void {
     this.equiposServices.getArea().subscribe((areas: string[]) => {
       this.areas = areas;

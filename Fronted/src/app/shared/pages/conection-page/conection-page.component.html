@@ -5,14 +5,14 @@
     <form (ngSubmit)="emitEquip()"  >
       <p>Tipo de equipo</p>
       <select class="mb-2" required
-          [(ngModel)]="equipo.deviceType" name="select" (change)="onTypeChange()">
+          [(ngModel)]="equipo.deviceType" name="select">
         <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
       </select>
 
       <p>Nombre del equipo</p>
       <select class="mb-2" required
-          [(ngModel)]="equipo.deviceType" name="select">
-        <option *ngFor="let nombre of nombres" [value]="nombre">{{nombre}}</option>
+          [(ngModel)]="equipo.name" name="select">
+        <option *ngFor="let router of routers" [value]="router">{{router}}</option>
       </select>
       <button type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;">Guardar</button>
     </form>
