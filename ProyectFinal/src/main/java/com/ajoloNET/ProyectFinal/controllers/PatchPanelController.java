@@ -45,7 +45,7 @@ public class PatchPanelController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PatchPanel> put(@RequestBody PatchPanel patchPanel,
-                                          @RequestBody Long id){
+                                          @PathVariable Long id){
         log.info("PUT: Patch Panel {}", id);
         return ResponseEntity.ok(this.patchPanelService.update(patchPanel, id));
     }

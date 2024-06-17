@@ -2,6 +2,7 @@ package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.EndDevice;
 import com.ajoloNET.ProyectFinal.entities.Port;
+import com.ajoloNET.ProyectFinal.entities.Router;
 import com.ajoloNET.ProyectFinal.repositories.EndDeviceRepository;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import jakarta.transaction.Transactional;
@@ -54,6 +55,10 @@ public class EndDeviceServiceImpl implements EndDeviceService{
         enDeviceToUpdate.setPorts(endDevice.getPorts());
         enDeviceToUpdate.setArea(endDevice.getArea());
         enDeviceToUpdate.setNumberOfPorts(endDevice.getNumberOfPorts());
+
+        // Actualiza los puertos del router según el número de puertos
+        updatePortsForEndDevice(enDeviceToUpdate);
+
         return this.endDeviceRepository.save(enDeviceToUpdate);
     }
 
@@ -65,6 +70,10 @@ public class EndDeviceServiceImpl implements EndDeviceService{
         enDeviceToUpdateId.setPorts(endDevice.getPorts());
         enDeviceToUpdateId.setArea(endDevice.getArea());
         enDeviceToUpdateId.setNumberOfPorts(endDevice.getNumberOfPorts());
+
+        // Actualiza los puertos del router según el número de puertos
+        updatePortsForEndDevice(enDeviceToUpdateId);
+
         return this.endDeviceRepository.save(enDeviceToUpdateId);
     }
 
@@ -100,6 +109,32 @@ public class EndDeviceServiceImpl implements EndDeviceService{
     @Override
     public List<EndDevice> getEverything() {
         return (List<EndDevice>) endDeviceRepository.findAll();
+    }
+
+
+
+
+    private void updatePortsForEndDevice(EndDevice endDevice) {
+        Set<Port> currentPorts = endDevice.getPorts();
+        int desiredNumberOfPorts = endDevice.getNumberOfPorts();
+
+        // Remover puertos en exceso
+        if (currentPorts.size() > desiredNumberOfPorts) {
+            Iterator<Port> iterator = currentPorts.iterator();
+            while (iterator.hasNext() && currentPorts.size() > desiredNumberOfPorts) {
+                Port port = iterator.next();
+                iterator.remove();
+                portRepository.delete(port);
+            }
+        }
+
+        // Añadir puertos adicionales si es necesario
+        for (int i = currentPorts.size() + 1; i <= desiredNumberOfPorts; i++) {
+            Port port = new Port();
+            port.setEndDevice(endDevice);
+            port.setPortNumber(i);
+            currentPorts.add(port);
+        }
     }
 
     /*

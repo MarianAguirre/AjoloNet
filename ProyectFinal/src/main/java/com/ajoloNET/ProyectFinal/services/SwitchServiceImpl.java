@@ -1,6 +1,7 @@
 package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.Port;
+import com.ajoloNET.ProyectFinal.entities.Router;
 import com.ajoloNET.ProyectFinal.entities.Switch;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import com.ajoloNET.ProyectFinal.repositories.SwitchRepository;
@@ -48,13 +49,15 @@ public class SwitchServiceImpl implements SwitchService {
     public Switch update(Switch aSwitch, String name) {
         var switchToUpdate = this.switchRepository.findByName(name)
                 .orElseThrow(()->new NoSuchElementException("Switch not found"));
-        switchToUpdate.setId(aSwitch.getId());
         switchToUpdate.setName(aSwitch.getName());
-        switchToUpdate.setPorts(aSwitch.getPorts());
         switchToUpdate.setNumberOfPorts(aSwitch.getNumberOfPorts());
         switchToUpdate.setRack(aSwitch.getRack());
         switchToUpdate.setPoe(aSwitch.isPoe());
         switchToUpdate.setManageable(aSwitch.isManageable());
+
+        // Actualiza los puertos del switch según el número de puertos
+        updatePortsForSwitch(switchToUpdate);
+
         return this.switchRepository.save(switchToUpdate);
     }
 
@@ -63,10 +66,14 @@ public class SwitchServiceImpl implements SwitchService {
         var switchToUpdateId = this.switchRepository.findById(id)
                 .orElseThrow(()->new NoSuchElementException("Switch not found"));
         switchToUpdateId.setName(aSwitch.getName());
-        switchToUpdateId.setPorts(aSwitch.getPorts());
+        switchToUpdateId.setNumberOfPorts(aSwitch.getNumberOfPorts());
         switchToUpdateId.setRack(aSwitch.getRack());
         switchToUpdateId.setPoe(aSwitch.isPoe());
         switchToUpdateId.setManageable(aSwitch.isManageable());
+
+        // Actualiza los puertos del switch según el número de puertos
+        updatePortsForSwitch(switchToUpdateId);
+
         return this.switchRepository.save(switchToUpdateId);
     }
 
@@ -104,5 +111,34 @@ public class SwitchServiceImpl implements SwitchService {
         return (List<Switch>) switchRepository.findAll();
         
     }
+
+
+
+
+
+    private void updatePortsForSwitch(Switch aSwitch) {
+        Set<Port> currentPorts = aSwitch.getPorts();
+        int desiredNumberOfPorts = aSwitch.getNumberOfPorts();
+
+        // Remover puertos en exceso
+        if (currentPorts.size() > desiredNumberOfPorts) {
+            Iterator<Port> iterator = currentPorts.iterator();
+            while (iterator.hasNext() && currentPorts.size() > desiredNumberOfPorts) {
+                Port port = iterator.next();
+                iterator.remove();
+                portRepository.delete(port);
+            }
+        }
+
+        // Añadir puertos adicionales si es necesario
+        for (int i = currentPorts.size() + 1; i <= desiredNumberOfPorts; i++) {
+            Port port = new Port();
+            port.setsSwitch(aSwitch);
+            port.setPortNumber(i);
+            currentPorts.add(port);
+        }
+    }
+
 }
+
 

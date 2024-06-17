@@ -47,25 +47,31 @@ public class RouterServiceImpl implements RouterService {
 
 
     @Override
+    @Transactional
     public Router update(Router router, String name) {
         var routerToUpdate = this.routerRepository.findByName(name)
                 .orElseThrow(() -> new NoSuchElementException("Router not found"));
         routerToUpdate.setName(router.getName());
-        routerToUpdate.setPorts(router.getPorts());
         routerToUpdate.setNumberOfPorts(router.getNumberOfPorts());
         routerToUpdate.setRack(router.getRack());
+
+        // Actualiza los puertos del router según el número de puertos
+        updatePortsForRouter(routerToUpdate);
 
         return this.routerRepository.save(routerToUpdate);
     }
 
     @Override
+    @Transactional
     public Router updateById(Router router, Long id) {
         var routerUpdateId = this.routerRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Router not found"));
         routerUpdateId.setName(router.getName());
         routerUpdateId.setNumberOfPorts(router.getNumberOfPorts());
-        routerUpdateId.setPorts(router.getPorts());
         routerUpdateId.setRack(router.getRack());
+
+        // Actualiza los puertos del router según el número de puertos
+        updatePortsForRouter(routerUpdateId);
 
         return this.routerRepository.save(routerUpdateId);
     }
@@ -101,6 +107,33 @@ public class RouterServiceImpl implements RouterService {
     @Override
     public List<Router> getEverything() {
         return (List<Router>) routerRepository.findAll();
+    }
+
+
+
+
+
+    private void updatePortsForRouter(Router router) {
+        Set<Port> currentPorts = router.getPorts();
+        int desiredNumberOfPorts = router.getNumberOfPorts();
+
+        // Remover puertos en exceso
+        if (currentPorts.size() > desiredNumberOfPorts) {
+            Iterator<Port> iterator = currentPorts.iterator();
+            while (iterator.hasNext() && currentPorts.size() > desiredNumberOfPorts) {
+                Port port = iterator.next();
+                iterator.remove();
+                portRepository.delete(port);
+            }
+        }
+
+        // Añadir puertos adicionales si es necesario
+        for (int i = currentPorts.size() + 1; i <= desiredNumberOfPorts; i++) {
+            Port port = new Port();
+            port.setRouter(router);
+            port.setPortNumber(i);
+            currentPorts.add(port);
+        }
     }
 
 

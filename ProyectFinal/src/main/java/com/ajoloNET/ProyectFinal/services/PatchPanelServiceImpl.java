@@ -2,6 +2,7 @@ package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.PatchPanel;
 import com.ajoloNET.ProyectFinal.entities.Port;
+import com.ajoloNET.ProyectFinal.entities.Switch;
 import com.ajoloNET.ProyectFinal.repositories.PatchPanelRepository;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import jakarta.transaction.Transactional;
@@ -43,11 +44,15 @@ public class PatchPanelServiceImpl implements PatchPanelService{
 
     @Override
     public PatchPanel update(PatchPanel patchPanel, Long id) {
-        var patchToUpdateById = this.patchPanelRepository.findById(id)
+        var patchPanelToUpdate = this.patchPanelRepository.findById(id)
                 .orElseThrow(()->new NoSuchElementException("Patch Panel not found"));
-        patchToUpdateById.setPorts(patchPanel.getPorts());
-        patchToUpdateById.setRack(patchPanel.getRack());
-        return this.patchPanelRepository.save(patchToUpdateById);
+        patchPanelToUpdate.setNumberOfPorts(patchPanel.getNumberOfPorts());
+        patchPanelToUpdate.setRack(patchPanel.getRack());
+
+        // Actualiza los puertos del patch panel según el número de puertos
+        updatePortsForPatchPanel(patchPanelToUpdate);
+
+        return this.patchPanelRepository.save(patchPanelToUpdate);
     }
 
     @Override
@@ -75,5 +80,29 @@ public class PatchPanelServiceImpl implements PatchPanelService{
     @Override
     public List<PatchPanel> getEverything() {
         return (List<PatchPanel>) patchPanelRepository.findAll();
+    }
+
+
+    private void updatePortsForPatchPanel(PatchPanel patchPanelToUpdate) {
+        Set<Port> currentPorts = patchPanelToUpdate.getPorts();
+        int desiredNumberOfPorts = patchPanelToUpdate.getNumberOfPorts();
+
+        // Remover puertos en exceso
+        if (currentPorts.size() > desiredNumberOfPorts) {
+            Iterator<Port> iterator = currentPorts.iterator();
+            while (iterator.hasNext() && currentPorts.size() > desiredNumberOfPorts) {
+                Port port = iterator.next();
+                iterator.remove();
+                portRepository.delete(port);
+            }
+        }
+
+        // Añadir puertos adicionales si es necesario
+        for (int i = currentPorts.size() + 1; i <= desiredNumberOfPorts; i++) {
+            Port port = new Port();
+            port.setPatchPanel(patchPanelToUpdate);
+            port.setPortNumber(i);
+            currentPorts.add(port);
+        }
     }
 }

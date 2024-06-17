@@ -3,6 +3,7 @@ package com.ajoloNET.ProyectFinal.entities;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,9 +14,9 @@ public class Router {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "router", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "router", cascade = CascadeType.ALL, orphanRemoval = true,  fetch = FetchType.LAZY)
     @JsonManagedReference(value = "router-port")
-    private Set<Port> ports;
+    private Set<Port> ports = new HashSet<>();
 
     @Column(name = "Name_Router")
     private String name;
@@ -46,7 +47,14 @@ public class Router {
     }
 
     public void setPorts(Set<Port> ports) {
-        this.ports = ports;
+        this.ports.clear();
+        if (ports != null) {
+            this.ports.addAll(ports);
+            for (Port port : ports) {
+                port.setRouter(this);
+            }
+        }
+
     }
 
     public String getName() {

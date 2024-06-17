@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,7 +17,7 @@ public class EndDevice {
 
     @OneToMany(mappedBy = "endDevice",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "device-port")
-    private Set<Port> ports;
+    private Set<Port> ports = new HashSet<>();
 
     @Column(name = "Name_Device")
     private String name;
@@ -47,7 +48,13 @@ public class EndDevice {
     }
 
     public void setPorts(Set<Port> ports) {
-        this.ports = ports;
+        this.ports.clear();
+        if (ports != null) {
+            this.ports.addAll(ports);
+            for (Port port : ports) {
+                port.setEndDevice(this);
+            }
+        }
     }
 
     public String getName() {
