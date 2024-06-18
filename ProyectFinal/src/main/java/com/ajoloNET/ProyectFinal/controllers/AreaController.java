@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @RestController
@@ -39,9 +41,14 @@ public class AreaController {
     @PostMapping
     public ResponseEntity<Area> post(@RequestBody Area area){
         log.info("POST: Area {}", area.getName());
+        Area createdArea = this.areaService.crate(area);
+
+        // Codificar el nombre del área para la URI
+        String encodedName = URLEncoder.encode(createdArea.getName(), StandardCharsets.UTF_8);
+
         return ResponseEntity.created(
-                URI.create(this.areaService.crate(area).getName()))
-                .build();
+                        URI.create("/areas/" + encodedName))
+                .body(createdArea);
     }
 
     @PutMapping("/{name}")

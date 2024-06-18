@@ -22,17 +22,6 @@ public class Area {
     @JsonManagedReference
     private Set<EndDevice> endDevices;
 
-    public Area() {
-        // Constructor por defecto
-    }
-
-    @JsonCreator
-    public Area(@JsonProperty("name") String name) {
-        this.name = name;
-    }
-
-
-
     //Getters and Setters
     public Long getId() {
         return id;
