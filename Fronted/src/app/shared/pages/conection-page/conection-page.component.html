@@ -10,9 +10,17 @@
       </select>
 
       <p>Nombre del equipo</p>
-      <select class="mb-2" required
-          [(ngModel)]="equipo.name" name="select">
+      <select *ngIf="equipo.deviceType === 'routers'">
         <option *ngFor="let router of routers" [value]="router">{{router}}</option>
+      </select>
+      <select *ngIf="equipo.deviceType === 'switches'">
+        <option *ngFor="let switch of switches" [value]="switch">{{switch}}</option>
+      </select>
+      <select *ngIf="equipo.deviceType === 'endDevices'">
+        <option *ngFor="let endDevice of endDevices" [value]="endDevice">{{endDevice}}</option>
+      </select>
+      <select *ngIf="equipo.deviceType === 'patchPanels'">
+        <option *ngFor="let patchPanel of patchPanels" [value]="patchPanel">{{patchPanel}}</option>
       </select>
       <button type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;">Guardar</button>
     </form>

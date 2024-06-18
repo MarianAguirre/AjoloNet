@@ -17,13 +17,29 @@ export class ConectionPageComponent implements OnInit{
   baseUrl: string = enavironments.baseUrl;
 
   public routers: string[] = [];
+  public switches: string[] = [];
+  public endDevices: string[] = [];
+  public patchPanels: string[] = [];
 
   ngOnInit(): void {
+    this.equiposServices.getTiposDispositivos().subscribe((tipos: string[]) => {
+      this.opciones = tipos;
+    });
 
     this.equiposServices.getNombresRouters().subscribe((routers: string[]) => {
       this.routers = routers;
     });
+    this.equiposServices.getNombresSwitches().subscribe((switches: string[]) => {
+      this.switches = switches;
+    });
+    this.equiposServices.getNombresEndDevices().subscribe((endDevices: string[]) => {
+      this.endDevices = endDevices;
+    });
+    this.equiposServices.getNombresPatchPanels().subscribe((patchPanels: string[]) => {
+      this.patchPanels = patchPanels;
+    });
   }
+
 
   @Output()
   public newEquip: EventEmitter<Dispositivo> = new EventEmitter
@@ -31,7 +47,6 @@ export class ConectionPageComponent implements OnInit{
 
 
   public equipo:Dispositivo ={
-    id: uuid().replace(/-/g,''),
     name: '',
     deviceType: '',
     numberOfPorts: 0,

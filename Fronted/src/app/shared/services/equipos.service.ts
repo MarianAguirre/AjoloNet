@@ -65,6 +65,18 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
     );
   }
 
+
+
+  getTiposDispositivos(): Observable<string[]> {
+    return this.http.get<{ [key: string]: any }>(`${this.baseUrl}/Devices`).pipe(
+      map(response => Object.keys(response)),
+      catchError(error => {
+        console.error('Error fetching device types', error);
+        return of([]);
+      })
+    );
+  }
+
   getNombresRouters():Observable<string[]> {
     return this.http.get<{ name: string }[]>(`${this.baseUrl}/router`).pipe(
       map(routers => routers.map(router => router.name)),
@@ -74,14 +86,38 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
       })
     );
   }
-  getTipos():Observable<string[]> {
-    return this.http.get<{ name: string }[]>(`${this.baseUrl}/Devices`).pipe(
-      map(tipos => tipos.map(tipo => tipo.name)),
+  getNombresSwitches(): Observable<string[]> {
+    return this.http.get<{ name: string }[]>(`${this.baseUrl}/switch`).pipe(
+      map(switches => switches.map(switchDevice => switchDevice.name)),
       catchError(error => {
-        console.error('Error fetching tipos', error);
+        console.error('Error fetching switches', error);
         return of([]);
       })
     );
+  }
+
+  getNombresEndDevices(): Observable<string[]> {
+    return this.http.get<{ name: string }[]>(`${this.baseUrl}/endDevice`).pipe(
+      map(endDevices => endDevices.map(endDevice => endDevice.name)),
+      catchError(error => {
+        console.error('Error fetching end devices', error);
+        return of([]);
+      })
+    );
+  }
+
+  getNombresPatchPanels(): Observable<string[]> {
+    return this.http.get<{ name: string }[]>(`${this.baseUrl}/patchPanel`).pipe(
+      map(patchPanels => patchPanels.map(patchPanel => patchPanel.name)),
+      catchError(error => {
+        console.error('Error fetching patch panels', error);
+        return of([]);
+      })
+    );
+  }
+
+  getEndDevicesPorAreas(areaName: string): Observable<Dispositivo[]> {
+    return this.http.get<Dispositivo[]>(`${this.baseUrl}/area/${areaName}`);
   }
 }
 

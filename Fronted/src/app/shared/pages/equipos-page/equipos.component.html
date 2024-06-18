@@ -95,7 +95,7 @@
 
     <!-- Datos extra para los End Devices -->
     <div *ngIf="equipo.deviceType === 'end-device'" style="display: flex;justify-content: space-between;" class="field">
-      <button class="btn btn-outline-secondary tabla" style="display: flex; justify-content: center;" type="submit" [routerLink]="['areas']">Areas</button>
+      <button class="btn btn-outline-secondary tabla" style="display: flex; justify-content: center;" type="submit" (click)="goAreas()">Areas</button>
     </div>
 
   </ng-template>

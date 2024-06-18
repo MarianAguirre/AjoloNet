@@ -9,7 +9,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { TreeTableModule } from 'primeng/treetable';
-import {TableModule} from 'primeng/table'
+import {TableModule} from 'primeng/table';
+import { RippleModule } from 'primeng/ripple';
+import { AvatarModule } from 'primeng/avatar';
+
 
 
 
@@ -27,6 +30,8 @@ import {TableModule} from 'primeng/table'
     TagModule,
     ToastModule,
     TreeTableModule,
+    RippleModule,
+    AvatarModule
 
 
   ],
@@ -42,6 +47,8 @@ import {TableModule} from 'primeng/table'
     TagModule,
     ToastModule,
     TreeTableModule,
+    RippleModule,
+    AvatarModule
 
   ],
   declarations: [

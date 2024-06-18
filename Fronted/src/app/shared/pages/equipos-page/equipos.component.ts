@@ -4,6 +4,8 @@ import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
 import { enavironments } from '../../../../environments/envarionments';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -13,7 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class EquiposComponent implements OnInit{
 
-  constructor(private equiposServices: EquiposServices, private http: HttpClient) {}
+  constructor(private equiposServices: EquiposServices, private http: HttpClient, private router:Router) {}
 
   public dispositivos: Dispositivo[] = [];
   public routers: Dispositivo[] = [];
@@ -24,7 +26,6 @@ export class EquiposComponent implements OnInit{
   public equipoDialog: boolean = false;
   public selectedEquipos!: Dispositivo[] | null;
   public submitted: boolean = false;
-  public statuses!: any[];
   public baseUrl: string = enavironments.baseUrl;
 
 
@@ -107,5 +108,8 @@ export class EquiposComponent implements OnInit{
     console.log(this.equipo.name);
   }
 
+  goAreas() {
+    this.router.navigate(['red/areas']);
+  }
 
 }

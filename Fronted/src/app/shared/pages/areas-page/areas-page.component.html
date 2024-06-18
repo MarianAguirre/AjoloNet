@@ -1,145 +1,73 @@
 <p-table
-  #dt
-  [value]="dispositivos "
-  [globalFilterFields]="['id', 'name']"
+  [value]="areas"
   selectionMode="single"
-  dataKey="id"
-  [rows]="7"
-  [paginator]="true"
-  stateStorage="session"
-  stateKey="statedemo-session"
-  [tableStyle]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}"
-  [expandedRowKeys]="expandedRows"
-  >
-
+  dataKey="name"
+  rowGroupMode="subheader"
+  groupRowsBy="name"
+  [tableStyle]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
 
   <!-- Encabezado de la tabla -->
-  <ng-template pTemplate="caption" >
-    <h1 style=" width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">AREAS</h1>
-    <p-iconField iconPosition="left" [style]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'} " >
-      <p-inputIcon>
-        <i class="pi pi-search"></i>
-      </p-inputIcon>
-      <input pInputText type="text" style="margin-right: 2%;" placeholder="Global Search" />
-      <th style=" width: 80%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
-        <button class="btn btn-outline-success tabla" type="submit" [routerLink]="['nuevo-equipo']">Agregar</button>
+  <ng-template pTemplate="caption">
+    <h1 style="width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">Areas</h1>
+    <p-iconField iconPosition="left" [style]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
+      <th style="width: 80%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
+        <div class="card flex justify-content-center">
+          <button (click)="showDialog()" class="p-button-success">Agregar</button>
+          <p-dialog header="Agrega una nueva area" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+              <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                  <label for="name" class="font-semibold w-6rem">Nombre del area</label>
+                  <input [(ngModel)]="zona.name" pInputText id="name" class="flex-auto" autocomplete="off"/>
+              </div>
+              <div class="flex justify-content-end gap-2">
+                  <button label="Save" (click)="newArea()">Save</button>
+              </div>
+          </p-dialog>
+        </div>
       </th>
     </p-iconField>
-
-    <div class="flex flex-wrap justify-content-end gap-2">
-      <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
-      <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
-  </div>
-
   </ng-template>
+
+  <!-- Cuerpo de la tabla -->
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="id" style="width:25%" >Id <p-sortIcon field="id"/></th>
-      <th pSortableColumn="name" style="width:25%" >Nombre <p-sortIcon field="name" /></th>
-      <th style="width:25%"></th>
+      <th style="width:25%">Area</th>
+      <th style="width:25%">Id</th>
+      <th style="width:25%">Nombre</th>
+      <th style="width:25%">Puertos</th>
     </tr>
   </ng-template>
 
-<!-- Cuerpo de la tabla -->
-  <ng-template pTemplate="body" let-equipo let-expanded="expanded">
-    <tr [pSelectableRow]="equipo">
-      <td>
-        <p-button type="button" pRipple [pRowToggler]="equipo" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
-      </td>
-      <td ><span class="p-column-title" >Id</span>{{ equipo.id }}</td>
-      <td ><span class="p-column-title" >Nombre</span><span class="ml-1 vertical-align-middle">{{ equipo.name }}</span></td>
-      <td ><button class="btn btn-outline-dark" style="margin-left: 55%;" type="submit"  >Detalles</button></td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-equipo>
-    <tr [pSelectableRow]="equipo">
-      <td><span class="p-column-title" >Id</span>{{ equipo.id }}</td>
-      <td><span class="p-column-title" >Name</span><span  class="ml-1 vertical-align-middle">{{ equipo.name }}</span></td>
-      <td><div class="btn-group">
-            <button class="btn btn-outline-dark" style="margin-left: 45%;" (click)="editProduct(equipo)" type="submit" >Detalles</button>
-            <button class="btn btn-outline-danger" type="submit" (click)="deleteDevices(equipo)" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/></svg>
-            </button>
-          </div></td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="rowexpansion" let-quipo>
+  <!-- Areas desplegables -->
+  <ng-template pTemplate="groupheader" let-area let-rowIndex="rowIndex" let-expanded="expanded">
     <tr>
-        <td colspan="7">
-            <div class="p-3">
-                <p-table  dataKey="id">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th pSortableColumn="id">a <p-sortIcon field="price" /></th>
-                            <th pSortableColumn="customer">A <p-sortIcon field="customer" /></th>
-                            <th pSortableColumn="date">A <p-sortIcon field="date" /></th>
-                            <th pSortableColumn="amount">A <p-sortIcon field="amount" /></th>
-                            <th style="width: 4rem"></th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-order>
-                        <tr>
-                            <td>A</td>
-                            <td>A</td>
-                            <td>A</td>
-                            <td>A</td>
-                            <td>A</td>
-                            <td><p-button type="button" icon="pi pi-search" /></td>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="emptymessage">
-                        <tr>
-                            <td colspan="6">There are no order for this product yet.</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
+        <td colspan="4">
+            <button
+                type="button"
+                pButton
+                pRipple
+                [pRowToggler]="area"
+                class="p-button-text p-button-rounded p-button-plain mr-2"
+                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+            </button>
+            <span class="font-bold ml-2">{{area.name}}</span>
         </td>
     </tr>
-</ng-template>
+  </ng-template>
+
+  <!-- Equipos en las areas -->
+  <ng-template pTemplate="groupfooter" let-area>
+    <tr class="p-rowgroup-footer">
+        <td colspan="3" style="text-align: right">Total de equipos:</td>
+        <td>{{getTotalEquipos(area.name)}}</td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="rowexpansion" let-equipo>
+    <tr>
+        <td></td>
+        <td><span class="ml-1 vertical-align-middle">{{equipo.id}}</span></td>
+        <td>{{equipo.name}}</td>
+        <td>{{equipo.numberOfPorts}}</td>
+    </tr>
+  </ng-template>
 </p-table>
-
-
-<!-- Boton de detalles -->
-<p-dialog
-  [(visible)]="equipoDialog"
-  [style]="{ width: '450px' }"
-  header="Equip Details"
-  [modal]="true"
-  styleClass="p-fluid">
-
-  <ng-template pTemplate="content">
-    <div class="field">
-      <label for="name">Name</label>
-      <input
-        type="text"
-        pInputText
-        id="name"
-        [(ngModel)]="equipo.name"
-        required
-        autofocus />
-      <small class="p-error" *ngIf="submitted && !equipo.name">Name is required.</small>
-    </div>
-    <div class="field">
-      <label class="mb-3">Category</label>
-        <div class="formgrid grid"></div>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="footer">
-    <p-button
-      pRipple
-      label="Cancel"
-      icon="pi pi-times"
-      [text]="true"
-      (click)="hideDialog()" />
-    <p-button
-      pRipple
-      label="Save"
-      icon="pi pi-check"
-      [text]="true"
-      (click)="saveEquip()" />
-  </ng-template>
-</p-dialog>
-
-    <!-- <p-confirmDialog [style]="{ width: '450px' }" /> -->
