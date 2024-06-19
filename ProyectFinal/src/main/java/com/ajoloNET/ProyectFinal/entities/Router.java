@@ -1,5 +1,6 @@
 package com.ajoloNET.ProyectFinal.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -23,6 +24,7 @@ public class Router {
 
     @ManyToOne
     @JoinColumn(name = "rack_id")
+    @JsonBackReference(value = "rack-router")
     private Rack rack;
 
     @Column(name = "number_of_ports")
@@ -34,6 +36,7 @@ public class Router {
 
     //Getters and Setters
 
+
     public Long getId() {
         return id;
     }
@@ -41,6 +44,7 @@ public class Router {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public Set<Port> getPorts() {
         return ports;

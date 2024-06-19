@@ -1,5 +1,6 @@
 package com.ajoloNET.ProyectFinal.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -20,6 +21,7 @@ public class PatchPanel {
 
     @ManyToOne
     @JoinColumn(name = "rack_id")
+    @JsonBackReference(value = "rack-patch")
     private Rack rack;
 
     @Column(name = "number_of_ports")

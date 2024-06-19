@@ -1,6 +1,8 @@
 package com.ajoloNET.ProyectFinal.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.micrometer.core.instrument.config.validate.Validated;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -23,6 +25,7 @@ public class Switch {
 
     @ManyToOne
     @JoinColumn(name = "rack_id")
+    @JsonBackReference(value = "rack-switch")
     private Rack rack;
 
     @Column(name = "is_Poe")

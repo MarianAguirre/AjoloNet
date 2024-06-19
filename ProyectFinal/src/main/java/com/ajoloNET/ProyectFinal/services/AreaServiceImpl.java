@@ -1,7 +1,9 @@
 package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.Area;
+import com.ajoloNET.ProyectFinal.entities.EndDevice;
 import com.ajoloNET.ProyectFinal.repositories.AreaRepository;
+import com.ajoloNET.ProyectFinal.repositories.EndDeviceRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class AreaServiceImpl implements AreaService{
 
     private final AreaRepository areaRepository;
+    private final EndDeviceRepository endDeviceRepository;
 
     @Override
     public Area readByName(String name) {
@@ -57,14 +60,30 @@ public class AreaServiceImpl implements AreaService{
 
     @Override
     public void delete(String name) {
-        var AreaToDelete = this.areaRepository.findByName(name)
+        var areaToDelete = this.areaRepository.findByName(name)
                 .orElseThrow(()->new NoSuchElementException("Area not found"));
-        this.areaRepository.delete(AreaToDelete);
+
+        // Desvincular manualmente los dispositivos finales
+        for (EndDevice endDevice : areaToDelete.getEndDevices()) {
+            endDevice.setArea(null);
+            this.endDeviceRepository.save(endDevice);
+        }
+
+        this.areaRepository.delete(areaToDelete);
 
     }
 
     @Override
     public void deleteById(Long id) {
+        Area areaToDeleteId = this.areaRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Area not found"));
+
+        // Desvincular manualmente los dispositivos finales
+        for (EndDevice endDevice : areaToDeleteId.getEndDevices()) {
+            endDevice.setArea(null);
+            this.endDeviceRepository.save(endDevice);
+        }
+
         this.areaRepository.deleteById(id);
     }
 

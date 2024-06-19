@@ -1,11 +1,13 @@
 package com.ajoloNET.ProyectFinal.controllers;
 
 import com.ajoloNET.ProyectFinal.entities.Rack;
+import com.ajoloNET.ProyectFinal.entities.Switch;
 import com.ajoloNET.ProyectFinal.services.RackService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Optional;
@@ -39,9 +41,14 @@ public class RackController {
     @PostMapping
     public ResponseEntity<Rack> post(@RequestBody Rack rack){
         log.info("POST: Rack {}", rack.getName());
-        return ResponseEntity.created(
-                URI.create(this.rackService.create(rack).getName()))
-                .build();
+        Rack saveRack = this.rackService.create(rack);
+
+        // Crear la URI con UriComponentsBuilder
+        URI location = UriComponentsBuilder.fromPath("/switch/{id}")
+                .buildAndExpand(saveRack.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
     @PutMapping("/{name}")
@@ -67,7 +74,7 @@ public class RackController {
 
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> deleteId(@PathVariable Long id){
-        log.info("DELETE_ID: RAck {}",id);
+        log.info("DELETE_ID: Rack {}",id);
         this.rackService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

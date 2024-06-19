@@ -18,7 +18,7 @@ public class Area {
     @Column(name = "name_area")
     private String name;
 
-    @OneToMany(mappedBy = "area", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "area", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Set<EndDevice> endDevices;
 

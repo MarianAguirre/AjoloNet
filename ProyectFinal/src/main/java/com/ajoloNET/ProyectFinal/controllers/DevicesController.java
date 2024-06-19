@@ -50,4 +50,6 @@ public class DevicesController {
 
         return ResponseEntity.noContent().build();
     }
+
+
 }

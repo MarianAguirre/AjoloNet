@@ -1,5 +1,6 @@
 package com.ajoloNET.ProyectFinal.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -17,15 +18,18 @@ public class Rack {
     private String name;
 
     @Column(name = "Power_Split")
-    private String powerSplit;
+    private int powerSplit;
 
     @OneToMany(mappedBy = "rack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "rack-switch")
     private List<Switch> aSwitch;
 
     @OneToMany(mappedBy = "rack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "rack-patch")
     private Set<PatchPanel> patchPanels;
 
     @OneToMany(mappedBy = "rack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "rack-router")
     private List<Router> routers;
 
 
@@ -46,11 +50,11 @@ public class Rack {
         this.name = name;
     }
 
-    public String getPowerSplit() {
+    public int getPowerSplit() {
         return powerSplit;
     }
 
-    public void setPowerSplit(String powerSplit) {
+    public void setPowerSplit(int powerSplit) {
         this.powerSplit = powerSplit;
     }
 

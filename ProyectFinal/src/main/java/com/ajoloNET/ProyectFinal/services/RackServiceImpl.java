@@ -70,7 +70,7 @@ public class RackServiceImpl implements RackService{
 
     @Override
     public void deleteById(Long id) {
-        this.rackRepository.findById(id);
+        this.rackRepository.deleteById(id);
 
     }
 
