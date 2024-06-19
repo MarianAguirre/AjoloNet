@@ -22,9 +22,11 @@ export class AgregarEquipoComponent implements OnInit{
     numberOfPorts: 0,
     poe: false,
     manageable: false,
-    areaName: ''
+    areaName: '',
+    rack: ''
   }
   public areas: string[] = [];
+  public racks: string[] = [];
   public baseUrl = enavironments.baseUrl;
   public opciones:string[] = [
     'Switch',
@@ -50,7 +52,7 @@ export class AgregarEquipoComponent implements OnInit{
     }
     console.log(this.equipo);
     this.newEquip.emit(this.equipo)
-    this.equipo = {name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: ''}
+    this.equipo = {name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: '', rack:''}
     Swal.fire({
       position: "center",
       icon: "success",
@@ -60,12 +62,12 @@ export class AgregarEquipoComponent implements OnInit{
     });
   }
 
-  // Botones para ir a la tabla y a las conexiones
+  // Botones para ir a la tabla y a las areas
   goBack() {
     this.router.navigate(['red/equipos']);
   }
   goConection() {
-    this.router.navigate(['red/conexiones']);
+    this.router.navigate(['red/areas']);
   }
 
 
@@ -104,6 +106,9 @@ export class AgregarEquipoComponent implements OnInit{
   ngOnInit(): void {
     this.equiposServices.getArea().subscribe((areas: string[]) => {
       this.areas = areas;
+    });
+    this.equiposServices.getRack().subscribe((racks: string[]) => {
+      this.racks = racks;
     });
   }
 

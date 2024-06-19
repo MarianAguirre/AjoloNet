@@ -1,23 +1,23 @@
 <p-table
-  [value]="areas"
+  [value]="racks"
   selectionMode="single"
   dataKey="id"
   [tableStyle]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
 
   <!-- Encabezado de la tabla -->
   <ng-template pTemplate="caption">
-    <h1 style="width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">ÁREAS</h1>
+    <h1 style="width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">RACKS</h1>
     <p-iconField iconPosition="left" [style]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
       <th style="width: 80%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
         <div class="card flex justify-content-center">
           <button (click)="showDialog()" style="border-color: transparent;" class="btn btn-outline-primary">Agregar</button>
-          <p-dialog header="Agrega una nueva área" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+          <p-dialog header="Agrega una nuevo rack" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
               <div style="display: flex; justify-content: space-between; font-weight: bold;">
-                  <label for="name" class="font-semibold w-6rem">Nombre del área</label>
-                  <input (keyup.enter)="newArea()" [(ngModel)]="zona.name" required pInputText id="name" class="flex-auto" autocomplete="off"/>
+                  <label for="name" class="font-semibold w-6rem">Nombre del rack</label>
+                  <input (keyup.enter)="newRack()" [(ngModel)]="nuevoRack.name" required pInputText id="name" class="flex-auto" autocomplete="off"/>
               </div>
               <div class="flex justify-content-end gap-2">
-                  <button style="margin-top:5%;" label="Save" class="btn btn-success" (click)="newArea()">Guardar</button>
+                  <button style="margin-top:5%;" label="Save" class="btn btn-success" (click)="newRack()">Guardar</button>
               </div>
           </p-dialog>
         </div>
@@ -28,34 +28,36 @@
   <!-- Cuerpo de la tabla -->
   <ng-template pTemplate="header">
     <tr>
-      <th style="width:25%">Área</th>
+      <th style="width:25%">Rack</th>
       <th style="width:25%">Id</th>
       <th style="width:25%">Nombre</th>
+      <th style="width:25%">Tipo de equipo</th>
       <th style="width:25%">Puertos</th>
       <th style="width:25%"></th>
     </tr>
   </ng-template>
 
   <!-- Áreas desplegables -->
-  <ng-template pTemplate="body" let-area let-expanded="expanded">
+  <ng-template pTemplate="body" let-racks let-expanded="expanded">
     <tr>
       <td>
         <button
           type="button"
           pButton
           pRipple
-          [pRowToggler]="area"
+          [pRowToggler]="racks"
           class="p-button-text p-button-rounded p-button-plain"
-          (click)="loadEndDevices(area)"
+          (click)="loadEquiposRack(racks)"
           [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
         </button>
-        {{area.name}}
+        {{racks.name}}
       </td>
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
       <td>
-        <button (click)="deleteArea(area)" class="delete-button">
+        <button (click)="deleteRack(racks)" class="delete-button">
           <svg class="delete-svgIcon" viewBox="0 0 448 512">
             <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
           </svg>
@@ -65,18 +67,44 @@
   </ng-template>
 
   <!-- Filas de expansión para endDevices -->
-  <ng-template pTemplate="rowexpansion" let-area>
-    <tr *ngFor="let device of area.endDevices">
+  <ng-template pTemplate="rowexpansion" let-racks>
+    <tr *ngFor="let device of racks.routers">
       <td></td>
       <td>{{device.id}}</td>
       <td>{{device.name}}</td>
+      <td>{{device.deviceType}}</td>
       <td>{{device.numberOfPorts}}</td>
       <td></td>
     </tr>
-    <tr class="p-rowgroup-footer">
-      <td colspan="4" style="text-align: right">Total de equipos:</td>
-      <td>{{getTotalEquipos(area)}}</td>
+    <tr *ngFor="let device of racks.aSwitch">
+      <td></td>
+      <td>{{device.id}}</td>
+      <td>{{device.name}}</td>
+      <td>{{device.deviceType}}</td>
+      <td>{{device.numberOfPorts}}</td>
+      <td></td>
     </tr>
+    <tr *ngFor="let device of racks.patchPanels">
+      <td></td>
+      <td>{{device.id}}</td>
+      <td>{{device.name}}</td>
+      <td>{{device.deviceType}}</td>
+      <td>{{device.numberOfPorts}}</td>
+      <td></td>
+    </tr>
+    <tr class="p-rowgroup-footer" style="font-size: 14px; margin-top: 1px;">
+      <td colspan="5" style="text-align: right">Total de routers:</td>
+      <td>{{getTotalRouters(racks)}}</td>
+    </tr>
+    <tr class="p-rowgroup-footer" style="font-size: 14px; margin-top: 1px;">
+      <td colspan="5" style="text-align: right">Total de switches:</td>
+      <td>{{getTotalSwitch(racks)}}</td>
+    </tr>
+    <tr class="p-rowgroup-footer" style="font-size: 14px; margin-top: 1px;">
+      <td colspan="5" style="text-align: right">Total de patch panels:</td>
+      <td>{{getTotalPatch(racks)}} </td>
+    </tr>
+
   </ng-template>
 
 

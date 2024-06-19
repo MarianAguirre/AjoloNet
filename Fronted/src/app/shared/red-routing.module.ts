@@ -7,6 +7,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ConectionPageComponent } from './pages/conection-page/conection-page.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { AreasPageComponent } from './pages/areas-page/areas-page.component';
+import { RacksPageComponent } from './pages/racks-page/racks-page.component';
 
 const routes : Routes =[
   {
@@ -30,6 +31,9 @@ const routes : Routes =[
       },
       {
         path: 'areas', component: AreasPageComponent
+      },
+      {
+        path: 'racks', component: RacksPageComponent
       },
       {
         path: '**', redirectTo: 'home'

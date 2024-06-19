@@ -1,4 +1,4 @@
-import { Dispositivo } from './../../interfaces/Dispositivo';
+import { Area, ASwitch, Dispositivo, EndDevice, PatchPanel, Rack, Routers } from './../../interfaces/Dispositivo';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
@@ -63,6 +63,21 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
         return of([]);
       })
     );
+  } //remplazar por la funcion de abajo mas adelante porque esta esta larga y la otr apuede ir mejor
+
+  getRack(): Observable<string[]> {
+    return this.http.get<{ name: string }[]>(`${this.baseUrl}/rack`).pipe(
+      map(rack => rack.map(rack => rack.name)),
+      catchError(error => {
+        console.error('Error fetching areas', error);
+        return of([]);
+      })
+    );
+  }
+
+  deleteArea(id:number): Observable<void>{
+    console.log(id)
+    return this.http.delete<void>(`${this.baseUrl}/area/id/${id}`)
   }
 
 
@@ -116,8 +131,41 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
     );
   }
 
-  getEndDevicesPorAreas(areaName: string): Observable<Dispositivo[]> {
-    return this.http.get<Dispositivo[]>(`${this.baseUrl}/area/${areaName}`);
+  getEndDevicesArea(name:string): Observable<EndDevice[]> {
+    return this.http.get<EndDevice[]>(`${this.baseUrl}/${name}/endDevices`)
+  }
+
+  getAreas(): Observable<Area[]> {
+    return this.http.get<Area[]>(`${this.baseUrl}/area`);
+  }
+
+
+  getRacks(): Observable<Rack[]> {
+    return this.http.get<Rack[]>(`${this.baseUrl}/rack`);
+  }
+  getRouterRack(name:string): Observable<Routers[]> {
+    return this.http.get<Routers[]>(`${this.baseUrl}/${name}/routers`)
+  }
+  getSwitchRack(name:string): Observable<ASwitch[]> {
+    return this.http.get<ASwitch[]>(`${this.baseUrl}/${name}/aSwitch`)
+  }
+  getPatchRack(name:string): Observable<PatchPanel[]> {
+    return this.http.get<PatchPanel[]>(`${this.baseUrl}/${name}/patchPanels`)
+  }
+
+
+  getEquiposRack(name:string): Observable<{ routers: Rack[], aSwitches: Rack[], patchPanels: Rack[]}> {
+    return this.http.get<{ routers: Rack[], aSwitches: Rack[], patchPanels: Rack[]}>(`${this.baseUrl}/${name}`).pipe(
+      catchError(error => {
+        console.error('Error fetching devices', error);
+        return of({ routers: [], aSwitches: [], patchPanels: []});
+      })
+    );
+  }
+
+  deleteRack(id:number): Observable<void>{
+    console.log(id)
+    return this.http.delete<void>(`${this.baseUrl}/rack/id/${id}`)
   }
 }
 

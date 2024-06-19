@@ -8,7 +8,7 @@
 /* Reset CSS */
 @layer reset {
   .p-datatable .p-datatable-header {
-    --text-color: #666666;
+    --text-color: #6e6e6e;
     --background-color: transparent;
     border: transparent;
   }
