@@ -24,7 +24,7 @@ public class PatchPanel {
     @JsonBackReference(value = "rack-patch")
     private Rack rack;
 
-    @Column(name = "number_of_ports")
+    @Column(name = "number_of_ports", nullable = false)
     private int numberOfPorts;
 
     @Column(name = "name", nullable = false)
@@ -32,6 +32,9 @@ public class PatchPanel {
 
     @Column(name = "device_name", nullable = false)
     private String deviceType = "patch-panel";
+
+    @Transient
+    private String rackName;
 
 
     //Getters and Setters
@@ -89,5 +92,13 @@ public class PatchPanel {
 
     public void setDeviceType(String deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public String getRackName() {
+        return rackName;
+    }
+
+    public void setRackName(String rackName) {
+        this.rackName = rackName;
     }
 }

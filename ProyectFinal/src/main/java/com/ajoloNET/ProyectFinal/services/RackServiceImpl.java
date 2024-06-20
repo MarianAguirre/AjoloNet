@@ -42,7 +42,7 @@ public class RackServiceImpl implements RackService{
                 .orElseThrow(()->new NoSuchElementException("Rack not found"));
         RackToUpdate.setId(rack.getId());
         RackToUpdate.setName(rack.getName());
-        RackToUpdate.setPowerSplit(rack.getPowerSplit());
+//        RackToUpdate.setPowerSplit(rack.getPowerSplit());
         RackToUpdate.setaSwitch(rack.getaSwitch());
         RackToUpdate.setRouters(rack.getRouters());
         RackToUpdate.setPatchPanels(rack.getPatchPanels());
@@ -54,7 +54,7 @@ public class RackServiceImpl implements RackService{
         var RackToUpdateId = this.rackRepository.findById(id)
                 .orElseThrow(()->new NoSuchElementException("Rack not found"));
         RackToUpdateId.setName(rack.getName());
-        RackToUpdateId.setPowerSplit(rack.getPowerSplit());
+//        RackToUpdateId.setPowerSplit(rack.getPowerSplit());
         RackToUpdateId.setaSwitch(rack.getaSwitch());
         RackToUpdateId.setRouters(rack.getRouters());
         RackToUpdateId.setPatchPanels(rack.getPatchPanels());
@@ -63,14 +63,22 @@ public class RackServiceImpl implements RackService{
 
     @Override
     public void delete(String name) {
-    var RackToDelete = this.rackRepository.findByName(name)
-            .orElseThrow(()-> new NoSuchElementException("Rack not found"));
-    this.rackRepository.delete(RackToDelete);
+        var rackToDelete = this.rackRepository.findByName(name)
+                .orElseThrow(() -> new NoSuchElementException("Rack not found"));
+        rackToDelete.getaSwitch().forEach(aSwitch -> aSwitch.setRack(null));
+        rackToDelete.getPatchPanels().forEach(patchPanel -> patchPanel.setRack(null));
+        rackToDelete.getRouters().forEach(router -> router.setRack(null));
+        this.rackRepository.delete(rackToDelete);
     }
 
     @Override
     public void deleteById(Long id) {
-        this.rackRepository.deleteById(id);
+        var rackToDelete = this.rackRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Rack not found"));
+        rackToDelete.getaSwitch().forEach(aSwitch -> aSwitch.setRack(null));
+        rackToDelete.getPatchPanels().forEach(patchPanel -> patchPanel.setRack(null));
+        rackToDelete.getRouters().forEach(router -> router.setRack(null));
+        this.rackRepository.delete(rackToDelete);
 
     }
 

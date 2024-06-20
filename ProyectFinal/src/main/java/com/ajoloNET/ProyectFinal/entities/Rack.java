@@ -17,18 +17,16 @@ public class Rack {
     @Column(name = "rack_name")
     private String name;
 
-    @Column(name = "Power_Split")
-    private int powerSplit;
 
-    @OneToMany(mappedBy = "rack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "rack", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "rack-switch")
     private List<Switch> aSwitch;
 
-    @OneToMany(mappedBy = "rack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "rack", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "rack-patch")
     private Set<PatchPanel> patchPanels;
 
-    @OneToMany(mappedBy = "rack", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "rack", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "rack-router")
     private List<Router> routers;
 
@@ -48,14 +46,6 @@ public class Rack {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getPowerSplit() {
-        return powerSplit;
-    }
-
-    public void setPowerSplit(int powerSplit) {
-        this.powerSplit = powerSplit;
     }
 
     public List<Switch> getaSwitch() {

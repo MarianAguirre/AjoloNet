@@ -16,7 +16,7 @@ public class Switch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Name_Switch")
+    @Column(name = "Name_Switch", nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "sSwitch", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -37,8 +37,11 @@ public class Switch {
     @Column(name = "device_type", nullable = false)
     private String deviceType = "switch";
 
-    @Column(name = "number_of_ports")
+    @Column(name = "number_of_ports", nullable = false)
     private int numberOfPorts;
+
+    @Transient
+    private String rackName;
 
 
     //Getters and Setters
@@ -111,5 +114,13 @@ public class Switch {
 
     public void setDeviceType(String deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public String getRackName() {
+        return rackName;
+    }
+
+    public void setRackName(String rackName) {
+        this.rackName = rackName;
     }
 }

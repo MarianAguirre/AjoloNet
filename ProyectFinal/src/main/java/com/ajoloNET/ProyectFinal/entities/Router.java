@@ -19,7 +19,7 @@ public class Router {
     @JsonManagedReference(value = "router-port")
     private Set<Port> ports = new HashSet<>();
 
-    @Column(name = "Name_Router")
+    @Column(name = "Name_Router", nullable = false)
     private String name;
 
     @ManyToOne
@@ -27,11 +27,14 @@ public class Router {
     @JsonBackReference(value = "rack-router")
     private Rack rack;
 
-    @Column(name = "number_of_ports")
+    @Column(name = "number_of_ports", nullable = false)
     private int numberOfPorts;
 
     @Column(name = "device_type",nullable = false)
     private String deviceType = "router";
+
+    @Transient
+    private String rackName;
 
 
     //Getters and Setters
@@ -91,5 +94,13 @@ public class Router {
 
     public void setDeviceType(String deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public String getRackName() {
+        return rackName;
+    }
+
+    public void setRackName(String rackName) {
+        this.rackName = rackName;
     }
 }

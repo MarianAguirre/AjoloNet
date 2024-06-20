@@ -10,7 +10,6 @@ public interface EndDeviceService {
     EndDevice readByName(String name);
     Optional<EndDevice> findById (Long id);
     EndDevice create(EndDevice endDevice);
-    EndDevice update(EndDevice endDevice, String name);
     EndDevice updateById(EndDevice endDevice, Long id);
     void delete(String name);
     void deleteById(Long id);

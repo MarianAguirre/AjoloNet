@@ -1,8 +1,11 @@
 package com.ajoloNET.ProyectFinal.services;
 
+import com.ajoloNET.ProyectFinal.entities.Area;
 import com.ajoloNET.ProyectFinal.entities.Port;
+import com.ajoloNET.ProyectFinal.entities.Rack;
 import com.ajoloNET.ProyectFinal.entities.Router;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
+import com.ajoloNET.ProyectFinal.repositories.RackRepository;
 import com.ajoloNET.ProyectFinal.repositories.RouterRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -18,7 +21,7 @@ import java.util.*;
 public class RouterServiceImpl implements RouterService {
 
     private final RouterRepository routerRepository;
-
+    private final RackRepository rackRepository;
     private final PortRepository portRepository;
 
     @Override
@@ -36,6 +39,13 @@ public class RouterServiceImpl implements RouterService {
     @Override
     public Router create(Router router) {
         router.setDeviceType("router");
+        if (router.getRackName() != null) {
+            Rack rack = rackRepository.findByName(router.getRackName())
+                    .orElseThrow(() -> new NoSuchElementException("Area not found"));
+            router.setRack(rack);
+        }
+
+        // Guardar el Router inicialmente
         Router savedRouter = this.routerRepository.save(router);
 
         // Crea los puertos para el router
@@ -53,7 +63,13 @@ public class RouterServiceImpl implements RouterService {
                 .orElseThrow(() -> new NoSuchElementException("Router not found"));
         routerToUpdate.setName(router.getName());
         routerToUpdate.setNumberOfPorts(router.getNumberOfPorts());
-        routerToUpdate.setRack(router.getRack());
+
+        // Si se proporciona un nombre de rack, busca y asigna el rack al router
+        if (router.getRackName() != null) {
+            Rack rack = rackRepository.findByName(router.getRackName())
+                    .orElseThrow(() -> new NoSuchElementException("Rack not found"));
+            routerToUpdate.setRack(rack);
+        }
 
         // Actualiza los puertos del router según el número de puertos
         updatePortsForRouter(routerToUpdate);
@@ -68,7 +84,12 @@ public class RouterServiceImpl implements RouterService {
                 .orElseThrow(() -> new NoSuchElementException("Router not found"));
         routerUpdateId.setName(router.getName());
         routerUpdateId.setNumberOfPorts(router.getNumberOfPorts());
-        routerUpdateId.setRack(router.getRack());
+        // Si se proporciona un nombre de rack, busca y asigna el rack al router
+        if (router.getRackName() != null) {
+            Rack rack = rackRepository.findByName(router.getRackName())
+                    .orElseThrow(() -> new NoSuchElementException("Rack not found"));
+            routerUpdateId.setRack(rack);
+        }
 
         // Actualiza los puertos del router según el número de puertos
         updatePortsForRouter(routerUpdateId);

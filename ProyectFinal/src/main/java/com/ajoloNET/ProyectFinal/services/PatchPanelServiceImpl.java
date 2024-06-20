@@ -2,9 +2,11 @@ package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.PatchPanel;
 import com.ajoloNET.ProyectFinal.entities.Port;
+import com.ajoloNET.ProyectFinal.entities.Rack;
 import com.ajoloNET.ProyectFinal.entities.Switch;
 import com.ajoloNET.ProyectFinal.repositories.PatchPanelRepository;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
+import com.ajoloNET.ProyectFinal.repositories.RackRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +21,7 @@ import java.util.*;
 public class PatchPanelServiceImpl implements PatchPanelService{
 
     private final PatchPanelRepository patchPanelRepository;
-
+    private final RackRepository rackRepository;
     private final PortRepository portRepository;
 
     @Override
@@ -33,6 +35,13 @@ public class PatchPanelServiceImpl implements PatchPanelService{
         patchPanel.setName("Patch Panel");
         patchPanel.setDeviceType("patch-panel");
 
+        if (patchPanel.getRackName() != null) {
+            Rack rack = rackRepository.findByName(patchPanel.getRackName())
+                    .orElseThrow(() -> new NoSuchElementException("Area not found"));
+            patchPanel.setRack(rack);
+        }
+
+        // Guardar el Patch Panel inicialmente
         PatchPanel savedPatch = this.patchPanelRepository.save(patchPanel);
 
         // Crea los puertos para el router
@@ -47,7 +56,13 @@ public class PatchPanelServiceImpl implements PatchPanelService{
         var patchPanelToUpdate = this.patchPanelRepository.findById(id)
                 .orElseThrow(()->new NoSuchElementException("Patch Panel not found"));
         patchPanelToUpdate.setNumberOfPorts(patchPanel.getNumberOfPorts());
-        patchPanelToUpdate.setRack(patchPanel.getRack());
+        // Si se proporciona un nombre de rack, busca y asigna el rack al router
+        if (patchPanel.getRackName() != null) {
+            Rack rack = rackRepository.findByName(patchPanel.getRackName())
+                    .orElseThrow(() -> new NoSuchElementException("Rack not found"));
+            patchPanelToUpdate.setRack(rack);
+        }
+
 
         // Actualiza los puertos del patch panel según el número de puertos
         updatePortsForPatchPanel(patchPanelToUpdate);

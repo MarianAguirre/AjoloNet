@@ -1,9 +1,11 @@
 package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.entities.Port;
+import com.ajoloNET.ProyectFinal.entities.Rack;
 import com.ajoloNET.ProyectFinal.entities.Router;
 import com.ajoloNET.ProyectFinal.entities.Switch;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
+import com.ajoloNET.ProyectFinal.repositories.RackRepository;
 import com.ajoloNET.ProyectFinal.repositories.SwitchRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.*;
 public class SwitchServiceImpl implements SwitchService {
 
     private final SwitchRepository switchRepository;
+    private final RackRepository rackRepository;
     private final PortRepository portRepository;
 
     @Override
@@ -36,6 +39,13 @@ public class SwitchServiceImpl implements SwitchService {
     @Override
     public Switch create(Switch aSwitch) {
         aSwitch.setDeviceType("switch");
+        if (aSwitch.getRackName() != null) {
+            Rack rack = rackRepository.findByName(aSwitch.getRackName())
+                    .orElseThrow(() -> new NoSuchElementException("Area not found"));
+            aSwitch.setRack(rack);
+        }
+
+        // Guardar el Switch inicialmente
         Switch savedSwitch = this.switchRepository.save(aSwitch);
 
         // Crea los puertos para el router
@@ -51,9 +61,15 @@ public class SwitchServiceImpl implements SwitchService {
                 .orElseThrow(()->new NoSuchElementException("Switch not found"));
         switchToUpdate.setName(aSwitch.getName());
         switchToUpdate.setNumberOfPorts(aSwitch.getNumberOfPorts());
-        switchToUpdate.setRack(aSwitch.getRack());
         switchToUpdate.setPoe(aSwitch.isPoe());
         switchToUpdate.setManageable(aSwitch.isManageable());
+
+        // Si se proporciona un nombre de rack, busca y asigna el rack al router
+        if (aSwitch.getRackName() != null) {
+            Rack rack = rackRepository.findByName(aSwitch.getRackName())
+                    .orElseThrow(() -> new NoSuchElementException("Rack not found"));
+            switchToUpdate.setRack(rack);
+        }
 
         // Actualiza los puertos del switch según el número de puertos
         updatePortsForSwitch(switchToUpdate);
@@ -67,9 +83,15 @@ public class SwitchServiceImpl implements SwitchService {
                 .orElseThrow(()->new NoSuchElementException("Switch not found"));
         switchToUpdateId.setName(aSwitch.getName());
         switchToUpdateId.setNumberOfPorts(aSwitch.getNumberOfPorts());
-        switchToUpdateId.setRack(aSwitch.getRack());
         switchToUpdateId.setPoe(aSwitch.isPoe());
         switchToUpdateId.setManageable(aSwitch.isManageable());
+        // Si se proporciona un nombre de rack, busca y asigna el rack al router
+        if (aSwitch.getRackName() != null) {
+            Rack rack = rackRepository.findByName(aSwitch.getRackName())
+                    .orElseThrow(() -> new NoSuchElementException("Rack not found"));
+            switchToUpdateId.setRack(rack);
+        }
+
 
         // Actualiza los puertos del switch según el número de puertos
         updatePortsForSwitch(switchToUpdateId);

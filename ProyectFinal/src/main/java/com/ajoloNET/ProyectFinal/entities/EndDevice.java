@@ -27,7 +27,7 @@ public class EndDevice {
     @JsonBackReference
     private Area area;
 
-    @Column(name = "number_of_ports")
+    @Column(name = "number_of_ports", nullable = false)
     private int numberOfPorts;
 
     @Column(name = "device_type", nullable = false)

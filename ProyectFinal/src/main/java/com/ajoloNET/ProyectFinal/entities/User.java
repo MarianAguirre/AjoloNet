@@ -19,6 +19,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+
     //Getters and Setters
     public Long getId() {
         return id;

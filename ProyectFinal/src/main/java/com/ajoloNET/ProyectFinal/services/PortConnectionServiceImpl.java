@@ -52,7 +52,7 @@ public class PortConnectionServiceImpl implements PortConnectionService{
 
         return portConnectionRepository.save(existingConnection);
     }
-
+    
     @Override
     public void deleteConnection(Long id) {
         PortConnection connectionToDelete = portConnectionRepository.findById(id)

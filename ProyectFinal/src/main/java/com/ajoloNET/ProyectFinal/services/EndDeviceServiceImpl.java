@@ -3,7 +3,6 @@ package com.ajoloNET.ProyectFinal.services;
 import com.ajoloNET.ProyectFinal.entities.Area;
 import com.ajoloNET.ProyectFinal.entities.EndDevice;
 import com.ajoloNET.ProyectFinal.entities.Port;
-import com.ajoloNET.ProyectFinal.entities.Router;
 import com.ajoloNET.ProyectFinal.repositories.AreaRepository;
 import com.ajoloNET.ProyectFinal.repositories.EndDeviceRepository;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
@@ -55,53 +54,59 @@ public class EndDeviceServiceImpl implements EndDeviceService{
         return endDeviceRepository.save(savedEndDevice);
     }
 
-    @Override
-    public EndDevice update(EndDevice endDevice, String name) {
-        var enDeviceToUpdate = this.endDeviceRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("End Device not found"));
-        enDeviceToUpdate.setName(endDevice.getName());
-        enDeviceToUpdate.setPorts(endDevice.getPorts());
-        enDeviceToUpdate.setNumberOfPorts(endDevice.getNumberOfPorts());
-
-        if (endDevice.getAreaName() != null) {
-            Area area = areaRepository.findByName(endDevice.getAreaName())
-                    .orElseThrow(() -> new NoSuchElementException("Area not found"));
-            enDeviceToUpdate.setArea(area);
-        } else {
-            enDeviceToUpdate.setArea(null); // Limpiar la asociación si areaName es null
-        }
-        // Actualiza los puertos del router según el número de puertos
-        updatePortsForEndDevice(enDeviceToUpdate);
-
-
-        // Guardar el EndDevice actualizado
-        EndDevice updatedEndDevice = endDeviceRepository.save(enDeviceToUpdate);
-        return updatedEndDevice;
-
-    }
 
     @Override
     public EndDevice updateById(EndDevice endDevice, Long id) {
         var enDeviceToUpdateId = this.endDeviceRepository.findById(id)
-                .orElseThrow(()->new NoSuchElementException("End Device not found"));
+                .orElseThrow(() -> new NoSuchElementException("End Device not found"));
+
+        // Actualiza las propiedades del EndDevice
         enDeviceToUpdateId.setName(endDevice.getName());
-        enDeviceToUpdateId.setPorts(endDevice.getPorts());
         enDeviceToUpdateId.setNumberOfPorts(endDevice.getNumberOfPorts());
 
-        // Actualiza los puertos del router según el número de puertos
-        updatePortsForEndDevice(enDeviceToUpdateId);
-
+        // Actualiza la Area si se proporciona
         if (endDevice.getAreaName() != null) {
             Area area = areaRepository.findByName(endDevice.getAreaName())
                     .orElseThrow(() -> new NoSuchElementException("Area not found"));
             enDeviceToUpdateId.setArea(area);
         } else {
-            enDeviceToUpdateId.setArea(null); // Limpiar la asociación si areaName es null
+            enDeviceToUpdateId.setArea(null); // Limpiar la asociación si no se proporciona una nueva Area
         }
 
-        // Guardar el EndDevice actualizado
+        // Actualiza o crea los ports del EndDevice
+        updateOrCreatePorts(enDeviceToUpdateId, endDevice);
+
+        // Guarda el EndDevice actualizado
         EndDevice updatedEndDevice = endDeviceRepository.save(enDeviceToUpdateId);
         return updatedEndDevice;
+    }
+
+    private void updateOrCreatePorts(EndDevice endDeviceToUpdate, EndDevice updatedEndDevice) {
+        // Obtén los ports actuales del EndDevice
+        Set<Port> existingPorts = endDeviceToUpdate.getPorts();
+
+        // Nuevos ports que se van a asociar al EndDevice
+        Set<Port> updatedPorts = new HashSet<>();
+
+        // Itera sobre los nuevos ports proporcionados en updatedEndDevice
+        for (Port port : updatedEndDevice.getPorts()) {
+            // Asigna el EndDevice al port si aún no está asignado
+            if (port.getEndDevice() == null) {
+                port.setEndDevice(endDeviceToUpdate);
+            }
+            updatedPorts.add(port);
+        }
+
+        // Actualiza los ports existentes
+        for (Port existingPort : existingPorts) {
+            // Si el port existente no está en los ports actualizados, elimínalo
+            if (!updatedPorts.contains(existingPort)) {
+                portRepository.delete(existingPort); // Elimina el port de la base de datos
+            }
+        }
+
+        // Guarda los ports actualizados en el EndDevice
+        endDeviceToUpdate.setPorts(updatedPorts);
     }
 
     @Override
