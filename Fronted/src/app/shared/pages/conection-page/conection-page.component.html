@@ -6,7 +6,7 @@
       <p>Tipo de equipo</p>
       <select class="mb-2" required
           [(ngModel)]="equipo.deviceType" name="select">
-        <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
+        <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion | camelCaseToTitleCase  }}</option>
       </select>
 
       <p>Nombre del equipo</p>
@@ -41,10 +41,17 @@
       >Volver</button>
 
     </div>
-  <p>A</p>
-  <p>A</p>
-  <p>A</p>
-  <p>A</p>
-  <p>A</p>
+    <!-- <section id="interactive-diagram">
+      <h2>Diagrama Interactivo</h2>
+      <div id="router">
+          <div class="port" id="router-port-1" draggable="true">Router Port 1</div>
+          <div class="port" id="router-port-2" draggable="true">Router Port 2</div>
+      </div>
+      <div id="switch">
+          <div class="port" id="switch-port-1" draggable="true">Switch Port 1</div>
+          <div class="port" id="switch-port-2" draggable="true">Switch Port 2</div>
+      </div>
+  </section> -->
+
   </div>
 </div>

@@ -20,6 +20,8 @@ import { RedRoutingModule } from './red-routing.module';
 import { RouterModule } from '@angular/router';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { RacksPageComponent } from './pages/racks-page/racks-page.component';
+import { CamelCaseToTitleCasePipe } from '../pipe/capitalize.pipe';
+
 
 
 
@@ -60,6 +62,9 @@ import { RacksPageComponent } from './pages/racks-page/racks-page.component';
     NavbarComponent,
     SearchBoxComponent,
     RacksPageComponent,
+    CamelCaseToTitleCasePipe
+
+
 
   ],
 

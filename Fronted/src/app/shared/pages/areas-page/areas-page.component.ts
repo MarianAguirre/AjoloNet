@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { Area, EndDevice } from '../../../interfaces/Dispositivo';
+import { Component, Input, OnInit } from '@angular/core';
+import { enavironments } from '../../../../environments/envarionments';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
-import { enavironments } from '../../../../environments/envarionments';
 import { timer } from 'rxjs';
 import Swal from 'sweetalert2';
 
@@ -12,41 +12,25 @@ import Swal from 'sweetalert2';
   styleUrls: ['./areas-page.component.css']
 })
 export class AreasPageComponent implements OnInit {
-
   constructor(private equiposServices: EquiposServices, private http: HttpClient) {}
 
   public baseUrl: string = enavironments.baseUrl;
   public areas: Area[] = [];
-  @Input() public equipo!: EndDevice;
   public visible: boolean = false;
   public zona: { name: string } = { name: '' };
+  @Input() public equipo!: EndDevice;
 
-  ngOnInit(): void {
-    this.loadAreas();
-  }
-
-  loadAreas(): void {
-    this.equiposServices.getAreas().subscribe((data: Area[]) => {
-      this.areas = data;
-    });
-  }
-
-  loadEndDevices(area: Area): void {
-    if (area.endDevices.length === 0) {
-      this.equiposServices.getEndDevicesArea(area.name).subscribe((devices: EndDevice[]) => {
-        area.endDevices = devices;
-      });
-    }
-  }
-
-  getTotalEquipos(area: Area): number {
-    return area.endDevices.length;
-  }
-
+  // Hace visible el dialogo para la creacion de areas
   showDialog(): void {
     this.visible = true;
   }
 
+  // Carga las areas que existen
+  ngOnInit(): void {
+    this.loadAreas();
+  }
+
+  // Crea una nueva area
   newArea(): void {
     if (!this.zona.name || this.zona.name.length === 0) return;
     timer(100).subscribe(() => this.visible = false);
@@ -71,12 +55,33 @@ export class AreasPageComponent implements OnInit {
     );
   }
 
+  // Funcion de carga de areas, manda llamar las areas del backend
+  loadAreas(): void {
+    this.equiposServices.getAreas().subscribe((data: Area[]) => {
+      this.areas = data;
+    });
+  }
+
+  // Funcion de carga de dispositivos finales, manda llamar los dispositivos finales que existen en el backen y lo agrupa segun el area
+  loadEndDevices(area: Area): void {
+    if (area.endDevices.length === 0) {
+      this.equiposServices.getEndDevicesArea(area.name).subscribe((devices: EndDevice[]) => {
+        area.endDevices = devices;
+      });
+    }
+  }
+
+  // Cuenta el total de equipos en un area
+  getTotalEquipos(area: Area): number {
+    return area.endDevices.length;
+  }
+
+  // Elimina un area
   deleteArea(area: Area): void {
     if (!area.id) {
       Swal.fire('Error', 'El ID del área es indefinido.', 'error');
       return;
     }
-
     Swal.fire({
       title: '¿Estás seguro?',
       text: `¿Seguro que quieres eliminar el área ${area.name}?`,
@@ -99,4 +104,5 @@ export class AreasPageComponent implements OnInit {
       }
     });
   }
+
 }

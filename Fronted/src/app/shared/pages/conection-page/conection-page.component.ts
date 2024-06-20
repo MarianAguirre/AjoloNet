@@ -38,6 +38,8 @@ export class ConectionPageComponent implements OnInit{
     this.equiposServices.getNombresPatchPanels().subscribe((patchPanels: string[]) => {
       this.patchPanels = patchPanels;
     });
+
+
   }
 
 
@@ -52,7 +54,8 @@ export class ConectionPageComponent implements OnInit{
     numberOfPorts: 0,
     poe: false,
     manageable: false,
-    areaName: ''
+    areaName: '',
+    rackName: ''
   }
 
 
@@ -71,7 +74,7 @@ export class ConectionPageComponent implements OnInit{
 
     console.log(this.equipo);
     this.newEquip.emit(this.equipo)
-    this.equipo = { id:uuid(), name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: ''}
+    this.equipo = { id:uuid(), name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: '', rackName:''}
 
     Swal.fire({
       position: "center",
@@ -86,16 +89,11 @@ export class ConectionPageComponent implements OnInit{
     this.router.navigate(['red/equipos']);
   }
 
-  public opciones:string[] = [
-    'Switch',
-    'Router',
-    'Dispositivo final',
-    'Patch Panel'
-  ]
+  public opciones:string[] = []
 
-  public nombres:string[] = [
+  public nombres:string[] = []
 
-  ]
+
 
 
 

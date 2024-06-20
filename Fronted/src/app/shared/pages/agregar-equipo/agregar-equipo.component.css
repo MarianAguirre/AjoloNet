@@ -1,19 +1,19 @@
 form{
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 input,select{
-  width: 70%;
+  background-color: #fff;
   border-radius: 10px;
   border: 1px solid #000;
+  color: #000;
   font-size: 16px;
   padding: 8px 12px;
-  background-color: #fff;
-  color: #000;
   text-align: center;
+  width: 70%;
 }
 
 .contenido{
@@ -22,20 +22,20 @@ input,select{
 }
 
 .Text-checkbox {
-  width: 300%;
   margin-right: 1%;
   text-align: center;
+  width: 300%;
 }
 
 .botones{
   display: flex;
-  width: 200%;
   text-align: center;
+  width: 200%;
 }
 
 .area{
   display: flex;
-  width: 100%;
-  text-align: center;
   margin-left: 30%;
+  text-align: center;
+  width: 100%;
 }

@@ -7,7 +7,7 @@ export interface Dispositivo {
   poe?: boolean;
   manageable?: boolean;
   areaName: string;
-  rack?:''
+  rackName:''
 }
 
 export interface Area {

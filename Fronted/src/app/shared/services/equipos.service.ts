@@ -167,5 +167,9 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
     console.log(id)
     return this.http.delete<void>(`${this.baseUrl}/rack/id/${id}`)
   }
+
+  updateEquipo(id: string, equipo: Dispositivo): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/Devices/${equipo.deviceType}/${id}`, equipo);
+  }
 }
 

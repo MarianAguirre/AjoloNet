@@ -7,13 +7,13 @@
     <form (ngSubmit)="emitEquip()">
       <!-- Selector del tipo de equipo -->
       <p>Tipo de equipo</p>
-      <select class="mb-2" required [(ngModel)]="equipo.deviceType" name="select">
-        <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion}}</option>
-      </select>
+        <select class="mb-2" required [(ngModel)]="equipo.deviceType" name="select">
+          <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion | camelCaseToTitleCase}}</option>
+        </select>
       <br>
-      <input *ngIf="equipo.deviceType === 'Router'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
-      <input *ngIf="equipo.deviceType === 'Switch'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
-      <input *ngIf="equipo.deviceType === 'Dispositivo final'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
+      <input *ngIf="equipo.deviceType === 'routers'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
+      <input *ngIf="equipo.deviceType === 'switches'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
+      <input *ngIf="equipo.deviceType === 'endDevices'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
       <br>
 
       <!-- Número de puertos -->
@@ -22,34 +22,52 @@
       <br>
 
       <!-- Opciones extra para el Switch -->
-      <div *ngIf="equipo.deviceType === 'Switch'" >
+      <div *ngIf="equipo.deviceType === 'switches'" >
         <div class="contenido">
           <p class="Text-checkbox">¿Es poe? </p><input required name="poe" [(ngModel)]="equipo.poe" class="from-control mb-2" type="checkbox">
         </div>
         <div class="contenido">
           <p class="Text-checkbox">¿Es administrable? </p><input required name="manageable" [(ngModel)]="equipo.manageable" class="from-control mb-2" type="checkbox">
         </div>
-        <div class="area" >
-          <select class="mb-2" [(ngModel)]="equipo.rack" name="select">
-            <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
-          </select>
-        </div>
+      </div>
+      <p *ngIf="equipo.deviceType === 'switches'" class="from-control mb-2">Selecciona el rack</p>
+      <div *ngIf="equipo.deviceType === 'switches'" class="area">
+        <select  class="mb-2 " [(ngModel)]="equipo.rackName" name="select">
+          <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
+        </select>
       </div>
 
+
       <!-- Opciones extra para los Dispositivos Finales -->
-      <p *ngIf="equipo.deviceType==='Dispositivo final'" class="from-control mb-2">Selecciona el area</p>
-      <div *ngIf="equipo.deviceType==='Dispositivo final'" class="area" >
+      <p *ngIf="equipo.deviceType==='endDevices'" class="from-control mb-2">Selecciona el area</p>
+      <div *ngIf="equipo.deviceType==='endDevices'" class="area" >
         <select class="mb-2" [(ngModel)]="equipo.areaName" name="select">
           <option *ngFor="let area of areas" [value]="area">{{area}}</option>
         </select>
       </div>
       <br>
 
+      <!-- Opciones extra para el patchPanel -->
+      <p *ngIf="equipo.deviceType === 'patchPanels'" class="from-control mb-2">Selecciona el rack</p>
+      <div *ngIf="equipo.deviceType === 'patchPanels'" class="area">
+        <select  class="mb-2 " [(ngModel)]="equipo.rackName" name="select">
+          <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
+        </select>
+      </div>
+
+      <!-- Opciones extra para el Router -->
+      <p *ngIf="equipo.deviceType === 'routers'" class="from-control mb-2">Selecciona el rack</p>
+      <div *ngIf="equipo.deviceType === 'routers'" class="area">
+        <select  class="mb-2 " [(ngModel)]="equipo.rackName" name="select">
+          <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
+        </select>
+      </div>
+
       <!-- Botones de guardar para cada tipo de equipo -->
-      <button *ngIf="equipo.deviceType === 'Router'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newRouter()">Guardar</button>
-      <button *ngIf="equipo.deviceType === 'Switch'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newSwitch()">Guardar</button>
-      <button *ngIf="equipo.deviceType === 'Dispositivo final'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newDispositivo()">Guardar</button>
-      <button *ngIf="equipo.deviceType === 'Patch Panel'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newPatch()">Guardar</button>
+      <button *ngIf="equipo.deviceType === 'routers'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newRouter()">Guardar</button>
+      <button *ngIf="equipo.deviceType === 'switches'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newSwitch()">Guardar</button>
+      <button *ngIf="equipo.deviceType === 'endDevices'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newDispositivo()">Guardar</button>
+      <button *ngIf="equipo.deviceType === 'patchPanels'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newPatch()">Guardar</button>
     </form>
   </div>
 
@@ -59,13 +77,16 @@
       <button type="submit" class="btn btn-danger " style="margin-top: 1%;margin-left: 12px;" (click)="goBack()">Volver</button>
     </div>
     <div class="d-flex justify-content-center">
-    <img  *ngIf="equipo.deviceType === 'Switch'" src="assets/switch.png" width="256px" height="256px">
-    <img  *ngIf="equipo.deviceType === 'Router'" src="assets/router.png"  width="256px" height="256px">
-    <img  *ngIf="equipo.deviceType === 'Dispositivo final'" src="assets/found_9694708.png"  width="256px" height="256px">
-    <img  *ngIf="equipo.deviceType === 'Patch Panel'" src="assets/patch.png"  width="256px" height="256px" >
+    <img  *ngIf="equipo.deviceType === 'switches'" src="assets/switch.png" width="256px" height="256px">
+    <img  *ngIf="equipo.deviceType === 'routers'" src="assets/router.png"  width="256px" height="256px">
+    <img  *ngIf="equipo.deviceType === 'endDevices'" src="assets/found_9694708.png"  width="256px" height="256px">
+    <img  *ngIf="equipo.deviceType === 'patchPanels'" src="assets/patch.png"  width="256px" height="256px" >
   </div>
   </div>
   <div class="botones justify-content-end">
-    <button type="submit" class="btn btn-info " style="margin-top: 1%;margin-left: 12px;" (click)="goConection()">Ir a areas</button>
+    <button *ngIf="equipo.deviceType === 'endDevices'" type="submit" class="btn btn-info " style="margin-top: 1%;margin-left: 12px;" (click)="goAreas()">Ir a areas</button>
+    <button *ngIf="equipo.deviceType === 'routers'" type="submit" class="btn btn-info" style="margin-top: 1%;margin-left: 12px;" (click)="goRacks()">Ir a racks</button>
+    <button *ngIf="equipo.deviceType === 'switches'" type="submit" class="btn btn-info" style="margin-top: 1%;margin-left: 12px;" (click)="goRacks()">Ir a racks</button>
+    <button *ngIf="equipo.deviceType === 'patchPanels'" type="submit" class="btn btn-info " style="margin-top: 1%;margin-left: 12px;" (click)="goRacks()">Ir a areas</button>
   </div>
 </div>
