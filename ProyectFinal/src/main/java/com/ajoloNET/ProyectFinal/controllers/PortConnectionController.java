@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/port_connections")
+@RequestMapping("api/port_connections")
 @Slf4j
 public class PortConnectionController {
 

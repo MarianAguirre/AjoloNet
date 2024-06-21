@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/endDevice")
+@RequestMapping("api/endDevice")
 @Slf4j
 public class EndDeviceController {
 

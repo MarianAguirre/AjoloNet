@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/switch")
+@RequestMapping("api/switch")
 @Slf4j
 public class SwitchController {
 

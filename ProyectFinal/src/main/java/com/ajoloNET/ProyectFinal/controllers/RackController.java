@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/rack")
+@RequestMapping("api/rack")
 @Slf4j
 public class RackController {
 

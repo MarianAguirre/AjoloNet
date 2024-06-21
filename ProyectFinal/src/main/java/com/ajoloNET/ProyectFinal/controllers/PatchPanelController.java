@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/patchPanel")
+@RequestMapping("api/patchPanel")
 @Slf4j
 public class PatchPanelController {
 

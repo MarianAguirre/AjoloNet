@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/router")
+@RequestMapping("api/router")
 @Slf4j
 public class RouterController {
 

@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/Devices")
+@RequestMapping("api/Devices")
 @Slf4j
 public class DevicesController {
 
