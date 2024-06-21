@@ -50,14 +50,6 @@ public class EndDeviceController {
 
         return ResponseEntity.created(location).build();
     }
-
-    @PutMapping("/{name}")
-    public ResponseEntity<EndDevice> put(@RequestBody EndDevice endDevice,
-                                         @PathVariable String name){
-        log.info("PUT: End Device {}", name);
-        return ResponseEntity.ok(this.endDeviceService.update(endDevice, name));
-    }
-
     @PutMapping("/id/{id}")
     public ResponseEntity<EndDevice> putId(@RequestBody EndDevice endDevice,
                                          @PathVariable Long id){
