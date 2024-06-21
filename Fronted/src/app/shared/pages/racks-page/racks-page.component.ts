@@ -21,23 +21,40 @@ export class RacksPageComponent implements OnInit {
   public switches: Rack[] = []
   public patchPanels: Rack[] = []
   public dispositivos: Rack[] = []
+  public nuevoRack: { name: string } = { name: '' };
 
   @Input() public equipo!: EndDevice;
   public visible: boolean = false;
-  public nuevoRack: { name: string } = { name: '' };
 
+  // Carga los racks que estan disponibles en el backend
   ngOnInit(): void {
     this.loadRacks();
-
   }
 
+  // Llama al servicio que tiene la funcion para cargar los racks
   loadRacks(): void {
     this.equiposServices.getRacks().subscribe((data: Rack[]) => {
       this.racks = data;
-
     });
   }
 
+  // Obtiene el total de los dispositivos
+  getTotalRouters(rack: Rack): number {
+    return rack.routers.length;
+  }
+  getTotalSwitch(rack: Rack): number {
+    return rack.aSwitch.length;
+  }
+  getTotalPatch(rack: Rack): number {
+    return rack.patchPanels.length;
+  }
+
+  // Hace visible el cuadro de dialogo para los nuevos racks
+  showDialog(): void {
+    this.visible = true;
+  }
+
+  // Hace llamar a los equipos y los acomoda dependiendo su rack
   loadEquiposRack(racks: Rack): void {
     if (racks.routers.length === 0) {
       this.equiposServices.getEquiposRack(racks.name).subscribe((data: any) => {
@@ -54,28 +71,7 @@ export class RacksPageComponent implements OnInit {
     }
   }
 
-  // loadRouters(racks: Rack): void {
-  //   if (racks.routers.length === 0) {
-  //     this.equiposServices.getRouterRack(racks.name).subscribe((devices: Routers[]) => {
-  //       racks.routers = devices;
-  //     });
-  //   }
-  // }
-
-  getTotalRouters(rack: Rack): number {
-    return rack.routers.length;
-  }
-  getTotalSwitch(rack: Rack): number {
-    return rack.aSwitch.length;
-  }
-  getTotalPatch(rack: Rack): number {
-    return rack.patchPanels.length;
-  }
-
-  showDialog(): void {
-    this.visible = true;
-  }
-
+  // Hace la funcion para llamar a crear un nuevo rack
   newRack(): void {
     if (!this.nuevoRack.name || this.nuevoRack.name.length === 0) return;
     timer(100).subscribe(() => this.visible = false);
@@ -100,12 +96,12 @@ export class RacksPageComponent implements OnInit {
     );
   }
 
+  // Funcion para eliminar un rack
   deleteRack(rack: Rack): void {
     if (!rack.id) {
       Swal.fire('Error', 'El ID del rack es indefinido.', 'error');
       return;
     }
-
     Swal.fire({
       title: '¿Estás seguro?',
       text: `¿Seguro que quieres eliminar el ${rack.name}?`,

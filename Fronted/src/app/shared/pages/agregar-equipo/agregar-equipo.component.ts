@@ -71,8 +71,6 @@ export class AgregarEquipoComponent implements OnInit{
     });
   }
 
-
-
   // Botones para ir a la tabla, a las areas y a los racks
   goBack() {
     this.router.navigate(['red/equipos']);
@@ -114,9 +112,6 @@ export class AgregarEquipoComponent implements OnInit{
       }
     )
   }
-
-
-
-  }
+}
 
 

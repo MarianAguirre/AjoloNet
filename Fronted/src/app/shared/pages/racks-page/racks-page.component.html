@@ -4,13 +4,14 @@
   dataKey="id"
   [tableStyle]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
 
-  <!-- Encabezado de la tabla -->
+  <!-- Titulos de la tabla -->
   <ng-template pTemplate="caption">
     <h1 style="width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">RACKS</h1>
     <p-iconField iconPosition="left" [style]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
       <th style="width: 80%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
         <div class="card flex justify-content-center">
           <button (click)="showDialog()" style="border-color: transparent;" class="btn btn-outline-primary">Agregar</button>
+          <!-- Dialogo de nuevo racks -->
           <p-dialog header="Agrega una nuevo rack" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
               <div style="display: flex; justify-content: space-between; font-weight: bold;">
                   <label for="name" class="font-semibold w-6rem">Nombre del rack</label>
@@ -25,7 +26,7 @@
     </p-iconField>
   </ng-template>
 
-  <!-- Cuerpo de la tabla -->
+  <!-- Encabezados de la tabla -->
   <ng-template pTemplate="header">
     <tr>
       <th style="width:25%">Rack</th>
@@ -66,7 +67,7 @@
     </tr>
   </ng-template>
 
-  <!-- Filas de expansión para endDevices -->
+  <!-- Filas de expansión para routers, swtich y patch panel -->
   <ng-template pTemplate="rowexpansion" let-racks>
     <tr *ngFor="let device of racks.routers">
       <td></td>
@@ -92,6 +93,8 @@
       <td>{{device.numberOfPorts}}</td>
       <td></td>
     </tr>
+
+    <!-- Totales -->
     <tr class="p-rowgroup-footer" style="font-size: 14px; margin-top: 1px;">
       <td colspan="5" style="text-align: right">Total de routers:</td>
       <td>{{getTotalRouters(racks)}}</td>
@@ -104,9 +107,9 @@
       <td colspan="5" style="text-align: right">Total de patch panels:</td>
       <td>{{getTotalPatch(racks)}} </td>
     </tr>
-
   </ng-template>
 
+  <!-- Mensaje cuando no hay racks -->
   <ng-template pTemplate="emptymessage">
     <tr>
       <td colspan="6">No se encontraron racks. </td>

@@ -1,14 +1,12 @@
-<div class="row" style="margin: 5% ">
-  <div class="col">
-    <h1 style="font-size: 300%;text-align: center;" >Crear conexiones</h1>
-    <br>
-    <form (ngSubmit)="emitEquip()"  >
+<form (ngSubmit)="emitEquip()"  >
+  <h1 style="font-size: 300%;text-align: center;" >Crear conexiones</h1>
+  <div class="row" style="margin: 5% ">
+    <div class="col">
       <p>Tipo de equipo</p>
       <select class="mb-2" required
           [(ngModel)]="equipo.deviceType" name="select">
         <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion | camelCaseToTitleCase  }}</option>
       </select>
-
       <p>Nombre del equipo</p>
       <select *ngIf="equipo.deviceType === 'routers'">
         <option *ngFor="let router of routers" [value]="router">{{router}}</option>
@@ -22,36 +20,29 @@
       <select *ngIf="equipo.deviceType === 'patchPanels'">
         <option *ngFor="let patchPanel of patchPanels" [value]="patchPanel">{{patchPanel}}</option>
       </select>
-      <button type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;">Guardar</button>
-    </form>
-
-
-  </div>
-
-
-
-
-  <div class="col">
-    <div class="d-flex justify-content-end">
-      <button
-      type="submit"
-      class="btn btn-danger "
-      style="margin-top: 1%;margin-left: 12px;"
-      (click)="goBack()"
-      >Volver</button>
-
     </div>
-    <!-- <section id="interactive-diagram">
-      <h2>Diagrama Interactivo</h2>
-      <div id="router">
-          <div class="port" id="router-port-1" draggable="true">Router Port 1</div>
-          <div class="port" id="router-port-2" draggable="true">Router Port 2</div>
-      </div>
-      <div id="switch">
-          <div class="port" id="switch-port-1" draggable="true">Switch Port 1</div>
-          <div class="port" id="switch-port-2" draggable="true">Switch Port 2</div>
-      </div>
-  </section> -->
 
-  </div>
+    <div class="col">
+      <p>Tipo de equipo</p>
+        <select class="mb-2" required
+            [(ngModel)]="equipo2.deviceType" name="select">
+          <option *ngFor="let opcion2 of opciones" [value]="opcion2">{{opcion2 | camelCaseToTitleCase  }}</option>
+        </select>
+        <p>Nombre del equipo</p>
+        <select *ngIf="equipo2.deviceType === 'routers'">
+          <option *ngFor="let router2 of routers" [value]="router2">{{router2}}</option>
+        </select>
+        <select *ngIf="equipo2.deviceType === 'switches'">
+          <option *ngFor="let switch2 of switches" [value]="switch2">{{switch2}}</option>
+        </select>
+        <select *ngIf="equipo2.deviceType === 'endDevices'">
+          <option *ngFor="let endDevice2 of endDevices" [value]="endDevice2">{{endDevice2}}</option>
+        </select>
+        <select *ngIf="equipo2.deviceType === 'patchPanels'">
+          <option *ngFor="let patchPanel2 of patchPanels" [value]="patchPanel2">{{patchPanel2}}</option>
+        </select>
+    </div>
+
+  <button type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;">Guardar</button>
 </div>
+</form>

@@ -12,6 +12,8 @@ import { TreeTableModule } from 'primeng/treetable';
 import { TableModule} from 'primeng/table';
 import { RippleModule } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
+import { DragDropModule } from 'primeng/dragdrop';
+
 
 
 
@@ -31,7 +33,8 @@ import { AvatarModule } from 'primeng/avatar';
     ToastModule,
     TreeTableModule,
     RippleModule,
-    AvatarModule
+    AvatarModule,
+    DragDropModule
 
 
   ],
@@ -48,7 +51,8 @@ import { AvatarModule } from 'primeng/avatar';
     ToastModule,
     TreeTableModule,
     RippleModule,
-    AvatarModule
+    AvatarModule,
+    DragDropModule
 
   ],
   declarations: [

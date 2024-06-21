@@ -8,53 +8,11 @@ import { enavironments } from '../../../environments/envarionments';
 
 @Injectable({providedIn: 'root'})
 export class EquiposServices {
-  constructor(private http:HttpClient) {
-  }
+  constructor(private http:HttpClient) {}
+  dispositivo: Dispositivo[] =[]
+  private baseUrl: string = enavironments.baseUrl
 
-
-
-dispositivo: Dispositivo[] =[]
-private baseUrl: string = enavironments.baseUrl
-
-getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patchPanels: Dispositivo[], endDevices: Dispositivo[] }> {
-  return this.http.get<{ routers: Dispositivo[], switches: Dispositivo[], patchPanels: Dispositivo[], endDevices: Dispositivo[] }>(`${this.baseUrl}/Devices`).pipe(
-    catchError(error => {
-      console.error('Error fetching devices', error);
-      return of({ routers: [], switches: [], patchPanels: [], endDevices: [] });
-    })
-  );
-}
-
-
-  getRouters():Observable<Dispositivo[]>{
-    return this.http.get<Dispositivo[]>(`${this.baseUrl}/router `)
-  }
-
-  getSwitch():Observable<Dispositivo[]>{
-    return this.http.get<Dispositivo[]>(`${this.baseUrl}/switch `)
-  }
-  getPatch():Observable<Dispositivo[]>{
-    return this.http.get<Dispositivo[]>(`${this.baseUrl}/patchPanel `)
-  }
-  getEnd():Observable<Dispositivo[]>{
-    return this.http.get<Dispositivo[]>(`${this.baseUrl}/endDevices `)
-  }
-
-
-  deleteEquipo(id: string,deviceType:string): Observable<void> {
-    console.log(id,deviceType)
-    return this.http.delete<void>(`${this.baseUrl}/Devices/${deviceType}/${id}`);
-  }
-
-
-  getEquipo(id: string,deviceType:string): Observable<void> {
-    console.log(id,deviceType)
-    return this.http.get<void>(`${this.baseUrl}/Devices/${deviceType}/${id}`);
-  }
-  getDeviceNamesByType(): Observable<string[]> {
-    return this.http.get<string[]>(`${this.baseUrl}/devices/`);
-  }
-
+  // Equipos.component, Agregar-equipo.component
   getArea(): Observable<string[]> {
     return this.http.get<{ name: string }[]>(`${this.baseUrl}/area`).pipe(
       map(areas => areas.map(area => area.name)),
@@ -63,8 +21,8 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
         return of([]);
       })
     );
-  } //remplazar por la funcion de abajo mas adelante porque esta esta larga y la otr apuede ir mejor
-
+  }
+  // Equipos.component, Agregar-equipo.component
   getRack(): Observable<string[]> {
     return this.http.get<{ name: string }[]>(`${this.baseUrl}/rack`).pipe(
       map(rack => rack.map(rack => rack.name)),
@@ -74,14 +32,27 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
       })
     );
   }
-
-  deleteArea(id:number): Observable<void>{
-    console.log(id)
-    return this.http.delete<void>(`${this.baseUrl}/area/id/${id}`)
+  // Equipos.component
+  getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patchPanels: Dispositivo[], endDevices: Dispositivo[] }> {
+    return this.http.get<{ routers: Dispositivo[], switches: Dispositivo[], patchPanels: Dispositivo[], endDevices: Dispositivo[] }>(`${this.baseUrl}/Devices`).pipe(
+      catchError(error => {
+        console.error('Error fetching devices', error);
+        return of({ routers: [], switches: [], patchPanels: [], endDevices: [] });
+      })
+    );
+  }
+  // Equipos.component
+  deleteEquipo(id: string,deviceType:string): Observable<void> {
+    console.log(id,deviceType)
+    return this.http.delete<void>(`${this.baseUrl}/Devices/${deviceType}/${id}`);
+  }
+  // Equipos.component
+  updateEquipo(id: string, equipo: Dispositivo): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/Devices/${equipo.deviceType}/${id}`, equipo);
   }
 
 
-
+  // Conection-page.component, Agregar-equipo.component
   getTiposDispositivos(): Observable<string[]> {
     return this.http.get<{ [key: string]: any }>(`${this.baseUrl}/Devices`).pipe(
       map(response => Object.keys(response)),
@@ -91,7 +62,7 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
       })
     );
   }
-
+  // Conection-page.component
   getNombresRouters():Observable<string[]> {
     return this.http.get<{ name: string }[]>(`${this.baseUrl}/router`).pipe(
       map(routers => routers.map(router => router.name)),
@@ -101,6 +72,7 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
       })
     );
   }
+  // Conection-page.component
   getNombresSwitches(): Observable<string[]> {
     return this.http.get<{ name: string }[]>(`${this.baseUrl}/switch`).pipe(
       map(switches => switches.map(switchDevice => switchDevice.name)),
@@ -110,7 +82,7 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
       })
     );
   }
-
+  // Conection-page.component
   getNombresEndDevices(): Observable<string[]> {
     return this.http.get<{ name: string }[]>(`${this.baseUrl}/endDevice`).pipe(
       map(endDevices => endDevices.map(endDevice => endDevice.name)),
@@ -120,7 +92,7 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
       })
     );
   }
-
+  // Conection-page.component
   getNombresPatchPanels(): Observable<string[]> {
     return this.http.get<{ name: string }[]>(`${this.baseUrl}/patchPanel`).pipe(
       map(patchPanels => patchPanels.map(patchPanel => patchPanel.name)),
@@ -131,29 +103,27 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
     );
   }
 
-  getEndDevicesArea(name:string): Observable<EndDevice[]> {
-    return this.http.get<EndDevice[]>(`${this.baseUrl}/${name}/endDevices`)
-  }
 
+
+  // Areas-page.component
   getAreas(): Observable<Area[]> {
     return this.http.get<Area[]>(`${this.baseUrl}/area`);
   }
+  // Areas-page.component
+  getEndDevicesArea(name:string): Observable<EndDevice[]> {
+    return this.http.get<EndDevice[]>(`${this.baseUrl}/${name}/endDevices`)
+  }
+  // Areas-page.component
+  deleteArea(id:number): Observable<void>{
+    console.log(id)
+    return this.http.delete<void>(`${this.baseUrl}/area/id/${id}`)
+  }
 
-
+  // Racks-page.component
   getRacks(): Observable<Rack[]> {
     return this.http.get<Rack[]>(`${this.baseUrl}/rack`);
   }
-  getRouterRack(name:string): Observable<Routers[]> {
-    return this.http.get<Routers[]>(`${this.baseUrl}/${name}/routers`)
-  }
-  getSwitchRack(name:string): Observable<ASwitch[]> {
-    return this.http.get<ASwitch[]>(`${this.baseUrl}/${name}/aSwitch`)
-  }
-  getPatchRack(name:string): Observable<PatchPanel[]> {
-    return this.http.get<PatchPanel[]>(`${this.baseUrl}/${name}/patchPanels`)
-  }
-
-
+  // Racks-page.component
   getEquiposRack(name:string): Observable<{ routers: Rack[], aSwitches: Rack[], patchPanels: Rack[]}> {
     return this.http.get<{ routers: Rack[], aSwitches: Rack[], patchPanels: Rack[]}>(`${this.baseUrl}/${name}`).pipe(
       catchError(error => {
@@ -162,14 +132,17 @@ getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patc
       })
     );
   }
-
+  // Racks-page.component
   deleteRack(id:number): Observable<void>{
     console.log(id)
     return this.http.delete<void>(`${this.baseUrl}/rack/id/${id}`)
   }
 
-  updateEquipo(id: string, equipo: Dispositivo): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/Devices/${equipo.deviceType}/${id}`, equipo);
+
+
+
+  getPorts(deviceType: string, name:string): Observable<Dispositivo> {
+    return this.http.get<Dispositivo>(`${this.baseUrl}/${deviceType}/${name}`)
   }
 }
 

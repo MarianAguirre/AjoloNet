@@ -20,12 +20,12 @@ export class ConectionPageComponent implements OnInit{
   public switches: string[] = [];
   public endDevices: string[] = [];
   public patchPanels: string[] = [];
+  public nombres: string[] = [];
 
   ngOnInit(): void {
     this.equiposServices.getTiposDispositivos().subscribe((tipos: string[]) => {
       this.opciones = tipos;
     });
-
     this.equiposServices.getNombresRouters().subscribe((routers: string[]) => {
       this.routers = routers;
     });
@@ -43,12 +43,23 @@ export class ConectionPageComponent implements OnInit{
   }
 
 
+
+
   @Output()
   public newEquip: EventEmitter<Dispositivo> = new EventEmitter
 
 
 
   public equipo:Dispositivo ={
+    name: '',
+    deviceType: '',
+    numberOfPorts: 0,
+    poe: false,
+    manageable: false,
+    areaName: '',
+    rackName: ''
+  }
+  public equipo2:Dispositivo ={
     name: '',
     deviceType: '',
     numberOfPorts: 0,
@@ -91,7 +102,7 @@ export class ConectionPageComponent implements OnInit{
 
   public opciones:string[] = []
 
-  public nombres:string[] = []
+
 
 
 

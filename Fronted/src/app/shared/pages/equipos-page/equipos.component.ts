@@ -29,17 +29,7 @@ export class EquiposComponent implements OnInit {
 
   ngOnInit(): void {
     // Recibe todos lo dispositivos para mostrarlos en la tabla
-    this.equiposServices.getDevices().subscribe((data: any) => {
-      if (data && typeof data === 'object') {
-        this.routers = data.routers || [];
-        this.switches = data.switches || [];
-        this.patchPanels = data.patchPanels || [];
-        this.endDevices = data.endDevices || [];
-        this.dispositivos = [...this.routers, ...this.switches, ...this.patchPanels, ...this.endDevices];
-      } else {
-        console.error('Error: data is not an object', data);
-      }
-    });
+    this.loadEquipos();
 
     // Obtiene los racks
     this.equiposServices.getRack().subscribe((racks: string[]) => {
@@ -52,9 +42,27 @@ export class EquiposComponent implements OnInit {
     });
   }
 
-  // Redirige a las areas
+  loadEquipos(){
+    this.equiposServices.getDevices().subscribe((data: any) => {
+      if (data && typeof data === 'object') {
+        this.routers = data.routers || [];
+        this.switches = data.switches || [];
+        this.patchPanels = data.patchPanels || [];
+        this.endDevices = data.endDevices || [];
+        this.dispositivos = [...this.routers, ...this.switches, ...this.patchPanels, ...this.endDevices];
+      } else {
+        console.error('Error: data is not an object', data);
+      }
+    });
+  }
+
+
+  // Redirige a las areas y racks
   goAreas() {
     this.router.navigate(['red/areas']);
+  }
+  goRacks() {
+    this.router.navigate(['red/racks']);
   }
 
   // Transforma el booleano de true o false, a si o no
@@ -142,6 +150,7 @@ export class EquiposComponent implements OnInit {
               'El equipo ha sido actualizado.',
               'success'
             );
+            // this.loadEquipos();
           },
           (error: any) => {
             Swal.fire(
@@ -157,4 +166,6 @@ export class EquiposComponent implements OnInit {
       }
     });
   }
+
+
 }
