@@ -69,3 +69,21 @@ export interface Routers {
 
 
 
+export interface Device {
+  id:            number;
+  ports:         Port[];
+  name:          string;
+  numberOfPorts: number;
+  deviceType:    string;
+  areaName?:     null;
+  rackName?:     null;
+  poe?:          boolean;
+  manageable?:   boolean;
+}
+
+export interface Port {
+  id:                    number;
+  portNumber:            number;
+  sourceConnection:      null;
+  destinationConnection: null;
+}

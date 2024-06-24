@@ -3,10 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './shared/pages/home-page/home-page.component';
 import { EquiposComponent } from './shared/pages/equipos-page/equipos.component';
 import { AgregarEquipoComponent } from './shared/pages/agregar-equipo/agregar-equipo.component';
-import { AuthModule } from './auth/auth.module';
+
 import { Error404PageComponent } from './shared/pages/error404-page/error404-page.component';
-import { AuthGuard } from './auth/guards/auth.guard';
-import { PublicGuard } from './auth/guards/public.guard';
+
 
 const routes: Routes = [
 

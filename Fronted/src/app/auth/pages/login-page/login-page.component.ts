@@ -25,10 +25,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   onLogin(): void {
-    const userEmail = this.loginForm.get('userEmail')?.value;
+    const email = this.loginForm.get('emai')?.value;
     const password = this.loginForm.get('password')?.value;
 
-    this.authService.login(userEmail, password)
+    this.authService.login(email, password)
       .subscribe(user => {
         this.router.navigate(['/']);
       });

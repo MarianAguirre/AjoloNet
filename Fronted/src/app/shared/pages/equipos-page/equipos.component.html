@@ -13,7 +13,6 @@
   <!-- Titulo de la tabla -->
   <ng-template pTemplate="caption" style="display: flex; justify-content: space-between;">
     <h1 style="width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">EQUIPOS</h1>
-    <p-iconField iconPosition="left" [style]="{'width':'80%', 'margin-left':'10%', 'margin-top':'1%', 'margin-bottom':'1%'}">
 
 
         <div >
@@ -22,24 +21,14 @@
               <button style=" margin-left: 60%; margin-top: 1%; margin-bottom: 1%;" class="btn btn-outline-success tabla" type="submit" [routerLink]="['nuevo-equipo']">Agregar</button>
             </th>
             <th>
-                <p-columnFilter
-                    type="text"
-                    field="id"
-                    placeholder="Buscar por id"
-                    ariaLabel="Filter id" />
+                <p-columnFilter filterMatchModeOptions="startsWith,contains,endsWith" filterDisplay="row" matchMode="contains" type="text" field="id" placeholder="Buscar por id" ariaLabel="Filter id" />
             </th>
             <th>
-                <p-columnFilter
-                    type="text"
-                    field="name"
-                    placeholder="Buscar por nombre"
-                    ariaLabel="Filter name" />
+                <p-columnFilter filterMatchModeOptions="startsWith,contains,endsWith" filterDisplay="row" matchMode="contains" type="text" field="name" placeholder="Buscar por nombre" ariaLabel="Filter name" />
             </th>
             <th></th>
           </tr>
         </div>
-
-    </p-iconField>
 
   </ng-template>
 

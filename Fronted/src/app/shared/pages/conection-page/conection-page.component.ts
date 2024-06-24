@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Dispositivo } from '../../../interfaces/Dispositivo';
+import { Device, Dispositivo } from '../../../interfaces/Dispositivo';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import {v4 as uuid} from 'uuid'
@@ -22,6 +22,8 @@ export class ConectionPageComponent implements OnInit{
   public patchPanels: string[] = [];
   public nombres: string[] = [];
 
+
+
   ngOnInit(): void {
     this.equiposServices.getTiposDispositivos().subscribe((tipos: string[]) => {
       this.opciones = tipos;
@@ -39,8 +41,10 @@ export class ConectionPageComponent implements OnInit{
       this.patchPanels = patchPanels;
     });
 
-
   }
+
+
+
 
 
 

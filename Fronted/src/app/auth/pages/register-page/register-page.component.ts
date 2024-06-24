@@ -23,7 +23,18 @@ export class RegisterPageComponent {
 
 
   async registrar():Promise<void>{
-    if(!this.registerForm.value) return;
+    const { user, email, password} = this.registerForm.value;
+
+  if (!user || !email || !password ) {
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: "Los datos son errones",
+      showConfirmButton: false,
+      timer: 1000
+    });
+    return;
+  }
     const { value: accept } = await Swal.fire({
       title: "Terminos y condiciones",
       input: "checkbox",
@@ -40,6 +51,7 @@ export class RegisterPageComponent {
     });
     if (accept) {
       Swal.fire("Haz aceptado los terminos y condiciones ");
+      console.log(this.registerForm.value)
     }
 
 
@@ -50,7 +62,7 @@ export class RegisterPageComponent {
     user: ['', [Validators.required, Validators.pattern(this.validatorsServices.firstNameAndLastnamePattern)]],
     email: ['', [Validators.required, Validators.pattern(this.validatorsServices.emailPattern)], [this.emailValidator]],
     password: ['', [Validators.required, Validators.minLength(6)]],
-    password2: ['', [Validators.required]],
+
   })
 
   isValidField(field:string){

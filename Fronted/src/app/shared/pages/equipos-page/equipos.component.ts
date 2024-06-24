@@ -150,7 +150,7 @@ export class EquiposComponent implements OnInit {
               'El equipo ha sido actualizado.',
               'success'
             );
-            // this.loadEquipos();
+            this.loadEquipos();
           },
           (error: any) => {
             Swal.fire(

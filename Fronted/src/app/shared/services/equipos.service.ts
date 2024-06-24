@@ -1,4 +1,4 @@
-import { Area, ASwitch, Dispositivo, EndDevice, PatchPanel, Rack, Routers } from './../../interfaces/Dispositivo';
+import { Area, ASwitch, Device, Dispositivo, EndDevice, PatchPanel, Port, Rack, Routers } from './../../interfaces/Dispositivo';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
@@ -138,11 +138,9 @@ export class EquiposServices {
     return this.http.delete<void>(`${this.baseUrl}/rack/id/${id}`)
   }
 
-
-
-
-  getPorts(deviceType: string, name:string): Observable<Dispositivo> {
-    return this.http.get<Dispositivo>(`${this.baseUrl}/${deviceType}/${name}`)
+  getPorts(deviceType:string, id:string): Observable<Device[]> {
+    return this.http.get<Device[]>(`${this.baseUrl}/${deviceType}/id/${id}`);
   }
+
 }
 
