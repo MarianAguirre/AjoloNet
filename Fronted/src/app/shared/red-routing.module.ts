@@ -8,6 +8,7 @@ import { ConectionPageComponent } from './pages/conection-page/conection-page.co
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { AreasPageComponent } from './pages/areas-page/areas-page.component';
 import { RacksPageComponent } from './pages/racks-page/racks-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 const routes : Routes =[
   {
@@ -16,6 +17,9 @@ const routes : Routes =[
     children: [
       {
         path: 'admin', component: AdminPageComponent
+      },
+      {
+        path: 'perfil', component: ProfilePageComponent
       },
       {
         path: 'equipos/nuevo-equipo', component: AgregarEquipoComponent

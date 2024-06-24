@@ -7,6 +7,8 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { MaterialModule } from '../modulos/material/material.module';
 import { DarkModeModule } from '../shared/components/dark-mode/dark-mode.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -23,7 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     AuthRoutingModule,
     MaterialModule,
     DarkModeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
+
 
 
   ]

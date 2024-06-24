@@ -16,30 +16,33 @@
 
               <div class="card-body p-4 p-lg-5 text-black">
 
-                <form [formGroup]="registerForm " (ngSubmit)="onSubmit()" autocomplete="off">
+                <form autocomplete="off">
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;"> <strong>Nuevo usuario</strong></h5>
 
                   <div data-mdb-input-init class="form-outline mb-4">
-                    <input formControlName="user" type=" text" class="form-control form-control-lg" placeholder="Usuario "/>
-                    <span *ngIf="isValidField('user')" class="form-text text-danger">Debe tener un nombre y apellido</span>
-                  </div>
-
-
-                  <div data-mdb-input-init class="form-outline mb-4">
-                    <input  name="email" formControlName="email" required type="email" id="email" class="form-control form-control-lg" placeholder="Correo  "/>
-                    <span *ngIf="isValidField('email')" class="form-text text-danger">Debe ser un correo electronico valido</span>
-
+                    <input  type=" text" class="form-control form-control-lg" placeholder="Nombre de usuario "/>
                   </div>
 
                   <div data-mdb-input-init class="form-outline mb-4">
-                    <input name="password" formControlName="password" type="password" id="password" class="form-control form-control-lg" placeholder="Contraseña" />
-                    <span *ngIf="isValidField('password')" class="form-text text-danger">La contraseña debe tener mas de 6 caracteres</span>
+                    <input type=" text" class="form-control form-control-lg" placeholder="Nombre"/>
+                  </div>
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type=" text" class="form-control form-control-lg" placeholder="Apellido"/>
+                  </div>
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input  name="email"  required type="email" id="email" class="form-control form-control-lg" placeholder="Correo  "/>
+
+                  </div>
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input name="password"  type="password" id="password" class="form-control form-control-lg" placeholder="Contraseña" />
 
                   </div>
 
                   <div class="pt-1 mb-4">
-                    <button
-                    data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block me-2" type="submit" (click)="registrar()" >Crear cuenta</button>
+                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block me-2" type="submit"  >Crear cuenta</button>
 
                   </div>
                   <div>

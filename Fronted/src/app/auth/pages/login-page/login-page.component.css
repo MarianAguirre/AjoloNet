@@ -4,12 +4,14 @@ input{
 
 .ng-touched.ng-invalid:is(input, textarea),
 .ng-dirty.ng-invalid:is(input, textarea){
-  outline: 2px solid rgb(180, 6, 6);
+  border-left: 5px solid rgb(180, 6, 6);
 }
 
-.ng-dirty.ng-pending:is(input, textarea){
-  outline: 2px solid rgb(190, 190, 6);
+.ng-touched.ng-valid:is(input, textarea),
+.ng-dirty.ng-valid:is(input, textarea){
+  border-left: 5px solid rgb(26, 180, 6);
 }
+
 
 .body{
   background: linear-gradient(135deg,#0e25f1, #181818);
