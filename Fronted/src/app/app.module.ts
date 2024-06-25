@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SharedModule } from './shared/shared.module';
@@ -24,6 +24,8 @@ import { MdbScrollspyModule } from 'mdb-angular-ui-kit/scrollspy';
 import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
+import { JwtInterceptorService } from './auth/services/jwt-interceptor.service';
+import { ErrorInterceptorService } from './auth/services/error-interceptor.service';
 
 
 
@@ -61,7 +63,10 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true }
+
   ],
   bootstrap: [AppComponent]
 })

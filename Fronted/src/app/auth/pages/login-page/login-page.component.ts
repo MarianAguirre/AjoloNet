@@ -15,18 +15,17 @@ export class LoginPageComponent implements OnInit{
   constructor(private formBuilder:FormBuilder, private router:Router, private loginService:LoginService ){}
 
   loginForm = this.formBuilder.group({
-    email: ['si@gmail.com', [Validators.required, Validators.email]],
+    username: ["", [Validators.required]],
     password: ['', Validators.required],
   })
 
   public loginError:string = ''
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 
-  get email(){
-    return this.loginForm.controls.email
+  get username(){
+    return this.loginForm.controls.username
   }
   get password(){
     return this.loginForm.controls.password
@@ -34,6 +33,7 @@ export class LoginPageComponent implements OnInit{
 
   login(){
     if(this.loginForm.valid){
+      this.loginError= ''
       this.loginService.login(this.loginForm.value as Login).subscribe({
         next: (userData) =>{
           console.log(userData)

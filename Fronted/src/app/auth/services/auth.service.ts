@@ -8,7 +8,7 @@ import { enavironments } from '../../../environments/envarionments';
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  private baseUrl = enavironments.baseUrl
+  private baseUrl = enavironments.loginUrl
   private user?: User
 
   constructor(private http:HttpClient){}
