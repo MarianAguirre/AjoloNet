@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/area")
+@RequestMapping("api/area")
 @Slf4j
 public class AreaController {
 
