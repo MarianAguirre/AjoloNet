@@ -36,8 +36,11 @@
                       <div *ngIf="password.errors?.['required']"> La contraseña es requerida</div>
                     </div>
                   </div>
+
                   <div class="pt-1 mb-4">
-                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block me-2" type="submit" (click)="save()"  >Crear cuenta</button>
+                    <button type="submit"  (click)="save()"> Crear cuenta
+                      <span></span>
+                    </button>
                   </div>
                   <div>
                     <a

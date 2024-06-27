@@ -6,6 +6,7 @@ import { AgregarEquipoComponent } from './shared/pages/agregar-equipo/agregar-eq
 
 import { Error404PageComponent } from './shared/pages/error404-page/error404-page.component';
 import { guardGuard } from './auth/guard/guard.guard';
+import { publicGuard } from './auth/guard/public.guard';
 
 
 const routes: Routes = [
@@ -13,7 +14,7 @@ const routes: Routes = [
   {
     path:'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-
+    canActivate:[publicGuard]
   },
   {
     path:'red',
