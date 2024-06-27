@@ -13,18 +13,18 @@
                 <form [formGroup]="loginForm">
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;"><strong>DIAGNOCONS</strong></h5>
                   <div data-mdb-input-init class="form-outline mb-4">
-                    <input formControlName="username" type="text" id="username" class="form-control form-control-lg" placeholder="Nobre de usuario"/>
-                    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
-                      <div *ngIf="username.errors?.['required']"> El nombre de usuario es requerido</div>
+                    <input formControlName="username" type="text" id="username" class="form-control form-control-lg" placeholder="Nombre de usuario"/>
+                    <div *ngIf="nombreUsuario.invalid && (nombreUsuario.dirty || nombreUsuario.touched)" class="text-danger">
+                      <div *ngIf="nombreUsuario.errors?.['required']"> El nombre de usuario es requerido</div>
                     </div>
                   </div>
                   <div data-mdb-input-init class="form-outline mb-4">
                     <input formControlName="password" type="password" id="password" class="form-control form-control-lg" placeholder="Contraseña" />
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
-                      <div *ngIf="password.errors?.['required']"> La contraseña es requerida</div>
+                    <div *ngIf="clave.invalid && (clave.dirty || clave.touched)" class="text-danger">
+                      <div *ngIf="clave.errors?.['required']"> La contraseña es requerida</div>
                     </div>
                   </div>
-                  <button (click)="login()" type="submit" class="btn btn-primary btn-lg btn-block me-2">Iniciar sesión</button>
+                  <button  type="submit" class="btn btn-primary btn-lg btn-block me-2" (click)="login()">Iniciar sesión</button>
                   <button
                     routerLink="/auth/registrar" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="button">Registrarse  </button>
                 </form>

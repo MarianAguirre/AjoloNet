@@ -3,7 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { enavironments } from '../../../../environments/envarionments';
-import { User } from '../../interfaces/user.interfaces';
+import { User } from '../../../interfaces/user.interfaces';
+import { AccessService } from '../../services/access.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-page',
@@ -14,7 +16,7 @@ export class RegisterPageComponent {
 
   public loginUrl = enavironments.loginUrl;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private accessSservice:AccessService, private router:Router) { }
 
   registerForm = this.formBuilder.group({
     username: ['', [Validators.required]],
@@ -36,77 +38,38 @@ export class RegisterPageComponent {
     return this.registerForm.controls.password;
   }
 
-  @Output()
-  public newUser: EventEmitter<User> = new EventEmitter<User>();
-
-  async save(): Promise<void> {
-    const { username, firstname, lastname, password } = this.registerForm.value;
-
-    if (!username || !firstname || !lastname || !password) {
+  save(){
+    if(this.registerForm.invalid) {
       Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Los datos son erróneos",
-        showConfirmButton: false,
-        timer: 1000
-      });
-      return;
-    }
-
-    const { value: accept } = await Swal.fire({
-      title: "Términos y condiciones",
-      input: "checkbox",
-      inputValue: 1,
-      inputPlaceholder: "Estoy de acuerdo con las condiciones",
-      confirmButtonText: "Continue&nbsp;<i class='fa fa-arrow-right'></i>",
-      inputValidator: (result) => {
-        return !result && "Debes aceptar los términos y condiciones";
-      }
+      title: 'Faltan datos',
+      icon: 'error',
+      timer: 1000
     });
+    return;}
 
-    if (accept) {
-      Swal.fire("Has aceptado los términos y condiciones");
-      this.nuevoUser = {  username, firstname, lastname, password };
-      this.newUser.emit(this.nuevoUser);
-
-      console.log(this.registerForm.value);
-      console.log(this.nuevoUser);
-
-
-
-      this.newUsuario();
+    const object:User ={
+      username: this.registerForm.value.username ??'',
+      firstname: this.registerForm.value.firstname??'',
+      lastname: this.registerForm.value.lastname?? '',
+      password: this.registerForm.value.password??''
     }
-  }
+    this.accessSservice.registrarse(object).subscribe({
 
-  newUsuario(): void {
-    this.http.post<User>(`${this.loginUrl}/register`, this.nuevoUser).subscribe(
-      (data) => {
+      next:(data)=>{
+        localStorage.setItem('token',data.token)
         Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Usuario creado",
-          showConfirmButton: false,
+          title: 'Usuario creado con exito',
+          icon: 'success',
           timer: 1000
-        });
+        })
+        this.registerForm.reset();
       },
-      (error) => {
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "Usuario no creado",
-          showConfirmButton: false,
-          timer: 1000
-        }); return
+      error:(error)=>{
+        console.log(error.message)
       }
-    );
+    })
   }
-
-  public nuevoUser: User = {
-
-    username: '',
-    firstname: '',
-    lastname: '',
-    password: '',
-
-  };
+  volver(){
+    this.router.navigate(['/registrar'])
+  }
 }

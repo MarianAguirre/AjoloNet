@@ -5,6 +5,7 @@ import { EquiposComponent } from './shared/pages/equipos-page/equipos.component'
 import { AgregarEquipoComponent } from './shared/pages/agregar-equipo/agregar-equipo.component';
 
 import { Error404PageComponent } from './shared/pages/error404-page/error404-page.component';
+import { guardGuard } from './auth/guard/guard.guard';
 
 
 const routes: Routes = [
@@ -12,14 +13,12 @@ const routes: Routes = [
   {
     path:'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-    // canActivate: [PublicGuard],
-    // canMatch: [PublicGuard],
+
   },
   {
     path:'red',
     loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule),
-    // canActivate: [AuthGuard],
-    // canMatch: [AuthGuard],
+    canActivate:[guardGuard]
   },
   {
     path: '404',

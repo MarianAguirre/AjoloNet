@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../auth/services/auth.service';
-import { User } from '../../../auth/interfaces/user.interfaces';
+import { User } from '../../../interfaces/user.interfaces';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,20 +9,12 @@ import { Router } from '@angular/router';
 })
 export class SearchBoxComponent{
 
-  constructor(private authService:AuthService,
-    private router:Router
-  ){}
+  constructor(private router:Router){}
 
 
-
-  onLogout(){
-    this.authService.logout(  )
-    this.router.navigate(['/auth/login'])
+  logout(){
+    localStorage.removeItem("token")
+    this.router.navigate(["/auth"])
   }
-
-  get user():User|undefined{
-    return this.authService.currentUser
-  }
-
 
 }

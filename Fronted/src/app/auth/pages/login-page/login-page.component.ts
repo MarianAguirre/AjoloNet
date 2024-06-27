@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AccessService } from '../../services/access.service';
+import { Login } from '../../../interfaces/login.interfaces';
 import Swal from 'sweetalert2';
-import { LoginService } from '../../services/login.service';
-import { Login } from '../../interfaces/login.interfaces';
 
 
 @Component({
@@ -12,9 +12,9 @@ import { Login } from '../../interfaces/login.interfaces';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit{
-  constructor(private formBuilder:FormBuilder, private router:Router, private loginService:LoginService ){}
+  constructor(private formBuilder:FormBuilder, private router:Router, private accessServices:AccessService){}
 
-  loginForm = this.formBuilder.group({
+  public loginForm = this.formBuilder.group({
     username: ["", [Validators.required]],
     password: ['', Validators.required],
   })
@@ -24,44 +24,39 @@ export class LoginPageComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  get username(){
+  get nombreUsuario(){
     return this.loginForm.controls.username
   }
-  get password(){
+  get clave(){
     return this.loginForm.controls.password
   }
 
   login(){
-    if(this.loginForm.valid){
-      this.loginError= ''
-      this.loginService.login(this.loginForm.value as Login).subscribe({
-        next: (userData) =>{
-          console.log(userData)
-        },
-        error: (errorData) =>{
-          console.log(errorData)
-          this.loginError = errorData
-          Swal.fire({
-            title: 'Error al iniciar sesion',
-            text: `${this.loginError}`,
-            icon: 'error'
-          })
-        },
-        complete: () =>{
-          console.info('Login completo')
-          this.router.navigateByUrl('/red/home')
-          this.loginForm.reset();
-        }
+    if(this.loginForm.invalid){
+      Swal.fire({
+        title: 'Rellene los campos faltantes',
+        icon: 'error',
+        timer: 1000
       })
 
-    }else{
-      this.loginForm.markAllAsTouched();
-      Swal.fire({
-        title: 'Complete los datos correspondientes',
-        icon: 'error'
-      })
+      return;}
+
+    const objecto:Login={
+      username: this.loginForm.value.username??'',
+      password: this.loginForm.value.password??''
     }
+
+    this.accessServices.login(objecto).subscribe({
+      next:(data) =>{
+        localStorage.setItem("token", data.token)
+        this.router.navigate(['/red/racks'])
+      },
+      error:(error)=>{
+        console.log(error.message)
+      }
+    })
   }
+
 
 }
 

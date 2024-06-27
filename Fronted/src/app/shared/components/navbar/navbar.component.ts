@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { enavironments } from '../../../../environments/envarionments';
 import { HttpClient } from '@angular/common/http';
-import { LoginService } from '../../../auth/services/login.service';
 
 
 
@@ -14,20 +13,13 @@ import { LoginService } from '../../../auth/services/login.service';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit{
+  ngOnInit(): void {
+  }
 
   baseUrl: string = enavironments.baseUrl;
   userLoginOn: boolean = false;
 
-  constructor(private http: HttpClient, private loginService:LoginService){}
-  ngOnInit(): void {
-    this.loginService.currentUserLoginOn.subscribe(
-      {
-        next:(userLoginOn)=>{
-          this.userLoginOn= userLoginOn
-        }
-      }
-    )
-  }
+
 
 
 
