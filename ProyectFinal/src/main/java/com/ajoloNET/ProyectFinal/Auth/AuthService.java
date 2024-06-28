@@ -1,5 +1,6 @@
 package com.ajoloNET.ProyectFinal.Auth;
 
+import com.ajoloNET.ProyectFinal.DTOs.UpdateUserRequest;
 import com.ajoloNET.ProyectFinal.Jwt.JwtService;
 import com.ajoloNET.ProyectFinal.User.Role;
 import com.ajoloNET.ProyectFinal.User.User;
@@ -10,6 +11,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -42,5 +46,53 @@ public class AuthService {
         return AuthResponse.builder()
                 .token(jwtService.getToken(user))
                 .build();
+    }
+
+    public AuthResponse updateUser(Long userId, UpdateUserRequest request) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found"));
+        user.setUsername(request.getUsername());
+        user.setFirstname(request.getFirstname());
+        user.setLastname(request.getLastname());
+
+        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+
+        userRepository.save(user);
+        String token = jwtService.getToken(user);
+
+        return AuthResponse.builder()
+                .token(token)
+                .build();
+    }
+
+    public List<User> listUsers() {
+        return userRepository.findAll();
+    }
+
+    public AuthResponse updateUsers(Long userId, UpdateUserRequest request) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found"));
+        user.setUsername(request.getUsername());
+        user.setFirstname(request.getFirstname());
+        user.setLastname(request.getLastname());
+
+        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+
+        if (request.getRole() != null) {
+            user.setRole(request.getRole());
+        }
+
+        userRepository.save(user);
+        String token = jwtService.getToken(user);
+
+        return AuthResponse.builder()
+                .token(token)
+                .build();
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException("User not found"));
     }
 }
