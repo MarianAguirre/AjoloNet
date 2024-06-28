@@ -9,6 +9,7 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { AreasPageComponent } from './pages/areas-page/areas-page.component';
 import { RacksPageComponent } from './pages/racks-page/racks-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { PdfPageComponent } from './pages/pdf-page/pdf-page.component';
 
 const routes : Routes =[
   {

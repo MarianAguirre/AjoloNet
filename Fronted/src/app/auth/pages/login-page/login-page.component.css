@@ -1,5 +1,5 @@
 input {
-  width: fit-content;
+  width: 70%;
 }
 
 .ng-touched.ng-invalid:is(input, textarea),

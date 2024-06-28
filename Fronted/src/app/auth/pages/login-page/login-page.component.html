@@ -15,7 +15,7 @@
                     <strong>DIAGNOCONS</strong>
                   </h5>
                   <div data-mdb-input-init class="form-outline mb-4">
-                    <input width="100%" formControlName="username" type="text" class="form-control form-control-lg" placeholder="Nombre de usuario "/>
+                    <input formControlName="username" type="text" class="form-control form-control-lg" placeholder="Nombre de usuario "/>
                     <div *ngIf="nombreUsuario.invalid && (nombreUsuario.dirty || nombreUsuario.touched)" class="text-danger">
                       <div *ngIf="nombreUsuario.errors?.['required']"> El nombre de usuario es requerido </div>
                     </div>

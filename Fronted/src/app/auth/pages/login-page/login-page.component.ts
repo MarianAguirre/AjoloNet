@@ -49,6 +49,7 @@ export class LoginPageComponent implements OnInit{
     this.accessServices.login(objecto).subscribe({
       next:(data) =>{
         localStorage.setItem("token", data.token)
+        console.log(objecto)
         this.router.navigate(['/red/home'])
       },
       error:(error)=>{

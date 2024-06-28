@@ -22,6 +22,7 @@ import { SearchBoxComponent } from './components/search-box/search-box.component
 import { RacksPageComponent } from './pages/racks-page/racks-page.component';
 import { CamelCaseToTitleCasePipe } from '../pipe/capitalize.pipe';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { PdfPageComponent } from './pages/pdf-page/pdf-page.component';
 
 
 
@@ -64,7 +65,8 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     SearchBoxComponent,
     RacksPageComponent,
     CamelCaseToTitleCasePipe,
-    ProfilePageComponent
+    ProfilePageComponent,
+    PdfPageComponent
 
 
 

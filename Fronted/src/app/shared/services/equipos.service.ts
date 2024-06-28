@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { enavironments } from '../../../environments/envarionments';
+import { User } from '../../interfaces/user.interfaces';
 
 
 
@@ -141,6 +142,19 @@ export class EquiposServices {
   getPorts(deviceType:string, id:string): Observable<Device[]> {
     return this.http.get<Device[]>(`${this.baseUrl}/${deviceType}/id/${id}`);
   }
+
+  getUser(){
+// /api/admin/users
+// /api/admin/update/{id}
+// api/user/update/{id}
+// api/users/profile
+// api/user/me
+  }
+
+  getUsers():Observable<User>{
+    return this.http.get<User>(`${this.baseUrl}/admin/users`)
+  }
+
 
 }
 
