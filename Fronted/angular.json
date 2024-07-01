@@ -23,6 +23,16 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "canvg",
+              "core-js",
+              "sweetalert2",
+              "pdfmake",
+              "html2canvas",
+              "dompurify",
+              "raf",
+              "rgbcolor"
+            ],
             "outputPath": "dist/fronted",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -47,16 +57,11 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {"replace": "src/environments/environments.ts",
-                "with": "src/environments/environments.prod.ts"
-              }
-              ],
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",

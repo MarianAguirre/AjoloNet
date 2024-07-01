@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { enavironments } from '../../../environments/envarionments';
-import { User } from '../../interfaces/user.interfaces';
+import { DatosUser, User } from '../../interfaces/user.interfaces';
 
 
 
@@ -153,6 +153,11 @@ export class EquiposServices {
 
   getUsers():Observable<User>{
     return this.http.get<User>(`${this.baseUrl}/admin/users`)
+  }
+
+
+  getUserDatos():Observable<DatosUser>{
+    return this.http.get<DatosUser>(`${this.baseUrl}/user/me`)
   }
 
 
