@@ -1,10 +1,6 @@
-<div class="d-flex" role="search">
+<div class="d-flex" role="search" *ngIf="user">
   <button routerLink="/red/perfil">
-    <p-avatar
-      image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-      styleClass="mr-2"
-      size="normal"
-      shape="circle" />
+    {{user.username}}
     </button>
   <button class="btn btn-outline-danger" style="margin-left: 5px;" (click)="logout()">Salir</button>
 </div>
