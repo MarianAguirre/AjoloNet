@@ -1,38 +1,42 @@
-<!-- <p *ngIf="errorMessage.length!=0" class="text-danger">{{errorMessage}}</p>
-<div *ngIf="(userLoginOn && !editMode) || !userLoginOn">
-    <p><b> Nombre: </b> {{user?.firstname}} </p>
-    <p><b> Apellido: </b> {{user?.lastname}}</p>
 
-    <button *ngIf="userLoginOn && !editMode" (click)="editMode=true"  class="btn btn-dark"><img
-        src="https://cdn.icon-icons.com/icons2/1572/PNG/96/3592815-compose-create-edit-edit-file-office-pencil-writing_107734.png"
-        width="8%" alt="editar" />Editar Datos Personales</button>
+<form class="form" >
+  <h1 style="text-align: center;">Datos de usuario</h1>
+  <div class="row">
+  <div class="col">
+    <p><b>Id: </b></p>
+    <br>
+    <p><b>Nombre: </b></p>
+    <br>
+    <p><b>Apellido: </b></p>
+  </div>
+  <div class="col">
+    <input  disabled class="input" placeholder="{{user.id}}" type="text">
+    <p></p>
+    <input class="input" placeholder="{{user.firstname}}" type="text">
+    <p></p>
+    <input class="input" placeholder="{{user.lastname}}" type="text">
+  </div>
+  <div class="col">
+    <p><b>Rol: </b></p>
+
+  <br>
+  <p><b>Nombre de usuario: </b></p>
+
+    <br>
+    <p><b>Contraseña: </b></p>
+  </div>
+  <div class="col">
+    <input class="input"  disabled placeholder="{{user.role}}" type="text">
+
+    <p></p>
+    <input class="input" placeholder="{{user.username}}" type="text">
+
+    <p></p>
+    <input class="input" placeholder="{{user.password}}" type="text">
+  </div>
 </div>
-
-<form *ngIf="userLoginOn && editMode" [formGroup]="registerForm" >
-    <div class="form-group row">
-        <label for="inputFirstName" class="col-sm-1 col-form-label">Nombre</label>
-        <div class="col-sm-11">
-        <input type="text" formControlName="firstname" class="form-control" id="inputFirstName">
-
-            <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="text-danger">
-                <div *ngIf="firstname.errors?.['required']">
-                    El Nombre es requerido.
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="inputLasttName" class="col-sm-1 col-form-label">Apellido</label>
-        <div class="col-sm-11">
-        <input type="text" formControlName="lastname" class="form-control" id="inputLasttName">
-        <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="text-danger">
-            <div *ngIf="lastname.errors?.['required']">
-                El Apellido es requerido.
-            </div>
-        </div>
-    </div>
-    </div>
-    <button type="submit" (click)="savePersonalDetailsData()"  class="btn btn-dark mt-3">Guardar</button>
-    <a class="btn btn-danger mt-3" (click)="editMode=false">Cancelar</a>
-</form> -->
+<div style="text-align: center;">
+  <button class="btn" style="margin-right: 2px;" type="reset">Borrar cambios</button>
+  <button class="btn" (click)="save()" type="submit">Guardar cambios</button>
+</div>
+</form>
