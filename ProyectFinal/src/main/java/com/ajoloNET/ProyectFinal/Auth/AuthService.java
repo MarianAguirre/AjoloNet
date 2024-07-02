@@ -55,8 +55,11 @@ public class AuthService {
         user.setLastname(request.getLastname());
 
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+                user.setPassword(passwordEncoder.encode(request.getPassword()));
+            }
         }
+
 
         userRepository.save(user);
         String token = jwtService.getToken(user);
@@ -77,7 +80,9 @@ public class AuthService {
         user.setLastname(request.getLastname());
 
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+                user.setPassword(passwordEncoder.encode(request.getPassword()));
+            }
         }
 
         if (request.getRole() != null) {
