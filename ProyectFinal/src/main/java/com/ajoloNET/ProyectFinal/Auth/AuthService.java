@@ -6,6 +6,8 @@ import com.ajoloNET.ProyectFinal.User.Role;
 import com.ajoloNET.ProyectFinal.User.User;
 import com.ajoloNET.ProyectFinal.User.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -100,4 +103,10 @@ public class AuthService {
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException("User not found"));
     }
+
+    public void deleteUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found"));
+        userRepository.delete(user);
+    }
+
 }
