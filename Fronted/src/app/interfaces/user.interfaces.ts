@@ -12,13 +12,20 @@ export interface DatosUser {
   lastname:              string;
   password:              string;
   role:                  string;
-  enabled:               boolean;
-  authorities:           Authority[];
-  accountNonExpired:     boolean;
-  accountNonLocked:      boolean;
-  credentialsNonExpired: boolean;
 }
 
 export interface Authority {
   authority: string;
 }
+
+export interface Usuarios {
+  id:                    number;
+  username:              string;
+  firstname:             string;
+  lastname:              string;
+  password:              any;
+  role:                  string;
+}
+
+
+

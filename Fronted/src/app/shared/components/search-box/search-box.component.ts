@@ -22,7 +22,6 @@ export class SearchBoxComponent{
   ngOnInit(): void {
     this.userService.getUserDatos().subscribe(
       (response: DatosUser) => {
-        console.log('Datos recibidos:', response); // Verifica la estructura de los datos
         this.user = response; // Asignar directamente a user
       },
       (error: any) => {

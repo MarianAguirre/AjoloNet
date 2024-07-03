@@ -1,2 +1,100 @@
-<p>admin-page works!</p>
+<div *ngIf="user.role === 'ADMIN'">
+  <br>
+  <h1 style="text-align: center;">Usuarios</h1>
+  <br>
+<div>
+  <p-pickList
+      [source]="Users"
+      [target]="Admins"
+      sourceHeader="Users"
+      targetHeader="Admins"
+      [dragdrop]="false"
+      [responsive]="true"
+      [sourceStyle]="{ height: '35rem' }"
+      [targetStyle]="{ height: '35rem' }"
+      filterBy="username"
+      sourceFilterPlaceholder="Buscar por nombre de usuario"
+      targetFilterPlaceholder="Buscar por nombre de usuario"
+      breakpoint="1400px">
+          <ng-template let-usuarios pTemplate="item"  >
+              <div class="flex flex-wrap p-2 align-items-center gap-3" >
+                  <img
+                      class="w-4rem shadow-2 flex-shrink-0 border-round"
+                      src="assets/avatar.png"/>
+                  <div class="flex-1 flex flex-column gap-2">
+                    <span class="flex align-products-center gap-2">
+                      <b>Id:</b> {{ usuarios.id }}
+                    </span>
+                      <span class="flex align-products-center gap-2">
+                        <b>Nombre de usuario:</b> {{ usuarios.username }}
+                      </span>
+                      <span class="flex align-products-center gap-2">
+                        <b>Nombre:</b> {{ usuarios.firstname }}
+                      </span>
+                          <span>
+                            <b>Apellido:</b> {{ usuarios.lastname }}
+                          </span>
+                  </div>
+                  <span class="font-bold text-900">
+                    {{ usuarios.role }}
+                    </span>
+                    <button class="btn btn-outline-dark" (click)="editUser(usuarios)" type="submit">Detalles</button>
+              </div>
 
+          </ng-template>
+
+  </p-pickList>
+  <br>
+</div>
+</div>
+
+
+<p-dialog [(visible)]="userDialog" [style]="{ width: '450px' }" header="Detalles del equipo" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="field">
+
+      <!-- Nombre de usuario-->
+      <div style="display: flex; justify-content: space-between; font-weight: bold;">
+        <label for="name">Nombre de usuario</label>
+        <label>Id {{ Usuarios.id }}</label>
+      </div>
+      <input type="text" pInputText id="name" [(ngModel)]="Usuarios.username" required autofocus />
+    </div>
+
+    <!-- Nombre -->
+    <div style="display: flex; justify-content: space-between; font-weight: bold;">
+      <label for="name">Nombre</label>
+    </div>
+    <input type="text" pInputText id="name" [(ngModel)]="Usuarios.firstname" required autofocus />
+
+    <!-- Apellido -->
+  <div style="display: flex; justify-content: space-between; font-weight: bold;">
+
+    <label for="name">Apellido</label>
+  </div>
+  <input type="text" pInputText id="name" [(ngModel)]="Usuarios.lastname" required autofocus />
+
+  <!-- Contraseña -->
+    <div style="display: flex; justify-content: space-between; font-weight: bold;">
+      <label for="name">Contraseña</label>
+    </div>
+    <input type="text" pInputText id="name" [(ngModel)]="Usuarios.password" required autofocus />
+
+  <!-- Rol -->
+  <div style="display: flex; justify-content: space-between; font-weight: bold;">
+    <label for="name">Rol</label>
+  </div>
+  <select [(ngModel)]="Usuarios.role" required autofocus>
+    <option>ADMIN</option>
+    <option>USER</option>
+  </select>
+<br>
+
+
+    <!-- Boton de guardar -->
+     <div style="display: flex; justify-content: space-between;">
+    <button style="margin-top: 5%;" class="btn btn-outline-success" (click)="saveUsuario()">Guardar</button>
+    <button style="margin-top: 5%;" class="btn btn-outline-danger" (click)="deleteUsuario(Usuarios)">Eliminar</button>
+  </div>
+  </ng-template>
+</p-dialog>

@@ -53,6 +53,11 @@ export class LoginPageComponent implements OnInit{
       },
       error:(error)=>{
         console.log(error.message)
+        Swal.fire({
+          title: 'El usuario no se pudo loguear',
+          icon: 'error',
+          text: 'El usuario o contraseña son incorrectos'
+        })
       }
     })
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { enavironments } from '../../../../environments/envarionments';
 import { HttpClient } from '@angular/common/http';
+import { DatosUser } from '../../../interfaces/user.interfaces';
+import { UserService } from '../../services/user.service';
 
 
 
@@ -13,7 +15,23 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit{
+  constructor(
+    private userService: UserService){}
+  user: DatosUser ={
+    id: 0,
+    username: '',
+    firstname: '',
+    lastname: '',
+    password: '',
+    role: ''
+  }
   ngOnInit(): void {
+    this.userService.getUserDatos().subscribe(
+      (response: DatosUser) => {
+        console.log('Datos recibidos:', response); // Verifica la estructura de los datos
+        this.user = response; // Asignar directamente a user
+      }
+    );
   }
 
   baseUrl: string = enavironments.baseUrl;

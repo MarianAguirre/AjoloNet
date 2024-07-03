@@ -24,6 +24,9 @@
           <li class="nav-item" routerLink="conexiones">
             <button class="nav-link active" aria-current="page" >Conexiones</button>
           </li>
+          <li class="nav-item" routerLink="admin" *ngIf="user.role === 'ADMIN'">
+            <button class="nav-link active" aria-current="page" >Admin</button>
+          </li>
         </ul>
 
           <form class="d-flex input-group w-auto">

@@ -13,6 +13,7 @@ import { TableModule} from 'primeng/table';
 import { RippleModule } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
 import { DragDropModule } from 'primeng/dragdrop';
+import { PickListModule } from 'primeng/picklist';
 
 
 
@@ -34,7 +35,8 @@ import { DragDropModule } from 'primeng/dragdrop';
     TreeTableModule,
     RippleModule,
     AvatarModule,
-    DragDropModule
+    DragDropModule,
+    PickListModule
 
 
   ],
@@ -52,7 +54,8 @@ import { DragDropModule } from 'primeng/dragdrop';
     TreeTableModule,
     RippleModule,
     AvatarModule,
-    DragDropModule
+    DragDropModule,
+    PickListModule
 
   ],
   declarations: [
