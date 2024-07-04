@@ -33,6 +33,11 @@ public class Router {
     @Column(name = "device_type",nullable = false)
     private String deviceType = "router";
 
+    @OneToMany(mappedBy = "router", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "router-ip")
+    private Set<IPAddress> ipAddresses = new HashSet<>();
+
+
     @Transient
     private String rackName;
 
@@ -102,5 +107,13 @@ public class Router {
 
     public void setRackName(String rackName) {
         this.rackName = rackName;
+    }
+
+    public Set<IPAddress> getIpAddresses() {
+        return ipAddresses;
+    }
+
+    public void setIpAddresses(Set<IPAddress> ipAddresses) {
+        this.ipAddresses = ipAddresses;
     }
 }

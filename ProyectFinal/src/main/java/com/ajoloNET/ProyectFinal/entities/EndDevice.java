@@ -33,6 +33,10 @@ public class EndDevice {
     @Column(name = "device_type", nullable = false)
     private String deviceType = "end-device";
 
+    @OneToMany(mappedBy = "endDevice", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "end_device-ip")
+    private Set<IPAddress> ipAddresses = new HashSet<>();
+
     @Transient
     private String areaName;
 
@@ -98,5 +102,13 @@ public class EndDevice {
 
     public void setAreaName(String areaName) {
         this.areaName = areaName;
+    }
+
+    public Set<IPAddress> getIpAddresses() {
+        return ipAddresses;
+    }
+
+    public void setIpAddresses(Set<IPAddress> ipAddresses) {
+        this.ipAddresses = ipAddresses;
     }
 }

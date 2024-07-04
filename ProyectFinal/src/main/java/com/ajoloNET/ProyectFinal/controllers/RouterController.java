@@ -40,7 +40,7 @@ public class RouterController {
 
     @PostMapping
     public ResponseEntity<Router> post(@RequestBody Router router){
-        log.info("POST: Router {}", router.getName());
+        log.info("POST: Router {}", router);
         Router savedRouter = this.routerService.create(router);
 
         // Crear la URI con UriComponentsBuilder

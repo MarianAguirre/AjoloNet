@@ -40,6 +40,14 @@ public class Switch {
     @Column(name = "number_of_ports", nullable = false)
     private int numberOfPorts;
 
+    @OneToMany(mappedBy = "sSwitch", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "switch-vlan")
+    private Set<VLAN> vlans = new HashSet<>();
+
+    @OneToMany(mappedBy = "sSwitch", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "switch-ip")
+    private Set<IPAddress> ipAddresses = new HashSet<>();
+
     @Transient
     private String rackName;
 
@@ -122,5 +130,21 @@ public class Switch {
 
     public void setRackName(String rackName) {
         this.rackName = rackName;
+    }
+
+    public Set<VLAN> getVlans() {
+        return vlans;
+    }
+
+    public void setVlans(Set<VLAN> vlans) {
+        this.vlans = vlans;
+    }
+
+    public Set<IPAddress> getIpAddresses() {
+        return ipAddresses;
+    }
+
+    public void setIpAddresses(Set<IPAddress> ipAddresses) {
+        this.ipAddresses = ipAddresses;
     }
 }

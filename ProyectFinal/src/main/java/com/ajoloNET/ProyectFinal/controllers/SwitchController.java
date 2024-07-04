@@ -39,7 +39,7 @@ public class SwitchController {
 
     @PostMapping
     public ResponseEntity<Switch> post(@RequestBody Switch aSwitch){
-        log.info("POST: Switch   {}", aSwitch.getName());
+        log.info("POST: Switch  {} {} {}",aSwitch.getName(), aSwitch.getIpAddresses(), aSwitch.getClass());
         Switch savedSwitch = this.switchService.create(aSwitch);
 
         // Crear la URI con UriComponentsBuilder
