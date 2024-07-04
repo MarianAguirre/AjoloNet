@@ -1,40 +1,40 @@
 import { EquiposServices } from '../../services/equipos.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Dispositivo } from '../../../interfaces/Dispositivo';
+import { Dispositivo, ipAddress } from '../../../interfaces/Dispositivo';
 import { enavironments } from '../../../../environments/envarionments';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
 
-
 @Component({
   selector: 'shared-agregar-equipo',
   templateUrl: './agregar-equipo.component.html',
-  styleUrl: './agregar-equipo.component.css'
+  styleUrls: ['./agregar-equipo.component.css'] // Use 'styleUrls' instead of 'styleUrl'
 })
-export class AgregarEquipoComponent implements OnInit{
+export class AgregarEquipoComponent implements OnInit {
 
-  constructor(private router: Router, private http:HttpClient, private equiposServices:EquiposServices) {}
+  constructor(private router: Router, private http: HttpClient, private equiposServices: EquiposServices) {}
 
-  public equipo:Dispositivo ={
+  public equipo: Dispositivo = {
     name: '',
     deviceType: '',
     numberOfPorts: 0,
     poe: false,
     manageable: false,
     areaName: '',
-    rackName: ''
+    rackName: '',
+    ipAddresses: []
   }
   public areas: string[] = [];
   public racks: string[] = [];
   public baseUrl = enavironments.baseUrl;
-  public opciones:string[] = []
+  public opciones: string[] = [];
+  value: any;
 
   @Output()
-  public newEquip: EventEmitter<Dispositivo> = new EventEmitter
+  public newEquip: EventEmitter<Dispositivo> = new EventEmitter();
 
-
-  // Obtiene las areas, racks y los tipos y las relfeja en el select de areas
+  // Obtiene las áreas, racks y los tipos y las refleja en el select de áreas
   ngOnInit(): void {
     this.equiposServices.getArea().subscribe((areas: string[]) => {
       this.areas = areas;
@@ -47,9 +47,9 @@ export class AgregarEquipoComponent implements OnInit{
     });
   }
 
-  // Envia los datos al backend
-  emitEquip():void{
-    if (!this.opciones.includes(this.equipo.deviceType) || this.equipo.numberOfPorts === 0 ) {
+  // Envía los datos al backend
+  emitEquip(): void {
+    if (!this.opciones.includes(this.equipo.deviceType) || this.equipo.numberOfPorts === 0) {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -59,9 +59,18 @@ export class AgregarEquipoComponent implements OnInit{
       });
       return;
     }
+
+    // Convertir ipAddress a un array de caracteres y luego a una cadena formateada
+    let str = this.equipo.ipAddresses;
+    let arr = [...str];
+    const formattedIpAddress = `${arr[0]}${arr[1]}${arr[2]}.${arr[3]}${arr[4]}${arr[5]}.${arr[6]}${arr[7]}${arr[8]}.${arr[9]}${arr[10]}${arr[11]}`;
+
+    // Formatear la dirección IP como array de objetos ipAddress
+    this.equipo.ipAddresses = [{ ipAddress: formattedIpAddress }];
+
     console.log(this.equipo);
-    this.newEquip.emit(this.equipo)
-    this.equipo = {name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: '', rackName:''}
+    this.newEquip.emit(this.equipo);
+    this.equipo = {name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: '', rackName:'', ipAddresses: []};
     Swal.fire({
       position: "center",
       icon: "success",
@@ -71,7 +80,7 @@ export class AgregarEquipoComponent implements OnInit{
     });
   }
 
-  // Botones para ir a la tabla, a las areas y a los racks
+  // Botones para ir a la tabla, a las áreas y a los racks
   goBack() {
     this.router.navigate(['red/equipos']);
   }
@@ -82,36 +91,29 @@ export class AgregarEquipoComponent implements OnInit{
     this.router.navigate(['red/racks']);
   }
 
-
   // Funciones para agregar nuevos equipos dependiendo del tipo
-  newRouter():void{
-    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.deviceType) ||  this.equipo.numberOfPorts === 0 || this.equipo.rackName.length === 0) return;
+  newRouter(): void {
+    if (this.equipo.name.length === 0 || !this.opciones.includes(this.equipo.deviceType) || this.equipo.numberOfPorts === 0 || this.equipo.rackName.length === 0) return;
     this.http.post<Dispositivo>(`${this.baseUrl}/router`, this.equipo).subscribe(
-      (data) =>{
-      }
-    )
+      (data) => {}
+    );
   }
-  newSwitch():void{
-    if (this.equipo.name.length === 0 ||!this.opciones.includes(this.equipo.deviceType) ||  this.equipo.numberOfPorts === 0 || this.equipo.rackName.length === 0) return;
+  newSwitch(): void {
+    if (this.equipo.name.length === 0 || !this.opciones.includes(this.equipo.deviceType) || this.equipo.numberOfPorts === 0 || this.equipo.rackName.length === 0) return;
     this.http.post<Dispositivo>(`${this.baseUrl}/switch`, this.equipo).subscribe(
-      (data) =>{
-      }
-    )
+      (data) => {}
+    );
   }
-  newDispositivo():void{
+  newDispositivo(): void {
     if (this.equipo.name.length === 0 || this.equipo.numberOfPorts === 0 || this.equipo.areaName.length === 0) return;
     this.http.post<Dispositivo>(`${this.baseUrl}/endDevice`, this.equipo).subscribe(
-      (data) =>{
-      }
-    )
+      (data) => {}
+    );
   }
-  newPatch():void{
+  newPatch(): void {
     if (this.equipo.numberOfPorts === 0 || this.equipo.rackName.length === 0) return;
     this.http.post<Dispositivo>(`${this.baseUrl}/patchPanel`, this.equipo).subscribe(
-      (data) =>{
-      }
-    )
+      (data) => {}
+    );
   }
 }
-
-

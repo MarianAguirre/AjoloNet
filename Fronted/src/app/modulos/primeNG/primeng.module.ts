@@ -14,6 +14,7 @@ import { RippleModule } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
 import { DragDropModule } from 'primeng/dragdrop';
 import { PickListModule } from 'primeng/picklist';
+import { InputOtpModule } from 'primeng/inputotp';
 
 
 
@@ -36,7 +37,8 @@ import { PickListModule } from 'primeng/picklist';
     RippleModule,
     AvatarModule,
     DragDropModule,
-    PickListModule
+    PickListModule,
+    InputOtpModule
 
 
   ],
@@ -55,7 +57,8 @@ import { PickListModule } from 'primeng/picklist';
     RippleModule,
     AvatarModule,
     DragDropModule,
-    PickListModule
+    PickListModule,
+    InputOtpModule
 
   ],
   declarations: [

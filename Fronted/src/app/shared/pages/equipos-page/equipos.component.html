@@ -97,6 +97,12 @@
       <input type="text" pInputText id="numberOfPorts" [(ngModel)]="equipo.numberOfPorts" required autofocus />
     </div>
 
+    <!-- Poe y administrable -->
+    <div style="display: flex; justify-content: space-between; font-weight: bold;" *ngIf="equipo.deviceType === 'switch'">
+      <label>Poe: {{ poeText }}</label>
+      <label>Administrable: {{ manageableText }}</label>
+    </div>
+
     <!-- Seleccion de rack para switch, router y parch panel -->
      <label *ngIf="equipo.deviceType === 'switch'" class="from-control mb-2">Selecciona el rack</label>
      <div *ngIf="equipo.deviceType === 'switch'" class="area" style="display: flex; justify-content: space-between;">

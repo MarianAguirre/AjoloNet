@@ -7,7 +7,12 @@ export interface Dispositivo {
   poe?: boolean;
   manageable?: boolean;
   areaName: string;
-  rackName:''
+  rackName:'';
+  ipAddresses: ipAddress[];
+}
+
+export interface ipAddress{
+  ipAddress: string
 }
 
 export interface Area {
@@ -48,8 +53,6 @@ export interface ASwitch {
 export interface Port {
   id:                    number;
   portNumber:            number;
-  sourceConnection:      null;
-  destinationConnection: null;
 }
 
 export interface PatchPanel {
@@ -79,6 +82,7 @@ export interface Device {
   rackName?:     null;
   poe?:          boolean;
   manageable?:   boolean;
+  ipAddress: ipAddress[];
 }
 
 export interface Port {
@@ -87,3 +91,4 @@ export interface Port {
   sourceConnection:      null;
   destinationConnection: null;
 }
+

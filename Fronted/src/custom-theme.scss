@@ -35,3 +35,4 @@ $Fronted-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($Fronted-theme);
 
+@import "primeicons/primeicons.css";

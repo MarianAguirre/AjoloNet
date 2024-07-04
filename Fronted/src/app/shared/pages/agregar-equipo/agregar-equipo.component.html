@@ -21,6 +21,7 @@
       <input #numberOfPorts required type="number" name="numberOfPorts" min="0" max="24" oninput="validity.valid||(value='');" [(ngModel)]="equipo.numberOfPorts" class="from-control mb-2" placeholder="Puerto">
       <br>
 
+
       <!-- Opciones extra para el Switch -->
       <div *ngIf="equipo.deviceType === 'switches'" >
         <div class="contenido">
@@ -36,6 +37,34 @@
           <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
         </select>
       </div>
+      <p *ngIf="equipo.deviceType === 'switches'">Número de ip</p>
+      <div *ngIf="equipo.deviceType === 'switches'" class="flex justify-content-center">
+        <div class="flex flex-column align-items-center">
+          <p-inputOtp [(ngModel)]="equipo.ipAddresses" name="ipAddress" [length]="12" style="gap: 0">
+            <ng-template pTemplate="input" let-token let-events="events" let-index="index">
+              <input
+                min="0" max="255"
+                pInputText
+                type="number"
+                [maxLength]="4"
+                (input)="events.input($event)"
+                (keydown)="events.keydown($event)"
+                [attr.value]="token"
+                class="custom-otp-input"
+              />
+              <div *ngIf="index === 3" class="px-3">
+                <p>.</p>
+            </div>
+             <div *ngIf="index === 6" class="px-3">
+              <p>.</p>
+          </div>
+           <div *ngIf="index === 9" class="px-3">
+            <p>.</p>
+        </div>
+            </ng-template>
+          </p-inputOtp>
+        </div>
+      </div>
 
 
       <!-- Opciones extra para los Dispositivos Finales -->
@@ -45,6 +74,36 @@
           <option *ngFor="let area of areas" [value]="area">{{area}}</option>
         </select>
       </div>
+    <!-- Número de ip -->
+     <p *ngIf="equipo.deviceType === 'endDevices'">Número de ip</p>
+     <div *ngIf="equipo.deviceType === 'endDevices'" class=" flex justify-content-center">
+      <div class="flex flex-column align-items-center">
+          <p-inputOtp [(ngModel)]="equipo.ipAddresses" name="ipAddress" [length]="12" style="gap: 0">
+              <ng-template pTemplate="input" let-token let-events="events" let-index="index">
+                  <input
+                  min="0" max="9"
+                      pInputText
+                      type="number"
+                      [maxLength]="1"
+                      (input)="events.input($event)"
+                      (keydown)="events.keydown($event)"
+                      [attr.value]="token"
+                      class="custom-otp-input"
+                      oninput="validity.valid||(value='');"
+                      />
+                   <div *ngIf="index === 3" class="px-3">
+                      <p>.</p>
+                  </div>
+                   <div *ngIf="index === 6" class="px-3">
+                    <p>.</p>
+                </div>
+                 <div *ngIf="index === 9" class="px-3">
+                  <p>.</p>
+              </div>
+              </ng-template>
+        </p-inputOtp>
+      </div>
+  </div>
       <br>
 
       <!-- Opciones extra para el patchPanel -->
@@ -62,6 +121,8 @@
           <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
         </select>
       </div>
+      <!-- Número de ip -->
+
 
       <!-- Botones de guardar para cada tipo de equipo -->
       <button *ngIf="equipo.deviceType === 'routers'" type="submit" class="btn btn-success" style="margin-top: 1%;margin-left: 12px;" (click)="newRouter()">Guardar</button>

@@ -64,7 +64,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     SearchBoxComponent,
     RacksPageComponent,
     CamelCaseToTitleCasePipe,
-    ProfilePageComponent
+    ProfilePageComponent,
 
 
 
