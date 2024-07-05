@@ -1,0 +1,74 @@
+.vlan-group {
+  margin-bottom: 15px;
+}
+
+.vlan-group label {
+  display: block;
+}
+
+.vlan-group input {
+  margin-right: 10px;
+}
+
+.vlan-group button {
+  margin-left: 10px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+  gap: 4px;
+  height: 32px;
+  width: 200px;
+  border: none;
+  background: #1b1b1cd0;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.lable {
+  line-height: 22px;
+  font-size: 15px;
+  color: #11c720;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+}
+.lable2 {
+  line-height: 22px;
+  font-size: 15px;
+  color: #d11d1d;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+}
+
+.button:hover {
+  background: #1b1b1cea;
+}
+
+.button:hover .svg-icon {
+  animation: rotate 1.3s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(10deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(-10deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}

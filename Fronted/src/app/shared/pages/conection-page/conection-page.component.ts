@@ -62,7 +62,7 @@ export class ConectionPageComponent implements OnInit{
     manageable: false,
     areaName: '',
     rackName: '',
-    ipAddresses: []
+    ipAddress: ''
   }
   public equipo2:Dispositivo ={
     name: '',
@@ -72,7 +72,7 @@ export class ConectionPageComponent implements OnInit{
     manageable: false,
     areaName: '',
     rackName: '',
-    ipAddresses: []
+    ipAddress: ''
   }
 
 
@@ -91,7 +91,7 @@ export class ConectionPageComponent implements OnInit{
 
     console.log(this.equipo);
     this.newEquip.emit(this.equipo)
-    this.equipo = { id:uuid(), name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: '', rackName:'',  ipAddresses: []}
+    this.equipo = { id:uuid(), name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: '', rackName:'',  ipAddress: ''}
 
     Swal.fire({
       position: "center",

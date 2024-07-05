@@ -8,7 +8,7 @@ export interface Dispositivo {
   manageable?: boolean;
   areaName: string;
   rackName:'';
-  ipAddresses: ipAddress[];
+  ipAddress: string;
 }
 
 export interface ipAddress{

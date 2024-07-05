@@ -1,15 +1,15 @@
 import { EquiposServices } from '../../services/equipos.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Dispositivo, ipAddress } from '../../../interfaces/Dispositivo';
+import { Dispositivo } from '../../../interfaces/Dispositivo';
 import { enavironments } from '../../../../environments/envarionments';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'shared-agregar-equipo',
   templateUrl: './agregar-equipo.component.html',
-  styleUrls: ['./agregar-equipo.component.css'] // Use 'styleUrls' instead of 'styleUrl'
+  styleUrls: ['./agregar-equipo.component.css']
 })
 export class AgregarEquipoComponent implements OnInit {
 
@@ -23,8 +23,8 @@ export class AgregarEquipoComponent implements OnInit {
     manageable: false,
     areaName: '',
     rackName: '',
-    ipAddresses: []
-  }
+    ipAddress: '' // Asegurarse de que sea una cadena
+  };
   public areas: string[] = [];
   public racks: string[] = [];
   public baseUrl = enavironments.baseUrl;
@@ -60,17 +60,10 @@ export class AgregarEquipoComponent implements OnInit {
       return;
     }
 
-    // Convertir ipAddress a un array de caracteres y luego a una cadena formateada
-    let str = this.equipo.ipAddresses;
-    let arr = [...str];
-    const formattedIpAddress = `${arr[0]}${arr[1]}${arr[2]}.${arr[3]}${arr[4]}${arr[5]}.${arr[6]}${arr[7]}${arr[8]}.${arr[9]}${arr[10]}${arr[11]}`;
-
-    // Formatear la dirección IP como array de objetos ipAddress
-    this.equipo.ipAddresses = [{ ipAddress: formattedIpAddress }];
 
     console.log(this.equipo);
     this.newEquip.emit(this.equipo);
-    this.equipo = {name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: '', rackName:'', ipAddresses: []};
+    this.equipo = {name:'', deviceType:'',numberOfPorts: 0, poe: false, manageable: false, areaName: '', rackName:'', ipAddress: ''};
     Swal.fire({
       position: "center",
       icon: "success",
@@ -79,6 +72,7 @@ export class AgregarEquipoComponent implements OnInit {
       timer: 1000
     });
   }
+
 
   // Botones para ir a la tabla, a las áreas y a los racks
   goBack() {

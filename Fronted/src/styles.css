@@ -47,7 +47,8 @@
   }
 
   h1,
-  p {
+  p,
+  label {
     color: var(--text-color);
   }
   button {

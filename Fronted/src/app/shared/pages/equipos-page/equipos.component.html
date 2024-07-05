@@ -97,6 +97,12 @@
       <input type="text" pInputText id="numberOfPorts" [(ngModel)]="equipo.numberOfPorts" required autofocus />
     </div>
 
+    <!-- Numero de ip -->
+    <div class="field">
+      <label style="font-weight: bold;" for="ipAddress">Numero de ip</label>
+      <input type="text" pInputText id="ipAddress" [(ngModel)]="equipo.ipAddress" required autofocus />
+    </div>
+
     <!-- Poe y administrable -->
     <div style="display: flex; justify-content: space-between; font-weight: bold;" *ngIf="equipo.deviceType === 'switch'">
       <label>Poe: {{ poeText }}</label>
