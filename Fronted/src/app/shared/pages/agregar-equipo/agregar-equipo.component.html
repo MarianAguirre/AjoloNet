@@ -16,7 +16,7 @@
       <input *ngIf="equipo.deviceType === 'endDevices'" required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2" placeholder="Nombre del equipo">
       <br>
 
-      <app-dynamic-vlans></app-dynamic-vlans>
+
 
 
       <!-- Número de puertos -->
@@ -35,6 +35,8 @@
 
       <!-- Opciones extra para el Switch -->
       <div *ngIf="equipo.deviceType === 'switches'" >
+        <p>VLANS</p>
+        <app-dynamic-vlans></app-dynamic-vlans>
         <div class="contenido">
           <p class="Text-checkbox">¿Es poe? </p><input required name="poe" [(ngModel)]="equipo.poe" class="from-control mb-2" type="checkbox">
         </div>
@@ -48,7 +50,7 @@
           <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
         </select>
       </div>
-      <!-- Número de ip -->
+
 
 
       <!-- Opciones extra para los Dispositivos Finales -->
@@ -58,7 +60,6 @@
           <option *ngFor="let area of areas" [value]="area">{{area}}</option>
         </select>
       </div>
-    <!-- Número de ip -->
 
       <br>
 
