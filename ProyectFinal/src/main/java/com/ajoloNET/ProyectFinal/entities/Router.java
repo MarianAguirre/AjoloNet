@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,9 +34,12 @@ public class Router {
     @Column(name = "device_type",nullable = false)
     private String deviceType = "router";
 
-    @OneToMany(mappedBy = "router", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "router-ip")
-    private Set<IPAddress> ipAddresses = new HashSet<>();
+    @Column(name = "IP_Address")
+    @Pattern(
+            regexp = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+            message = "Invalid IP address"
+    )
+    private String ipAddress;
 
 
     @Transient
@@ -109,11 +113,17 @@ public class Router {
         this.rackName = rackName;
     }
 
-    public Set<IPAddress> getIpAddresses() {
-        return ipAddresses;
+    public @Pattern(
+            regexp = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+            message = "Invalid IP address"
+    ) String getIpAddress() {
+        return ipAddress;
     }
 
-    public void setIpAddresses(Set<IPAddress> ipAddresses) {
-        this.ipAddresses = ipAddresses;
+    public void setIpAddress(@Pattern(
+            regexp = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+            message = "Invalid IP address"
+    ) String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 }

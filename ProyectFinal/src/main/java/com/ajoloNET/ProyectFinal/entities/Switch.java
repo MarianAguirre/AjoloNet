@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.micrometer.core.instrument.config.validate.Validated;
 import jakarta.persistence.*;
 
+import javax.validation.constraints.Pattern;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,13 +41,18 @@ public class Switch {
     @Column(name = "number_of_ports", nullable = false)
     private int numberOfPorts;
 
-    @OneToMany(mappedBy = "sSwitch", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "switch-vlan")
-    private Set<VLAN> vlans = new HashSet<>();
+    @Column(name = "vlan_id")
+    private Integer vlanId;
 
-    @OneToMany(mappedBy = "sSwitch", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "switch-ip")
-    private Set<IPAddress> ipAddresses = new HashSet<>();
+    @Column(name = "vlan_name")
+    private String nameVlan;
+
+    @Column(name = "IP_Address")
+    @Pattern(
+            regexp = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+            message = "Invalid IP address"
+    )
+    private String ipAddress;
 
     @Transient
     private String rackName;
@@ -132,19 +138,33 @@ public class Switch {
         this.rackName = rackName;
     }
 
-    public Set<VLAN> getVlans() {
-        return vlans;
+    public Integer getVlanId() {
+        return vlanId;
     }
 
-    public void setVlans(Set<VLAN> vlans) {
-        this.vlans = vlans;
+    public void setVlanId(Integer vlanId) {
+        this.vlanId = vlanId;
     }
 
-    public Set<IPAddress> getIpAddresses() {
-        return ipAddresses;
+    public String getNameVlan() {
+        return nameVlan;
     }
 
-    public void setIpAddresses(Set<IPAddress> ipAddresses) {
-        this.ipAddresses = ipAddresses;
+    public void setNameVlan(String nameVlan) {
+        this.nameVlan = nameVlan;
+    }
+
+    public @Pattern(
+            regexp = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+            message = "Invalid IP address"
+    ) String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(@Pattern(
+            regexp = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
+            message = "Invalid IP address"
+    ) String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 }

@@ -63,8 +63,9 @@ public class SwitchServiceImpl implements SwitchService {
         switchToUpdate.setNumberOfPorts(aSwitch.getNumberOfPorts());
         switchToUpdate.setPoe(aSwitch.isPoe());
         switchToUpdate.setManageable(aSwitch.isManageable());
-        switchToUpdate.setIpAddresses(aSwitch.getIpAddresses());
-        switchToUpdate.setVlans(aSwitch.getVlans());
+        switchToUpdate.setIpAddress(aSwitch.getIpAddress());
+        switchToUpdate.setNameVlan(aSwitch.getNameVlan());
+        switchToUpdate.setVlanId(aSwitch.getVlanId());
 
         // Si se proporciona un nombre de rack, busca y asigna el rack al router
         if (aSwitch.getRackName() != null) {
@@ -87,8 +88,9 @@ public class SwitchServiceImpl implements SwitchService {
         switchToUpdateId.setNumberOfPorts(aSwitch.getNumberOfPorts());
         switchToUpdateId.setPoe(aSwitch.isPoe());
         switchToUpdateId.setManageable(aSwitch.isManageable());
-        switchToUpdateId.setVlans(aSwitch.getVlans());
-        switchToUpdateId.setIpAddresses(aSwitch.getIpAddresses());
+        switchToUpdateId.setNameVlan(aSwitch.getNameVlan());
+        switchToUpdateId.setVlanId(aSwitch.getVlanId());
+        switchToUpdateId.setIpAddress(aSwitch.getIpAddress());
         // Si se proporciona un nombre de rack, busca y asigna el rack al router
         if (aSwitch.getRackName() != null) {
             Rack rack = rackRepository.findByName(aSwitch.getRackName())

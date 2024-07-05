@@ -63,6 +63,7 @@ public class RouterServiceImpl implements RouterService {
                 .orElseThrow(() -> new NoSuchElementException("Router not found"));
         routerToUpdate.setName(router.getName());
         routerToUpdate.setNumberOfPorts(router.getNumberOfPorts());
+        routerToUpdate.setIpAddress(router.getIpAddress());
 
         // Si se proporciona un nombre de rack, busca y asigna el rack al router
         if (router.getRackName() != null) {
@@ -84,6 +85,8 @@ public class RouterServiceImpl implements RouterService {
                 .orElseThrow(() -> new NoSuchElementException("Router not found"));
         routerUpdateId.setName(router.getName());
         routerUpdateId.setNumberOfPorts(router.getNumberOfPorts());
+        routerUpdateId.setIpAddress(router.getIpAddress());
+
         // Si se proporciona un nombre de rack, busca y asigna el rack al router
         if (router.getRackName() != null) {
             Rack rack = rackRepository.findByName(router.getRackName())
