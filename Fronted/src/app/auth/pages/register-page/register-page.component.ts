@@ -38,7 +38,7 @@ export class RegisterPageComponent {
     return this.registerForm.controls.password;
   }
 
-  save(){
+  async save(){
     if(this.registerForm.invalid) {
       Swal.fire({
       title: 'Faltan datos',
@@ -53,7 +53,25 @@ export class RegisterPageComponent {
       lastname: this.registerForm.value.lastname?? '',
       password: this.registerForm.value.password??''
     }
+    const { value: accept } = await Swal.fire({
+      title: "Terms and conditions",
+      input: "checkbox",
+      inputValue: 1,
+      inputPlaceholder: `
+        I agree with the terms and conditions
+      `,
+      confirmButtonText: `
+        Continue&nbsp;<i class="fa fa-arrow-right"></i>
+      `,
+      inputValidator: (result) => {
+        return !result && "You need to agree with T&C";
+      }
+    });
+    if (accept) {
+      Swal.fire("You agreed with T&C :)");
+
     this.accessSservice.registrarse(object).subscribe({
+
 
       next:(data)=>{
         localStorage.setItem('token',data.token)
@@ -69,6 +87,7 @@ export class RegisterPageComponent {
       }
     })
   }
+}
   volver(){
     this.router.navigate(['/registrar'])
   }

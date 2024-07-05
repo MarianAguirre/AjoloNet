@@ -25,18 +25,20 @@
       <br>
 
       <!-- Número de ip -->
-      <p *ngIf="equipo.deviceType === 'routers'">Número de Ip</p>
+      <p *ngIf="equipo.deviceType === 'routers'">Dirección de Ip</p>
       <input *ngIf="equipo.deviceType === 'routers'" required type="text" name="name" [(ngModel)]="equipo.ipAddress" class="from-control mb-2" placeholder="Ip">
-      <p *ngIf="equipo.deviceType === 'switches'">Número de Ip</p>
+      <p *ngIf="equipo.deviceType === 'switches'">Dirección de Ip</p>
       <input *ngIf="equipo.deviceType === 'switches'" required type="text" name="name" [(ngModel)]="equipo.ipAddress" class="from-control mb-2" placeholder="Ip">
-      <p *ngIf="equipo.deviceType === 'endDevices'">Número de Ip</p>
+      <p *ngIf="equipo.deviceType === 'endDevices'">Dirección  de Ip</p>
       <input *ngIf="equipo.deviceType === 'endDevices'" required type="text" name="name" [(ngModel)]="equipo.ipAddress" class="from-control mb-2" placeholder="Ip">
 
 
       <!-- Opciones extra para el Switch -->
+       <p *ngIf="equipo.deviceType === 'switches'">VLANS</p>
+       <app-dynamic-vlans *ngIf="equipo.deviceType === 'switches'" class="from-control mb-2"></app-dynamic-vlans>
+
       <div *ngIf="equipo.deviceType === 'switches'" >
-        <p>VLANS</p>
-        <app-dynamic-vlans></app-dynamic-vlans>
+
         <div class="contenido">
           <p class="Text-checkbox">¿Es poe? </p><input required name="poe" [(ngModel)]="equipo.poe" class="from-control mb-2" type="checkbox">
         </div>

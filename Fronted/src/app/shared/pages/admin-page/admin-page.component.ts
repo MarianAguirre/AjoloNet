@@ -84,7 +84,7 @@ export class AdminPageComponent implements OnInit {
             // this.usu = this.dispositivos.filter(d => d.id !== equipo.id);
             Swal.fire(
               'Eliminado!',
-              'El equipo ha sido eliminado.',
+              'El usuario ha sido eliminado.',
               'success'
             );
             this.loadUsers()
@@ -92,7 +92,7 @@ export class AdminPageComponent implements OnInit {
           (error: any) => {
             Swal.fire(
               'Error',
-              'Hubo un problema al eliminar el equipo.',
+              'Hubo un problema al eliminar el usuario.',
               'error'
             );
           }
