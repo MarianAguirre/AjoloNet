@@ -103,6 +103,16 @@
       <input type="text" min="0" pInputText id="ipAddress" [(ngModel)]="equipo.ipAddress" required autofocus />
     </div>
 
+    <!-- VLAN -->
+    <!-- <div class="field">
+      <label style="font-weight: bold;" for="ipAddress">Vlan id</label>
+      <input type="text" min="0" pInputText id="vlan_id" [(ngModel)]="equipo.vlan_id" required autofocus />
+    </div>
+    <div class="field">
+      <label style="font-weight: bold;" for="ipAddress">Vlan nombre</label>
+      <input type="text"  pInputText id="vlan_name" [(ngModel)]="equipo.vlan_name" required autofocus />
+    </div> -->
+
     <!-- Poe y administrable -->
     <div style="display: flex; justify-content: space-between; font-weight: bold;" *ngIf="equipo.deviceType === 'switch'">
       <label>Poe: {{ poeText }}</label>

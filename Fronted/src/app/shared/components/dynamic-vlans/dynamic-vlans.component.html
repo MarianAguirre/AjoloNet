@@ -2,7 +2,7 @@
   <div formArrayName="vlans">
     <div *ngFor="let vlan of vlans.controls; let i = index" [formGroupName]="i" class="vlan-group">
       <label for="vlan-id-{{i}}"></label>
-      <input id="vlan-id-{{i}}" placeholder="VLAN id"  formControlName="id" type="number" min="0" oninput="validity.valid||(value='');" >
+      <input id="vlan-id-{{i}}" placeholder="VLAN ID" formControlName="vlan_id" type="number" min="0" oninput="validity.valid||(value='');">
 
       <button  (click)="removeVlan(i)">
         <svg  width="20" viewBox="0 0 20 20" height="20" fill="none" class="svg-icon"><g  stroke="#d11d1d"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
@@ -10,9 +10,7 @@
         <span class="lable2">Quitar</span>
       </button>
       <label for="vlan-name-{{i}}"></label>
-      <input id="vlan-name-{{i}}"  placeholder="Nombre de la VLAN" formControlName="name" type="text">
-
-
+      <input id="vlan-name-{{i}}" placeholder="Nombre de la VLAN" formControlName="vlan_name" type="text">
     </div>
   </div>
   <button (click)="addVlan()">

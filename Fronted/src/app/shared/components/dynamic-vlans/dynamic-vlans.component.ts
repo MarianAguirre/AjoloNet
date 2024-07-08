@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DynamicVlansComponent implements OnInit {
   vlanForm: FormGroup;
 
+  @Output() vlansChange = new EventEmitter<{ vlan_id: number, vlan_name: string }[]>();
+
   constructor(private fb: FormBuilder) {
     this.vlanForm = this.fb.group({
       vlans: this.fb.array([])  // Inicializa el FormArray vacío
@@ -17,6 +19,9 @@ export class DynamicVlansComponent implements OnInit {
 
   ngOnInit(): void {
     this.addVlan(); // Añadir un campo VLAN inicial
+    this.vlanForm.valueChanges.subscribe(value => {
+      this.vlansChange.emit(value.vlans);
+    });
   }
 
   get vlans(): FormArray {
@@ -25,8 +30,8 @@ export class DynamicVlansComponent implements OnInit {
 
   addVlan(): void {
     const vlanGroup = this.fb.group({
-      id: ['', Validators.required],  // Campo para ID de VLAN
-      name: ['', Validators.required] // Campo para nombre de VLAN
+      vlan_id: ['', Validators.required],  // Campo para ID de VLAN
+      vlan_name: ['', Validators.required] // Campo para nombre de VLAN
     });
 
     this.vlans.push(vlanGroup);
@@ -38,5 +43,6 @@ export class DynamicVlansComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.vlanForm.value);
+    this.vlansChange.emit(this.vlanForm.value.vlans);
   }
 }
