@@ -6,6 +6,7 @@ import { enavironments } from '../../../../environments/envarionments';
 import { User } from '../../../interfaces/user.interfaces';
 import { AccessService } from '../../services/access.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-register-page',
@@ -16,7 +17,7 @@ export class RegisterPageComponent {
 
   public loginUrl = enavironments.loginUrl;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private accessSservice:AccessService, private router:Router) { }
+  constructor(private cookie:CookieService ,private formBuilder: FormBuilder, private http: HttpClient, private accessSservice:AccessService, private router:Router) { }
 
   registerForm = this.formBuilder.group({
     username: ['', [Validators.required]],
@@ -74,7 +75,12 @@ export class RegisterPageComponent {
 
 
       next:(data)=>{
-        localStorage.setItem('token',data.token)
+        this.cookie.set('token', data.token,{
+          expires: 1,
+          secure: true,
+          sameSite: 'Strict'
+        })
+        // sessionStorage.setItem('token',data.token)
         Swal.fire({
           title: 'Usuario creado con exito',
           icon: 'success',

@@ -94,13 +94,13 @@
     <!-- Numero de puertos -->
     <div class="field">
       <label style="font-weight: bold;" for="numberOfPorts">Numero de puertos</label>
-      <input type="text" pInputText id="numberOfPorts" [(ngModel)]="equipo.numberOfPorts" required autofocus />
+      <input type="number" min="0" max="25" pInputText id="numberOfPorts" [(ngModel)]="equipo.numberOfPorts" required autofocus />
     </div>
 
     <!-- Numero de ip -->
     <div class="field">
       <label style="font-weight: bold;" for="ipAddress">Numero de ip</label>
-      <input type="text" pInputText id="ipAddress" [(ngModel)]="equipo.ipAddress" required autofocus />
+      <input type="text" min="0" pInputText id="ipAddress" [(ngModel)]="equipo.ipAddress" required autofocus />
     </div>
 
     <!-- Poe y administrable -->

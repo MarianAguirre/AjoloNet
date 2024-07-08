@@ -25,6 +25,7 @@ import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { AuthInterceptor } from './custom/auth.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -63,6 +64,7 @@ import { AuthInterceptor } from './custom/auth.interceptor';
 
   ],
   providers: [
+    CookieService,
     provideAnimationsAsync(),
     importProvidersFrom(HttpClientModule),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

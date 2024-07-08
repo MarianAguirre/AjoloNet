@@ -35,7 +35,7 @@
 
       <!-- Opciones extra para el Switch -->
        <p *ngIf="equipo.deviceType === 'switches'">VLANS</p>
-       <app-dynamic-vlans *ngIf="equipo.deviceType === 'switches'" class="from-control mb-2"></app-dynamic-vlans>
+       <app-dynamic-vlans *ngIf="equipo.deviceType === 'switches'" class="from-control mb-2" [(ngModel)]="equipo.vlan"></app-dynamic-vlans>
 
       <div *ngIf="equipo.deviceType === 'switches'" >
 

@@ -26,7 +26,6 @@ import { DynamicVlansComponent } from './components/dynamic-vlans/dynamic-vlans.
 
 
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -38,6 +37,7 @@ import { DynamicVlansComponent } from './components/dynamic-vlans/dynamic-vlans.
     ReactiveFormsModule,
     RedRoutingModule,
     RouterModule,
+
 
 
 

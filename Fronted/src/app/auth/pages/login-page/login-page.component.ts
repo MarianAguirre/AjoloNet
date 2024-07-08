@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AccessService } from '../../services/access.service';
 import { Login } from '../../../interfaces/login.interfaces';
 import Swal from 'sweetalert2';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit{
-  constructor(private formBuilder:FormBuilder, private router:Router, private accessServices:AccessService){}
+  constructor(private cookie:CookieService, private formBuilder:FormBuilder, private router:Router, private accessServices:AccessService){}
 
   public loginForm = this.formBuilder.group({
     username: ["", [Validators.required]],
@@ -48,7 +49,12 @@ export class LoginPageComponent implements OnInit{
 
     this.accessServices.login(objecto).subscribe({
       next:(data) =>{
-        localStorage.setItem("token", data.token)
+        this.cookie.set('token', data.token,{
+          expires: 1,
+          secure: true,
+          sameSite: 'Strict'
+        })
+        // sessionStorage.setItem("token", data.token)
         this.router.navigate(['/red/home'])
       },
       error:(error)=>{

@@ -9,6 +9,7 @@ export interface Dispositivo {
   areaName: string;
   rackName:'';
   ipAddress: string;
+  vlan?:string
 }
 
 export interface ipAddress{
