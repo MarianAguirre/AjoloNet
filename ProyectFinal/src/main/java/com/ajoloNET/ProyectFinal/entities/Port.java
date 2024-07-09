@@ -2,6 +2,7 @@ package com.ajoloNET.ProyectFinal.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.Setter;
 
 @Entity
 @Table(name = "physical_ports")
@@ -34,11 +35,9 @@ public class Port {
     @Column(name = "port_number")
     private int portNumber;
 
-    @OneToOne(mappedBy = "sourcePort", cascade = CascadeType.ALL, orphanRemoval = true)
-    private PortConnection sourceConnection;
-
-    @OneToOne(mappedBy = "destinationPort", cascade = CascadeType.ALL, orphanRemoval = true)
-    private PortConnection destinationConnection;
+//    @Setter
+//    @Column(name = "port_status")
+//    private boolean portStatus;
 
 
     //Getters and Setters
@@ -99,19 +98,4 @@ public class Port {
         this.portNumber = portNumber;
     }
 
-    public PortConnection getSourceConnection() {
-        return sourceConnection;
-    }
-
-    public void setSourceConnection(PortConnection sourceConnection) {
-        this.sourceConnection = sourceConnection;
-    }
-
-    public PortConnection getDestinationConnection() {
-        return destinationConnection;
-    }
-
-    public void setDestinationConnection(PortConnection destinationConnection) {
-        this.destinationConnection = destinationConnection;
-    }
 }

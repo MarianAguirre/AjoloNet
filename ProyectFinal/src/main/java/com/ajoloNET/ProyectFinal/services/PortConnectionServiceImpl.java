@@ -1,5 +1,6 @@
 package com.ajoloNET.ProyectFinal.services;
 
+import com.ajoloNET.ProyectFinal.DTOs.PortConectionDTO;
 import com.ajoloNET.ProyectFinal.entities.Port;
 import com.ajoloNET.ProyectFinal.entities.PortConnection;
 import com.ajoloNET.ProyectFinal.repositories.PortConnectionRepository;
@@ -7,6 +8,7 @@ import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +21,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PortConnectionServiceImpl implements PortConnectionService{
 
-    private final PortConnectionRepository portConnectionRepository;
+    @Autowired
+    private PortConnectionRepository portConnectionRepository;
 
     private final PortRepository portRepository;
 
@@ -30,16 +33,29 @@ public class PortConnectionServiceImpl implements PortConnectionService{
     }
 
     @Override
-    public PortConnection createConnection(Long sourcePortId, Long destinationPortId) {
-        Port sourcePort = portRepository.findById(sourcePortId)
-                .orElseThrow(()->new NoSuchElementException("Source port not found"));
-        Port destinationPort = portRepository.findById(destinationPortId)
-                .orElseThrow(()->new NoSuchElementException("Destination port not found"));
-
+    public PortConnection createConnection(PortConectionDTO request) {
         PortConnection connection = new PortConnection();
-        connection.setSourcePort(sourcePort);
-        connection.setDestinationPort(destinationPort);
+        connection.setSourceType(request.getSourceType());
+        connection.setSourceId(request.getSourceId());
+        connection.setSourcePort(request.getSourcePort());
 
+//        Port sourceConection = new Port();
+//        sourceConection.setsSwitch(connection);
+
+
+
+
+
+         // Ejemplo de estado ocupado
+
+        connection.setDestinationType(request.getDestinationType());
+        connection.setDestinationId(request.getDestinationId());
+        connection.setDestinationPort(request.getDestinationPort());
+
+//        Port destinationConection = new Port();
+        // Ejemplo de estado ocupado
+
+        // Guardar la conexión usando la instancia de portConnectionRepository
         return portConnectionRepository.save(connection);
     }
     @Override
@@ -58,16 +74,7 @@ public class PortConnectionServiceImpl implements PortConnectionService{
         PortConnection connectionToDelete = portConnectionRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Connection not found"));
 
-        Port sourcePort = connectionToDelete.getSourcePort();
-        Port destinationPort = connectionToDelete.getDestinationPort();
 
-        sourcePort.setSourceConnection(null);
-        destinationPort.setDestinationConnection(null);
-
-        portRepository.save(sourcePort);
-        portRepository.save(destinationPort);
-
-        portConnectionRepository.delete(connectionToDelete);
 
     }
     @Override

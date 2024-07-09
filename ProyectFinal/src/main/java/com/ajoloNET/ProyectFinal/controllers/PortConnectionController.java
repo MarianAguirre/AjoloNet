@@ -1,9 +1,11 @@
 package com.ajoloNET.ProyectFinal.controllers;
 
+import com.ajoloNET.ProyectFinal.DTOs.PortConectionDTO;
 import com.ajoloNET.ProyectFinal.entities.PortConnection;
 import com.ajoloNET.ProyectFinal.services.PortConnectionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +17,8 @@ import java.util.Optional;
 @Slf4j
 public class PortConnectionController {
 
-    private final PortConnectionService portConnectionService;
+    @Autowired
+    private PortConnectionService portConnectionService;
 
     @GetMapping
     public ResponseEntity<?> getEverything(){
@@ -29,10 +32,10 @@ public class PortConnectionController {
         return ResponseEntity.ok(this.portConnectionService.getConnectionById(id));
     }
 
+
     @PostMapping
-    public PortConnection createConnection(@RequestParam Long sourcePortId, @RequestParam Long destinationPortId) {
-        log.info("POST: connection create");
-        return portConnectionService.createConnection(sourcePortId, destinationPortId);
+    public PortConnection createConnection(@RequestBody PortConectionDTO request) {
+        return portConnectionService.createConnection(request);
     }
 
     @PutMapping("/{id}")
