@@ -23,6 +23,7 @@ import { RacksPageComponent } from './pages/racks-page/racks-page.component';
 import { CamelCaseToTitleCasePipe } from '../pipe/capitalize.pipe';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { DynamicVlansComponent } from './components/dynamic-vlans/dynamic-vlans.component';
+import { SelectRackComponent } from './components/select-rack/select-rack.component';
 
 
 
@@ -67,6 +68,7 @@ import { DynamicVlansComponent } from './components/dynamic-vlans/dynamic-vlans.
     CamelCaseToTitleCasePipe,
     ProfilePageComponent,
     DynamicVlansComponent,
+    SelectRackComponent,
 
 
 

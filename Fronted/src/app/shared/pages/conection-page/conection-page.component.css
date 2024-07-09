@@ -1,11 +1,12 @@
-form{
+form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-input,select{
+input,
+select {
   width: 70%;
   border-radius: 10px;
   border: 1px solid #000;
@@ -14,14 +15,11 @@ input,select{
   background-color: #fff;
   color: #000;
   text-align: center;
-
 }
 
-.contenido{
-
+.contenido {
   display: flex;
   width: 150%;
-
 }
 
 .Text-checkbox {
@@ -30,20 +28,18 @@ input,select{
   text-align: center;
 }
 
-.botones{
+.botones {
   display: flex;
   width: 200%;
   text-align: center;
 }
 
-.area{
+.area {
   display: flex;
   width: 100%;
   text-align: center;
   margin-left: 30%;
 }
-
-
 
 /*
 #router, #switch {

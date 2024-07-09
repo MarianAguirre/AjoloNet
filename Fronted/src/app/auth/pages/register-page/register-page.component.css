@@ -1,20 +1,20 @@
-.body{
-  background: linear-gradient(135deg,#0e25f1, #181818);
+.body {
+  background: linear-gradient(135deg, #0e25f1, #181818);
 }
-.error-msg{
+
+.error-msg {
   --text-color: #dd1717
 }
 
 .ng-touched.ng-invalid:is(input, textarea),
-.ng-dirty.ng-invalid:is(input, textarea){
+.ng-dirty.ng-invalid:is(input, textarea) {
   border-left: 5px solid rgb(180, 6, 6);
 }
 
 .ng-touched.ng-valid:is(input, textarea),
-.ng-dirty.ng-valid:is(input, textarea){
+.ng-dirty.ng-valid:is(input, textarea) {
   border-left: 5px solid rgb(26, 180, 6);
 }
-
 
 button {
   margin-right: 3px;

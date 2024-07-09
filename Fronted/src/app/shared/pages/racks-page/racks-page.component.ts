@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { enavironments } from '../../../../environments/envarionments';
+import { EndDevice, Rack } from '../../../interfaces/Dispositivo';
+import { EquiposServices } from '../../services/equipos.service';
+import { HttpClient } from '@angular/common/http';
 import { timer } from 'rxjs';
 import Swal from 'sweetalert2';
-import { enavironments } from '../../../../environments/envarionments';
-import { Area, ASwitch, EndDevice, Rack, Routers } from '../../../interfaces/Dispositivo';
-import { EquiposServices } from '../../services/equipos.service';
 
 @Component({
   selector: 'racks-page',
@@ -13,7 +13,7 @@ import { EquiposServices } from '../../services/equipos.service';
 })
 export class RacksPageComponent implements OnInit {
 
-  constructor(private equiposServices: EquiposServices, private http: HttpClient) {}
+  constructor(private equiposServices: EquiposServices, private http: HttpClient) { }
 
   public baseUrl: string = enavironments.baseUrl;
   public racks: Rack[] = [];

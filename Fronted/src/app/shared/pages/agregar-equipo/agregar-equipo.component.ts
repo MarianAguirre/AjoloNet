@@ -1,7 +1,7 @@
-import { EquiposServices } from '../../services/equipos.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
 import { enavironments } from '../../../../environments/envarionments';
+import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -14,6 +14,9 @@ import Swal from 'sweetalert2';
 export class AgregarEquipoComponent implements OnInit {
 
   constructor(private router: Router, private http: HttpClient, private equiposServices: EquiposServices) {}
+
+  @Output()
+  public newEquip: EventEmitter<Dispositivo> = new EventEmitter();
 
   public equipo: Dispositivo = {
     name: '',
@@ -31,11 +34,8 @@ export class AgregarEquipoComponent implements OnInit {
   public racks: string[] = [];
   public baseUrl = enavironments.baseUrl;
   public opciones: string[] = [];
-  value: any;
+  public value: any;
   public vlans: { vlan_id: number, vlan_name: string }[] = [];
-
-  @Output()
-  public newEquip: EventEmitter<Dispositivo> = new EventEmitter();
 
   ngOnInit(): void {
     this.equiposServices.getArea().subscribe((areas: string[]) => {

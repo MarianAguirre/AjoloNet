@@ -56,7 +56,8 @@
   height: 24px;
 }
 
-/* .switch:hover */.sun svg {
+/* .switch:hover */
+.sun svg {
   animation: rotate 15s linear infinite;
 }
 
@@ -71,7 +72,8 @@
   }
 }
 
-/* .switch:hover */.moon svg {
+/* .switch:hover */
+.moon svg {
   animation: tilt 5s linear infinite;
 }
 
@@ -94,14 +96,14 @@
   }
 }
 
-.input:checked + .slider {
+.input:checked+.slider {
   background-color: #183153;
 }
 
-.input:focus + .slider {
+.input:focus+.slider {
   box-shadow: 0 0 1px #183153;
 }
 
-.input:checked + .slider:before {
+.input:checked+.slider:before {
   transform: translateX(30px);
 }

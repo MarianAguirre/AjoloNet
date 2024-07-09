@@ -1,10 +1,12 @@
-import { importProvidersFrom, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { importProvidersFrom, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthInterceptor } from './custom/auth.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SharedModule } from './shared/shared.module';
@@ -24,8 +26,6 @@ import { MdbScrollspyModule } from 'mdb-angular-ui-kit/scrollspy';
 import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
 import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
-import { AuthInterceptor } from './custom/auth.interceptor';
-import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -33,9 +33,6 @@ import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [
     AppComponent,
-
-
-
   ],
   imports: [
     AppRoutingModule,
@@ -59,8 +56,6 @@ import { CookieService } from 'ngx-cookie-service';
     MdbValidationModule,
     NoopAnimationsModule,
     SharedModule,
-
-
 
   ],
   providers: [

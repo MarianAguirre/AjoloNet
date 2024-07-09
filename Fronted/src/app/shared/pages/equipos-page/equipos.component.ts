@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Dispositivo } from '../../../interfaces/Dispositivo';
 import { enavironments } from '../../../../environments/envarionments';
 import { EquiposServices } from '../../services/equipos.service';
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrl: './equipos.component.css'
 })
 export class EquiposComponent implements OnInit {
-  constructor(private equiposServices: EquiposServices, private http: HttpClient, private router: Router) {}
+  constructor(private equiposServices: EquiposServices, private http: HttpClient, private router: Router) { }
 
   public areas: string[] = [];
   public baseUrl: string = enavironments.baseUrl;
@@ -42,7 +42,7 @@ export class EquiposComponent implements OnInit {
     });
   }
 
-  loadEquipos(){
+  loadEquipos() {
     this.equiposServices.getDevices().subscribe((data: any) => {
       if (data && typeof data === 'object') {
         this.routers = data.routers || [];
@@ -135,7 +135,7 @@ export class EquiposComponent implements OnInit {
       title: '¿Haz rellenado todos los campos?',
       text: `Al actualizar un equipo debes asegurarte de rellenar los campos de rack/area y no dejar vacio`,
       icon: 'warning',
-      showCancelButton:true,
+      showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, actualiza'
@@ -161,11 +161,7 @@ export class EquiposComponent implements OnInit {
           }
         );
       }
-      else{
-        timer(100).subscribe(() => this.equipoDialog = true);
-      }
+      else { timer(100).subscribe(() => this.equipoDialog = true); }
     });
   }
-
-
 }

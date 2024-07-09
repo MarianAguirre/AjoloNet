@@ -1,38 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-
 import { Error404PageComponent } from './shared/pages/error404-page/error404-page.component';
 import { guardGuard } from './auth/guard/guard.guard';
 import { publicGuard } from './auth/guard/public.guard';
 
 
 const routes: Routes = [
-
   {
-    path:'auth',
+    path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-    canActivate:[publicGuard]
+    canActivate: [publicGuard]
   },
   {
-    path:'red',
+    path: 'red',
     loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule),
-    canActivate:[guardGuard]
+    canActivate: [guardGuard]
   },
   {
     path: '404',
     component: Error404PageComponent
   },
   {
-    path:'',
+    path: '',
     redirectTo: 'red',
     pathMatch: 'full'
   },
   {
-    path:'**',
+    path: '**',
     redirectTo: '404'
   }
-
 ];
 
 @NgModule({

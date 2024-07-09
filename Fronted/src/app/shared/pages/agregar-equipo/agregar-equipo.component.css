@@ -1,11 +1,12 @@
-form{
+form {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-input,select{
+input,
+select {
   background-color: #fff;
   border-radius: 10px;
   border: 1px solid #000;
@@ -16,7 +17,7 @@ input,select{
   width: 70%;
 }
 
-.contenido{
+.contenido {
   display: flex;
   width: 150%;
 }
@@ -27,20 +28,20 @@ input,select{
   width: 300%;
 }
 
-.botones{
+.botones {
   display: flex;
   text-align: center;
   width: 200%;
 }
 
-.area{
+.area {
   display: flex;
   margin-left: 30%;
   text-align: center;
   width: 100%;
 }
 
-.contenido2{
+.contenido2 {
   display: flex;
   width: 70%;
   justify-content: space-evenly;

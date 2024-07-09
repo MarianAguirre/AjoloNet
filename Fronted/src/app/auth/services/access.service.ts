@@ -1,23 +1,23 @@
+import { enavironments } from '../../../environments/envarionments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { enavironments } from '../../../environments/envarionments';
-import { User } from '../../interfaces/user.interfaces';
+import { Login } from '../../interfaces/login.interfaces';
 import { Observable } from 'rxjs';
 import { ResponseAccesso } from '../../interfaces/ResponseAcceso';
-import { Login } from '../../interfaces/login.interfaces';
+import { User } from '../../interfaces/user.interfaces';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class AccessService {
 
-  private baseUrl:string = enavironments.loginUrl
-  constructor(private http:HttpClient) { }
+  private baseUrl: string = enavironments.loginUrl
+  constructor(private http: HttpClient) { }
 
 
-  registrarse(objeto:User):Observable<ResponseAccesso>{
+  registrarse(objeto: User): Observable<ResponseAccesso> {
     return this.http.post<ResponseAccesso>(`${this.baseUrl}/register`, objeto)
   }
 
-  login(objeto:Login):Observable<ResponseAccesso>{
+  login(objeto: Login): Observable<ResponseAccesso> {
     return this.http.post<ResponseAccesso>(`${this.baseUrl}/login`, objeto)
   }
 }

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatosUser } from '../../../interfaces/user.interfaces';
-import { UserService } from '../../services/user.service';
-import { HttpClient } from '@angular/common/http';
 import { enavironments } from '../../../../environments/envarionments';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +16,7 @@ export class ProfilePageComponent implements OnInit {
   baseUrl = enavironments.baseUrl;
   updateForm: FormGroup;
 
-  constructor(private userService: UserService, private http: HttpClient, private formBuilder: FormBuilder) {
+  constructor(private userService: UserService,  private formBuilder: FormBuilder) {
     this.updateForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       firstname: ['', [Validators.required]],
@@ -46,6 +45,7 @@ export class ProfilePageComponent implements OnInit {
     );
   }
 
+  //Guarda los cambios del usuario
   save(): void {
     if (!this.user.id) {
       Swal.fire(
@@ -58,7 +58,7 @@ export class ProfilePageComponent implements OnInit {
 
     Swal.fire({
       title: '¿Haz rellenado todos los campos?',
-      text: `Al actualizar tu usuario debes asegurarte de rellenar todos los campos`,
+      text: `Al actualizar tu usuario debes asegurarte de rellenar todos los campos necesarios`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

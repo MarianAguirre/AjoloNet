@@ -1,0 +1,8 @@
+<label *ngIf="deviceType === 'switch' || deviceType === 'router' || deviceType === 'patch-panel'"
+  class="from-control mb-2">Selecciona el rack</label>
+<div class="area" required autofocus style="display: flex; justify-content: space-between;">
+  <select class="mb-2 " [(ngModel)]="rackName" name="select" (ngModelChange)="onRackChange($event)" required autofocus>
+    <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
+  </select>
+  <button class="btn btn-info" (click)="goRacks()">Racks</button>
+</div>

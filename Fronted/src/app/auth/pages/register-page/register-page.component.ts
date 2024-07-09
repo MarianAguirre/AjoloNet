@@ -1,23 +1,23 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
-import { HttpClient } from '@angular/common/http';
-import { enavironments } from '../../../../environments/envarionments';
-import { User } from '../../../interfaces/user.interfaces';
 import { AccessService } from '../../services/access.service';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { enavironments } from '../../../../environments/envarionments';
+import { FormBuilder, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { User } from '../../../interfaces/user.interfaces';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.css'] // Corrected property name
+  styleUrls: ['./register-page.component.css']
 })
 export class RegisterPageComponent {
 
   public loginUrl = enavironments.loginUrl;
 
-  constructor(private cookie:CookieService ,private formBuilder: FormBuilder, private http: HttpClient, private accessSservice:AccessService, private router:Router) { }
+  constructor(private cookie: CookieService, private formBuilder: FormBuilder, private http: HttpClient, private accessSservice: AccessService, private router: Router) { }
 
   registerForm = this.formBuilder.group({
     username: ['', [Validators.required]],
@@ -39,20 +39,21 @@ export class RegisterPageComponent {
     return this.registerForm.controls.password;
   }
 
-  async save(){
-    if(this.registerForm.invalid) {
+  async save() {
+    if (this.registerForm.invalid) {
       Swal.fire({
-      title: 'Faltan datos',
-      icon: 'error',
-      timer: 1000
-    });
-    return;}
+        title: 'Faltan datos',
+        icon: 'error',
+        timer: 1000
+      });
+      return;
+    }
 
-    const object:User ={
-      username: this.registerForm.value.username ??'',
-      firstname: this.registerForm.value.firstname??'',
-      lastname: this.registerForm.value.lastname?? '',
-      password: this.registerForm.value.password??''
+    const object: User = {
+      username: this.registerForm.value.username ?? '',
+      firstname: this.registerForm.value.firstname ?? '',
+      lastname: this.registerForm.value.lastname ?? '',
+      password: this.registerForm.value.password ?? ''
     }
     const { value: accept } = await Swal.fire({
       title: "Terms and conditions",
@@ -71,30 +72,27 @@ export class RegisterPageComponent {
     if (accept) {
       Swal.fire("You agreed with T&C :)");
 
-    this.accessSservice.registrarse(object).subscribe({
+      this.accessSservice.registrarse(object).subscribe({
 
 
-      next:(data)=>{
-        this.cookie.set('token', data.token,{
-          expires: 1,
-          secure: true,
-          sameSite: 'Strict'
-        })
-        // sessionStorage.setItem('token',data.token)
-        Swal.fire({
-          title: 'Usuario creado con exito',
-          icon: 'success',
-          timer: 1000
-        })
-        this.registerForm.reset();
-      },
-      error:(error)=>{
-        console.log(error.message)
-      }
-    })
+        next: (data) => {
+          this.cookie.set('token', data.token, {
+            expires: 1,
+          })
+          Swal.fire({
+            title: 'Usuario creado con exito',
+            icon: 'success',
+            timer: 1000
+          })
+          this.registerForm.reset();
+        },
+        error: (error) => {
+          console.log(error.message)
+        }
+      })
+    }
   }
-}
-  volver(){
+  volver() {
     this.router.navigate(['/registrar'])
   }
 }

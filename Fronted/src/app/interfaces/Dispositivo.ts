@@ -1,5 +1,5 @@
 export interface Dispositivo {
-  id?:string
+  id?: string
   name: string;
   deviceType: string;
   conection?: string;
@@ -7,92 +7,89 @@ export interface Dispositivo {
   poe?: boolean;
   manageable?: boolean;
   areaName: string;
-  rackName:'';
+  rackName: '';
   ipAddress: string;
-  vlan_name?:string,
+  vlan_name?: string,
   vlan_id?: number,
   [key: string]: any; // Permitir propiedades dinámicas
-
 }
 
-export interface ipAddress{
+export interface ipAddress {
   ipAddress: string
 }
 
 export interface Area {
-  id:         number;
-  name:       string;
+  id: number;
+  name: string;
   endDevices: EndDevice[];
 }
 
 export interface EndDevice {
-  id:            number;
-  ports:         Port[];
-  name:          string;
+  id: number;
+  ports: Port[];
+  name: string;
   numberOfPorts: number;
-  deviceType:    string;
-  areaName:      null;
+  deviceType: string;
+  areaName: null;
 }
 
 
 export interface Rack {
-  id:          number;
-  name:        string;
-  powerSplit:  number;
-  aSwitch:     ASwitch[];
+  id: number;
+  name: string;
+  powerSplit: number;
+  aSwitch: ASwitch[];
   patchPanels: PatchPanel[];
-  routers:     Routers[];
+  routers: Routers[];
 }
 
 export interface ASwitch {
-  id:            number;
-  name:          string;
-  ports:         Port[];
-  poe:           boolean;
-  manageable:    boolean;
-  deviceType:    string;
+  id: number;
+  name: string;
+  ports: Port[];
+  poe: boolean;
+  manageable: boolean;
+  deviceType: string;
   numberOfPorts: number;
 }
 
 export interface Port {
-  id:                    number;
-  portNumber:            number;
+  id: number;
+  portNumber: number;
 }
 
 export interface PatchPanel {
-  id:            number;
-  ports:         Port[];
+  id: number;
+  ports: Port[];
   numberOfPorts: number;
-  name:          string;
-  deviceType:    string;
+  name: string;
+  deviceType: string;
 }
 export interface Routers {
-  id:            number;
-  ports:         Port[];
+  id: number;
+  ports: Port[];
   numberOfPorts: number;
-  name:          string;
-  deviceType:    string;
+  name: string;
+  deviceType: string;
 }
 
-
-
 export interface Device {
-  id:            number;
-  ports:         Port[];
-  name:          string;
+  id: number;
+  ports: Port[];
+  name: string;
   numberOfPorts: number;
-  deviceType:    string;
-  areaName?:     null;
-  rackName?:     null;
-  poe?:          boolean;
-  manageable?:   boolean;
+  deviceType: string;
+  areaName?: null;
+  rackName?: null;
+  poe?: boolean;
+  manageable?: boolean;
   ipAddress: ipAddress[];
 }
 
 export interface Port {
-  id:                    number;
-  portNumber:            number;
-  sourceConnection:      null;
+  id: number;
+  portNumber: number;
+  sourceConnection: null;
   destinationConnection: null;
 }
 

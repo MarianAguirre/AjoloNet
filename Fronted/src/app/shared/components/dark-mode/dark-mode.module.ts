@@ -9,7 +9,7 @@ import { DarkModeComponent } from './dark-mode.component';
   imports: [
     CommonModule,
   ],
-  exports:[
+  exports: [
     DarkModeComponent
   ]
 })

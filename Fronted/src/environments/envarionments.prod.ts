@@ -1,3 +1,4 @@
 export const enavironments = {
-  baseUrl: 'http://'
+  loginUrl: 'https://ajolonet.dick.digital/api/auth',
+  baseUrl: 'https://ajolonet.dick.digital/api',
 }

@@ -1,23 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { enavironments } from '../../../../environments/envarionments';
-import { HttpClient } from '@angular/common/http';
 import { DatosUser } from '../../../interfaces/user.interfaces';
+import { enavironments } from '../../../../environments/envarionments';
 import { UserService } from '../../services/user.service';
-
-
-
-
-
 
 @Component({
   selector: 'shared-navbar',
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
   constructor(
-    private userService: UserService){}
-  user: DatosUser ={
+    private userService: UserService) { }
+  user: DatosUser = {
     id: 0,
     username: '',
     firstname: '',
@@ -36,11 +30,5 @@ export class NavbarComponent implements OnInit{
 
   baseUrl: string = enavironments.baseUrl;
   userLoginOn: boolean = false;
-
-
-
-
-
-
 
 }

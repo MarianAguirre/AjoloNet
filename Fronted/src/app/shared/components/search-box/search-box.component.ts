@@ -1,23 +1,22 @@
 import { Component } from '@angular/core';
-import { DatosUser, User } from '../../../interfaces/user.interfaces';
+import { CookieService } from 'ngx-cookie-service';
+import { DatosUser } from '../../../interfaces/user.interfaces';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'shared-search-box',
   templateUrl: './search-box.component.html',
   styles: ``
 })
-export class SearchBoxComponent{
+export class SearchBoxComponent {
 
-  constructor(private cookie:CookieService, private router:Router, private userService:UserService){}
+  constructor(private cookie: CookieService, private router: Router, private userService: UserService) { }
 
   user!: DatosUser;
 
-  logout(){
+  logout() {
     this.cookie.delete('token')
-    // sessionStorage.removeItem("token")
     this.router.navigate(["/auth"])
   }
 
@@ -31,5 +30,4 @@ export class SearchBoxComponent{
       }
     );
   }
-
 }

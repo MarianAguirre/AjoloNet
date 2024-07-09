@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./areas-page.component.css']
 })
 export class AreasPageComponent implements OnInit {
-  constructor(private equiposServices: EquiposServices, private http: HttpClient) {}
+  constructor(private equiposServices: EquiposServices, private http: HttpClient) { }
 
   public baseUrl: string = enavironments.baseUrl;
   public areas: Area[] = [];

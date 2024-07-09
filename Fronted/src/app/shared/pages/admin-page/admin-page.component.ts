@@ -1,20 +1,20 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DatosUser, Usuarios } from '../../../interfaces/user.interfaces';
+import { timer } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import Swal from 'sweetalert2';
-import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-admin-page',
   templateUrl: './admin-page.component.html',
-  styleUrls: ['./admin-page.component.css'] // Use 'styleUrls' instead of 'styleUrl'
+  styleUrls: ['./admin-page.component.css']
 })
 export class AdminPageComponent implements OnInit {
 
   Users: Usuarios[] = [];
   Admins: Usuarios[] = [];
   public userDialog: boolean = false;
-  user: DatosUser ={
+  user: DatosUser = {
     id: 0,
     username: '',
     firstname: '',
@@ -34,14 +34,10 @@ export class AdminPageComponent implements OnInit {
 
   passwordPlaceholder: string = '';
 
-  constructor(
-    private userService: UserService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private userService: UserService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.loadUsers()
-
     this.userService.getUserDatos().subscribe(
       (response: DatosUser) => {
         console.log('Datos recibidos:', response); // Verifica la estructura de los datos
@@ -50,7 +46,8 @@ export class AdminPageComponent implements OnInit {
     );
   }
 
-  loadUsers(){
+  // Carga a los usuarios de acuerdo a su rol
+  loadUsers() {
     this.userService.getUsers().subscribe(users => {
       this.Users = users.filter(user => user.role === 'USER');
       this.Admins = users.filter(user => user.role === 'ADMIN');
@@ -58,6 +55,7 @@ export class AdminPageComponent implements OnInit {
     });
   }
 
+  // Elimina un usuario
   deleteUsuario(usuario: Usuarios): void {
     if (!usuario.id) {
       Swal.fire(
@@ -66,7 +64,6 @@ export class AdminPageComponent implements OnInit {
         'error'
       );
       return;
-
     }
     timer(100).subscribe(() => this.userDialog = false)
     Swal.fire({
@@ -100,6 +97,8 @@ export class AdminPageComponent implements OnInit {
       }
     });
   }
+
+  // Guarda los cambios de un usuario
   saveUsuario(): void {
     if (!this.Usuarios.id) {
       Swal.fire(
@@ -145,7 +144,7 @@ export class AdminPageComponent implements OnInit {
           }
         );
       }
-      else{
+      else {
         timer(100).subscribe(() => this.userDialog = true);
       }
     });

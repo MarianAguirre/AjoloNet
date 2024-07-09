@@ -6,12 +6,12 @@ export const publicGuard: CanActivateFn = (route, state) => {
 
   const cookie = inject(CookieService)
   const token = cookie.get("token") || ""
-  const router =inject(Router);
+  const router = inject(Router);
 
-  if(token){
+  if (token) {
     router.navigateByUrl("/")
     return false;
-  }else{
+  } else {
     return true;
   }
 };

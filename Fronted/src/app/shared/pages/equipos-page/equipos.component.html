@@ -1,62 +1,59 @@
-<p-table
-  #dt
-  [value]="dispositivos"
-  [globalFilterFields]="['id', 'name']"
-  selectionMode="single"
-  dataKey="name"
-  [rows]="7"
-  [paginator]="true"
-  stateStorage="session"
-  stateKey="statedemo-session"
+<p-table #dt [value]="dispositivos" [globalFilterFields]="['id', 'name']" selectionMode="single" dataKey="name"
+  [rows]="7" [paginator]="true" stateStorage="session" stateKey="statedemo-session"
   [tableStyle]="{'width':'80%', 'margin-left':'10%', 'margin-top':'1%', 'margin-bottom':'1%'}">
 
   <!-- Titulo de la tabla -->
   <ng-template pTemplate="caption" style="display: flex; justify-content: space-between;">
     <h1 style="width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">EQUIPOS</h1>
 
-
-        <div >
-          <tr>
-            <th style="width: 30%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
-              <button style=" margin-left: 60%; margin-top: 1%; margin-bottom: 1%;" class="btn btn-outline-success tabla" type="submit" [routerLink]="['nuevo-equipo']">Agregar</button>
-            </th>
-            <th>
-                <p-columnFilter filterMatchModeOptions="startsWith,contains,endsWith" filterDisplay="row" matchMode="contains" type="text" field="id" placeholder="Buscar por id" ariaLabel="Filter id" />
-            </th>
-            <th>
-                <p-columnFilter filterMatchModeOptions="startsWith,contains,endsWith" filterDisplay="row" matchMode="contains" type="text" field="name" placeholder="Buscar por nombre" ariaLabel="Filter name" />
-            </th>
-            <th></th>
-          </tr>
-        </div>
+    <div>
+      <tr>
+        <th style="width: 30%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
+          <button style=" margin-left: 60%; margin-top: 1%; margin-bottom: 1%;" class="btn btn-outline-success tabla"
+            type="submit" [routerLink]="['nuevo-equipo']">Agregar</button>
+        </th>
+        <th>
+          <p-columnFilter filterMatchModeOptions="startsWith,contains,endsWith" filterDisplay="row" matchMode="contains"
+            type="text" field="id" placeholder="Buscar por id" ariaLabel="Filter id" />
+        </th>
+        <th>
+          <p-columnFilter filterMatchModeOptions="startsWith,contains,endsWith" filterDisplay="row" matchMode="contains"
+            type="text" field="name" placeholder="Buscar por nombre" ariaLabel="Filter name" />
+        </th>
+        <th></th>
+      </tr>
+    </div>
 
   </ng-template>
 
   <!-- Encabezados de la tabla -->
   <ng-template pTemplate="header">
     <tr>
-      <th pSortableColumn="id" style="width:25%">Id <p-sortIcon field="id"/></th>
-      <th pSortableColumn="name" style="width:25%">Nombre <p-sortIcon field="name"/></th>
+      <th pSortableColumn="id" style="width:25%">Id <p-sortIcon field="id" /></th>
+      <th pSortableColumn="name" style="width:25%">Nombre <p-sortIcon field="name" /></th>
       <th style="width:25%"></th>
     </tr>
-
   </ng-template>
 
   <!-- Cuerpo de la tabla -->
   <ng-template pTemplate="body" let-equipo>
     <tr [pSelectableRow]="equipo">
       <td><span class="p-column-title">Id</span>{{ equipo.id }}</td>
-      <td><span class="p-column-title">Nombre</span><span class="ml-1 vertical-align-middle">{{ equipo.name }}</span></td>
+      <td><span class="p-column-title">Nombre</span><span class="ml-1 vertical-align-middle">{{ equipo.name }}</span>
+      </td>
 
-
-        <!-- Botones de eliminar y detalles -->
-        <td>
+      <!-- Botones de eliminar y detalles -->
+      <td>
         <div class="btn-group">
-          <button class="btn btn-outline-dark" style="margin-left: 45%;" (click)="editProduct(equipo)" type="submit">Detalles</button>
+          <button class="btn btn-outline-dark" style="margin-left: 45%;" (click)="editProduct(equipo)"
+            type="submit">Detalles</button>
           <button class="btn btn-outline-danger" type="submit" (click)="deleteDevices(equipo)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+              viewBox="0 0 16 16">
+              <path
+                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+              <path
+                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
             </svg>
           </button>
         </div>
@@ -73,7 +70,8 @@
 </p-table>
 
 <!-- Informacion del equipo que se puede editar -->
-<p-dialog [(visible)]="equipoDialog" [style]="{ width: '450px' }" header="Detalles del equipo" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="equipoDialog" [style]="{ width: '450px' }" header="Detalles del equipo" [modal]="true"
+  styleClass="p-fluid">
   <ng-template pTemplate="content">
     <div class="field">
 
@@ -88,13 +86,15 @@
     <!-- Tipo -->
     <div class="field">
       <label style="font-weight: bold;" for="deviceType">Tipo</label>
-      <input disabled="content" type="text" pInputText id="deviceType" [(ngModel)]="equipo.deviceType" required autofocus />
+      <input disabled="content" type="text" pInputText id="deviceType" [(ngModel)]="equipo.deviceType" required
+        autofocus />
     </div>
 
     <!-- Numero de puertos -->
     <div class="field">
       <label style="font-weight: bold;" for="numberOfPorts">Numero de puertos</label>
-      <input type="number" min="0" max="25" pInputText id="numberOfPorts" [(ngModel)]="equipo.numberOfPorts" required autofocus />
+      <input type="number" min="0" max="25" pInputText id="numberOfPorts" [(ngModel)]="equipo.numberOfPorts" required
+        autofocus />
     </div>
 
     <!-- Numero de ip -->
@@ -103,51 +103,24 @@
       <input type="text" min="0" pInputText id="ipAddress" [(ngModel)]="equipo.ipAddress" required autofocus />
     </div>
 
-    <!-- VLAN -->
-    <!-- <div class="field">
-      <label style="font-weight: bold;" for="ipAddress">Vlan id</label>
-      <input type="text" min="0" pInputText id="vlan_id" [(ngModel)]="equipo.vlan_id" required autofocus />
-    </div>
-    <div class="field">
-      <label style="font-weight: bold;" for="ipAddress">Vlan nombre</label>
-      <input type="text"  pInputText id="vlan_name" [(ngModel)]="equipo.vlan_name" required autofocus />
-    </div> -->
-
     <!-- Poe y administrable -->
-    <div style="display: flex; justify-content: space-between; font-weight: bold;" *ngIf="equipo.deviceType === 'switch'">
+    <div style="display: flex; justify-content: space-between; font-weight: bold;"
+      *ngIf="equipo.deviceType === 'switch'">
       <label>Poe: {{ poeText }}</label>
       <label>Administrable: {{ manageableText }}</label>
     </div>
 
     <!-- Seleccion de rack para switch, router y parch panel -->
-     <label *ngIf="equipo.deviceType === 'switch'" class="from-control mb-2">Selecciona el rack</label>
-     <div *ngIf="equipo.deviceType === 'switch'" class="area" style="display: flex; justify-content: space-between;">
-      <select  class="mb-2 " [(ngModel)]="equipo.rackName" name="select" required autofocus>
-        <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
-      </select>
-      <button class="btn btn-info" (click)="goRacks()">Racks</button>
-    </div>
-
-    <label *ngIf="equipo.deviceType === 'router'" class="from-control mb-2">Selecciona el rack</label>
-    <div *ngIf="equipo.deviceType === 'router'" class="area" required autofocus style="display: flex; justify-content: space-between;">
-      <select  class="mb-2 " [(ngModel)]="equipo.rackName" name="select">
-        <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
-      </select>
-      <button class="btn btn-info" (click)="goRacks()">Racks</button>
-    </div>
-
-    <label *ngIf="equipo.deviceType === 'patch-panel'" class="from-control mb-2">Selecciona el rack</label>
-    <div *ngIf="equipo.deviceType === 'patch-panel'" class="area" required autofocus style="display: flex; justify-content: space-between;">
-      <select  class="mb-2 " [(ngModel)]="equipo.rackName" name="select">
-        <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
-      </select>
-      <button class="btn btn-info" (click)="goRacks()">Racks</button>
-    </div>
+    <select-rack
+      *ngIf="equipo.deviceType === 'switch' || equipo.deviceType === 'router' || equipo.deviceType === 'patch-panel'"
+      [deviceType]="equipo.deviceType" [racks]="racks" [(rackName)]="equipo.rackName"
+      (navigateToRacks)="goRacks()"></select-rack>
 
     <!-- Seleccion de area para end device -->
     <label *ngIf="equipo.deviceType === 'end-device'" class="from-control mb-2">Selecciona el area</label>
-    <div *ngIf="equipo.deviceType === 'end-device'" class="area" required autofocus style="display: flex; justify-content: space-between;">
-      <select  class="mb-2 " [(ngModel)]="equipo.areaName" name="select">
+    <div *ngIf="equipo.deviceType === 'end-device'" class="area" required autofocus
+      style="display: flex; justify-content: space-between;">
+      <select class="mb-2 " [(ngModel)]="equipo.areaName" name="select">
         <option *ngFor="let area of areas" [value]="area">{{area}}</option>
       </select>
       <button class="btn btn-info" (click)="goAreas()">Areas</button>

@@ -1,41 +1,38 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="home">AjoloNet</a>
-    <button class="navbar-toggler" type="button"
-      (click)="noListNav.toggle()" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" (click)="noListNav.toggle()" aria-expanded="false"
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup"
-      mdbCollapse #noListNav="mdbCollapse" >
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup" mdbCollapse #noListNav="mdbCollapse">
 
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item" routerLink="home">
-            <button class="nav-link active" aria-current="page" >Home</button>
-          </li>
-          <li class="nav-item" routerLink="areas">
-            <button class="nav-link active" aria-current="page" >Areas</button>
-          </li>
-          <li class="nav-item" routerLink="racks">
-            <button class="nav-link active" aria-current="page" >Racks</button>
-          </li>
-          <li class="nav-item" routerLink="equipos">
-            <button class="nav-link active" aria-current="page" >Equipos</button>
-          </li>
-          <li class="nav-item" routerLink="conexiones">
-            <button class="nav-link active" aria-current="page" >Conexiones</button>
-          </li>
-          <li class="nav-item" routerLink="admin" *ngIf="user.role === 'ADMIN'">
-            <button class="nav-link active" aria-current="page" >Admin</button>
-          </li>
-        </ul>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" routerLink="home">
+          <button class="nav-link active" aria-current="page">Home</button>
+        </li>
+        <li class="nav-item" routerLink="areas">
+          <button class="nav-link active" aria-current="page">Areas</button>
+        </li>
+        <li class="nav-item" routerLink="racks">
+          <button class="nav-link active" aria-current="page">Racks</button>
+        </li>
+        <li class="nav-item" routerLink="equipos">
+          <button class="nav-link active" aria-current="page">Equipos</button>
+        </li>
+        <li class="nav-item" routerLink="conexiones">
+          <button class="nav-link active" aria-current="page">Conexiones</button>
+        </li>
+        <li class="nav-item" routerLink="admin" *ngIf="user.role === 'ADMIN'">
+          <button class="nav-link active" aria-current="page">Admin</button>
+        </li>
+      </ul>
+      <form class="d-flex input-group w-auto">
 
-          <form class="d-flex input-group w-auto">
-            <shared-dark-mode ></shared-dark-mode>
-          <shared-search-box></shared-search-box>
+        <shared-dark-mode></shared-dark-mode>
+        <shared-search-box></shared-search-box>
 
-          </form>
-
-
+      </form>
     </div>
   </div>
 </nav>

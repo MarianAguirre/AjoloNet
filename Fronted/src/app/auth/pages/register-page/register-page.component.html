@@ -3,8 +3,8 @@
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-10">
         <div class="card" style="border-radius: 1rem;">
-          <div class="row g-0" >
-            <div class="col-md-6 col-lg-5 d-none d-md-block text-center mt-5 " >
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block text-center mt-5 ">
               <img src="https://art.pixilart.com/thumb/sr2bccf20cfccc8.png" width="240em" height="300em">
             </div>
 
@@ -13,40 +13,42 @@
                 <form [formGroup]="registerForm" autocomplete="off">
                   <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;"> <strong>Nuevo usuario</strong></h5>
                   <div data-mdb-input-init class="form-outline mb-4">
-                    <input formControlName="username" type=" text" class="form-control form-control-lg" placeholder="Nombre de usuario "/>
+                    <input formControlName="username" type=" text" class="form-control form-control-lg"
+                      placeholder="Nombre de usuario " />
                     <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
                       <div *ngIf="username.errors?.['required']"> El nombre de usuario es requerido </div>
                     </div>
                   </div>
                   <div data-mdb-input-init class="form-outline mb-4">
-                    <input formControlName="firstname" type=" text" class="form-control form-control-lg" placeholder="Nombre"/>
+                    <input formControlName="firstname" type=" text" class="form-control form-control-lg"
+                      placeholder="Nombre" />
                     <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="text-danger">
                       <div *ngIf="firstname.errors?.['required']"> El nombre es requerido</div>
                     </div>
                   </div>
                   <div data-mdb-input-init class="form-outline mb-4">
-                    <input formControlName="lastname" type=" text" class="form-control form-control-lg" placeholder="Apellido"/>
+                    <input formControlName="lastname" type=" text" class="form-control form-control-lg"
+                      placeholder="Apellido" />
                     <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="text-danger">
                       <div *ngIf="lastname.errors?.['required']"> El apellido es requerido</div>
                     </div>
                   </div>
                   <div data-mdb-input-init class="form-outline mb-4">
-                    <input formControlName="password" name="password"  type="password" id="password" class="form-control form-control-lg" placeholder="Contraseña" />
+                    <input formControlName="password" name="password" type="password" id="password"
+                      class="form-control form-control-lg" placeholder="Contraseña" />
                     <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
                       <div *ngIf="password.errors?.['required']"> La contraseña es requerida</div>
                     </div>
                   </div>
 
                   <div class="pt-1 mb-4">
-                    <button type="submit"  (click)="save()"> Crear cuenta
+                    <button type="submit" (click)="save()"> Crear cuenta
                       <span></span>
                     </button>
                   </div>
                   <div>
-                    <a
-                    class="d-flex align-items-end flex-column mb-3"
-                    routerLink="/auth/login"
-                    type="button">¿Ya tienes una cuenta?</a>
+                    <a class="d-flex align-items-end flex-column mb-3" routerLink="/auth/login" type="button">¿Ya tienes
+                      una cuenta?</a>
                   </div>
                 </form>
               </div>

@@ -35,6 +35,7 @@
   font-family: sans-serif;
   letter-spacing: 1px;
 }
+
 .lable2 {
   line-height: 22px;
   font-size: 15px;
@@ -74,7 +75,7 @@
 }
 
 
-input{
+input {
   background-color: #fff;
   border-radius: 10px;
   border: 1px solid #000;
@@ -85,7 +86,7 @@ input{
 
 }
 
-form{
+form {
   align-items: center;
   display: flex;
   flex-direction: column;
