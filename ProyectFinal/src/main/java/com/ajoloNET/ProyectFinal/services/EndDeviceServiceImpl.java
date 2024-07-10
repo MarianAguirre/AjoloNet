@@ -63,7 +63,7 @@ public class EndDeviceServiceImpl implements EndDeviceService{
         // Actualiza las propiedades del EndDevice
         enDeviceToUpdateId.setName(endDevice.getName());
         enDeviceToUpdateId.setNumberOfPorts(endDevice.getNumberOfPorts());
-        enDeviceToUpdateId.setIpAddress(enDeviceToUpdateId.getIpAddress());
+        enDeviceToUpdateId.setIpAddress(endDevice.getIpAddress());
 
         // Actualiza la Area si se proporciona
         if (endDevice.getAreaName() != null) {

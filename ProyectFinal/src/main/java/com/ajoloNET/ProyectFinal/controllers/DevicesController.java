@@ -61,7 +61,7 @@ public class DevicesController {
 
     @PutMapping("/{deviceType}/{deviceId}")
     public ResponseEntity<?> updateDevice(@PathVariable String deviceType, @PathVariable Long deviceId, @RequestBody Map<String, Object> device) {
-        log.info("PUT Device [{}]: {}", deviceType, deviceId);
+        log.info("PUT Device [{}]: {} {}", deviceType, deviceId, device);
 
         try {
             switch (deviceType.toLowerCase()) {
