@@ -16,7 +16,7 @@ export class SearchBoxComponent {
   user!: DatosUser;
 
   logout() {
-    this.cookie.delete('token')
+    sessionStorage.removeItem('token')
     this.router.navigate(["/auth"])
   }
 

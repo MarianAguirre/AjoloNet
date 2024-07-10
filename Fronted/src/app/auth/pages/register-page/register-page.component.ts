@@ -76,9 +76,7 @@ export class RegisterPageComponent {
 
 
         next: (data) => {
-          this.cookie.set('token', data.token, {
-            expires: 1,
-          })
+          sessionStorage.setItem("token", data.token)
           Swal.fire({
             title: 'Usuario creado con exito',
             icon: 'success',

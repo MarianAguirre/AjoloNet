@@ -48,9 +48,7 @@ export class LoginPageComponent {
 
     this.accessServices.login(objecto).subscribe({
       next: (data) => {
-        this.cookie.set('token', data.token, {
-          expires: 1,
-        })
+        sessionStorage.setItem("token", data.token)
         this.router.navigate(['/red/home'])
       },
       error: (error) => {

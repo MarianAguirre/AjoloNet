@@ -4,8 +4,8 @@ import { CookieService } from 'ngx-cookie-service';
 
 export const guardGuard: CanActivateFn = (route, state) => {
 
-  const cookie = inject(CookieService)
-  const token = cookie.get("token") || ""
+  const token =sessionStorage.getItem("token") || ""
+
   const router = inject(Router);
 
   if (token != "") {
