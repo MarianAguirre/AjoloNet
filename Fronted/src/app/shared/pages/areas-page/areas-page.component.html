@@ -1,4 +1,4 @@
-<p-table [value]="areas" selectionMode="single" dataKey="id"
+<p-table [value]="areas" selectionMode="single" dataKey="id" [globalFilterFields]="[ 'name']"
   [tableStyle]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
 
   <!-- Titulo de la tabla -->
@@ -22,7 +22,7 @@
           <!-- Zona de creacion de areas -->
           <p-dialog header="Agrega una nueva área" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
             <div style="display: flex; justify-content: space-between; font-weight: bold;">
-              <label for="name" class="font-semibold w-6rem">Nombre del área</label>
+              <label for="name"  class="font-semibold w-6rem">Nombre del área</label>
               <input (keyup.enter)="newArea()" [(ngModel)]="zona.name" required pInputText id="name" class="flex-auto"
                 autocomplete="off" />
             </div>
@@ -38,8 +38,8 @@
   <!-- Encabezados de la tabla -->
   <ng-template pTemplate="header">
     <tr>
-      <th style="width:25%">Área</th>
-      <th style="width:25%">Id</th>
+      <th pSortableColumn="name"  style="width:35%">Área <p-sortIcon field="name"/></th>
+      <th style="width:15%">Id</th>
       <th style="width:25%">Nombre</th>
       <th style="width:25%">Puertos</th>
       <th style="width:25%"></th>
