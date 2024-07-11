@@ -35,9 +35,9 @@ public class Port {
     @Column(name = "port_number")
     private int portNumber;
 
-//    @Setter
-//    @Column(name = "port_status")
-//    private boolean portStatus;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private PortStatus status;
 
 
     //Getters and Setters
@@ -82,13 +82,6 @@ public class Port {
         this.endDevice = endDevice;
     }
 
-//    public PortType getPortType() {
-//        return portType;
-//    }
-//
-//    public void setPortType(PortType portType) {
-//        this.portType = portType;
-//    }
 
     public int getPortNumber() {
         return portNumber;
@@ -98,4 +91,11 @@ public class Port {
         this.portNumber = portNumber;
     }
 
+    public PortStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PortStatus status) {
+        this.status = status;
+    }
 }

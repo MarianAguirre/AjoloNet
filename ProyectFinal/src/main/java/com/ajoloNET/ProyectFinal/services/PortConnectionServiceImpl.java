@@ -1,8 +1,10 @@
 package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.DTOs.PortConectionDTO;
+import com.ajoloNET.ProyectFinal.entities.DeviceType;
 import com.ajoloNET.ProyectFinal.entities.Port;
 import com.ajoloNET.ProyectFinal.entities.PortConnection;
+import com.ajoloNET.ProyectFinal.entities.PortStatus;
 import com.ajoloNET.ProyectFinal.repositories.PortConnectionRepository;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import jakarta.transaction.Transactional;
@@ -19,66 +21,69 @@ import java.util.Optional;
 @Transactional
 @Slf4j
 @AllArgsConstructor
-public class PortConnectionServiceImpl implements PortConnectionService{
+public class PortConnectionServiceImpl{
 
     @Autowired
     private PortConnectionRepository portConnectionRepository;
 
-    private final PortRepository portRepository;
+    @Autowired
+    private PortRepository portRepository;
 
-    @Override
-    public Optional<PortConnection> getConnectionById(Long id) {
-        return Optional.ofNullable(this.portConnectionRepository.findById(id)
-                .orElseThrow(()->new NoSuchElementException("Connection not found")));
-    }
+    @Transactional
+    public PortConnection createConnection(DeviceType sourceType, Long sourceId, int sourcePort, DeviceType destinationType, Long destinationId, int destinationPort) {
+        // Convertir enum a string
+        String sourceTypeString = sourceType.name();
+        String destinationTypeString = destinationType.name();
 
-    @Override
-    public PortConnection createConnection(PortConectionDTO request) {
+        // Verificar si los puertos están disponibles
+        Port source = portRepository.findByDeviceAndPort(sourceTypeString, sourceId, sourcePort)
+                .orElseThrow(() -> new IllegalArgumentException("Source port not found or occupied"));
+        Port destination = portRepository.findByDeviceAndPort(destinationTypeString, destinationId, destinationPort)
+                .orElseThrow(() -> new IllegalArgumentException("Destination port not found or occupied"));
+
+        if (source.getStatus() == PortStatus.OCCUPIED || destination.getStatus() == PortStatus.OCCUPIED) {
+            throw new IllegalStateException("One of the ports is already occupied");
+        }
+
+        // Marcar los puertos como ocupados
+        source.setStatus(PortStatus.OCCUPIED);
+        destination.setStatus(PortStatus.OCCUPIED);
+        portRepository.save(source);
+        portRepository.save(destination);
+
+        // Crear la conexión
         PortConnection connection = new PortConnection();
-        connection.setSourceType(request.getSourceType());
-        connection.setSourceId(request.getSourceId());
-        connection.setSourcePort(request.getSourcePort());
-
-//        Port sourceConection = new Port();
-//        sourceConection.setsSwitch(connection);
-
-
-
-
-
-         // Ejemplo de estado ocupado
-
-        connection.setDestinationType(request.getDestinationType());
-        connection.setDestinationId(request.getDestinationId());
-        connection.setDestinationPort(request.getDestinationPort());
-
-//        Port destinationConection = new Port();
-        // Ejemplo de estado ocupado
-
-        // Guardar la conexión usando la instancia de portConnectionRepository
+        connection.setSourceType(sourceType);
+        connection.setSourceId(sourceId);
+        connection.setSourcePort(sourcePort);
+        connection.setDestinationType(destinationType);
+        connection.setDestinationId(destinationId);
+        connection.setDestinationPort(destinationPort);
         return portConnectionRepository.save(connection);
     }
-    @Override
-    public PortConnection update(PortConnection portConnection, Long id) {
-        PortConnection existingConnection = portConnectionRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Connection not found"));
 
-        existingConnection.setSourcePort(portConnection.getSourcePort());
-        existingConnection.setDestinationPort(portConnection.getDestinationPort());
-
-        return portConnectionRepository.save(existingConnection);
+    public Optional<PortConnection> getConnection(Long id) {
+        return portConnectionRepository.findById(id);
     }
 
-    @Override
     public void deleteConnection(Long id) {
-        PortConnection connectionToDelete = portConnectionRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Connection not found"));
+        portConnectionRepository.findById(id).ifPresent(connection -> {
+            // Liberar los puertos
+            Port source = portRepository.findByDeviceAndPort(connection.getSourceType().name(), connection.getSourceId(), connection.getSourcePort())
+                    .orElseThrow(() -> new IllegalArgumentException("Source port not found"));
+            Port destination = portRepository.findByDeviceAndPort(connection.getDestinationType().name(), connection.getDestinationId(), connection.getDestinationPort())
+                    .orElseThrow(() -> new IllegalArgumentException("Destination port not found"));
 
+            source.setStatus(PortStatus.AVAILABLE);
+            destination.setStatus(PortStatus.AVAILABLE);
+            portRepository.save(source);
+            portRepository.save(destination);
 
-
+            portConnectionRepository.delete(connection);
+        });
     }
-    @Override
+
     public List<PortConnection> getAllConnections() {
-        return (List<PortConnection>) portConnectionRepository.findAll();
+        return portConnectionRepository.findAll();
     }
 }
