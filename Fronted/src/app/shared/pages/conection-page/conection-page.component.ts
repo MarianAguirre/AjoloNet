@@ -1,11 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Device, Dispositivo } from '../../../interfaces/Dispositivo';
+import { Dispositivo } from '../../../interfaces/Dispositivo';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { v4 as uuid } from 'uuid'
 import { HttpClient } from '@angular/common/http';
-import { EquiposServices } from '../../services/equipos.service';
 import { enavironments } from '../../../../environments/envarionments';
+import { ConectionService } from '../../services/conection.service';
 
 @Component({
   selector: 'shared-conection-page',
@@ -13,12 +13,12 @@ import { enavironments } from '../../../../environments/envarionments';
   styleUrl: './conection-page.component.css'
 })
 export class ConectionPageComponent implements OnInit {
-  constructor(private router: Router, private equiposServices: EquiposServices, private http: HttpClient) { }
+  constructor(private router: Router, private equiposServices: ConectionService, private http: HttpClient) { }
   public baseUrl: string = enavironments.baseUrl;
-  public routers: string[] = [];
-  public switches: string[] = [];
-  public endDevices: string[] = [];
-  public patchPanels: string[] = [];
+  public routers: { name: string, id: number }[] = [];
+  public switches: { name: string, id: number }[] = [];
+  public endDevices: { name: string, id: number }[] = [];
+  public patchPanels: { name: string, id: number }[] = [];
   public nombres: string[] = [];
   public opciones: string[] = []
 
@@ -51,16 +51,16 @@ export class ConectionPageComponent implements OnInit {
     this.equiposServices.getTiposDispositivos().subscribe((tipos: string[]) => {
       this.opciones = tipos;
     });
-    this.equiposServices.getNombresRouters().subscribe((routers: string[]) => {
+    this.equiposServices.getNombresRouters().subscribe((routers: any[]) => {
       this.routers = routers;
     });
-    this.equiposServices.getNombresSwitches().subscribe((switches: string[]) => {
+    this.equiposServices.getNombresSwitches().subscribe((switches: any[]) => {
       this.switches = switches;
     });
-    this.equiposServices.getNombresEndDevices().subscribe((endDevices: string[]) => {
+    this.equiposServices.getNombresEndDevices().subscribe((endDevices: any[]) => {
       this.endDevices = endDevices;
     });
-    this.equiposServices.getNombresPatchPanels().subscribe((patchPanels: string[]) => {
+    this.equiposServices.getNombresPatchPanels().subscribe((patchPanels: any[]) => {
       this.patchPanels = patchPanels;
     });
   }

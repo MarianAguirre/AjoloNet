@@ -27,8 +27,6 @@ export class AgregarEquipoComponent implements OnInit {
     areaName: '',
     rackName: '',
     ipAddress: '',
-    vlan_name: '',
-    vlan_id: 0
   };
   public areas: string[] = [];
   public racks: string[] = [];
@@ -72,7 +70,7 @@ export class AgregarEquipoComponent implements OnInit {
 
     console.log(this.equipo);
     this.newEquip.emit(this.equipo);
-    this.equipo = { name: '', deviceType: '', numberOfPorts: 0, poe: false, manageable: false, areaName: '', rackName: '', ipAddress: '', vlan_name: '', vlan_id: 0 };
+    this.equipo = { name: '', deviceType: '', numberOfPorts: 0, poe: false, manageable: false, areaName: '', rackName: '', ipAddress: '' };
     Swal.fire({
       position: "center",
       icon: "success",

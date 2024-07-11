@@ -33,9 +33,9 @@
         required type="text" name="name" [(ngModel)]="equipo.ipAddress" class="from-control mb-2" placeholder="Ip">
 
       <!-- Opciones extra para el Switch -->
-      <p *ngIf="equipo.deviceType === 'switches'">VLANS</p>
+      <!-- <p *ngIf="equipo.deviceType === 'switches'">VLANS</p>
       <app-dynamic-vlans *ngIf="equipo.deviceType === 'switches'" class="from-control mb-2"
-        (vlansChange)="updateVlans($event)"></app-dynamic-vlans>
+        (vlansChange)="updateVlans($event)"></app-dynamic-vlans> -->
       <div *ngIf="equipo.deviceType === 'switches'">
         <div class="contenido">
           <p class="Text-checkbox">¿Es poe? </p><input required name="poe" [(ngModel)]="equipo.poe"

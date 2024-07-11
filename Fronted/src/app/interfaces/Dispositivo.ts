@@ -9,9 +9,6 @@ export interface Dispositivo {
   areaName: string;
   rackName: '';
   ipAddress: string;
-  vlan_name?: string,
-  vlan_id?: number,
-  [key: string]: any; // Permitir propiedades dinámicas
 }
 
 export interface ipAddress {

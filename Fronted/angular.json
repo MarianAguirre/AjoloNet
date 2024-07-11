@@ -23,7 +23,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "allowedCommonJsDependencies": ["sweetalert2"],
+            "allowedCommonJsDependencies": ["sweetalert2", "pdfmake",
+          "pdfmake/build/pdfmake",
+          "pdfmake/build/vfs_fonts"],
             "outputPath": "dist/fronted",
             "index": "src/index.html",
             "browser": "src/main.ts",

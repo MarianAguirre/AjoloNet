@@ -44,9 +44,9 @@
 }
 
 .Btn:hover .sign {
-  width: 30%;
+  width: 35%;
   transition-duration: .3s;
-  padding-left: 20px;
+  padding-left: 10px;
 }
 /* hover effect button's text */
 .Btn:hover .text {

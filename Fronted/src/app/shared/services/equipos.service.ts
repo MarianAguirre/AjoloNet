@@ -65,49 +65,6 @@ export class EquiposServices {
     );
   }
 
-  // Conection-page.component
-  getNombresRouters(): Observable<string[]> {
-    return this.http.get<{ name: string }[]>(`${this.baseUrl}/router`).pipe(
-      map(routers => routers.map(router => router.name)),
-      catchError(error => {
-        console.error('Error fetching routers', error);
-        return of([]);
-      })
-    );
-  }
-
-  // Conection-page.component
-  getNombresSwitches(): Observable<string[]> {
-    return this.http.get<{ name: string }[]>(`${this.baseUrl}/switch`).pipe(
-      map(switches => switches.map(switchDevice => switchDevice.name)),
-      catchError(error => {
-        console.error('Error fetching switches', error);
-        return of([]);
-      })
-    );
-  }
-
-  // Conection-page.component
-  getNombresEndDevices(): Observable<string[]> {
-    return this.http.get<{ name: string }[]>(`${this.baseUrl}/endDevice`).pipe(
-      map(endDevices => endDevices.map(endDevice => endDevice.name)),
-      catchError(error => {
-        console.error('Error fetching end devices', error);
-        return of([]);
-      })
-    );
-  }
-
-  // Conection-page.component
-  getNombresPatchPanels(): Observable<string[]> {
-    return this.http.get<{ name: string }[]>(`${this.baseUrl}/patchPanel`).pipe(
-      map(patchPanels => patchPanels.map(patchPanel => patchPanel.name)),
-      catchError(error => {
-        console.error('Error fetching patch panels', error);
-        return of([]);
-      })
-    );
-  }
 
   // Areas-page.component
   getAreas(): Observable<Area[]> {

@@ -6,13 +6,13 @@
   <ng-template pTemplate="caption" style="display: flex; justify-content: space-between;">
     <h1 style="width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">EQUIPOS</h1>
 
-    <div>
-      <tr>
-        <th style="width: 30%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
-          <button style=" margin-left: 60%; margin-top: 1%; margin-bottom: 1%;" class="btn btn-outline-success tabla"
+    <div >
+      <tr style="display: flex; justify-content: space-evenly;">
+        <th >
+          <button class="btn btn-outline-success tabla"
             type="submit" [routerLink]="['nuevo-equipo']">Agregar</button>
         </th>
-        <th>
+        <th style="margin-left: 10px;">
           <p-columnFilter filterMatchModeOptions="startsWith,contains,endsWith" filterDisplay="row" matchMode="contains"
             type="text" field="id" placeholder="Buscar por id" ariaLabel="Filter id" />
         </th>
@@ -31,7 +31,7 @@
     <tr>
       <th pSortableColumn="id" style="width:20%">Id <p-sortIcon field="id" /></th>
       <th pSortableColumn="name" style="width:45%">Nombre <p-sortIcon field="name" /></th>
-      <th style="width:25%"></th>
+      <th style="width:5%"></th>
     </tr>
   </ng-template>
 
@@ -45,7 +45,7 @@
       <!-- Botones de eliminar y detalles -->
       <td>
         <div class="btn-group">
-          <button class="btn btn-outline-dark" style="margin-left: 45%;" (click)="editProduct(equipo)"
+          <button class="btn btn-outline-dark"  (click)="editProduct(equipo)"
             type="submit">Detalles</button>
           <button class="btn btn-outline-danger" type="submit" (click)="deleteDevices(equipo)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
