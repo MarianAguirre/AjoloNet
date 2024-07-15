@@ -25,6 +25,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { DynamicVlansComponent } from './components/dynamic-vlans/dynamic-vlans.component';
 import { SelectRackComponent } from './components/select-rack/select-rack.component';
 import { PdfComponent } from './components/pdf/pdf.component';
+import { ModemPageComponent } from './pages/modem-page/modem-page.component';
 
 
 
@@ -71,6 +72,7 @@ import { PdfComponent } from './components/pdf/pdf.component';
     DynamicVlansComponent,
     SelectRackComponent,
     PdfComponent,
+    ModemPageComponent,
 
 
 

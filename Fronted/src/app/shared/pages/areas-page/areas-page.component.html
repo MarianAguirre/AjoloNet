@@ -39,9 +39,10 @@
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="name"  style="width:35%">Área <p-sortIcon field="name"/></th>
-      <th style="width:15%">Id</th>
+      <th style="width:10%">Id</th>
       <th style="width:25%">Nombre</th>
-      <th style="width:25%">Puertos</th>
+      <th style="width:10%">Puertos</th>
+      <th style="width:25%">Direccion Ip</th>
       <th style="width:25%"></th>
     </tr>
   </ng-template>
@@ -54,6 +55,7 @@
           (click)="loadEndDevices(area)" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
         {{area.name}}
       </td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -76,11 +78,12 @@
       <td>{{device.id}}</td>
       <td>{{device.name}}</td>
       <td>{{device.numberOfPorts}}</td>
+      <td>{{device.ipAddress}}</td>
       <td></td>
     </tr>
 
     <tr class="p-rowgroup-footer">
-      <td colspan="4" style="text-align: right">Total de equipos:</td>
+      <td colspan="5" style="text-align: right">Total de equipos:</td>
       <td>{{getTotalEquipos(area)}}</td>
     </tr>
   </ng-template>

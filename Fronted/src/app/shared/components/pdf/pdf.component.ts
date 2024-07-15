@@ -43,14 +43,6 @@ export class PdfComponent implements OnInit {
     this.dispositivoService.getRacks().subscribe((data: Rack[]) => {
       this.racks = data;
     });
-    this.userService.getUserDatos().subscribe(
-      (response: DatosUser) => {
-        this.user = response; // Asignar directamente a user
-      },
-      (error: any) => {
-        console.error('Error al obtener los datos del usuario', error);
-      }
-    );
 
   }
 

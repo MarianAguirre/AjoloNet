@@ -9,6 +9,7 @@ export interface Dispositivo {
   areaName: string;
   rackName: '';
   ipAddress: string;
+  MAC?: string;
 }
 
 export interface ipAddress {

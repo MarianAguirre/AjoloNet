@@ -39,12 +39,13 @@
   <!-- Encabezados de la tabla -->
   <ng-template pTemplate="header">
     <tr>
-      <th style="width:35%">Rack</th>
-      <th style="width:15%">Id</th>
-      <th style="width:35%">Nombre</th>
-      <th style="width:25%">Tipo de equipo</th>
-      <th style="width:15%">Puertos</th>
-      <th style="width:25%"></th>
+      <th style="width:25%">Rack</th>
+      <th style="width:10%">Id</th>
+      <th style="width:25%">Nombre</th>
+      <th style="width:20%">Tipo de equipo</th>
+      <th style="width:10%">Puertos</th>
+      <th style="width:30%">Dirección Ip</th>
+      <th style="width:15%"></th>
     </tr>
   </ng-template>
 
@@ -58,6 +59,7 @@
         </button>
         {{racks.name}}
       </td>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
@@ -82,6 +84,7 @@
       <td>{{device.name}}</td>
       <td>{{device.deviceType | camelCaseToTitleCase}}</td>
       <td>{{device.numberOfPorts}}</td>
+      <td>{{device.ipAddress}}</td>
       <td></td>
     </tr>
     <tr *ngFor="let device of racks.aSwitch">
@@ -90,6 +93,7 @@
       <td>{{device.name}}</td>
       <td>{{device.deviceType | camelCaseToTitleCase}}</td>
       <td>{{device.numberOfPorts}}</td>
+      <td>{{device.ipAddress}}</td>
       <td></td>
     </tr>
     <tr *ngFor="let device of racks.patchPanels">
@@ -98,20 +102,21 @@
       <td>{{device.name}}</td>
       <td>{{device.deviceType | camelCaseToTitleCase}}</td>
       <td>{{device.numberOfPorts}}</td>
+      <td>{{device.ipAddress}}</td>
       <td></td>
     </tr>
 
     <!-- Totales -->
     <tr class="p-rowgroup-footer" style="font-size: 14px; margin-top: 1px;">
-      <td colspan="5" style="text-align: right">Total de routers:</td>
+      <td colspan="6" style="text-align: right">Total de routers:</td>
       <td>{{getTotalRouters(racks)}}</td>
     </tr>
     <tr class="p-rowgroup-footer" style="font-size: 14px; margin-top: 1px;">
-      <td colspan="5" style="text-align: right">Total de switches:</td>
+      <td colspan="6" style="text-align: right">Total de switches:</td>
       <td>{{getTotalSwitch(racks)}}</td>
     </tr>
     <tr class="p-rowgroup-footer" style="font-size: 14px; margin-top: 1px;">
-      <td colspan="5" style="text-align: right">Total de patch panels:</td>
+      <td colspan="6" style="text-align: right">Total de patch panels:</td>
       <td>{{getTotalPatch(racks)}} </td>
     </tr>
   </ng-template>
@@ -119,7 +124,7 @@
   <!-- Mensaje cuando no hay racks -->
   <ng-template pTemplate="emptymessage">
     <tr>
-      <td colspan="6">No se encontraron racks. </td>
+      <td colspan="7">No se encontraron racks. </td>
     </tr>
   </ng-template>
 
