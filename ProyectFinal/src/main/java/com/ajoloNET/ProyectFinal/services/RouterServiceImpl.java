@@ -1,9 +1,6 @@
 package com.ajoloNET.ProyectFinal.services;
 
-import com.ajoloNET.ProyectFinal.entities.Area;
-import com.ajoloNET.ProyectFinal.entities.Port;
-import com.ajoloNET.ProyectFinal.entities.Rack;
-import com.ajoloNET.ProyectFinal.entities.Router;
+import com.ajoloNET.ProyectFinal.entities.*;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import com.ajoloNET.ProyectFinal.repositories.RackRepository;
 import com.ajoloNET.ProyectFinal.repositories.RouterRepository;
@@ -121,6 +118,7 @@ public class RouterServiceImpl implements RouterService {
             Port port = new Port();
             port.setRouter(router);
             port.setPortNumber(i);
+            port.setStatus(PortStatus.AVAILABLE);
             ports.add(port);
         }
         portRepository.saveAll(ports);
@@ -156,6 +154,7 @@ public class RouterServiceImpl implements RouterService {
             Port port = new Port();
             port.setRouter(router);
             port.setPortNumber(i);
+            port.setStatus(PortStatus.AVAILABLE);
             currentPorts.add(port);
         }
     }

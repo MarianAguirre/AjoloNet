@@ -2,6 +2,8 @@ package com.ajoloNET.ProyectFinal.controllers;
 
 import com.ajoloNET.ProyectFinal.DTOs.PortConectionDTO;
 import com.ajoloNET.ProyectFinal.DTOs.PortConnectionRequest;
+import com.ajoloNET.ProyectFinal.entities.DeviceType;
+import com.ajoloNET.ProyectFinal.entities.Port;
 import com.ajoloNET.ProyectFinal.entities.PortConnection;
 import com.ajoloNET.ProyectFinal.services.PortConnectionServiceImpl;
 import lombok.AllArgsConstructor;
@@ -52,6 +54,12 @@ public class PortConnectionController {
     public ResponseEntity<Void> deleteConnection(@PathVariable Long id) {
         portConnectionService.deleteConnection(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/ports")
+    public ResponseEntity<List<Port>> getPortsByDevice(@RequestParam DeviceType deviceType, @RequestParam Long deviceId) {
+        List<Port> ports = portConnectionService.getPortsByDevice(deviceType, deviceId);
+        return ResponseEntity.ok(ports);
     }
 
 }

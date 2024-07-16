@@ -1,9 +1,6 @@
 package com.ajoloNET.ProyectFinal.services;
 
-import com.ajoloNET.ProyectFinal.entities.PatchPanel;
-import com.ajoloNET.ProyectFinal.entities.Port;
-import com.ajoloNET.ProyectFinal.entities.Rack;
-import com.ajoloNET.ProyectFinal.entities.Switch;
+import com.ajoloNET.ProyectFinal.entities.*;
 import com.ajoloNET.ProyectFinal.repositories.PatchPanelRepository;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
 import com.ajoloNET.ProyectFinal.repositories.RackRepository;
@@ -85,6 +82,7 @@ public class PatchPanelServiceImpl implements PatchPanelService{
             Port port = new Port();
             port.setPatchPanel(patchPanel);
             port.setPortNumber(i);
+            port.setStatus(PortStatus.AVAILABLE);
             ports.add(port);
         }
         portRepository.saveAll(ports);
@@ -117,6 +115,7 @@ public class PatchPanelServiceImpl implements PatchPanelService{
             Port port = new Port();
             port.setPatchPanel(patchPanelToUpdate);
             port.setPortNumber(i);
+            port.setStatus(PortStatus.AVAILABLE);
             currentPorts.add(port);
         }
     }

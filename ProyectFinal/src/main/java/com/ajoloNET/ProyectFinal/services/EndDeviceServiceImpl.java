@@ -3,6 +3,7 @@ package com.ajoloNET.ProyectFinal.services;
 import com.ajoloNET.ProyectFinal.entities.Area;
 import com.ajoloNET.ProyectFinal.entities.EndDevice;
 import com.ajoloNET.ProyectFinal.entities.Port;
+import com.ajoloNET.ProyectFinal.entities.PortStatus;
 import com.ajoloNET.ProyectFinal.repositories.AreaRepository;
 import com.ajoloNET.ProyectFinal.repositories.EndDeviceRepository;
 import com.ajoloNET.ProyectFinal.repositories.PortRepository;
@@ -132,6 +133,7 @@ public class EndDeviceServiceImpl implements EndDeviceService{
             Port port = new Port();
             port.setEndDevice(endDevice);
             port.setPortNumber(i);
+            port.setStatus(PortStatus.AVAILABLE);
             ports.add(port);
         }
         portRepository.saveAll(ports);
@@ -166,15 +168,8 @@ public class EndDeviceServiceImpl implements EndDeviceService{
             Port port = new Port();
             port.setEndDevice(endDevice);
             port.setPortNumber(i);
+            port.setStatus(PortStatus.AVAILABLE);
             currentPorts.add(port);
         }
     }
-
-    /*
-     @Override
-    public List<EndDevice> findMatchByName(String name) {
-        return List.of();
-    }
-    */
-
 }

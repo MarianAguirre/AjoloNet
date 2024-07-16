@@ -1,12 +1,8 @@
 package com.ajoloNET.ProyectFinal.services;
 
 import com.ajoloNET.ProyectFinal.DTOs.PortConectionDTO;
-import com.ajoloNET.ProyectFinal.entities.DeviceType;
-import com.ajoloNET.ProyectFinal.entities.Port;
-import com.ajoloNET.ProyectFinal.entities.PortConnection;
-import com.ajoloNET.ProyectFinal.entities.PortStatus;
-import com.ajoloNET.ProyectFinal.repositories.PortConnectionRepository;
-import com.ajoloNET.ProyectFinal.repositories.PortRepository;
+import com.ajoloNET.ProyectFinal.entities.*;
+import com.ajoloNET.ProyectFinal.repositories.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +19,19 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PortConnectionServiceImpl{
 
-    @Autowired
-    private PortConnectionRepository portConnectionRepository;
 
-    @Autowired
-    private PortRepository portRepository;
+    private final PortConnectionRepository portConnectionRepository;
+
+
+    private final PortRepository portRepository;
+
+    private final RouterRepository routerRepository;
+
+    private final SwitchRepository switchRepository;
+
+    private final PatchPanelRepository patchPanelRepository;
+
+    private final EndDeviceRepository endDeviceRepository;
 
     @Transactional
     public PortConnection createConnection(DeviceType sourceType, Long sourceId, int sourcePort, DeviceType destinationType, Long destinationId, int destinationPort) {
@@ -85,5 +89,28 @@ public class PortConnectionServiceImpl{
 
     public List<PortConnection> getAllConnections() {
         return portConnectionRepository.findAll();
+    }
+
+    public List<Port> getPortsByDevice(DeviceType deviceType, Long deviceId) {
+        switch (deviceType) {
+            case ROUTER:
+                Router router = routerRepository.findById(deviceId)
+                        .orElseThrow(() -> new IllegalArgumentException("Router not found"));
+                return portRepository.findByRouter(router);
+            case SWITCH:
+                Switch aSwitch = switchRepository.findById(deviceId)
+                        .orElseThrow(() -> new IllegalArgumentException("Switch not found"));
+                return portRepository.findBySSwitch(aSwitch);
+            case PATCH_PANEL:
+                PatchPanel patchPanel = patchPanelRepository.findById(deviceId)
+                        .orElseThrow(() -> new IllegalArgumentException("Patch Panel not found"));
+                return portRepository.findByPatchPanel(patchPanel);
+            case END_DEVICE:
+                EndDevice endDevice = endDeviceRepository.findById(deviceId)
+                        .orElseThrow(() -> new IllegalArgumentException("End Device not found"));
+                return portRepository.findByEndDevice(endDevice);
+            default:
+                throw new IllegalArgumentException("Invalid device type");
+        }
     }
 }
