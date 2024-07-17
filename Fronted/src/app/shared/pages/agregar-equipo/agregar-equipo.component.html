@@ -24,13 +24,20 @@
         placeholder="Puerto">
       <br>
 
-      <!-- Número de ip -->
+      <!-- Número de ip y MAC -->
       <p
         *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'">
         Dirección de Ip</p>
       <input
         *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'"
         required type="text" name="name" [(ngModel)]="equipo.ipAddress" class="from-control mb-2" placeholder="Ip">
+
+        <p
+        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'">
+        Dirección MAC</p>
+      <input
+        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'"
+        required type="text" name="name" [(ngModel)]="equipo.MAC" class="from-control mb-2" placeholder="MAC">
 
       <!-- Opciones extra para el Switch -->
       <!-- <p *ngIf="equipo.deviceType === 'switches'">VLANS</p>

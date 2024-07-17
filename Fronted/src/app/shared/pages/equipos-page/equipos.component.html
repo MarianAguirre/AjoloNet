@@ -39,8 +39,7 @@
   <ng-template pTemplate="body" let-equipo>
     <tr [pSelectableRow]="equipo">
       <td><span class="p-column-title">Id</span>{{ equipo.id }}</td>
-      <td><span class="p-column-title">Nombre</span><span class="ml-1 vertical-align-middle">{{ equipo.name }}</span>
-      </td>
+      <td><span class="p-column-title">Nombre</span><span class="ml-1 vertical-align-middle">{{ equipo.name }}</span></td>
 
       <!-- Botones de eliminar y detalles -->
       <td>
@@ -97,10 +96,14 @@
         autofocus />
     </div>
 
-    <!-- Numero de ip -->
+    <!-- Numero de ip y MAC-->
     <div class="field">
-      <label style="font-weight: bold;" for="ipAddress">Numero de ip</label>
+      <label style="font-weight: bold;" for="ipAddress">Dirección ip</label>
       <input type="text" min="0" pInputText id="ipAddress" [(ngModel)]="equipo.ipAddress" required autofocus />
+    </div>
+    <div class="field">
+      <label style="font-weight: bold;" for="MAC">Dirección MAC</label>
+      <input type="text" pInputText id="MAC" [(ngModel)]="equipo.MAC" required autofocus />
     </div>
 
     <!-- Poe y administrable -->

@@ -62,4 +62,23 @@ export class ConectionService {
       })
     );
   }
+
+
+  getPorts(deviceType: string, deviceId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/port-connections/ports`, {
+      params: {
+        deviceType: deviceType.toUpperCase(),
+        deviceId: deviceId.toString()
+      }
+    });
+  }
+
+  createConnection(connectionData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/port-connections`, connectionData).pipe(
+      catchError(error => {
+        console.error('Error creating connection', error);
+        return of(null);
+      })
+    );
+  }
 }

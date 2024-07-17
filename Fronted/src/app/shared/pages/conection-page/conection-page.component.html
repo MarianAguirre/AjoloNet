@@ -1,48 +1,44 @@
-<h1 class=" text-center">Obra en proceso</h1>
-<img class=" d-flex mx-auto d-block" src="https://pbs.twimg.com/media/GAkIFJCWsAAheiX.png" width="250em" height="250em">
-<form (ngSubmit)="emitEquip()">
-  <h1 style="font-size: 300%;text-align: center;">Crear conexiones</h1>
-  <div class="row" style="margin: 5%; width: 50%; ">
-    <div class="col" style="margin-left: 15%; width: 25%;">
-      <p>Tipo de equipo</p>
-      <select class="mb-2" required [(ngModel)]="equipo.deviceType" name="select">
-        <option *ngFor="let opcion of opciones" [value]="opcion">{{opcion | camelCaseToTitleCase }}</option>
-      </select>
-      <p>Nombre del equipo</p>
-      <select *ngIf="equipo.deviceType === 'routers'">
-        <option *ngFor="let router of routers" [value]="router.id">{{router.id}} - {{ router.name }}</option>
-      </select>
-      <select *ngIf="equipo.deviceType === 'switches'">
-        <option *ngFor="let switch of switches" [value]="switch.id">{{switch.id}} - {{switch.name}}</option>
-      </select>
-      <select *ngIf="equipo.deviceType === 'endDevices'">
-        <option *ngFor="let endDevice of endDevices" [value]="endDevice.id">{{endDevice.id}} - {{endDevice.name}}</option>
-      </select>
-      <select *ngIf="equipo.deviceType === 'patchPanels'">
-        <option *ngFor="let patchPanel of patchPanels" [value]="patchPanel.id">{{patchPanel.id}} - {{patchPanel.name}}</option>
-      </select>
-    </div>
+<!-- <h1 class="text-center">Obra en proceso</h1>
+<img class="d-flex mx-auto d-block" src="https://pbs.twimg.com/media/GAkIFJCWsAAheiX.png" width="250em" height="250em"> -->
+<h1 style="font-size: 300%;text-align: center; margin-top: 2%;">Crear conexiones</h1>
+<div class="row">
+  <div class="col">
+    <form [formGroup]="deviceForm1" (ngSubmit)="onSubmit()">
 
-    <div class="col" style="margin-left: 15%;">
-      <p>Tipo de equipo</p>
-      <select class="mb-2" required [(ngModel)]="equipo2.deviceType" name="select">
-        <option *ngFor="let opcion2 of opciones" [value]="opcion2">{{opcion2 | camelCaseToTitleCase }}</option>
+      <p for="deviceType1">Tipo de dispositivo:</p>
+      <select id="deviceType1" formControlName="deviceType1">
+        <option *ngFor="let type of deviceTypes" [value]="type">{{ type }}</option>
       </select>
-      <p>Nombre del equipo</p>
-      <select *ngIf="equipo2.deviceType === 'routers'">
-        <option *ngFor="let router of routers" [value]="router.id">{{router.id}} - {{router.name}}</option>
+      <p for="deviceId1">Nombre del dispositivo:</p>
+      <select id="deviceId1" formControlName="deviceId1">
+        <option *ngFor="let device of devices1" [value]="device.id">{{ device.name }}</option>
       </select>
-      <select *ngIf="equipo2.deviceType === 'switches'">
-        <option *ngFor="let switch of switches" [value]="switch.id">{{switch.id}} - {{switch.name}}</option>
+      <p for="portNumber1">Puertos:</p>
+      <select id="portNumber1" formControlName="portNumber1">
+        <option *ngFor="let port of ports1" [value]="port.portNumber">Puerto {{ port.portNumber }} ({{port.status |
+          translate }})</option>
       </select>
-      <select *ngIf="equipo2.deviceType === 'endDevices'">
-        <option *ngFor="let endDevice of endDevices" [value]="endDevice.id">{{endDevice.id}} - {{endDevice.name}}</option>
-      </select>
-      <select *ngIf="equipo2.deviceType === 'patchPanels'">
-        <option *ngFor="let patchPanel of patchPanels" [value]="patchPanel.id">{{patchPanel.id}} - {{patchPanel.name}}</option>
-      </select>
-    </div>
-
-    <button type="submit" class="btn btn-success" style="margin-top: 1%; width: 65%; margin-left: 20%;">Guardar</button>
+    </form>
   </div>
-</form>
+  <div class="col">
+    <form [formGroup]="deviceForm2" (ngSubmit)="onSubmit()">
+
+      <p for="deviceType2">Tipo de dispositivo:</p>
+      <select id="deviceType2" formControlName="deviceType2">
+        <option *ngFor="let type of deviceTypes" [value]="type">{{ type }}</option>
+      </select>
+      <p for="deviceId2">Nombre del dispositivo:</p>
+      <select id="deviceId2" formControlName="deviceId2">
+        <option *ngFor="let device of devices2" [value]="device.id">{{ device.name }}</option>
+      </select>
+
+      <p for="portNumber2">Puertos:</p>
+      <select id="portNumber2" formControlName="portNumber2">
+        <option *ngFor="let port of ports2" [value]="port.portNumber">Puerto {{ port.portNumber }} ({{port.status |
+          translate }})</option>
+      </select>
+
+      <button type="submit" class="btn btn-success" style="margin-top: 15%;">Guardar</button>
+    </form>
+  </div>
+</div>

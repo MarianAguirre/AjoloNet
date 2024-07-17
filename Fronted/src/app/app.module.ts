@@ -11,6 +11,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SharedModule } from './shared/shared.module';
 
+
 import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
 import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
@@ -55,7 +56,7 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
     MdbTooltipModule,
     MdbValidationModule,
     NoopAnimationsModule,
-    SharedModule,
+    SharedModule
 
   ],
   providers: [
@@ -67,3 +68,4 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
