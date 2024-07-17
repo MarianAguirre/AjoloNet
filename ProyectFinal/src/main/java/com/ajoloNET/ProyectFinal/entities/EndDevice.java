@@ -31,6 +31,9 @@ public class EndDevice {
     @Column(name = "number_of_ports", nullable = false)
     private int numberOfPorts;
 
+    @Column(name = "MAC_Address")
+    private String MAC;
+
     @Column(name = "device_type", nullable = false)
     private String deviceType = "end-device";
 
@@ -120,5 +123,13 @@ public class EndDevice {
             message = "Invalid IP address"
     ) String ipAddress) {
         this.ipAddress = ipAddress;
+    }
+
+    public String getMAC() {
+        return MAC;
+    }
+
+    public void setMAC(String MAC) {
+        this.MAC = MAC;
     }
 }

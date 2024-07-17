@@ -63,6 +63,7 @@ public class SwitchServiceImpl implements SwitchService {
         switchToUpdate.setIpAddress(aSwitch.getIpAddress());
         switchToUpdate.setNameVlan(aSwitch.getNameVlan());
         switchToUpdate.setVlanId(aSwitch.getVlanId());
+        switchToUpdate.setMAC(aSwitch.getMAC());
 
         // Si se proporciona un nombre de rack, busca y asigna el rack al router
         if (aSwitch.getRackName() != null) {
@@ -88,6 +89,7 @@ public class SwitchServiceImpl implements SwitchService {
         switchToUpdateId.setNameVlan(aSwitch.getNameVlan());
         switchToUpdateId.setVlanId(aSwitch.getVlanId());
         switchToUpdateId.setIpAddress(aSwitch.getIpAddress());
+        switchToUpdateId.setMAC(aSwitch.getMAC());
         // Si se proporciona un nombre de rack, busca y asigna el rack al router
         if (aSwitch.getRackName() != null) {
             Rack rack = rackRepository.findByName(aSwitch.getRackName())

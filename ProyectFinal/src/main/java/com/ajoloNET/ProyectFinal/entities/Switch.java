@@ -47,6 +47,9 @@ public class Switch {
     @Column(name = "vlan_name")
     private String nameVlan;
 
+    @Column(name = "MAC_Address")
+    private String MAC;
+
     @Column(name = "IP_Address")
     @Pattern(
             regexp = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$",
@@ -166,5 +169,13 @@ public class Switch {
             message = "Invalid IP address"
     ) String ipAddress) {
         this.ipAddress = ipAddress;
+    }
+
+    public String getMAC() {
+        return MAC;
+    }
+
+    public void setMAC(String MAC) {
+        this.MAC = MAC;
     }
 }

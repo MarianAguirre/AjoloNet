@@ -32,6 +32,7 @@ public class PortConnectionController {
 
     @PostMapping
     public ResponseEntity<PortConnection> createConnection(@RequestBody PortConnectionRequest request) {
+        log.info("POST connection: {} {} {} -- {} {} {} ", request.getSourceType(), request.getDestinationId(),request.getDestinationPort() , request.getSourceType(), request.getSourceId(), request.getSourcePort());
         PortConnection connection = portConnectionService.createConnection(
                 request.getSourceType(),
                 request.getSourceId(),
@@ -40,6 +41,7 @@ public class PortConnectionController {
                 request.getDestinationId(),
                 request.getDestinationPort()
         );
+
         return ResponseEntity.ok(connection);
     }
 
