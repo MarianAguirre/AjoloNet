@@ -9,6 +9,7 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { AreasPageComponent } from './pages/areas-page/areas-page.component';
 import { RacksPageComponent } from './pages/racks-page/racks-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { TableConectionPageComponent } from './pages/table-conection-page/table-conection-page.component';
 
 const routes : Routes =[
   {
@@ -28,7 +29,10 @@ const routes : Routes =[
         path: 'equipos', component: EquiposComponent
       },
       {
-        path: 'conexiones', component: ConectionPageComponent
+        path: 'conexiones', component: TableConectionPageComponent
+      },
+      {
+        path: 'conexiones/agregar-conexion', component: ConectionPageComponent
       },
       {
         path: 'home', component: HomePageComponent

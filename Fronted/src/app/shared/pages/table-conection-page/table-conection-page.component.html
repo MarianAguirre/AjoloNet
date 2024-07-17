@@ -1,0 +1,98 @@
+<div>
+
+  <button [routerLink]="['agregar-conexion']">Crear conexiones</button>
+  <p-table [value]="dispositivos" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:5%">Id del equipo</th>
+        <th style="width:5%">Tipo de equipo </th>
+        <th style="width:5%">Puerto conectado </th>
+        <th style="width:1%">⇔</th>
+        <th style="width:5%">Puerto conectado</th>
+        <th style="width:8%">Tipo del equipo conectado</th>
+        <th style="width:8%">Id del equipo conectado</th>
+        <th style="width:20%"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-equipo let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="equipo">
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="equipo.id" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{equipo.sourceId}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="equipo.sourceType" required />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{equipo.sourceType}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="equipo.sourcePort" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{equipo.sourcePort }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          ⇔
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="equipo.destinationPort" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{equipo.destinationPort }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="equipo.destinationType" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{equipo.destinationType }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="equipo.destinationId" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{equipo.destinationId }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <div >
+            <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+              (click)="onRowEditInit(equipo)" class="p-button-rounded p-button-text">
+            </button>
+            <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+              (click)="onRowEditSave(equipo)" class="p-button-rounded p-button-text p-button-success ">
+            </button>
+            <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+              (click)="onRowEditCancel(equipo, ri)" class="p-button-rounded p-button-text p-button-danger">
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

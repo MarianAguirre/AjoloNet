@@ -28,8 +28,8 @@ import { PdfComponent } from './components/pdf/pdf.component';
 import { ModemPageComponent } from './pages/modem-page/modem-page.component';
 import { MantenimientoPageComponent } from './pages/mantenimiento-page/mantenimiento-page.component';
 import { TranslatePipe } from '../pipe/translate.pipe';
-import { TranslationService } from './translate.service';
 import { TranslateService } from '@ngx-translate/core';
+import { TableConectionPageComponent } from './pages/table-conection-page/table-conection-page.component';
 
 
 @NgModule({
@@ -77,7 +77,8 @@ import { TranslateService } from '@ngx-translate/core';
     PdfComponent,
     ModemPageComponent,
     MantenimientoPageComponent,
-    TranslatePipe
+    TranslatePipe,
+    TableConectionPageComponent
 
 
 
