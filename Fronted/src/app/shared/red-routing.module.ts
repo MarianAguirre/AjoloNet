@@ -10,6 +10,7 @@ import { AreasPageComponent } from './pages/areas-page/areas-page.component';
 import { RacksPageComponent } from './pages/racks-page/racks-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { TableConectionPageComponent } from './pages/table-conection-page/table-conection-page.component';
+import { MantenimientoPageComponent } from './pages/mantenimiento-page/mantenimiento-page.component';
 
 const routes : Routes =[
   {
@@ -33,6 +34,9 @@ const routes : Routes =[
       },
       {
         path: 'conexiones/agregar-conexion', component: ConectionPageComponent
+      },
+      {
+        path: 'mantenimiento', component: MantenimientoPageComponent
       },
       {
         path: 'home', component: HomePageComponent

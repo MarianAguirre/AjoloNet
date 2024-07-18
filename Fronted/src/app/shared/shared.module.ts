@@ -25,7 +25,6 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { DynamicVlansComponent } from './components/dynamic-vlans/dynamic-vlans.component';
 import { SelectRackComponent } from './components/select-rack/select-rack.component';
 import { PdfComponent } from './components/pdf/pdf.component';
-import { ModemPageComponent } from './pages/modem-page/modem-page.component';
 import { MantenimientoPageComponent } from './pages/mantenimiento-page/mantenimiento-page.component';
 import { TranslatePipe } from '../pipe/translate.pipe';
 import { TranslateService } from '@ngx-translate/core';
@@ -75,7 +74,6 @@ import { TableConectionPageComponent } from './pages/table-conection-page/table-
     DynamicVlansComponent,
     SelectRackComponent,
     PdfComponent,
-    ModemPageComponent,
     MantenimientoPageComponent,
     TranslatePipe,
     TableConectionPageComponent

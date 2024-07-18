@@ -85,4 +85,8 @@ export class ConectionService {
       })
     );
   }
+  deleteConnection(id: number): Observable<void> {
+    console.log(id)
+    return this.http.delete<void>(`${this.baseUrl}/port-connections/${id}`)
+  }
 }
