@@ -20,6 +20,9 @@ public class MaintenanceRecord {
     @Column(name = "device_type", nullable = false)
     private DeviceType deviceType;
 
+    @Column(name = "device_name", nullable = false)
+    private String deviceName;
+
     @Column(name = "device_id", nullable = false)
     private Long deviceId;
 

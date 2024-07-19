@@ -53,6 +53,7 @@ public class MaintenanceRecordService {
         MaintenanceRecord existingRecord = maintenanceRecordRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Maintenance record not found"));
         existingRecord.setMaintenanceDate(updatedRecord.getMaintenanceDate());
+        existingRecord.setDeviceName(updatedRecord.getDeviceName());
         existingRecord.setPerformedBy(updatedRecord.getPerformedBy());
         existingRecord.setDescription(updatedRecord.getDescription());
         existingRecord.setMaterialsUsed(updatedRecord.getMaterialsUsed());
