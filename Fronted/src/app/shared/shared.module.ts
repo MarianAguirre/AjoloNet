@@ -1,5 +1,10 @@
 
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
+
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEs, 'es')
+
 
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { AgregarEquipoComponent } from './pages/agregar-equipo/agregar-equipo.component';
@@ -81,7 +86,7 @@ import { TableConectionPageComponent } from './pages/table-conection-page/table-
 
 
   ],
-  providers: [ TranslateService]
+  providers: [ TranslateService, {provide:LOCALE_ID, useValue: 'es'}]
 
 })
 export class SharedModule { }

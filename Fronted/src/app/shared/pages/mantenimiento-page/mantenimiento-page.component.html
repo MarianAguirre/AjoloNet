@@ -6,81 +6,91 @@
     <th style="width: 80%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
       <div >
         <button (click)="showDialog()"
-          class="btn btn-outline-success">Nuevo mantenimiento</button>
+          class="btn btn-outline-success">Registrar mantenimiento</button>
 
         <!-- Zona de creacion de areas -->
         <p-dialog header="Datos del mantenimiento" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
           <form [formGroup]="mantenimientoForm" (ngSubmit)="onSubmit()">
-
             <label>Tipo de dispositivo:</label>
-            <select id="device_type" formControlName="device_type">
-              <option *ngFor="let tipos of device_type">{{tipos}}</option>
+            <br>
+            <select style="width: 40%;" id="deviceType" formControlName="deviceType">
+              <option *ngFor="let tipos of device_type" [value]="tipos">{{tipos}}</option>
             </select>
+            <br>
             <label>Nombre del dispositivo:</label>
-            <select id="device_id" formControlName="device_id">
-              <option *ngFor="let device of devices">{{device.name}}</option>
+            <br>
+            <select style="width: 40%;" id="device_id" formControlName="device_id" (change)="onDeviceChange($event)">
+              <option *ngFor="let device of devices" [value]="device.id">{{ device.name }}</option>
             </select>
+            <input type="hidden" formControlName="deviceName">
+            <br>
             <label>Encargado del mantenimiento:</label>
-            <input id="performed_by" formControlName="performed_by" type="text" placeholder="{{performed_by.firstname}} {{performed_by.lastname}}">
-            <label>Descripción</label>
-            <textarea id="description" formControlName="description"></textarea>
-            <label >Materiales</label>
-            <input id="materials_used" formControlName="materials_used" type="text">
-            <label>Fecha de mantenimiento</label>
-            <input id="maintenance_date" formControlName="maintenance_date" type="date">
+            <br>
+            <input style="width: 100%" id="performedBy" formControlName="performedBy" type="text" placeholder="Nombre y apellido">
+            <br>
+            <label>Descripción:</label>
+            <br>
+            <textarea style="width: 100%;" id="description" formControlName="description"></textarea>
+            <br>
+            <label>Materiales:</label>
+            <br>
+            <input style="width: 100%;" id="materialsUsed" formControlName="materialsUsed" type="text">
+            <br>
+            <label>Fecha de mantenimiento:</label>
+            <br>
+            <input id="maintenanceDate" formControlName="maintenanceDate" type="datetime-local">
+            <button type="submit" class="btn btn-success" style="margin-top: 1%; width: 65%; margin-left: 20%;">Guardar</button>
           </form>
-          <div class="flex justify-content-end gap-2">
-            <button style="margin-top:5%;" label="Save" class="btn btn-success">Guardar</button>
-          </div>
+
+
         </p-dialog>
       </div>
     </th>
   </p-iconField>
 
   <p-table
-      [value]="dispositivos"
+  selectionMode="single"
+  [globalFilterFields]="[ 'maintenanceDate']"
+      [value]="registros"
       rowGroupMode="rowspan"
       groupRowsBy="deviceType"
       sortField="deviceType"
       sortMode="single"
-      [tableStyle]="{'width': '98%', 'margin-top': '2%','margin-left': '1%','border-width': '12%' }">
+      [tableStyle]="{'width': '94%', 'margin-top': '2%','margin-left': '3%'}">
 
-      <ng-template pTemplate="header">
-              <tr style="text-align: center;">
-                  <th style="width: 8%;">Tipo</th>
-                  <th style="width: 20%;">Nombre</th>
-                  <th style="width: 10%;">Encargado</th>
-                  <th style="width: 20%;">Descripcion</th>
-                  <th style="width: 20%;">Materiales</th>
-                  <th style="width: 20%;">Fecha de mantenimiento</th>
-                  <th style="width: 2%;">Estado</th>
+      <ng-template pTemplate="header" >
+              <tr style="text-align: center;"   class="td">
+                  <th   class="td"  style="width: 8%;">Tipo</th>
+                  <th    style="width: 20%;">Nombre</th>
+                  <th    style="width: 10%;">Encargado</th>
+                  <th    style="width: 20%;">Descripcion</th>
+                  <th    style="width: 20%;">Materiales</th>
+                  <th    pSortableColumn="maintenanceDate" style="width: 20%;">Fecha de mantenimiento <p-sortIcon field="maintenanceDate"/></th>
+
               </tr>
           </ng-template>
           <ng-template
               pTemplate="body"
-              let-equipos
+              let-registro
               let-rowIndex="rowIndex"
               let-rowgroup="rowgroup"
               let-rowspan="rowspan">
-                  <tr>
-                      <td *ngIf="rowgroup" [attr.rowspan]="rowspan">{{equipos.deviceType | camelCaseToTitleCase}}</td>
-                      <td >
-                          <span class="font-bold ml-2">{{equipos.name}}</span>
+                  <tr   class="td">
+                      <td   class="td " *ngIf="rowgroup" [attr.rowspan]="rowspan">{{registro.deviceType }}</td>
+                      <td style="text-align: center;" >
+                          <span  >{{registro.deviceName}}</span>
                       </td>
                       <td style="text-align: center;">
-                          Nombre de quien lo hizo
+                          {{registro.performedBy}}
                       </td>
                       <td>
-                          <span class="ml-1 vertical-align-middle">Descripcion</span>
+                          <span class="ml-1 vertical-align-middle">{{registro.description}}</span>
                       </td>
                       <td>
-                          Materiales
+                          {{registro.materialsUsed}}
                       </td>
                       <td style="text-align: center;">
-                          Fecha
-                      </td>
-                      <td>
-                          Estado
+                          {{registro.maintenanceDate | date:'dd/MMMM/yyyy hh:mm a'}}
                       </td>
                   </tr>
           </ng-template>
