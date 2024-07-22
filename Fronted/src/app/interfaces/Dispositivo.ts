@@ -91,3 +91,21 @@ export interface Port {
   destinationConnection: null;
 }
 
+export interface Conexiones{
+  sourceType  : string,
+  sourceId  : string,
+  sourcePort  : string,
+  destinationType : string,
+  destinationId : string,
+  destinationPort : string,
+}
+
+export interface Mantenimiento{
+  deviceType  : string,
+  deviceId : string,
+  deviceName  : string,
+  maintenanceDate : string,
+  performedBy : string,
+  description : string,
+  materialsUsed : string,
+}

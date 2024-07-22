@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, catchError, of } from 'rxjs';
 import { enavironments } from '../../../environments/envarionments';
+import { Conexiones } from '../../interfaces/Dispositivo';
 
 @Injectable({providedIn: 'root'})
 export class ConectionService {
@@ -73,8 +74,8 @@ export class ConectionService {
     });
   }
 
-  getConections():Observable<string[]>{
-    return this.http.get<string[]>(`${this.baseUrl}/port-connections`)
+  getConections():Observable<Conexiones[]>{
+    return this.http.get<Conexiones[]>(`${this.baseUrl}/port-connections`)
   }
 
   createConnection(connectionData: any): Observable<any> {

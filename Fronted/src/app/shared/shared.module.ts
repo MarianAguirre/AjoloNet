@@ -29,12 +29,13 @@ import { CamelCaseToTitleCasePipe } from '../pipe/capitalize.pipe';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { DynamicVlansComponent } from './components/dynamic-vlans/dynamic-vlans.component';
 import { SelectRackComponent } from './components/select-rack/select-rack.component';
-import { PdfComponent } from './components/pdf/pdf.component';
+import { PdfGeneral } from './components/pdf-general/pdf-general.component';
 import { MantenimientoPageComponent } from './pages/mantenimiento-page/mantenimiento-page.component';
 import { TranslatePipe } from '../pipe/translate.pipe';
 import { TranslateService } from '@ngx-translate/core';
 import { TableConectionPageComponent } from './pages/table-conection-page/table-conection-page.component';
-
+import { PdfMantenimiento } from './components/pdf-mantenimiento/pdf-mantenimiento.component';
+import { PdfEquipos } from './components/pdf-equipos/pdf-equipos.component';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import { TableConectionPageComponent } from './pages/table-conection-page/table-
     ReactiveFormsModule,
     RedRoutingModule,
     RouterModule,
+
 
 
 
@@ -78,10 +80,12 @@ import { TableConectionPageComponent } from './pages/table-conection-page/table-
     ProfilePageComponent,
     DynamicVlansComponent,
     SelectRackComponent,
-    PdfComponent,
+    PdfGeneral,
     MantenimientoPageComponent,
     TranslatePipe,
-    TableConectionPageComponent
+    TableConectionPageComponent,
+    PdfMantenimiento,
+    PdfEquipos
 
 
 

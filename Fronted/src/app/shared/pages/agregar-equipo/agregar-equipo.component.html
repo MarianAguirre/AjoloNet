@@ -88,11 +88,11 @@
 
   <!-- Mitad dercha de la pantalla -->
   <div class="col">
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-end ">
       <button type="submit" class="btn btn-danger " style="margin-top: 1%;margin-left: 12px;"
         (click)="goBack()">Volver</button>
     </div>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center" >
       <img *ngIf="equipo.deviceType === 'switches'" src="assets/switch.png" width="256px" height="256px">
       <img *ngIf="equipo.deviceType === 'routers'" src="assets/router.png" width="256px" height="256px">
       <img *ngIf="equipo.deviceType === 'endDevices'" src="assets/found_9694708.png" width="256px" height="256px">

@@ -4,6 +4,7 @@ import { ConectionService } from '../../services/conection.service';
 import { MantenimientoService } from '../../services/mantenimiento.service';
 import Swal from 'sweetalert2';
 import { timer } from 'rxjs';
+import { Mantenimiento } from '../../../interfaces/Dispositivo';
 
 @Component({
   selector: 'mantenimiento-page',
@@ -14,7 +15,7 @@ export class MantenimientoPageComponent implements OnInit {
   mantenimientoForm: FormGroup;
   device_type: string[] = ['ROUTER', 'SWITCH', 'PATCH_PANEL', 'END_DEVICE'];
   devices: any[] = [];
-  registros: string[] = [];
+  registros: Mantenimiento[] = [];
 
   constructor(
     private mantenimientoService: MantenimientoService,
@@ -74,7 +75,7 @@ export class MantenimientoPageComponent implements OnInit {
   }
 
   loadMantenimiento(): void {
-    this.mantenimientoService.getMaintenance().subscribe((data) => {
+    this.mantenimientoService.getMaintenance().subscribe((data: Mantenimiento[]) => {
       this.registros = data;
       console.log(data);
     });
@@ -116,6 +117,34 @@ export class MantenimientoPageComponent implements OnInit {
           text: 'Verifica que los campos estén completados',
           icon: 'error',
         });
+      }
+    });
+  }
+  deleteMantenimeinto(connection):void{
+    console.log(connection)
+    if (!connection.id){
+      Swal.fire('Error', 'El ID del registro es indefinido.', 'error');
+      return;
+    }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `¿Seguro que quieres eliminar este registro?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminarlo'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.mantenimientoService.deleteMaintenance(connection.id).subscribe(
+          () => {
+            Swal.fire('Eliminado!', 'El registro ha sido eliminada.', 'success');
+            this.loadMantenimiento()
+          },
+          (error) => {
+            Swal.fire('Error', 'Hubo un problema al eliminar el registro.', 'error');
+          }
+        );
       }
     });
   }

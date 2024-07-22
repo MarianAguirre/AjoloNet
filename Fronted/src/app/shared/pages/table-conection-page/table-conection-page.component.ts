@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { ConectionService } from '../../services/conection.service';
 import Swal from 'sweetalert2';
+import { Conexiones } from '../../../interfaces/Dispositivo';
 
 @Component({
   selector: 'app-table-conection-page',
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class TableConectionPageComponent implements OnInit {
 
-  dispositivos: string[];
+  dispositivos: Conexiones[];
 
   clonedProducts: { [s: string]: string } = {};
 
@@ -21,7 +22,7 @@ export class TableConectionPageComponent implements OnInit {
   }
 
   loadConnections(){
-    this.conectionService.getConections().subscribe((data) => {
+    this.conectionService.getConections().subscribe((data: Conexiones[]) => {
       this.dispositivos = data;
       console.log(data)
   });
@@ -30,7 +31,7 @@ export class TableConectionPageComponent implements OnInit {
   deleteConnection(connection):void{
     console.log(connection)
     if (!connection.id){
-      Swal.fire('Error', 'El ID del área es indefinido.', 'error');
+      Swal.fire('Error', 'El ID de la conexión es indefinido.', 'error');
       return;
     }
     Swal.fire({
