@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class ConectionPageComponent implements OnInit {
   deviceForm1: FormGroup;
   deviceForm2: FormGroup;
-  deviceTypes: string[] = ['ROUTER', 'SWITCH', 'PATCH_PANEL'];
+  deviceTypes: string[] = ['ROUTER', 'SWITCH', 'PATCH_PANEL', 'END_DEVICE'];
   devices1: any[] = [];
   devices2: any[] = [];
   ports1: any[] = [];
@@ -44,6 +44,8 @@ export class ConectionPageComponent implements OnInit {
         this.portService.getNombresRouters().subscribe(devices => this.devices1 = devices);
       } else if (deviceType === 'SWITCH') {
         this.portService.getNombresSwitches().subscribe(devices => this.devices1 = devices);
+      } else if (deviceType === 'END_DEVICE') {
+        this.portService.getNombresEndDevices().subscribe(devices => this.devices1 = devices);
       } else {
         this.portService.getNombresPatchPanels().subscribe(devices => this.devices1 = devices);
       }
@@ -68,6 +70,8 @@ export class ConectionPageComponent implements OnInit {
         this.portService.getNombresRouters().subscribe(devices => this.devices2 = devices);
       } else if (deviceType === 'SWITCH') {
         this.portService.getNombresSwitches().subscribe(devices => this.devices2 = devices);
+      } else if (deviceType === 'END_DEVICE') {
+        this.portService.getNombresEndDevices().subscribe(devices => this.devices2 = devices);
       } else {
         this.portService.getNombresPatchPanels().subscribe(devices => this.devices2 = devices);
       }
