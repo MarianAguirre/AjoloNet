@@ -36,6 +36,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TableConectionPageComponent } from './pages/table-conection-page/table-conection-page.component';
 import { PdfMantenimiento } from './components/pdf-mantenimiento/pdf-mantenimiento.component';
 import { PdfEquipos } from './components/pdf-equipos/pdf-equipos.component';
+import { LocatedConectionPageComponent } from './pages/located-conection-page/located-conection-page.component';
 
 @NgModule({
   imports: [
@@ -85,7 +86,8 @@ import { PdfEquipos } from './components/pdf-equipos/pdf-equipos.component';
     TranslatePipe,
     TableConectionPageComponent,
     PdfMantenimiento,
-    PdfEquipos
+    PdfEquipos,
+    LocatedConectionPageComponent
 
 
 

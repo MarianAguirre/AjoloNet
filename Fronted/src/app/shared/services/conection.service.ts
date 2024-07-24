@@ -78,6 +78,10 @@ export class ConectionService {
     return this.http.get<Conexiones[]>(`${this.baseUrl}/port-connections`)
   }
 
+  getConectionsDevice(deviceId:string):Observable<any[]>{
+    return this.http.get<any[]>(`${this.baseUrl}/port-connections/${deviceId}`)
+  }
+
   createConnection(connectionData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/port-connections`, connectionData).pipe(
       catchError(error => {

@@ -11,6 +11,7 @@ import { RacksPageComponent } from './pages/racks-page/racks-page.component';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { TableConectionPageComponent } from './pages/table-conection-page/table-conection-page.component';
 import { MantenimientoPageComponent } from './pages/mantenimiento-page/mantenimiento-page.component';
+import { LocatedConectionPageComponent } from './pages/located-conection-page/located-conection-page.component';
 
 const routes : Routes =[
   {
@@ -34,6 +35,9 @@ const routes : Routes =[
       },
       {
         path: 'conexiones/agregar-conexion', component: ConectionPageComponent
+      },
+      {
+        path: 'conexiones/localizar-conexion', component: LocatedConectionPageComponent
       },
       {
         path: 'mantenimiento', component: MantenimientoPageComponent

@@ -1,6 +1,8 @@
 <h1 style="margin: 2% 0% 0% 10%; color: #6e6e6e;">CONEXIONES</h1>
 <button [routerLink]="['agregar-conexion']" style="margin: 2% 0% 2% 10%;"
 class="btn btn-outline-success">Crear conexiones</button>
+<button [routerLink]="['localizar-conexion']" style="margin: 2% 0% 2% 10%;"
+class="btn btn-outline-success">Localizar conexión</button>
 <p-table [value]="dispositivos" dataKey="id" editMode="row" [tableStyle]="{'width': '80%', 'margin-left': '10%'}">
   <ng-template pTemplate="header">
     <tr style="text-align: center;">

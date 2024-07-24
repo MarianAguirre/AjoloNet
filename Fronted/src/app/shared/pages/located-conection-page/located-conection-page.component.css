@@ -1,0 +1,56 @@
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input,
+select {
+  width: 70%;
+  border-radius: 10px;
+  border: 1px solid #000;
+  font-size: 16px;
+  padding: 8px 12px;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+}
+
+.contenido {
+  display: flex;
+  width: 150%;
+}
+
+.Text-checkbox {
+  width: 300%;
+  margin-right: 1%;
+  text-align: center;
+}
+
+.botones {
+  display: flex;
+  width: 200%;
+  text-align: center;
+}
+
+.area {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  margin-left: 30%;
+}
+
+/*
+#router, #switch {
+  display: flex;
+  justify-content: space-around;
+  margin: 1em 0;
+}
+
+.port {
+  border: 1px solid #000;
+  padding: 0.5em;
+  margin: 0.5em;
+  cursor: pointer;
+} */

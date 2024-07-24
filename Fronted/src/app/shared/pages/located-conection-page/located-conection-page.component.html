@@ -1,0 +1,15 @@
+<h1 style="font-size: 300%;text-align: center; margin-top: 2%;">Localizar conexión</h1>
+<div class="row" style="width: 100%">
+  <div class="col" >
+    <form [formGroup]="locatedForm" (ngSubmit)="get()">
+      <p for="deviceType">Tipo de dispositivo:</p>
+      <select id="deviceType" formControlName="deviceType">
+        <option *ngFor="let type of deviceType" [value]="type">{{ type }}</option>
+      </select>
+      <p for="deviceId">Nombre del dispositivo:</p>
+      <select id="deviceId" formControlName="deviceId">
+        <option *ngFor="let device of devices" [value]="device.id">{{ device.name }}</option>
+      </select>
+    </form>
+  </div>
+</div>
