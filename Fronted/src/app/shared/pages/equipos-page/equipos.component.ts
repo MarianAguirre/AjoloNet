@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import Swal from 'sweetalert2';
+import { DeviceDataService } from '../../services/device-data.service';
 
 @Component({
   selector: 'shared-equipos-pages',
@@ -13,7 +14,7 @@ import Swal from 'sweetalert2';
   styleUrl: './equipos.component.css'
 })
 export class EquiposComponent implements OnInit {
-  constructor(private equiposServices: EquiposServices, private http: HttpClient, private router: Router) { }
+  constructor(private equiposServices: EquiposServices, private http: HttpClient, private router: Router, private deviceDataService:DeviceDataService) { }
 
   public areas: string[] = [];
   public baseUrl: string = enavironments.baseUrl;
@@ -163,5 +164,10 @@ export class EquiposComponent implements OnInit {
       }
       else { timer(100).subscribe(() => this.equipoDialog = true); }
     });
+  }
+
+  navigateToConnections(deviceType: string, deviceId: string) {
+    this.deviceDataService.setDeviceData(deviceType, deviceId);
+    this.router.navigate(['/red/conexiones/localizar-conexion']);
   }
 }

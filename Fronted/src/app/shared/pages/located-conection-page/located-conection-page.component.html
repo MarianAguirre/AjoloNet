@@ -1,7 +1,7 @@
 <h1 style="font-size: 300%;text-align: center; margin-top: 2%;">Localizar conexión</h1>
 <div class="row" style="width: 100%">
   <div class="col" >
-    <form [formGroup]="locatedForm" (ngSubmit)="get()">
+    <form [formGroup]="locatedForm">
       <p for="deviceType">Tipo de dispositivo:</p>
       <select id="deviceType" formControlName="deviceType">
         <option *ngFor="let type of deviceType" [value]="type">{{ type }}</option>
@@ -10,6 +10,102 @@
       <select id="deviceId" formControlName="deviceId">
         <option *ngFor="let device of devices" [value]="device.id">{{ device.name }}</option>
       </select>
+      <br>
+      <p-table for="conections"  [value]="conexiones" dataKey="id" editMode="row" [tableStyle]="{'width': '80%', 'margin-left': '10%'}">
+        <ng-template pTemplate="header">
+          <tr style="text-align: center;">
+            <th style="width:5%">Id del equipo</th>
+            <th style="width:5%">Tipo de equipo </th>
+            <th style="width:7%">Puerto conectado </th>
+            <th style="width:1%">⇔</th>
+            <th style="width:7%">Puerto conectado</th>
+            <th style="width:10%">Tipo del equipo conectado</th>
+            <th style="width:10%">Id del equipo conectado</th>
+            <th style="width:5%"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-equipo let-editing="editing" let-ri="rowIndex">
+          <tr [pEditableRow]="conexiones">
+            <td style="text-align: center;">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="equipo.id" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{equipo.sourceId}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td style="text-align: center;">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="equipo.sourceType" required />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{equipo.sourceType}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td style="text-align: center;">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="equipo.sourcePort" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{equipo.sourcePort }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td style="text-align: center;">
+              ⇔
+            </td>
+            <td style="text-align: center;">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="equipo.destinationPort" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{equipo.destinationPort }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td style="text-align: center;">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="equipo.destinationType" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{equipo.destinationType }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td style="text-align: center;">
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="equipo.destinationId" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{equipo.destinationId }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td style="display: flex; justify-content: end;">
+              <button class="delete-button" >
+                <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                  <path
+                    d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
+                  </path>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No se encontraron conexiones </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </form>
   </div>
 </div>

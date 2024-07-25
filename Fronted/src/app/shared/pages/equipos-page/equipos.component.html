@@ -129,7 +129,12 @@
       <button class="btn btn-info" (click)="goAreas()">Areas</button>
     </div>
 
+    <br>
+
     <!-- Boton de guardar -->
+     <div style="display: flex; justify-content: space-between;">
     <button class="btn btn-outline-success" (click)="saveEquipo()">Guardar</button>
+    <button class="btn btn-info" (click)="navigateToConnections(equipo.deviceType, equipo.id)" >Conexiones</button>
+  </div>
   </ng-template>
 </p-dialog>
