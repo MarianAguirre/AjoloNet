@@ -35,7 +35,7 @@ public class EndDevice {
     private String MAC;
 
     @Column(name = "device_type", nullable = false)
-    private String deviceType = "end-device";
+    private String deviceType = "end_device";
 
     @Column(name = "IP_Address")
     @Pattern(

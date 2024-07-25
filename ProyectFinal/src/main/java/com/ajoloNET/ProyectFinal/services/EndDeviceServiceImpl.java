@@ -38,7 +38,7 @@ public class EndDeviceServiceImpl implements EndDeviceService{
 
     @Override
     public EndDevice create(EndDevice endDevice) {
-        endDevice.setDeviceType("end-device");
+        endDevice.setDeviceType("end_device");
         if (endDevice.getAreaName() != null) {
             Area area = areaRepository.findByName(endDevice.getAreaName())
                     .orElseThrow(() -> new NoSuchElementException("Area not found"));

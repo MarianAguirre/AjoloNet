@@ -46,10 +46,10 @@ public class DevicesController {
             case "switch":
                 switchService.deleteById(deviceId);
                 break;
-            case "patch-panel":
+            case "patch_panel":
                 patchPanelService.deleteById(deviceId);
                 break;
-            case "end-device":
+            case "end_device":
                 endDeviceService.deleteById(deviceId);
                 break;
             default:
@@ -73,11 +73,11 @@ public class DevicesController {
                     Switch switchDevice = convertToSwitch(device);
                     Switch updatedSwitch = switchService.updateById(switchDevice, deviceId);
                     return ResponseEntity.ok(updatedSwitch);
-                case "patch-panel":
+                case "patch_panel":
                     PatchPanel patchPanel = convertToPatchPanel(device);
                     PatchPanel updatedPatchPanel = patchPanelService.update(patchPanel, deviceId);
                     return ResponseEntity.ok(updatedPatchPanel);
-                case "end-device":
+                case "end_device":
                     EndDevice endDevice = convertToEndDevice(device);
                     EndDevice updatedEndDevice = endDeviceService.updateById(endDevice, deviceId);
                     return ResponseEntity.ok(updatedEndDevice);

@@ -1,6 +1,5 @@
 package com.ajoloNET.ProyectFinal.controllers;
 
-import com.ajoloNET.ProyectFinal.DTOs.PortConectionDTO;
 import com.ajoloNET.ProyectFinal.DTOs.PortConnectionRequest;
 import com.ajoloNET.ProyectFinal.entities.DeviceType;
 import com.ajoloNET.ProyectFinal.entities.Port;
@@ -8,12 +7,10 @@ import com.ajoloNET.ProyectFinal.entities.PortConnection;
 import com.ajoloNET.ProyectFinal.services.PortConnectionServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -21,8 +18,15 @@ import java.util.Optional;
 @Slf4j
 public class PortConnectionController {
 
-    @Autowired
-    private PortConnectionServiceImpl portConnectionService;
+    private final PortConnectionServiceImpl portConnectionService;
+
+    @GetMapping("/device")
+    public ResponseEntity<List<PortConnection>> getConnectionsByDevice(
+            @RequestParam("deviceType") DeviceType deviceType,
+            @RequestParam("deviceId") Long deviceId) {
+        List<PortConnection> connections = portConnectionService.getConnectionsByDevice(deviceType, deviceId);
+        return ResponseEntity.ok(connections);
+    }
 
     @GetMapping
     public ResponseEntity<List<PortConnection>> getAllConnections(){

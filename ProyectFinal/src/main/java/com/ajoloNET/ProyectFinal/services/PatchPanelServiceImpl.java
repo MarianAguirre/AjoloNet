@@ -30,7 +30,7 @@ public class PatchPanelServiceImpl implements PatchPanelService{
     @Override
     public PatchPanel create(PatchPanel patchPanel) {
         patchPanel.setName("Patch Panel");
-        patchPanel.setDeviceType("patch-panel");
+        patchPanel.setDeviceType("patch_panel");
 
         if (patchPanel.getRackName() != null) {
             Rack rack = rackRepository.findByName(patchPanel.getRackName())

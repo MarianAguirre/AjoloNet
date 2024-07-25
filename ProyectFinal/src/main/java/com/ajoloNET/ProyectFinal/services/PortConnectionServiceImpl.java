@@ -1,16 +1,14 @@
 package com.ajoloNET.ProyectFinal.services;
 
-import com.ajoloNET.ProyectFinal.DTOs.PortConectionDTO;
 import com.ajoloNET.ProyectFinal.entities.*;
 import com.ajoloNET.ProyectFinal.repositories.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -19,19 +17,41 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PortConnectionServiceImpl{
 
+    // Repositorios necesarios
+    private PortConnectionRepository portConnectionRepository;
+    private RouterRepository routerRepository;
+    private SwitchRepository switchRepository;
+    private PatchPanelRepository patchPanelRepository;
+    private EndDeviceRepository endDeviceRepository;
+    private PortRepository portRepository;
 
-    private final PortConnectionRepository portConnectionRepository;
+    // Constructor
+    public void PortConnectionService(
+            PortConnectionRepository portConnectionRepository,
+            RouterRepository routerRepository,
+            SwitchRepository switchRepository,
+            PatchPanelRepository patchPanelRepository,
+            EndDeviceRepository endDeviceRepository,
+            PortRepository portRepository) {
+        this.portConnectionRepository = portConnectionRepository;
+        this.routerRepository = routerRepository;
+        this.switchRepository = switchRepository;
+        this.patchPanelRepository = patchPanelRepository;
+        this.endDeviceRepository = endDeviceRepository;
+        this.portRepository = portRepository;
+    }
 
 
-    private final PortRepository portRepository;
+    public List<PortConnection> getConnectionsByDevice(DeviceType deviceType, Long deviceId) {
+        List<PortConnection> sourceConnections = portConnectionRepository.findBySourceTypeAndSourceId(deviceType, deviceId);
+        List<PortConnection> destinationConnections = portConnectionRepository.findByDestinationTypeAndDestinationId(deviceType, deviceId);
 
-    private final RouterRepository routerRepository;
+        List<PortConnection> allConnections = new ArrayList<>();
+        allConnections.addAll(sourceConnections);
+        allConnections.addAll(destinationConnections);
 
-    private final SwitchRepository switchRepository;
-
-    private final PatchPanelRepository patchPanelRepository;
-
-    private final EndDeviceRepository endDeviceRepository;
+        return allConnections;
+    }
 
     @Transactional
     public PortConnection createConnection(DeviceType sourceType, Long sourceId, int sourcePort, DeviceType destinationType, Long destinationId, int destinationPort) {
@@ -90,6 +110,8 @@ public class PortConnectionServiceImpl{
     public List<PortConnection> getAllConnections() {
         return portConnectionRepository.findAll();
     }
+
+
 
     public List<Port> getPortsByDevice(DeviceType deviceType, Long deviceId) {
         switch (deviceType) {

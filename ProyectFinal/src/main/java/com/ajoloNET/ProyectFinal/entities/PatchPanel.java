@@ -31,7 +31,7 @@ public class PatchPanel {
     private String name = "Patch Panel";
 
     @Column(name = "device_type", nullable = false)
-    private String deviceType = "patch-panel";
+    private String deviceType = "patch_panel";
 
     @Transient
     private String rackName;
