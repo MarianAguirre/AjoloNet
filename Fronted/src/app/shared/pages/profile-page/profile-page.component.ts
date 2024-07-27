@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatosUser } from '../../../interfaces/user.interfaces';
+import { DataUser } from '../../../interfaces/user.interfaces';
 import { enavironments } from '../../../../environments/envarionments';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
@@ -12,11 +12,11 @@ import Swal from 'sweetalert2';
 })
 export class ProfilePageComponent implements OnInit {
   errorMessage: string = "";
-  user!: DatosUser;
+  user!: DataUser;
   baseUrl = enavironments.baseUrl;
   updateForm: FormGroup;
 
-  constructor(private userService: UserService,  private formBuilder: FormBuilder) {
+  constructor(private userService: UserService, private formBuilder: FormBuilder) {
     this.updateForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       firstname: ['', [Validators.required]],
@@ -27,8 +27,8 @@ export class ProfilePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getUserDatos().subscribe(
-      (response: DatosUser) => {
+    this.userService.getUserData().subscribe(
+      (response: DataUser) => {
         console.log('Datos recibidos:', response); // Verifica la estructura de los datos
         this.user = response; // Asignar directamente a user
         this.updateForm.patchValue({
@@ -67,13 +67,13 @@ export class ProfilePageComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         const formValue = this.updateForm.value;
-        const updatedUser: DatosUser = {
+        const updatedUser: DataUser = {
           ...this.user,
           ...formValue,
           password: formValue.password || null // Establecer la contraseña como null si no se ha cambiado
         };
 
-        this.userService.updateUserDatos(this.user.id!, updatedUser).subscribe(
+        this.userService.updateUserData(this.user.id!, updatedUser).subscribe(
           () => {
             Swal.fire(
               'Actualizado!',

@@ -1,33 +1,31 @@
 <h1 style="width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%; color: #6e6e6e;">RACKS <abbr
-  title="NOTA: En caso de tener racks creadas y eliminarlas es necesario reasignar los equipos que se encunetren creados">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle"
-    viewBox="0 0 16 16">
-    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-    <path
-      d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
-  </svg>
-</abbr>
+    title="NOTA: En caso de tener racks creadas y eliminarlas es necesario reasignar los equipos que se encunetren creados">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle"
+      viewBox="0 0 16 16">
+      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+      <path
+        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+    </svg>
+  </abbr>
 </h1>
-<p-iconField iconPosition="left"
-[style]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
-<th style="width: 80%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
-  <div >
-    <button (click)="showDialog()"
-      class="btn btn-outline-success">Agregar</button>
+<p-iconField iconPosition="left" [style]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
+  <th style="width: 80%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
+    <div>
+      <button (click)="showDialog()" class="btn btn-outline-success">Agregar</button>
 
-    <!-- Dialogo de nuevo racks -->
-    <p-dialog header="Agrega una nuevo rack" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-      <div style="display: flex; justify-content: space-between; font-weight: bold;">
-        <label for="name" class="font-semibold w-6rem">Nombre del rack</label>
-        <input (keyup.enter)="newRack()" [(ngModel)]="nuevoRack.name" required pInputText id="name"
-          class="flex-auto" autocomplete="off" />
-      </div>
-      <div class="flex justify-content-end gap-2">
-        <button style="margin-top:5%;" label="Save" class="btn btn-success" (click)="newRack()">Guardar</button>
-      </div>
-    </p-dialog>
-  </div>
-</th>
+      <!-- Dialogo de nuevo racks -->
+      <p-dialog header="Agrega una nuevo rack" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+        <div style="display: flex; justify-content: space-between; font-weight: bold;">
+          <label for="name" class="font-semibold w-6rem">Nombre del rack</label>
+          <input (keyup.enter)="newRack()" [(ngModel)]="nuevoRack.name" required pInputText id="name" class="flex-auto"
+            autocomplete="off" />
+        </div>
+        <div class="flex justify-content-end gap-2">
+          <button style="margin-top:5%;" label="Save" class="btn btn-success" (click)="newRack()">Guardar</button>
+        </div>
+      </p-dialog>
+    </div>
+  </th>
 </p-iconField>
 <p-table [value]="racks" selectionMode="single" dataKey="id"
   [tableStyle]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
@@ -52,7 +50,7 @@
     <tr>
       <td>
         <button type="button" pButton pRipple [pRowToggler]="racks"
-          class="p-button-text p-button-rounded p-button-plain" (click)="loadEquiposRack(racks)"
+          class="p-button-text p-button-rounded p-button-plain" (click)="loaDevicesRack(racks)"
           [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
         </button>
         {{racks.name}}

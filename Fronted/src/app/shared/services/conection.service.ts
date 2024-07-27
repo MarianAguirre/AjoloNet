@@ -1,16 +1,16 @@
+import { Connections } from '../../interfaces/Dispositivo';
+import { enavironments } from '../../../environments/envarionments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, catchError, of } from 'rxjs';
-import { enavironments } from '../../../environments/envarionments';
-import { Conexiones } from '../../interfaces/Dispositivo';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ConectionService {
-  constructor(private http:HttpClient) { }
-  baseUrl= enavironments.baseUrl
+  constructor(private http: HttpClient) { }
+  baseUrl = enavironments.baseUrl
 
-   // Conection-page.component, Agregar-equipo.component
-    getTiposDispositivos(): Observable<string[]> {
+  // Conection-page.component, Agregar-equipo.component
+  getTypesDevices(): Observable<string[]> {
     return this.http.get<{ [key: string]: any }>(`${this.baseUrl}/Devices`).pipe(
       map(response => Object.keys(response)),
       catchError(error => {
@@ -21,7 +21,7 @@ export class ConectionService {
   }
 
   // Conection-page.component
-  getNombresRouters(): Observable<{ name: string, id: number }[]> {
+  getNamesRouters(): Observable<{ name: string, id: number }[]> {
     return this.http.get<{ name: string, id: number }[]>(`${this.baseUrl}/router`).pipe(
       map(routers => routers.map(router => ({ name: router.name, id: router.id }))),
       catchError(error => {
@@ -32,7 +32,7 @@ export class ConectionService {
   }
 
   // Conection-page.component
-  getNombresSwitches(): Observable<{ name: string, id: number }[]> {
+  getNamesSwitches(): Observable<{ name: string, id: number }[]> {
     return this.http.get<{ name: string, id: number }[]>(`${this.baseUrl}/switch`).pipe(
       map(routers => routers.map(router => ({ name: router.name, id: router.id }))),
       catchError(error => {
@@ -43,7 +43,7 @@ export class ConectionService {
   }
 
   // Conection-page.component
-  getNombresEndDevices(): Observable<{ name: string, id: number }[]> {
+  getNamesEndDevices(): Observable<{ name: string, id: number }[]> {
     return this.http.get<{ name: string, id: number }[]>(`${this.baseUrl}/endDevice`).pipe(
       map(routers => routers.map(router => ({ name: router.name, id: router.id }))),
       catchError(error => {
@@ -54,7 +54,7 @@ export class ConectionService {
   }
 
   // Conection-page.component
-  getNombresPatchPanels():Observable<{ name: string, id: number }[]> {
+  getNamesPatchPanels(): Observable<{ name: string, id: number }[]> {
     return this.http.get<{ name: string, id: number }[]>(`${this.baseUrl}/patchPanel`).pipe(
       map(routers => routers.map(router => ({ name: router.name, id: router.id }))),
       catchError(error => {
@@ -74,11 +74,11 @@ export class ConectionService {
     });
   }
 
-  getConections():Observable<Conexiones[]>{
-    return this.http.get<Conexiones[]>(`${this.baseUrl}/port-connections`)
+  getConnections(): Observable<Connections[]> {
+    return this.http.get<Connections[]>(`${this.baseUrl}/port-connections`)
   }
 
-  getConectionsDevice(deviceType:string, deviceId:string): Observable<any[]> {
+  getConnectionsDevice(deviceType: string, deviceId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/port-connections/device?deviceType=${deviceType}&deviceId=${deviceId}`);
   }
 

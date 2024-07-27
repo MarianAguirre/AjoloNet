@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Login } from '../../interfaces/login.interfaces';
 import { Observable } from 'rxjs';
-import { ResponseAccesso } from '../../interfaces/ResponseAcceso';
+import { ResponseAccess } from '../../interfaces/ResponseAcceso';
 import { User } from '../../interfaces/user.interfaces';
 
 @Injectable({ providedIn: 'root' })
@@ -13,11 +13,11 @@ export class AccessService {
   constructor(private http: HttpClient) { }
 
 
-  registrarse(objeto: User): Observable<ResponseAccesso> {
-    return this.http.post<ResponseAccesso>(`${this.baseUrl}/register`, objeto)
+  registrarse(objeto: User): Observable<ResponseAccess> {
+    return this.http.post<ResponseAccess>(`${this.baseUrl}/register`, objeto)
   }
 
-  login(objeto: Login): Observable<ResponseAccesso> {
-    return this.http.post<ResponseAccesso>(`${this.baseUrl}/login`, objeto)
+  login(objeto: Login): Observable<ResponseAccess> {
+    return this.http.post<ResponseAccess>(`${this.baseUrl}/login`, objeto)
   }
 }

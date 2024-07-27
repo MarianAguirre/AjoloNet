@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { DatosUser } from '../../../interfaces/user.interfaces';
+import { DataUser } from '../../../interfaces/user.interfaces';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
@@ -13,7 +13,7 @@ export class SearchBoxComponent {
 
   constructor(private cookie: CookieService, private router: Router, private userService: UserService) { }
 
-  user!: DatosUser;
+  user!: DataUser;
 
   logout() {
     sessionStorage.removeItem('token')
@@ -21,8 +21,8 @@ export class SearchBoxComponent {
   }
 
   ngOnInit(): void {
-    this.userService.getUserDatos().subscribe(
-      (response: DatosUser) => {
+    this.userService.getUserData().subscribe(
+      (response: DataUser) => {
         this.user = response; // Asignar directamente a user
       },
       (error: any) => {

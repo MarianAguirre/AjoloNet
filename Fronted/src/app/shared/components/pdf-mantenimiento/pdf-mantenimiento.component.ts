@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { Mantenimiento } from '../../../interfaces/Dispositivo';
-import { MantenimientoService } from '../../services/mantenimiento.service';
-import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+import { format } from 'date-fns';
+import { Maintenance } from '../../../interfaces/Dispositivo';
+import { MantenimientoService } from '../../services/mantenimiento.service';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import pdfMake from 'pdfmake/build/pdfmake';
+import { TranslationService } from '../../translate.service';
 
 @Component({
   selector: 'pdf-mantenimiento',
@@ -13,15 +13,16 @@ import { es } from 'date-fns/locale';
   styleUrls: ['./pdf-mantenimiento.component.css']
 })
 export class PdfMantenimiento implements OnInit {
-  registros: Mantenimiento[] = [];
-  localTime: string;
-
   constructor(
     private mantenimientoService: MantenimientoService,
+    private translationService: TranslationService // Inyecta el servicio de traducción
   ) {}
 
+  registros: Maintenance[] = [];
+  localTime: string;
+
   ngOnInit(): void {
-    this.mantenimientoService.getMaintenance().subscribe((data: Mantenimiento[]) => {
+    this.mantenimientoService.getMaintenance().subscribe((data: Maintenance[]) => {
       this.registros = data;
       console.log(data);
     });
@@ -38,8 +39,7 @@ export class PdfMantenimiento implements OnInit {
       content: [
         { text: 'Informe de mantenimiento de equipos', style: 'header' },
         { text: `Este documento contiene un registro de los mantenimientos realizados a los equipos. La información presentada incluye el tipo de dispositivo, el nombre del dispositivo, el encargado del mantenimiento, la descripción del trabajo realizado, los materiales utilizados y la fecha del mantenimiento. \n\n` },
-        { text:[ {text: `Fecha de generación de informe: `, style: 'subHeader'  }, `${this.localTime} \n\n`]},
-
+        { text: [{ text: `Fecha de generación de informe: `, style: 'subHeader' }, `${this.localTime} \n\n`] },
         this.getMantenimiento(),
       ],
       styles: {
@@ -53,7 +53,7 @@ export class PdfMantenimiento implements OnInit {
           fontSize: 13,
           color: 'black'
         },
-        subHeader:{
+        subHeader: {
           fontSize: 14,
           bold: true,
           margin: [0, 10, 0, 10]
@@ -61,7 +61,6 @@ export class PdfMantenimiento implements OnInit {
       }
     };
   }
-
 
   getMantenimiento() {
     return {
@@ -77,14 +76,14 @@ export class PdfMantenimiento implements OnInit {
             { text: 'Materiales usados', style: 'tableHeader' },
             { text: 'Fecha del mantenimiento', style: 'tableHeader' },
           ],
-          ...this.registros.map(registros => [
-            registros.deviceId || 'N/A',
-            registros.deviceName || 'N/A',
-            registros.deviceType || 'N/A',
-            registros.performedBy || 'N/A',
-            registros.description || 'N/A',
-            registros.materialsUsed || 'N/A',
-            this.formatDate(registros.maintenanceDate) || 'N/A',
+          ...this.registros.map(registro => [
+            registro.deviceId || 'N/A',
+            registro.deviceName || 'N/A',
+            this.translationService.translate(registro.deviceType) || 'N/A', // Usa el servicio de traducción
+            registro.performedBy || 'N/A',
+            registro.description || 'N/A',
+            registro.materialsUsed || 'N/A',
+            this.formatDate(registro.maintenanceDate) || 'N/A',
           ])
         ]
       }
@@ -92,8 +91,9 @@ export class PdfMantenimiento implements OnInit {
   }
 
   formatDate(date: string | Date): string {
-    return format(new Date(date), 'dd/MMMM/yyyy hh:mm a', {locale:es});
+    return format(new Date(date), 'dd/MMMM/yyyy hh:mm a', { locale: es });
   }
+
   getLocalTime(): void {
     const date = new Date();
     this.localTime = date.toLocaleString();

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Dispositivo } from '../../../interfaces/Dispositivo';
+import { Device } from '../../../interfaces/Dispositivo';
 import { enavironments } from '../../../../environments/envarionments';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
@@ -14,23 +14,23 @@ import { DeviceDataService } from '../../services/device-data.service';
   styleUrl: './equipos.component.css'
 })
 export class EquiposComponent implements OnInit {
-  constructor(private equiposServices: EquiposServices, private http: HttpClient, private router: Router, private deviceDataService:DeviceDataService) { }
+  constructor(private equiposServices: EquiposServices, private http: HttpClient, private router: Router, private deviceDataService: DeviceDataService) { }
 
   public areas: string[] = [];
   public baseUrl: string = enavironments.baseUrl;
-  public dispositivos: Dispositivo[] = [];
-  public endDevices: Dispositivo[] = [];
-  public equipo!: Dispositivo;
+  public dispositivos: Device[] = [];
+  public endDevices: Device[] = [];
+  public equipo!: Device;
   public equipoDialog: boolean = false;
-  public patchPanels: Dispositivo[] = [];
+  public patchPanels: Device[] = [];
   public racks: string[] = [];
-  public routers: Dispositivo[] = [];
-  public switches: Dispositivo[] = [];
+  public routers: Device[] = [];
+  public switches: Device[] = [];
 
 
   ngOnInit(): void {
     // Recibe todos lo dispositivos para mostrarlos en la tabla
-    this.loadEquipos();
+    this.loadDevices();
 
     // Obtiene los racks
     this.equiposServices.getRack().subscribe((racks: string[]) => {
@@ -43,7 +43,7 @@ export class EquiposComponent implements OnInit {
     });
   }
 
-  loadEquipos() {
+  loadDevices() {
     this.equiposServices.getDevices().subscribe((data: any) => {
       if (data && typeof data === 'object') {
         this.routers = data.routers || [];
@@ -75,13 +75,13 @@ export class EquiposComponent implements OnInit {
   }
 
   // Permite la visibilidad del dialogo de detalles
-  editProduct(equipo: Dispositivo): void {
+  editProduct(equipo: Device): void {
     this.equipo = { ...equipo };
     this.equipoDialog = true;
   }
 
   // Funcion que elimina un equipo por id
-  deleteDevices(equipo: Dispositivo): void {
+  deleteDevices(equipo: Device): void {
     if (!equipo.id) {
       Swal.fire(
         'Error',
@@ -100,7 +100,7 @@ export class EquiposComponent implements OnInit {
       confirmButtonText: 'Sí, eliminarlo'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.equiposServices.deleteEquipo(equipo.id!, equipo.deviceType).subscribe(
+        this.equiposServices.deleteDevice(equipo.id!, equipo.deviceType).subscribe(
           () => {
             this.dispositivos = this.dispositivos.filter(d => d.id !== equipo.id);
             Swal.fire(
@@ -122,7 +122,7 @@ export class EquiposComponent implements OnInit {
   }
 
   // Actualiza los datos del equipo
-  saveEquipo(): void {
+  saveDevice(): void {
     if (!this.equipo.id) {
       Swal.fire(
         'Error',
@@ -142,7 +142,7 @@ export class EquiposComponent implements OnInit {
       confirmButtonText: 'Sí, actualiza'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.equiposServices.updateEquipo(this.equipo.id!, this.equipo).subscribe(
+        this.equiposServices.updateDevice(this.equipo.id!, this.equipo).subscribe(
           () => {
             this.equipoDialog = false;
             this.dispositivos = this.dispositivos.map(d => d.id === this.equipo.id ? this.equipo : d);
@@ -151,7 +151,7 @@ export class EquiposComponent implements OnInit {
               'El equipo ha sido actualizado.',
               'success'
             );
-            this.loadEquipos();
+            this.loadDevices();
           },
           (error: any) => {
             Swal.fire(

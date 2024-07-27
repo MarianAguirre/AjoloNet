@@ -1,18 +1,21 @@
-<!-- <h1 class="text-center">Obra en proceso</h1>
-<img class="d-flex mx-auto d-block" src="https://pbs.twimg.com/media/GAkIFJCWsAAheiX.png" width="250em" height="250em"> -->
 <h1 style="font-size: 300%;text-align: center; margin-top: 2%;">Crear conexiones</h1>
+
+
 <div class="row" style="width: 100%;">
-  <div class="col" >
+  <!-- Primer equipo -->
+  <div class="col">
     <form [formGroup]="deviceForm1" (ngSubmit)="onSubmit()">
 
       <p for="deviceType1">Tipo de dispositivo:</p>
       <select id="deviceType1" formControlName="deviceType1">
         <option *ngFor="let type of deviceTypes" [value]="type">{{ type }}</option>
       </select>
+
       <p for="deviceId1">Nombre del dispositivo:</p>
       <select id="deviceId1" formControlName="deviceId1">
         <option *ngFor="let device of devices1" [value]="device.id">{{ device.name }}</option>
       </select>
+
       <p for="portNumber1">Puertos:</p>
       <select id="portNumber1" formControlName="portNumber1">
         <option *ngFor="let port of ports1" [value]="port.portNumber">Puerto {{ port.portNumber }} ({{port.status |
@@ -20,6 +23,8 @@
       </select>
     </form>
   </div>
+
+  <!-- Segundo equipo -->
   <div class="col">
     <form [formGroup]="deviceForm2" (ngSubmit)="onSubmit()">
 
@@ -27,6 +32,7 @@
       <select id="deviceType2" formControlName="deviceType2">
         <option *ngFor="let type of deviceTypes" [value]="type">{{ type }}</option>
       </select>
+
       <p for="deviceId2">Nombre del dispositivo:</p>
       <select id="deviceId2" formControlName="deviceId2">
         <option *ngFor="let device of devices2" [value]="device.id">{{ device.name }}</option>

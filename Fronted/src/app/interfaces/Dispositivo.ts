@@ -1,4 +1,5 @@
-export interface Dispositivo {
+import { MatCardModule } from '@angular/material/card';
+export interface Device {
   id?: string
   name: string;
   deviceType: string;
@@ -9,11 +10,7 @@ export interface Dispositivo {
   areaName: string;
   rackName: '';
   ipAddress: string;
-  MAC: string;
-}
-
-export interface ipAddress {
-  ipAddress: string
+  mac: string;
 }
 
 export interface Area {
@@ -71,27 +68,7 @@ export interface Routers {
   deviceType: string;
 }
 
-export interface Device {
-  id: number;
-  ports: Port[];
-  name: string;
-  numberOfPorts: number;
-  deviceType: string;
-  areaName?: null;
-  rackName?: null;
-  poe?: boolean;
-  manageable?: boolean;
-  ipAddress: ipAddress[];
-}
-
-export interface Port {
-  id: number;
-  portNumber: number;
-  sourceConnection: null;
-  destinationConnection: null;
-}
-
-export interface Conexiones{
+export interface Connections{
   sourceType  : string,
   sourceId  : string,
   sourcePort  : string,
@@ -100,7 +77,7 @@ export interface Conexiones{
   destinationPort : string,
 }
 
-export interface Mantenimiento{
+export interface Maintenance{
   deviceType  : string,
   deviceId : string,
   deviceName  : string,

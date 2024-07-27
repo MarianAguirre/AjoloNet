@@ -32,12 +32,12 @@
         *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'"
         required type="text" name="name" [(ngModel)]="equipo.ipAddress" class="from-control mb-2" placeholder="Ip">
 
-        <p
+      <p
         *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'">
         Dirección MAC</p>
       <input
         *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'"
-        required type="text" name="name" [(ngModel)]="equipo.MAC" class="from-control mb-2" placeholder="MAC">
+        required type="text" name="name" [(ngModel)]="equipo.mac" class="from-control mb-2" placeholder="MAC">
 
       <!-- Opciones extra para el Switch -->
       <!-- <p *ngIf="equipo.deviceType === 'switches'">VLANS</p>
@@ -92,7 +92,7 @@
       <button type="submit" class="btn btn-danger " style="margin-top: 1%;margin-left: 12px;"
         (click)="goBack()">Volver</button>
     </div>
-    <div class="d-flex justify-content-center" >
+    <div class="d-flex justify-content-center">
       <img *ngIf="equipo.deviceType === 'switches'" src="assets/switch.png" width="256px" height="256px">
       <img *ngIf="equipo.deviceType === 'routers'" src="assets/router.png" width="256px" height="256px">
       <img *ngIf="equipo.deviceType === 'endDevices'" src="assets/found_9694708.png" width="256px" height="256px">

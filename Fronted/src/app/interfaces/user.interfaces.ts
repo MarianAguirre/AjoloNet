@@ -5,7 +5,7 @@ export interface User {
   password: string;
 }
 
-export interface DatosUser {
+export interface DataUser {
   id: number;
   username: string;
   firstname: string;
@@ -18,7 +18,7 @@ export interface Authority {
   authority: string;
 }
 
-export interface Usuarios {
+export interface Users {
   id: number;
   username: string;
   firstname: string;

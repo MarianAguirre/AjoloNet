@@ -24,6 +24,7 @@
   align-items: center;
   justify-content: center;
 }
+
 /* text */
 .text {
   position: absolute;
@@ -35,6 +36,7 @@
   font-weight: 500;
   transition-duration: .3s;
 }
+
 /* hover effect on button width */
 .Btn:hover {
   width: 125px;
@@ -48,6 +50,7 @@
   transition-duration: .3s;
   padding-left: 10px;
 }
+
 /* hover effect button's text */
 .Btn:hover .text {
   opacity: 1;
@@ -55,7 +58,8 @@
   transition-duration: .3s;
   padding-right: 20px;
 }
+
 /* button click effect*/
 .Btn:active {
-  transform: translate(2px ,2px);
+  transform: translate(2px, 2px);
 }

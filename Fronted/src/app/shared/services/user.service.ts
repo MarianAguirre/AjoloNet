@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { DatosUser, Usuarios } from '../../interfaces/user.interfaces';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { DataUser, Users } from '../../interfaces/user.interfaces';
 import { enavironments } from '../../../environments/envarionments';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -10,22 +10,22 @@ export class UserService {
   private baseUrl: string = enavironments.baseUrl
 
   //Opciones de los admin
-  getUsers(): Observable<Usuarios[]> {
-    return this.http.get<Usuarios[]>(`${this.baseUrl}/admin/users`)
+  getUsers(): Observable<Users[]> {
+    return this.http.get<Users[]>(`${this.baseUrl}/admin/users`)
   }
-  updateUsuarios(id: number, user: Usuarios): Observable<void> {
+  updateUsers(id: number, user: Users): Observable<void> {
     return this.http.put<void>(`${this.baseUrl}/admin/update/${id}`, user);
   }
 
-  deleteUsuario(id: number): Observable<void> {
+  deleteUsers(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/admin/delete/${id}`);
   }
 
   //Opciones de los usuarios
-  getUserDatos(): Observable<DatosUser> {
-    return this.http.get<DatosUser>(`${this.baseUrl}/user/me`)
+  getUserData(): Observable<DataUser> {
+    return this.http.get<DataUser>(`${this.baseUrl}/user/me`)
   }
-  updateUserDatos(id: number, user: DatosUser): Observable<void> {
+  updateUserData(id: number, user: DataUser): Observable<void> {
     return this.http.put<void>(`${this.baseUrl}/user/update/${id}`, user);
   }
 

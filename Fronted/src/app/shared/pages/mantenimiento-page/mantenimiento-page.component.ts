@@ -4,7 +4,7 @@ import { ConectionService } from '../../services/conection.service';
 import { MantenimientoService } from '../../services/mantenimiento.service';
 import Swal from 'sweetalert2';
 import { timer } from 'rxjs';
-import { Mantenimiento } from '../../../interfaces/Dispositivo';
+import { Maintenance } from '../../../interfaces/Dispositivo';
 
 @Component({
   selector: 'mantenimiento-page',
@@ -12,17 +12,12 @@ import { Mantenimiento } from '../../../interfaces/Dispositivo';
   styleUrls: ['./mantenimiento-page.component.css']
 })
 export class MantenimientoPageComponent implements OnInit {
-  mantenimientoForm: FormGroup;
-  device_type: string[] = ['ROUTER', 'SWITCH', 'PATCH_PANEL', 'END_DEVICE'];
-  devices: any[] = [];
-  registros: Mantenimiento[] = [];
-
   constructor(
     private mantenimientoService: MantenimientoService,
     private portService: ConectionService,
     private fb: FormBuilder
   ) {
-    this.mantenimientoForm = this.fb.group({
+    this.maintenanceForm = this.fb.group({
       deviceType: ['', Validators.required],
       device_id: ['', Validators.required],
       deviceName: [''], // Campo oculto para el nombre del dispositivo
@@ -33,71 +28,81 @@ export class MantenimientoPageComponent implements OnInit {
     });
   }
 
+  maintenanceForm: FormGroup;
+  device_type: string[] = ['ROUTER', 'SWITCH', 'PATCH_PANEL', 'END_DEVICE'];
+  devices: any[] = [];
+  registros: Maintenance[] = [];
+  public visible: boolean = false;
+
   ngOnInit(): void {
     this.Types();
-    this.loadMantenimiento();
+    this.loadMaintenance();
     this.setDefaultDateTime(); // Establecer fecha y hora predeterminadas
   }
 
-  public visible: boolean = false;
-
+  //muestra el dialogo para crear equipos
   showDialog(): void {
     this.visible = true;
   }
 
+  //Trae los tipos que existen
   Types(): void {
-    this.mantenimientoForm.get('deviceType')?.valueChanges.subscribe(device_type => {
+    this.maintenanceForm.get('deviceType')?.valueChanges.subscribe(device_type => {
       if (device_type === 'ROUTER') {
-        this.portService.getNombresRouters().subscribe(devices => this.devices = devices);
+        this.portService.getNamesRouters().subscribe(devices => this.devices = devices);
       } else if (device_type === 'SWITCH') {
-        this.portService.getNombresSwitches().subscribe(devices => this.devices = devices);
+        this.portService.getNamesSwitches().subscribe(devices => this.devices = devices);
       } else if (device_type === 'END_DEVICE') {
-        this.portService.getNombresEndDevices().subscribe(devices => this.devices = devices);
+        this.portService.getNamesEndDevices().subscribe(devices => this.devices = devices);
       } else {
-        this.portService.getNombresPatchPanels().subscribe(devices => this.devices = devices);
+        this.portService.getNamesPatchPanels().subscribe(devices => this.devices = devices);
       }
-      this.mantenimientoForm.get('device_id')?.setValue('');
-      this.mantenimientoForm.get('deviceName')?.setValue(''); // Resetear el nombre del dispositivo
+      this.maintenanceForm.get('device_id')?.setValue('');
+      this.maintenanceForm.get('deviceName')?.setValue(''); // Resetear el nombre del dispositivo
     });
   }
 
+  //Coloca el tiempo
   setDefaultDateTime(): void {
     const currentDate = new Date();
     const defaultDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
       currentDate.getDate(),
-      12, // Hora predeterminada
-      0, // Minuto predeterminado
-      0 // Segundo predeterminado
+      12,
+      0,
+      0
     );
-    this.mantenimientoForm.get('maintenanceDate')?.setValue(defaultDate.toISOString().substring(0, 16));
+    this.maintenanceForm.get('maintenanceDate')?.setValue(defaultDate.toISOString().substring(0, 16));
   }
 
-  loadMantenimiento(): void {
-    this.mantenimientoService.getMaintenance().subscribe((data: Mantenimiento[]) => {
+  //Carga los mantenimietos registrados
+  loadMaintenance(): void {
+    this.mantenimientoService.getMaintenance().subscribe((data: Maintenance[]) => {
       this.registros = data;
       console.log(data);
     });
   }
 
+  //Obtiene el dispositivo
   onDeviceChange(event: any): void {
     const selectedDeviceId = event.target.value;
     const selectedDevice = this.devices.find(device => device.id == selectedDeviceId);
     if (selectedDevice) {
-      this.mantenimientoForm.get('deviceName')?.setValue(selectedDevice.name);
+      this.maintenanceForm.get('deviceName')?.setValue(selectedDevice.name);
     }
   }
 
+  //Crea el mantenimiento
   onSubmit(): void {
     const maintenanceData = {
-      deviceType: this.mantenimientoForm.get('deviceType')?.value,
-      device_id: this.mantenimientoForm.get('device_id')?.value,
-      deviceName: this.mantenimientoForm.get('deviceName')?.value,
-      maintenanceDate: new Date(this.mantenimientoForm.get('maintenanceDate')?.value).toISOString(),
-      performedBy: this.mantenimientoForm.get('performedBy')?.value,
-      description: this.mantenimientoForm.get('description')?.value,
-      materialsUsed: this.mantenimientoForm.get('materialsUsed')?.value,
+      deviceType: this.maintenanceForm.get('deviceType')?.value,
+      device_id: this.maintenanceForm.get('device_id')?.value,
+      deviceName: this.maintenanceForm.get('deviceName')?.value,
+      maintenanceDate: new Date(this.maintenanceForm.get('maintenanceDate')?.value).toISOString(),
+      performedBy: this.maintenanceForm.get('performedBy')?.value,
+      description: this.maintenanceForm.get('description')?.value,
+      materialsUsed: this.maintenanceForm.get('materialsUsed')?.value,
     };
 
     this.mantenimientoService.createMaintenance(maintenanceData).subscribe(response => {
@@ -108,9 +113,9 @@ export class MantenimientoPageComponent implements OnInit {
           title: 'Mantenimiento registrado',
           icon: 'success',
         });
-        this.mantenimientoForm.reset();
+        this.maintenanceForm.reset();
         this.setDefaultDateTime(); // Restablecer fecha y hora predeterminadas
-        this.loadMantenimiento();
+        this.loadMaintenance();
       } else {
         Swal.fire({
           title: "Error al registrar el mantenimiento",
@@ -120,9 +125,11 @@ export class MantenimientoPageComponent implements OnInit {
       }
     });
   }
-  deleteMantenimeinto(connection):void{
+
+  //Elimina un registro de mantenimiento
+  deleteMaintenance(connection): void {
     console.log(connection)
-    if (!connection.id){
+    if (!connection.id) {
       Swal.fire('Error', 'El ID del registro es indefinido.', 'error');
       return;
     }
@@ -139,7 +146,7 @@ export class MantenimientoPageComponent implements OnInit {
         this.mantenimientoService.deleteMaintenance(connection.id).subscribe(
           () => {
             Swal.fire('Eliminado!', 'El registro ha sido eliminada.', 'success');
-            this.loadMantenimiento()
+            this.loadMaintenance()
           },
           (error) => {
             Swal.fire('Error', 'Hubo un problema al eliminar el registro.', 'error');

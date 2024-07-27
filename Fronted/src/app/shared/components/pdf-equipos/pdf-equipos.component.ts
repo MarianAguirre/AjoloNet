@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { Dispositivo} from '../../../interfaces/Dispositivo';
+import { Device } from '../../../interfaces/Dispositivo';
 import { EquiposServices } from '../../services/equipos.service';
-import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { format } from 'date-fns';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import pdfMake from 'pdfmake/build/pdfmake';
 
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 
@@ -14,16 +14,16 @@ import { es } from 'date-fns/locale';
   styleUrls: ['./pdf-equipos.component.css']
 })
 export class PdfEquipos implements OnInit {
-  dispositivos: Dispositivo[] = [];
-  public patchPanels: Dispositivo[] = [];
-  public routers: Dispositivo[] = [];
-  public switches: Dispositivo[] = [];
-  public endDevices: Dispositivo[] = [];
+  dispositivos: Device[] = [];
+  public patchPanels: Device[] = [];
+  public routers: Device[] = [];
+  public switches: Device[] = [];
+  public endDevices: Device[] = [];
   localTime: string;
 
   constructor(
     private dispositivoService: EquiposServices,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.dispositivoService.getDevices().subscribe((data: any) => {
@@ -50,7 +50,7 @@ export class PdfEquipos implements OnInit {
       content: [
         { text: 'Informe de inventario de equipos', style: 'header' },
         { text: `Este documento contiene un registro detallado de los equipos existentes dentro de la empresa. La información presentada incluye el tipo de dispositivo, el nombre del dispositivo, el número de puertos, si es Poe o no, si es administrable o no, la dirección IP y la dirección MAC.\n\n` },
-        { text: [{ text: `Fecha de generación del informe: `, style: 'subHeader' }, `${this.localTime}\n\n`]},
+        { text: [{ text: `Fecha de generación del informe: `, style: 'subHeader' }, `${this.localTime}\n\n`] },
 
         this.getDispositivosTable(),
       ],
@@ -65,7 +65,7 @@ export class PdfEquipos implements OnInit {
           fontSize: 13,
           color: 'black'
         },
-        subHeader:{
+        subHeader: {
           fontSize: 14,
           bold: true,
           margin: [0, 10, 0, 10]
@@ -97,7 +97,7 @@ export class PdfEquipos implements OnInit {
             dispositivo.poe ? 'Sí' : 'No',
             dispositivo.manageable ? 'Sí' : 'No',
             dispositivo.ipAddress || 'N/A',
-            dispositivo.MAC || 'N/A',
+            dispositivo.mac || 'N/A',
           ])
         ]
       }

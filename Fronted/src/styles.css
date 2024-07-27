@@ -1,12 +1,12 @@
-
 @import "primeicons/primeicons.css";
 @import "primeng/resources/primeng.css";
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 
 
-/* Tablas de primeng de equipos*/
+/* Tablas de primeng*/
 /* Order */
 @layer reset, primeng;
+
 /* Reset CSS */
 @layer reset {
   .p-datatable .p-datatable-header {
@@ -14,42 +14,49 @@
     --background-color: transparent;
     border: transparent;
   }
+
   .p-datatable.dark-theme .p-datatable-header.dark-theme {
     --text-color: #fff;
     --background-color: rgb(40, 40, 43);
   }
+
   .p-datatable .p-datatable-header {
     background: var(--background-color);
   }
-  .p-paginator{
-    background-color: transparent ;
+
+  .p-paginator {
+    background-color: transparent;
     border: transparent;
   }
 }
 
 /* Cuerpo de la pagina en general para el modo oscuro */
-  body{
-    --text-color: #222;
-    --background-color: #fff;
-  }
-  body.dark-theme {
-    --text-color: #fff;
-    --background-color: rgb(40, 40, 43);
-  }
-  body {
-    background: var(--background-color);
-  }
-  h1,
-  p{
-    color: var(--text-color);
-  }
-  button {
-    border: none;
-    background-color: transparent;
-  }
+body {
+  --text-color: #222;
+  --background-color: #fff;
+}
+
+body.dark-theme {
+  --text-color: #fff;
+  --background-color: rgb(40, 40, 43);
+}
+
+body {
+  background: var(--background-color);
+}
+
+h1,
+p {
+  color: var(--text-color);
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
 
 
-html, body { height: 100%; }
-
-
-
+html,
+body {
+  height: 100%;
+}

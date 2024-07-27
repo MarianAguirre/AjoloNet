@@ -10,14 +10,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./conection-page.component.css']
 })
 export class ConectionPageComponent implements OnInit {
-  deviceForm1: FormGroup;
-  deviceForm2: FormGroup;
-  deviceTypes: string[] = ['ROUTER', 'SWITCH', 'PATCH_PANEL', 'END_DEVICE'];
-  devices1: any[] = [];
-  devices2: any[] = [];
-  ports1: any[] = [];
-  ports2: any[] = [];
-
   constructor(private fb: FormBuilder, private portService: ConectionService) {
     this.deviceForm1 = this.fb.group({
       deviceType1: [''],
@@ -30,30 +22,39 @@ export class ConectionPageComponent implements OnInit {
       portNumber2: ['']
     });
   }
+  deviceForm1: FormGroup;
+  deviceForm2: FormGroup;
+  deviceTypes: string[] = ['ROUTER', 'SWITCH', 'PATCH_PANEL', 'END_DEVICE'];
+  devices1: any[] = [];
+  devices2: any[] = [];
+  ports1: any[] = [];
+  ports2: any[] = [];
+
 
   ngOnInit(): void {
-    this.Tipos1();
-    this.Tipos2();
-    this.Equipos1();
-    this.Equipos2();
+    this.Types1();
+    this.Types2();
+    this.Devices1();
+    this.Devices2();
   }
 
-  Tipos1(){
+  //Obtencion de tipos y equipos del primer lado
+  Types1() {
     this.deviceForm1.get('deviceType1')?.valueChanges.subscribe(deviceType => {
       if (deviceType === 'ROUTER') {
-        this.portService.getNombresRouters().subscribe(devices => this.devices1 = devices);
+        this.portService.getNamesRouters().subscribe(devices => this.devices1 = devices);
       } else if (deviceType === 'SWITCH') {
-        this.portService.getNombresSwitches().subscribe(devices => this.devices1 = devices);
+        this.portService.getNamesSwitches().subscribe(devices => this.devices1 = devices);
       } else if (deviceType === 'END_DEVICE') {
-        this.portService.getNombresEndDevices().subscribe(devices => this.devices1 = devices);
+        this.portService.getNamesEndDevices().subscribe(devices => this.devices1 = devices);
       } else {
-        this.portService.getNombresPatchPanels().subscribe(devices => this.devices1 = devices);
+        this.portService.getNamesPatchPanels().subscribe(devices => this.devices1 = devices);
       }
       this.deviceForm1.get('deviceId1')?.setValue('');
       this.ports1 = [];
     });
   }
-  Equipos1(){
+  Devices1() {
     this.deviceForm1.get('deviceId1')?.valueChanges.subscribe(deviceId => {
       const deviceType = this.deviceForm1.get('deviceType1')?.value;
       if (deviceType && deviceId) {
@@ -64,22 +65,24 @@ export class ConectionPageComponent implements OnInit {
       }
     });
   }
-  Tipos2(){
+
+  //Obtencion de tipos y equipos del primer lado
+  Types2() {
     this.deviceForm2.get('deviceType2')?.valueChanges.subscribe(deviceType => {
       if (deviceType === 'ROUTER') {
-        this.portService.getNombresRouters().subscribe(devices => this.devices2 = devices);
+        this.portService.getNamesRouters().subscribe(devices => this.devices2 = devices);
       } else if (deviceType === 'SWITCH') {
-        this.portService.getNombresSwitches().subscribe(devices => this.devices2 = devices);
+        this.portService.getNamesSwitches().subscribe(devices => this.devices2 = devices);
       } else if (deviceType === 'END_DEVICE') {
-        this.portService.getNombresEndDevices().subscribe(devices => this.devices2 = devices);
+        this.portService.getNamesEndDevices().subscribe(devices => this.devices2 = devices);
       } else {
-        this.portService.getNombresPatchPanels().subscribe(devices => this.devices2 = devices);
+        this.portService.getNamesPatchPanels().subscribe(devices => this.devices2 = devices);
       }
       this.deviceForm2.get('deviceId2')?.setValue('');
       this.ports2 = [];
     });
   }
-  Equipos2(){
+  Devices2() {
     this.deviceForm2.get('deviceId2')?.valueChanges.subscribe(deviceId => {
       const deviceType = this.deviceForm2.get('deviceType2')?.value;
       if (deviceType && deviceId) {

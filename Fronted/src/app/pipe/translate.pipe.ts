@@ -6,7 +6,7 @@ import { TranslationService } from '../shared/translate.service';
 })
 export class TranslatePipe implements PipeTransform {
 
-  constructor(private translationService: TranslationService) {}
+  constructor(private translationService: TranslationService) { }
 
   transform(value: string, ...args: any[]): string {
     return this.translationService.translate(value);

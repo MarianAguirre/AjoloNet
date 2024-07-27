@@ -1,126 +1,106 @@
+<p-table selectionMode="single" [globalFilterFields]="[ 'maintenanceDate', 'deviceName']" [value]="registros"
+  rowGroupMode="rowspan" groupRowsBy="deviceType" sortField="deviceType" sortMode="single"
+  [tableStyle]="{'width': '94%', 'margin-top': '2%','margin-left': '3%'}">
 
+  <ng-template pTemplate="caption" style="display: flex; justify-content: space-between;">
 
-  <p-table
-  selectionMode="single"
-  [globalFilterFields]="[ 'maintenanceDate', 'deviceName']"
-      [value]="registros"
-      rowGroupMode="rowspan"
-      groupRowsBy="deviceType"
-      sortField="deviceType"
-      sortMode="single"
-      [tableStyle]="{'width': '94%', 'margin-top': '2%','margin-left': '3%'}">
-
-      <ng-template pTemplate="caption" style="display: flex; justify-content: space-between;">
-
-      <h1 style="width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">MANTENIMIENTO
-      </h1>
-      <p-iconField iconPosition="left"
-        [style]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
-        <th style="width: 90%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
-          <div >
-            <div style="display: flex; justify-content: space-evenly; ">
-            <button (click)="showDialog()"
-              class="btn btn-outline-success">Registrar mantenimiento</button>
-
-                  <p-columnFilter filterMatchModeOptions="startsWith,contains,endsWith" filterDisplay="row" matchMode="contains"
-                    type="text" field="deviceName" placeholder="Buscar por nombre" ariaLabel="Filter deviceName" />
-
-              <pdf-mantenimiento ></pdf-mantenimiento>
-
-            </div>
-
-            <!-- Zona de creacion de areas -->
-            <p-dialog header="Datos del mantenimiento" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-              <form [formGroup]="mantenimientoForm" (ngSubmit)="onSubmit()">
-                <label>Tipo de dispositivo:</label>
-                <br>
-                <select style="width: 40%;" id="deviceType" formControlName="deviceType">
-                  <option *ngFor="let tipos of device_type" [value]="tipos">{{tipos}}</option>
-                </select>
-                <br>
-                <label>Nombre del dispositivo:</label>
-                <br>
-                <select style="width: 40%;" id="device_id" formControlName="device_id" (change)="onDeviceChange($event)">
-                  <option *ngFor="let device of devices" [value]="device.id">{{ device.name }}</option>
-                </select>
-                <input type="hidden" formControlName="deviceName">
-                <br>
-                <label>Encargado del mantenimiento:</label>
-                <br>
-                <input style="width: 100%" id="performedBy" formControlName="performedBy" type="text" placeholder="Nombre y apellido">
-                <br>
-                <label>Descripción:</label>
-                <br>
-                <textarea style="width: 100%;" id="description" formControlName="description"></textarea>
-                <br>
-                <label>Materiales:</label>
-                <br>
-                <input style="width: 100%;" id="materialsUsed" formControlName="materialsUsed" type="text">
-                <br>
-                <label>Fecha de mantenimiento:</label>
-                <br>
-                <input id="maintenanceDate" formControlName="maintenanceDate" type="datetime-local">
-                <button type="submit" class="btn btn-success" style="margin-top: 1%; width: 65%; margin-left: 20%;">Guardar</button>
-              </form>
-
-
-            </p-dialog>
+    <h1 style="width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;">MANTENIMIENTO</h1>
+    <p-iconField iconPosition="left"
+      [style]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
+      <th style="width: 90%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
+        <div>
+          <div style="display: flex; justify-content: space-evenly; ">
+            <button (click)="showDialog()" class="btn btn-outline-success">Registrar mantenimiento</button>
+            <p-columnFilter filterMatchModeOptions="startsWith,contains,endsWith" filterDisplay="row"
+              matchMode="contains" type="text" field="deviceName" placeholder="Buscar por nombre"
+              ariaLabel="Filter deviceName" />
+            <pdf-mantenimiento></pdf-mantenimiento>
           </div>
 
-        </th>
-      </p-iconField>
+          <!-- Zona de creacion de mantenimientos -->
+          <p-dialog header="Datos del mantenimiento" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+            <form [formGroup]="maintenanceForm" (ngSubmit)="onSubmit()">
+              <label>Tipo de dispositivo:</label>
+              <br>
+              <select style="width: 40%;" id="deviceType" formControlName="deviceType">
+                <option *ngFor="let tipos of device_type" [value]="tipos">{{tipos}}</option>
+              </select>
+              <br>
+              <label>Nombre del dispositivo:</label>
+              <br>
+              <select style="width: 40%;" id="device_id" formControlName="device_id" (change)="onDeviceChange($event)">
+                <option *ngFor="let device of devices" [value]="device.id">{{ device.name }}</option>
+              </select>
+              <input type="hidden" formControlName="deviceName">
+              <br>
+              <label>Encargado del mantenimiento:</label>
+              <br>
+              <input style="width: 100%" id="performedBy" formControlName="performedBy" type="text"
+                placeholder="Nombre y apellido">
+              <br>
+              <label>Descripción:</label>
+              <br>
+              <textarea style="width: 100%;" id="description" formControlName="description"></textarea>
+              <br>
+              <label>Materiales:</label>
+              <br>
+              <input style="width: 100%;" id="materialsUsed" formControlName="materialsUsed" type="text">
+              <br>
+              <label>Fecha de mantenimiento:</label>
+              <br>
+              <input id="maintenanceDate" formControlName="maintenanceDate" type="datetime-local">
+              <button type="submit" class="btn btn-success"
+                style="margin-top: 1%; width: 65%; margin-left: 20%;">Guardar</button>
+            </form>
+          </p-dialog>
+        </div>
+      </th>
+    </p-iconField>
+  </ng-template>
+  <ng-template pTemplate="header">
 
+    <!-- Encabezados de la tabla -->
+    <br>
+    <tr style="text-align: center;" class="td">
+      <th class="td" style="width: 8%;">Tipo</th>
+      <th style="width: 20%;">Nombre</th>
+      <th style="width: 10%;">Encargado</th>
+      <th style="width: 20%;">Descripcion</th>
+      <th style="width: 20%;">Materiales</th>
+      <th pSortableColumn="maintenanceDate" style="width: 20%;">Fecha de mantenimiento <p-sortIcon
+          field="maintenanceDate" /></th>
+      <th></th>
+    </tr>
+  </ng-template>
 
-    </ng-template>
-      <ng-template pTemplate="header" >
-
-
-
-        <br>
-              <tr style="text-align: center;"   class="td">
-                  <th   class="td"  style="width: 8%;">Tipo</th>
-                  <th   style="width: 20%;">Nombre</th>
-                  <th    style="width: 10%;">Encargado</th>
-                  <th    style="width: 20%;">Descripcion</th>
-                  <th    style="width: 20%;">Materiales</th>
-                  <th    pSortableColumn="maintenanceDate" style="width: 20%;">Fecha de mantenimiento <p-sortIcon field="maintenanceDate"/></th>
-                  <th></th>
-
-              </tr>
-          </ng-template>
-          <ng-template
-              pTemplate="body"
-              let-registro
-              let-rowIndex="rowIndex"
-              let-rowgroup="rowgroup"
-              let-rowspan="rowspan">
-                  <tr   class="td">
-                      <td   class="td " *ngIf="rowgroup" [attr.rowspan]="rowspan">{{registro.deviceType }}</td>
-                      <td style="text-align: center;" >
-                          <span  >{{registro.deviceName}}</span>
-                      </td>
-                      <td style="text-align: center;">
-                          {{registro.performedBy}}
-                      </td>
-                      <td>
-                          <span class="ml-1 vertical-align-middle">{{registro.description}}</span>
-                      </td>
-                      <td>
-                          {{registro.materialsUsed}}
-                      </td>
-                      <td style="text-align: center;">
-                          {{registro.maintenanceDate | date:'dd/MMMM/yyyy hh:mm a'}}
-                      </td>
-                      <td style="display: flex; justify-content: end;">
-                        <button class="delete-button" (click)="deleteMantenimeinto(registro)">
-                          <svg class="delete-svgIcon" viewBox="0 0 448 512">
-                            <path
-                              d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
-                            </path>
-                          </svg>
-                        </button>
-                      </td>
-                  </tr>
-          </ng-template>
-  </p-table>
-
+  <!-- Cuerpo de la tabla -->
+  <ng-template pTemplate="body" let-registro let-rowIndex="rowIndex" let-rowgroup="rowgroup" let-rowspan="rowspan">
+    <tr class="td">
+      <td class="td " *ngIf="rowgroup" [attr.rowspan]="rowspan">{{registro.deviceType }}</td>
+      <td style="text-align: center;">
+        <span>{{registro.deviceName}}</span>
+      </td>
+      <td style="text-align: center;">
+        {{registro.performedBy}}
+      </td>
+      <td>
+        <span class="ml-1 vertical-align-middle">{{registro.description}}</span>
+      </td>
+      <td>
+        {{registro.materialsUsed}}
+      </td>
+      <td style="text-align: center;">
+        {{registro.maintenanceDate | date:'dd/MMMM/yyyy hh:mm a'}}
+      </td>
+      <td style="display: flex; justify-content: end;">
+        <button class="delete-button" (click)="deleteMaintenance(registro)">
+          <svg class="delete-svgIcon" viewBox="0 0 448 512">
+            <path
+              d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
+            </path>
+          </svg>
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

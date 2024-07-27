@@ -1,13 +1,13 @@
-import { Area, Dispositivo, EndDevice, Rack } from './../../interfaces/Dispositivo';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Area, Device, EndDevice, Rack } from './../../interfaces/Dispositivo';
 import { catchError, map, Observable, of } from 'rxjs';
 import { enavironments } from '../../../environments/envarionments';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class EquiposServices {
   constructor(private http: HttpClient) { }
-  dispositivo: Dispositivo[] = []
+  device: Device[] = []
   private baseUrl: string = enavironments.baseUrl
 
   // Equipos.component, Agregar-equipo.component
@@ -33,8 +33,8 @@ export class EquiposServices {
   }
 
   // Equipos.component
-  getDevices(): Observable<{ routers: Dispositivo[], switches: Dispositivo[], patchPanels: Dispositivo[], endDevices: Dispositivo[] }> {
-    return this.http.get<{ routers: Dispositivo[], switches: Dispositivo[], patchPanels: Dispositivo[], endDevices: Dispositivo[] }>(`${this.baseUrl}/Devices`).pipe(
+  getDevices(): Observable<{ routers: Device[], switches: Device[], patchPanels: Device[], endDevices: Device[] }> {
+    return this.http.get<{ routers: Device[], switches: Device[], patchPanels: Device[], endDevices: Device[] }>(`${this.baseUrl}/Devices`).pipe(
       catchError(error => {
         console.error('Error fetching devices', error);
         return of({ routers: [], switches: [], patchPanels: [], endDevices: [] });
@@ -43,19 +43,19 @@ export class EquiposServices {
   }
 
   // Equipos.component
-  deleteEquipo(id: string, deviceType: string): Observable<void> {
+  deleteDevice(id: string, deviceType: string): Observable<void> {
     console.log(id, deviceType)
     return this.http.delete<void>(`${this.baseUrl}/Devices/${deviceType}/${id}`);
   }
 
   // Equipos.component
-  updateEquipo(id: string, equipo: Dispositivo): Observable<void> {
+  updateDevice(id: string, equipo: Device): Observable<void> {
     return this.http.put<void>(`${this.baseUrl}/Devices/${equipo.deviceType}/${id}`, equipo);
   }
 
 
   // Conection-page.component, Agregar-equipo.component
-  getTiposDispositivos(): Observable<string[]> {
+  getTypeDevices(): Observable<string[]> {
     return this.http.get<{ [key: string]: any }>(`${this.baseUrl}/Devices`).pipe(
       map(response => Object.keys(response)),
       catchError(error => {
@@ -86,7 +86,7 @@ export class EquiposServices {
   }
 
   // Racks-page.component
-  getEquiposRack(name: string): Observable<{ routers: Rack[], aSwitches: Rack[], patchPanels: Rack[] }> {
+  getDeviceRack(name: string): Observable<{ routers: Rack[], aSwitches: Rack[], patchPanels: Rack[] }> {
     return this.http.get<{ routers: Rack[], aSwitches: Rack[], patchPanels: Rack[] }>(`${this.baseUrl}/${name}`).pipe(
       catchError(error => {
         console.error('Error fetching devices', error);

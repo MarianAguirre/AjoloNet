@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Dispositivo } from '../../../interfaces/Dispositivo';
+import { Device } from '../../../interfaces/Dispositivo';
 import { enavironments } from '../../../../environments/envarionments';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
@@ -13,12 +13,12 @@ import Swal from 'sweetalert2';
 })
 export class AgregarEquipoComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient, private equiposServices: EquiposServices) {}
+  constructor(private router: Router, private http: HttpClient, private equiposServices: EquiposServices) { }
 
   @Output()
-  public newEquip: EventEmitter<Dispositivo> = new EventEmitter();
+  public newEquip: EventEmitter<Device> = new EventEmitter();
 
-  public equipo: Dispositivo = {
+  public equipo: Device = {
     name: '',
     deviceType: '',
     numberOfPorts: 0,
@@ -27,7 +27,7 @@ export class AgregarEquipoComponent implements OnInit {
     areaName: '',
     rackName: '',
     ipAddress: '',
-    MAC: ''
+    mac: ''
   };
   public areas: string[] = [];
   public racks: string[] = [];
@@ -43,13 +43,9 @@ export class AgregarEquipoComponent implements OnInit {
     this.equiposServices.getRack().subscribe((racks: string[]) => {
       this.racks = racks;
     });
-    this.equiposServices.getTiposDispositivos().subscribe((tipos: string[]) => {
+    this.equiposServices.getTypeDevices().subscribe((tipos: string[]) => {
       this.opciones = tipos;
     });
-  }
-
-  updateVlans(vlans: { vlan_id: number, vlan_name: string }[]): void {
-    this.vlans = vlans;
   }
 
   emitEquip(): void {
@@ -64,14 +60,9 @@ export class AgregarEquipoComponent implements OnInit {
       return;
     }
 
-    this.vlans.forEach((vlan, index) => {
-      this.equipo[`vlan_id_${index + 1}`] = vlan.vlan_id;
-      this.equipo[`vlan_name_${index + 1}`] = vlan.vlan_name;
-    });
-
     console.log(this.equipo);
     this.newEquip.emit(this.equipo);
-    this.equipo = { name: '', deviceType: '', numberOfPorts: 0, poe: false, manageable: false, areaName: '', rackName: '', ipAddress: '', MAC:'' };
+    this.equipo = { name: '', deviceType: '', numberOfPorts: 0, poe: false, manageable: false, areaName: '', rackName: '', ipAddress: '', mac: '' };
     Swal.fire({
       position: "center",
       icon: "success",
@@ -93,25 +84,25 @@ export class AgregarEquipoComponent implements OnInit {
 
   newRouter(): void {
     if (this.equipo.name.length === 0 || !this.opciones.includes(this.equipo.deviceType) || this.equipo.numberOfPorts === 0 || this.equipo.rackName.length === 0) return;
-    this.http.post<Dispositivo>(`${this.baseUrl}/router`, this.equipo).subscribe(
+    this.http.post<Device>(`${this.baseUrl}/router`, this.equipo).subscribe(
       (data) => { }
     );
   }
   newSwitch(): void {
     if (this.equipo.name.length === 0 || !this.opciones.includes(this.equipo.deviceType) || this.equipo.numberOfPorts === 0 || this.equipo.rackName.length === 0) return;
-    this.http.post<Dispositivo>(`${this.baseUrl}/switch`, this.equipo).subscribe(
+    this.http.post<Device>(`${this.baseUrl}/switch`, this.equipo).subscribe(
       (data) => { }
     );
   }
   newDispositivo(): void {
     if (this.equipo.name.length === 0 || this.equipo.numberOfPorts === 0 || this.equipo.areaName.length === 0) return;
-    this.http.post<Dispositivo>(`${this.baseUrl}/endDevice`, this.equipo).subscribe(
+    this.http.post<Device>(`${this.baseUrl}/endDevice`, this.equipo).subscribe(
       (data) => { }
     );
   }
   newPatch(): void {
     if (this.equipo.numberOfPorts === 0 || this.equipo.rackName.length === 0) return;
-    this.http.post<Dispositivo>(`${this.baseUrl}/patchPanel`, this.equipo).subscribe(
+    this.http.post<Device>(`${this.baseUrl}/patchPanel`, this.equipo).subscribe(
       (data) => { }
     );
   }

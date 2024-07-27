@@ -7,7 +7,9 @@ export class TranslationService {
   private translations: { [key: string]: { [key: string]: string } } = {
     en: {
       'OCCUPIED': 'Ocupado',
-      'AVAILABLE': 'Disponible'
+      'AVAILABLE': 'Disponible',
+      'END_DEVICE': 'DISPOSITIVO FINAL',
+      'PATCH_PANEL': 'PATCH PANEL'
     }
     // Agrega más idiomas y traducciones según sea necesario
   };

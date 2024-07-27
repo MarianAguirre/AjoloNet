@@ -20,7 +20,7 @@ export class RacksPageComponent implements OnInit {
   public routers: Rack[] = []
   public switches: Rack[] = []
   public patchPanels: Rack[] = []
-  public dispositivos: Rack[] = []
+  public devices: Rack[] = []
   public nuevoRack: { name: string } = { name: '' };
 
   @Input() public equipo!: EndDevice;
@@ -55,15 +55,15 @@ export class RacksPageComponent implements OnInit {
   }
 
   // Hace llamar a los equipos y los acomoda dependiendo su rack
-  loadEquiposRack(racks: Rack): void {
+  loaDevicesRack(racks: Rack): void {
     if (racks.routers.length === 0) {
-      this.equiposServices.getEquiposRack(racks.name).subscribe((data: any) => {
+      this.equiposServices.getDeviceRack(racks.name).subscribe((data: any) => {
         console.log(data)
         if (data && typeof data === 'object') {
           this.routers = data.routers || [];
           this.switches = data.switches || [];
           this.patchPanels = data.patchPanels || [];
-          this.dispositivos = [...this.routers, ...this.switches, ...this.patchPanels];
+          this.devices = [...this.routers, ...this.switches, ...this.patchPanels];
         } else {
           console.error('Error: data is not an object', data);
         }

@@ -1,4 +1,4 @@
-.td{
+.td {
   border-color: inherit;
   border-style: solid;
   border-width: 1px;
@@ -76,5 +76,3 @@
   transform: translateY(0px);
   transition-duration: 0.3s;
 }
-
-

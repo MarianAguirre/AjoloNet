@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatosUser } from '../../../interfaces/user.interfaces';
+import { DataUser } from '../../../interfaces/user.interfaces';
 import { enavironments } from '../../../../environments/envarionments';
 import { UserService } from '../../services/user.service';
 
@@ -11,7 +11,7 @@ import { UserService } from '../../services/user.service';
 export class NavbarComponent implements OnInit {
   constructor(
     private userService: UserService) { }
-  user: DatosUser = {
+  user: DataUser = {
     id: 0,
     username: '',
     firstname: '',
@@ -20,8 +20,8 @@ export class NavbarComponent implements OnInit {
     role: ''
   }
   ngOnInit(): void {
-    this.userService.getUserDatos().subscribe(
-      (response: DatosUser) => {
+    this.userService.getUserData().subscribe(
+      (response: DataUser) => {
         console.log('Datos recibidos:', response); // Verifica la estructura de los datos
         this.user = response; // Asignar directamente a user
       }
