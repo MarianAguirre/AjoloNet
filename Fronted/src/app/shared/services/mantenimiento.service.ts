@@ -1,5 +1,5 @@
 import { catchError, Observable, of } from 'rxjs';
-import { enavironments } from '../../../environments/envarionments';
+import { enavironments } from '../../../environments/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Maintenance } from '../../interfaces/Dispositivo';

@@ -1,7 +1,7 @@
 import { AccessService } from '../../services/access.service';
 import { Component } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { enavironments } from '../../../../environments/envarionments';
+import { enavironments } from '../../../../environments/environments';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';

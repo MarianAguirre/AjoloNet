@@ -1,5 +1,5 @@
 import { Connections } from '../../interfaces/Dispositivo';
-import { enavironments } from '../../../environments/envarionments';
+import { enavironments } from '../../../environments/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, catchError, of } from 'rxjs';

@@ -1,6 +1,6 @@
 import { Area, Device, EndDevice, Rack } from './../../interfaces/Dispositivo';
 import { catchError, map, Observable, of } from 'rxjs';
-import { enavironments } from '../../../environments/envarionments';
+import { enavironments } from '../../../environments/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Device } from '../../../interfaces/Dispositivo';
-import { enavironments } from '../../../../environments/envarionments';
+import { enavironments } from '../../../../environments/environments';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';

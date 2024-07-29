@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataUser } from '../../../interfaces/user.interfaces';
-import { enavironments } from '../../../../environments/envarionments';
+import { enavironments } from '../../../../environments/environments';
 import { UserService } from '../../services/user.service';
 
 @Component({

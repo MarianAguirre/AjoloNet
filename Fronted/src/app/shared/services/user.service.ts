@@ -1,5 +1,5 @@
 import { DataUser, Users } from '../../interfaces/user.interfaces';
-import { enavironments } from '../../../environments/envarionments';
+import { enavironments } from '../../../environments/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';

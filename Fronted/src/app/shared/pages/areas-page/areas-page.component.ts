@@ -1,6 +1,6 @@
 import { Area, EndDevice } from '../../../interfaces/Dispositivo';
 import { Component, Input, OnInit } from '@angular/core';
-import { enavironments } from '../../../../environments/envarionments';
+import { enavironments } from '../../../../environments/environments';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
 import { timer } from 'rxjs';

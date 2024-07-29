@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { enavironments } from '../../../../environments/envarionments';
+import { enavironments } from '../../../../environments/environments';
 import { EndDevice, Rack } from '../../../interfaces/Dispositivo';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';

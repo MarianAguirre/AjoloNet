@@ -1,4 +1,4 @@
-import { enavironments } from '../../../environments/envarionments';
+import { enavironments } from '../../../environments/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Login } from '../../interfaces/login.interfaces';
