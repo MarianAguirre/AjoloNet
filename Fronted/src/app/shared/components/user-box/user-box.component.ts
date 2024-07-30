@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'shared-search-box',
-  templateUrl: './search-box.component.html',
-  styles: ``
+  selector: 'shared-user-box',
+  templateUrl: './user-box.component.html',
+  styleUrl: './user-box.component.css'
 })
 export class SearchBoxComponent {
 

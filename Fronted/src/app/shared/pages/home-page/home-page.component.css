@@ -1,14 +1,17 @@
+
 .card {
   position: relative;
-  width: 300px;
-  height: 200px;
-  background: linear-gradient(-45deg, #f057b5 0%, #ff0f0f 100%);
+  width: 70%;
+  height: 100px;
+  background: transparent;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+  animation: color-change 3s linear infinite running;
+  margin: 27px 0 23px 0;
 }
 
 .card svg {
@@ -42,9 +45,9 @@
 
 .card__title {
   margin: 0;
-  font-size: 24px;
+  font-size: 18px;
   color: #333;
-  font-weight: 700;
+  font-weight: 120;
 }
 
 .card__description {
@@ -57,4 +60,88 @@
 .card:hover svg {
   scale: 0;
   transform: rotate(-45deg);
+}
+
+
+.guia {
+  background-color: transparent;
+  border-bottom: 2px solid rgb(120, 190, 255);
+  border-top: 2px solid rgb(120, 190, 255);
+  border-radius: 12px;
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.guia:hover{
+  animation: change-color 5s  linear infinite running;
+}
+
+@keyframes change-color {
+  0%{
+    border-color:  rgb(120, 190, 255);
+  }
+  10%{
+    border-color: rgb(11, 255, 174);
+  }
+  45%{
+    border-color: rgb(161, 56, 247);
+  }
+  90%{
+    border-color: #fded0b;
+  }
+  100%{
+    border-color: blue;
+  }
+}
+
+@keyframes color-change{
+  0%{
+    border-color: rgb(40, 40, 43);
+  }
+  40%{
+    border-color: #f057b5;
+  }
+  80%{
+    border-color: #ff0f0f;
+  }
+}
+
+.circulo{
+  background-color: black;
+  border-radius: 100%;
+  border-style: solid;
+  height: 80px;
+  width: 80px;
+}
+.cabeza{
+  background-color: transparent;
+  border-radius: 100%;
+  border: 5px solid white;
+  height: 40px;
+  width: 40px;
+  margin: 12px 0 0 18px
+}
+
+.cuerpo{
+  background-color: transparent;
+  border-radius: 20%;
+  border-top: 5px solid white;
+  height: 48px;
+  width: 48px;
+  margin: 5px 0 0 14px
+}
+
+.circulo:hover{
+  animation: change-color 5s  linear infinite running;
+}
+
+.Areas{
+  width: 100px;
+  height: 100px;
+  background-color: black;
+  position: relative;
 }

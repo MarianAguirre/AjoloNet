@@ -29,7 +29,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { PdfEquipos } from './components/pdf-equipos/pdf-equipos.component';
 import { PdfGeneral } from './components/pdf-general/pdf-general.component';
 import { PdfMantenimiento } from './components/pdf-mantenimiento/pdf-mantenimiento.component';
-import { SearchBoxComponent } from './components/search-box/search-box.component';
+import { SearchBoxComponent } from './components/user-box/user-box.component';
 import { SelectRackComponent } from './components/select-rack/select-rack.component';
 
 //Modulos
