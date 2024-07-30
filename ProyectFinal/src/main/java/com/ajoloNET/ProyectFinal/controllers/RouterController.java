@@ -2,6 +2,8 @@ package com.ajoloNET.ProyectFinal.controllers;
 
 import com.ajoloNET.ProyectFinal.entities.Router;
 import com.ajoloNET.ProyectFinal.services.RouterService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -15,29 +17,24 @@ import java.util.Optional;
 @AllArgsConstructor
 @RequestMapping("api/router")
 @Slf4j
+@Tag(name = "Router Resource")
 public class RouterController {
 
     private final RouterService routerService;
 
+    @Operation(summary = "Get all Routers in a general get")
     @GetMapping
     public ResponseEntity<?> getEverything(){
         log.info("GET ALL Routers");
         return ResponseEntity.ok(routerService.getEverything());
     }
-
-    @GetMapping("/{name}")
-    public ResponseEntity<Router>get(@PathVariable String name){
-        log.info("GET: Router {}",name);
-        return  ResponseEntity.ok(this.routerService.readByName(name));
-
-    }
-
+    @Operation(summary = "Get a Routers given a Router id")
     @GetMapping("/id/{id}")
     public ResponseEntity<Optional<Router>> getId(@PathVariable Long id){
         log.info("GET_ID: Router {}",id);
         return ResponseEntity.ok(this.routerService.findById(id));
     }
-
+    @Operation(summary = "Save in DB a Routers given a Router body")
     @PostMapping
     public ResponseEntity<Router> post(@RequestBody Router router){
         log.info("POST: Router {}", router);
@@ -50,15 +47,7 @@ public class RouterController {
 
         return ResponseEntity.created(location).build();
     }
-
-    @PutMapping("/{name}")
-    public ResponseEntity<Router> put(@RequestBody Router router,
-                                      @PathVariable String name){
-        log.info("PUT: Router {}", name);
-        return ResponseEntity.ok(this.routerService.update(router, name));
-
-    }
-
+    @Operation(summary = "Update in DB a Routers given a Router id")
     @PutMapping("/id/{id}")
     public ResponseEntity<Router> putId(@RequestBody Router router,
                                       @PathVariable Long id){
@@ -66,15 +55,7 @@ public class RouterController {
         return ResponseEntity.ok(this.routerService.updateById(router, id));
 
     }
-
-    @DeleteMapping("/{name}")
-    public ResponseEntity<?> delete(@PathVariable String name){
-        log.info("DELETE: Router {}", name);
-        this.routerService.delete(name);
-        return ResponseEntity.noContent().build();
-
-    }
-
+    @Operation(summary = "Delete in DB a Routers given a Router id")
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         log.info("DELETE_ID: Router {}", id);

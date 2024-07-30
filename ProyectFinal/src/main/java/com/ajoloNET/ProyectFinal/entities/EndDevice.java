@@ -32,7 +32,7 @@ public class EndDevice {
     private int numberOfPorts;
 
     @Column(name = "MAC_Address")
-    private String MAC;
+    private String mac;
 
     @Column(name = "device_type", nullable = false)
     private String deviceType = "end_device";
@@ -125,11 +125,11 @@ public class EndDevice {
         this.ipAddress = ipAddress;
     }
 
-    public String getMAC() {
-        return MAC;
+    public String getMac() {
+        return mac;
     }
 
-    public void setMAC(String MAC) {
-        this.MAC = MAC;
+    public void setMac(String mac) {
+        this.mac = mac;
     }
 }

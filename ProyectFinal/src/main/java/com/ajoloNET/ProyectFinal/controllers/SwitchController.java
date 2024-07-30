@@ -2,6 +2,8 @@ package com.ajoloNET.ProyectFinal.controllers;
 
 import com.ajoloNET.ProyectFinal.entities.Switch;
 import com.ajoloNET.ProyectFinal.services.SwitchService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -15,28 +17,24 @@ import java.util.Optional;
 @AllArgsConstructor
 @RequestMapping("api/switch")
 @Slf4j
+@Tag(name = "Switch Resource")
 public class SwitchController {
 
     private final SwitchService switchService;
 
+    @Operation(summary = "Get all Switches in a general get")
     @GetMapping
         public ResponseEntity<?> getEverything(){
         log.info("GET ALL Switches");
         return ResponseEntity.ok(switchService.getEverything());
     }
-
-    @GetMapping("/{name}")
-    public ResponseEntity<Switch>get(@PathVariable String name){
-        log.info("GET: Switch {}", name);
-        return ResponseEntity.ok(this.switchService.readByName(name));
-    }
-
+    @Operation(summary = "Get a Switches given a Switch id")
     @GetMapping("/id/{id}")
     public ResponseEntity<Optional<Switch>> getId(@PathVariable Long id){
         log.info("GET_ID: Switch {}", id);
         return ResponseEntity.ok(this.switchService.findById(id));
     }
-
+    @Operation(summary = "Save in DB a Switches given a Switch body")
     @PostMapping
     public ResponseEntity<Switch> post(@RequestBody Switch aSwitch){
         log.info("POST: Switch  {} {}",aSwitch.getName(), aSwitch.getIpAddress());
@@ -49,28 +47,14 @@ public class SwitchController {
 
         return ResponseEntity.created(location).build();
     }
-
-    @PutMapping("/{name}")
-    public ResponseEntity<Switch> put(@RequestBody Switch aSwitch,
-                                      @PathVariable String name){
-        log.info("PUT: Switch {}", name);
-        return ResponseEntity.ok(this.switchService.update(aSwitch, name));
-    }
-
+    @Operation(summary = "Update in DB a Switches given a Switch id")
     @PutMapping("/id/{id}")
     public ResponseEntity<Switch> putId(@RequestBody Switch aSwitch,
                                       @PathVariable Long id){
         log.info("PUT_ID: Switch {}", id);
         return ResponseEntity.ok(this.switchService.updateById(aSwitch, id));
     }
-
-    @DeleteMapping("/{name}")
-    public ResponseEntity<?> delete(@PathVariable String name){
-        log.info("DELETE: Switch {}", name);
-        this.switchService.delete(name);
-        return ResponseEntity.noContent().build();
-    }
-
+    @Operation(summary = "Delete in DB a Switches given a Switch id")
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> deleteId(@PathVariable Long id){
         log.info("DELETE_ID: Switch {}",id);

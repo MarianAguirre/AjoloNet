@@ -61,7 +61,7 @@ public class RouterServiceImpl implements RouterService {
         routerToUpdate.setName(router.getName());
         routerToUpdate.setNumberOfPorts(router.getNumberOfPorts());
         routerToUpdate.setIpAddress(router.getIpAddress());
-        routerToUpdate.setMAC(router.getMAC());
+        routerToUpdate.setMac(router.getMac());
 
         // Si se proporciona un nombre de rack, busca y asigna el rack al router
         if (router.getRackName() != null) {
@@ -84,7 +84,7 @@ public class RouterServiceImpl implements RouterService {
         routerUpdateId.setName(router.getName());
         routerUpdateId.setNumberOfPorts(router.getNumberOfPorts());
         routerUpdateId.setIpAddress(router.getIpAddress());
-        routerUpdateId.setMAC(router.getMAC());
+        routerUpdateId.setMac(router.getMac());
 
         // Si se proporciona un nombre de rack, busca y asigna el rack al router
         if (router.getRackName() != null) {

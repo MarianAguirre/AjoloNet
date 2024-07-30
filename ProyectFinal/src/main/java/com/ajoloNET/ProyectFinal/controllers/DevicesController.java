@@ -7,6 +7,8 @@ import com.ajoloNET.ProyectFinal.entities.Router;
 import com.ajoloNET.ProyectFinal.entities.Switch;
 import com.ajoloNET.ProyectFinal.services.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import java.util.NoSuchElementException;
 @AllArgsConstructor
 @RequestMapping("api/Devices")
 @Slf4j
+@Tag(name = "General Devices Controller")
 public class DevicesController {
 
     private final DeviceServiceImpl deviceService;
@@ -27,14 +30,14 @@ public class DevicesController {
     private final SwitchService switchService;
     private final PatchPanelService patchPanelService;
     private final EndDeviceService endDeviceService;
-
+    @Operation(summary = "Get all devices in the DB")
     @GetMapping
     public ResponseEntity<DevicesDTO> getAllDevices(){
         log.info("GET ALL DEVICES");
         DevicesDTO devices = deviceService.getAllDevices();
         return ResponseEntity.ok(devices);
     }
-
+    @Operation(summary = "Get specific devices by device name and id")
     @DeleteMapping("/{deviceType}/{deviceId}")
     public ResponseEntity<Void> deleteDeviceById(@PathVariable String deviceType, @PathVariable Long deviceId) {
         log.info("DELETE Device [{}]: {}", deviceType, deviceId);
@@ -58,7 +61,7 @@ public class DevicesController {
 
         return ResponseEntity.noContent().build();
     }
-
+    @Operation(summary = "Update in DB specific devices by device name and id")
     @PutMapping("/{deviceType}/{deviceId}")
     public ResponseEntity<?> updateDevice(@PathVariable String deviceType, @PathVariable Long deviceId, @RequestBody Map<String, Object> device) {
         log.info("PUT Device [{}]: {} {}", deviceType, deviceId, device);

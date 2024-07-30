@@ -2,6 +2,8 @@ package com.ajoloNET.ProyectFinal.controllers;
 
 import com.ajoloNET.ProyectFinal.entities.PatchPanel;
 import com.ajoloNET.ProyectFinal.services.PatchPanelService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,22 +18,23 @@ import java.util.Optional;
 @AllArgsConstructor
 @RequestMapping("api/patchPanel")
 @Slf4j
+@Tag(name = "Patch Panel resource")
 public class PatchPanelController {
 
     private final PatchPanelService patchPanelService;
-
+    @Operation(summary = "Get all Patch Panels in a general get")
     @GetMapping
     public ResponseEntity<?> getEverything(){
         log.info("GET ALL Patch Panels");
         return ResponseEntity.ok(patchPanelService.getEverything());
     }
-
+    @Operation(summary = "Get a Patch Panels given a Patch Panel id")
     @GetMapping("/{id}")
     public ResponseEntity<Optional<PatchPanel>> getId(@PathVariable Long id){
         log.info("GET_id; Patch Panel{}", id);
         return ResponseEntity.ok(this.patchPanelService.findById(id));
     }
-
+    @Operation(summary = "Save in DB a Patch Panels given a Patch Panel body")
     @PostMapping
     public ResponseEntity<PatchPanel> post(@RequestBody PatchPanel patchPanel) {
         log.info("POST: Patch panel {}", patchPanel.getId());
@@ -42,14 +45,14 @@ public class PatchPanelController {
                         URI.create("/patchPanel/" + createdPatchPanel.getId().toString()))
                         .build();
     }
-
+    @Operation(summary = "Update in DB a Patch Panels given a Patch Panel id")
     @PutMapping("/{id}")
     public ResponseEntity<PatchPanel> put(@RequestBody PatchPanel patchPanel,
                                           @PathVariable Long id){
         log.info("PUT: Patch Panel {}", id);
         return ResponseEntity.ok(this.patchPanelService.update(patchPanel, id));
     }
-
+    @Operation(summary = "Delete in DB a Patch Panels given a Patch Panel id")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         log.info("DELETE: Patch Panel {}", id);

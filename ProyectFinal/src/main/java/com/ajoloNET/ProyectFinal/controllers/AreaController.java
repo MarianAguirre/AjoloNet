@@ -2,6 +2,8 @@ package com.ajoloNET.ProyectFinal.controllers;
 
 import com.ajoloNET.ProyectFinal.entities.Area;
 import com.ajoloNET.ProyectFinal.services.AreaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,28 +18,24 @@ import java.util.Optional;
 @AllArgsConstructor
 @RequestMapping("api/area")
 @Slf4j
+@Tag(name = "Areas resource")
 public class AreaController {
 
     private final AreaService areaService;
 
+    @Operation(summary = "Get all areas in a general get")
     @GetMapping
     public ResponseEntity<?> getEverything(){
         log.info("GET ALL Areas");
         return ResponseEntity.ok(areaService.getEverything());
     }
-
-    @GetMapping("/{name}")
-    public ResponseEntity<Area> get(@PathVariable String name){
-        log.info("GET: Area {}", name);
-        return ResponseEntity.ok(this.areaService.readByName(name));
-    }
-
+    @Operation(summary = "Get a Areas given a Area id")
     @GetMapping("/id/{id}")
     public ResponseEntity<Optional<Area>> getID(@PathVariable Long id){
         log.info("GET_ID: Area {}", id);
         return ResponseEntity.ok(this.areaService.findById(id));
     }
-
+    @Operation(summary = "Save in DB a Areas given a Area from body")
     @PostMapping
     public ResponseEntity<Area> post(@RequestBody Area area){
         log.info("POST: Area {}", area.getName());
@@ -50,28 +48,14 @@ public class AreaController {
                         URI.create("/areas/" + encodedName))
                 .body(createdArea);
     }
-
-    @PutMapping("/{name}")
-    public ResponseEntity<Area> put(@RequestBody Area area,
-                                    @PathVariable String name){
-        log.info("PUT: Area {}", name);
-        return ResponseEntity.ok(this.areaService.update(area, name));
-    }
-
+    @Operation(summary = "Update in DB a Areas given a Area id")
     @PutMapping("/id/{id}")
     public ResponseEntity<Area> putId(@RequestBody Area area,
                                     @PathVariable Long id){
         log.info("PUT_ID: Area {}", id);
         return ResponseEntity.ok(this.areaService.updateById(area, id));
     }
-
-    @DeleteMapping("/{name}")
-    public ResponseEntity<?> delete(@PathVariable String name){
-        log.info("DELETE: Area {}", name);
-        this.areaService.delete(name);
-        return ResponseEntity.noContent().build();
-    }
-
+    @Operation(summary = "Delete in DB a Areas given a Area id")
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> deleteId(@PathVariable Long id){
         log.info("DELETE_ID: Area {}", id);

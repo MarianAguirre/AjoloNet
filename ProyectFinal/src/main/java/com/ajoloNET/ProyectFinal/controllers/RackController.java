@@ -3,6 +3,8 @@ package com.ajoloNET.ProyectFinal.controllers;
 import com.ajoloNET.ProyectFinal.entities.Rack;
 import com.ajoloNET.ProyectFinal.entities.Switch;
 import com.ajoloNET.ProyectFinal.services.RackService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,28 +18,23 @@ import java.util.Optional;
 @AllArgsConstructor
 @RequestMapping("api/rack")
 @Slf4j
+@Tag(name = "Rack resource")
 public class RackController {
 
     private final RackService rackService;
-
+    @Operation(summary = "Get all Rack in a general get")
     @GetMapping
     public ResponseEntity<?> getEverything(){
         log.info("GET ALL Racks");
         return ResponseEntity.ok(rackService.getEverything());
     }
-
-    @GetMapping("/{name}")
-    public ResponseEntity<Rack> get(@PathVariable String name){
-        log.info("GET: Rack {}", name);
-        return ResponseEntity.ok(this.rackService.readByName(name));
-    }
-
+    @Operation(summary = "Get a Racks given a Rack id")
     @GetMapping("/id/{id}")
     public ResponseEntity<Optional<Rack>> getId(@PathVariable Long id){
         log.info("GET_ID: Rack {}", id);
         return ResponseEntity.ok(this.rackService.findById(id));
     }
-
+    @Operation(summary = "Save in DB a Racks given a Rack body")
     @PostMapping
     public ResponseEntity<Rack> post(@RequestBody Rack rack){
         log.info("POST: Rack {}", rack.getName());
@@ -50,35 +47,19 @@ public class RackController {
 
         return ResponseEntity.created(location).build();
     }
-
-    @PutMapping("/{name}")
-    public ResponseEntity<Rack> put(@RequestBody Rack rack,
-                                    @PathVariable String name){
-        log.info("PUT: Rack {}", name);
-        return ResponseEntity.ok(this.rackService.update(rack, name));
-    }
-
+    @Operation(summary = "Update in DB a Racks given a Rack id")
     @PutMapping("/id/{id}")
     public ResponseEntity<Rack> putId(@RequestBody Rack rack,
                                     @PathVariable Long id){
         log.info("PUT_ID: Rack {}", id);
         return ResponseEntity.ok(this.rackService.updateById(rack,id));
     }
-
-    @DeleteMapping("/{name}")
-    public ResponseEntity<?> delete(@PathVariable String name){
-        log.info("DELETE: Rack {}", name);
-        this.rackService.delete(name);
-        return ResponseEntity.noContent().build();
-    }
-
+    @Operation(summary = "Delete in DB a Racks given a Rack id")
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> deleteId(@PathVariable Long id){
         log.info("DELETE_ID: Rack {}",id);
         this.rackService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-
 
 }

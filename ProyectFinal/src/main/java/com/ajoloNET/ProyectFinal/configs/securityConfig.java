@@ -29,7 +29,7 @@ public class securityConfig {
                         csrf.disable())
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/auth/**","/actuator/*", "/actuator","/swagger-ui/**","/v3/api-docs/**").permitAll()
                                 .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
                 ).sessionManagement(sessionManager ->

@@ -48,7 +48,7 @@ public class Switch {
     private String nameVlan;
 
     @Column(name = "MAC_Address")
-    private String MAC;
+    private String mac;
 
     @Column(name = "IP_Address")
     @Pattern(
@@ -171,11 +171,11 @@ public class Switch {
         this.ipAddress = ipAddress;
     }
 
-    public String getMAC() {
-        return MAC;
+    public String getMac() {
+        return mac;
     }
 
-    public void setMAC(String MAC) {
-        this.MAC = MAC;
+    public void setMac(String mac) {
+        this.mac = mac;
     }
 }
