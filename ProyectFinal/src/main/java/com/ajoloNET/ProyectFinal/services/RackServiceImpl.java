@@ -20,12 +20,6 @@ public class RackServiceImpl implements RackService{
     private final RackRepository rackRepository;
 
     @Override
-    public Rack readByName(String name) {
-        return this.rackRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Rack not found"));
-    }
-
-    @Override
     public Optional<Rack> findById(Long id) {
         return Optional.ofNullable(this.rackRepository.findById(id)
                 .orElseThrow(()->new NoSuchElementException("Rack not found")));
@@ -34,19 +28,6 @@ public class RackServiceImpl implements RackService{
     @Override
     public Rack create(Rack rack) {
         return this.rackRepository.save(rack);
-    }
-
-    @Override
-    public Rack update(Rack rack, String name) {
-        var RackToUpdate = this.rackRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Rack not found"));
-        RackToUpdate.setId(rack.getId());
-        RackToUpdate.setName(rack.getName());
-//        RackToUpdate.setPowerSplit(rack.getPowerSplit());
-        RackToUpdate.setaSwitch(rack.getaSwitch());
-        RackToUpdate.setRouters(rack.getRouters());
-        RackToUpdate.setPatchPanels(rack.getPatchPanels());
-        return this.rackRepository.save(RackToUpdate);
     }
 
     @Override
@@ -61,15 +42,6 @@ public class RackServiceImpl implements RackService{
         return this.rackRepository.save(RackToUpdateId);
     }
 
-    @Override
-    public void delete(String name) {
-        var rackToDelete = this.rackRepository.findByName(name)
-                .orElseThrow(() -> new NoSuchElementException("Rack not found"));
-        rackToDelete.getaSwitch().forEach(aSwitch -> aSwitch.setRack(null));
-        rackToDelete.getPatchPanels().forEach(patchPanel -> patchPanel.setRack(null));
-        rackToDelete.getRouters().forEach(router -> router.setRack(null));
-        this.rackRepository.delete(rackToDelete);
-    }
 
     @Override
     public void deleteById(Long id) {

@@ -21,11 +21,6 @@ public class RouterServiceImpl implements RouterService {
     private final RackRepository rackRepository;
     private final PortRepository portRepository;
 
-    @Override
-    public Router readByName(String name) {
-        return this.routerRepository.findByName(name)
-                .orElseThrow(() -> new NoSuchElementException("Router not found"));
-    }
 
     @Override
     public Optional<Router> findById(Long id) {
@@ -52,30 +47,6 @@ public class RouterServiceImpl implements RouterService {
         return this.routerRepository.save(savedRouter);
     }
 
-
-    @Override
-    @Transactional
-    public Router update(Router router, String name) {
-        var routerToUpdate = this.routerRepository.findByName(name)
-                .orElseThrow(() -> new NoSuchElementException("Router not found"));
-        routerToUpdate.setName(router.getName());
-        routerToUpdate.setNumberOfPorts(router.getNumberOfPorts());
-        routerToUpdate.setIpAddress(router.getIpAddress());
-        routerToUpdate.setMac(router.getMac());
-
-        // Si se proporciona un nombre de rack, busca y asigna el rack al router
-        if (router.getRackName() != null) {
-            Rack rack = rackRepository.findByName(router.getRackName())
-                    .orElseThrow(() -> new NoSuchElementException("Rack not found"));
-            routerToUpdate.setRack(rack);
-        }
-
-        // Actualiza los puertos del router según el número de puertos
-        updatePortsForRouter(routerToUpdate);
-
-        return this.routerRepository.save(routerToUpdate);
-    }
-
     @Override
     @Transactional
     public Router updateById(Router router, Long id) {
@@ -100,18 +71,10 @@ public class RouterServiceImpl implements RouterService {
     }
 
     @Override
-    public void delete(String name) {
-        var routerToDelete = this.routerRepository.findByName(name)
-                .orElseThrow(() -> new NoSuchElementException("Router not found"));
-        this.routerRepository.delete(routerToDelete);
-    }
-
-    @Override
     public void deleteById(Long id) {
         this.routerRepository.deleteById(id);
 
     }
-
 
     @Override
     public Router createPortsForRouter(Router router) {

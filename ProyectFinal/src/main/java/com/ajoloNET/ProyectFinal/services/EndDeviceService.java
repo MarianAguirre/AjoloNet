@@ -7,11 +7,9 @@ import java.util.Optional;
 
 public interface EndDeviceService {
 
-    EndDevice readByName(String name);
     Optional<EndDevice> findById (Long id);
     EndDevice create(EndDevice endDevice);
     EndDevice updateById(EndDevice endDevice, Long id);
-    void delete(String name);
     void deleteById(Long id);
 
     EndDevice createPortsForEndDevice(EndDevice endDevice);

@@ -25,12 +25,6 @@ public class EndDeviceServiceImpl implements EndDeviceService{
     private final PortRepository portRepository;
 
     @Override
-    public EndDevice readByName(String name) {
-        return this.endDeviceRepository.findByName(name)
-                .orElseThrow(()-> new NoSuchElementException("End Device not found"));
-    }
-
-    @Override
     public Optional<EndDevice> findById(Long id) {
         return Optional.ofNullable(this.endDeviceRepository.findById(id)
                 .orElseThrow(()->new NoSuchElementException("End Device not found")));
@@ -112,13 +106,6 @@ public class EndDeviceServiceImpl implements EndDeviceService{
         endDeviceToUpdate.setPorts(updatedPorts);
     }
 
-    @Override
-    public void delete(String name) {
-        var enDeviceToDelete = this.endDeviceRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("End Device not found"));
-        this.endDeviceRepository.delete(enDeviceToDelete);
-
-    }
 
     @Override
     public void deleteById(Long id) {

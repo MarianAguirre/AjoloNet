@@ -22,12 +22,6 @@ public class SwitchServiceImpl implements SwitchService {
     private final PortRepository portRepository;
 
     @Override
-    public Switch readByName(String name) {
-        return this.switchRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Switch not found"));
-    }
-
-    @Override
     public Optional<Switch> findById(Long id) {
         return Optional.ofNullable(this.switchRepository.findById(id)
                 .orElseThrow(()->new NoSuchElementException("Switch not found")));
@@ -51,33 +45,6 @@ public class SwitchServiceImpl implements SwitchService {
         // Guarda nuevamente el router con los puertos (opcional)
         return this.switchRepository.save(savedSwitch);
     }
-
-    @Override
-    public Switch update(Switch aSwitch, String name) {
-        var switchToUpdate = this.switchRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Switch not found"));
-        switchToUpdate.setName(aSwitch.getName());
-        switchToUpdate.setNumberOfPorts(aSwitch.getNumberOfPorts());
-        switchToUpdate.setPoe(aSwitch.isPoe());
-        switchToUpdate.setManageable(aSwitch.isManageable());
-        switchToUpdate.setIpAddress(aSwitch.getIpAddress());
-        switchToUpdate.setNameVlan(aSwitch.getNameVlan());
-        switchToUpdate.setVlanId(aSwitch.getVlanId());
-        switchToUpdate.setMac(aSwitch.getMac());
-
-        // Si se proporciona un nombre de rack, busca y asigna el rack al router
-        if (aSwitch.getRackName() != null) {
-            Rack rack = rackRepository.findByName(aSwitch.getRackName())
-                    .orElseThrow(() -> new NoSuchElementException("Rack not found"));
-            switchToUpdate.setRack(rack);
-        }
-
-        // Actualiza los puertos del switch según el número de puertos
-        updatePortsForSwitch(switchToUpdate);
-
-        return this.switchRepository.save(switchToUpdate);
-    }
-
     @Override
     public Switch updateById(Switch aSwitch, Long id) {
         var switchToUpdateId = this.switchRepository.findById(id)
@@ -96,20 +63,10 @@ public class SwitchServiceImpl implements SwitchService {
                     .orElseThrow(() -> new NoSuchElementException("Rack not found"));
             switchToUpdateId.setRack(rack);
         }
-
-
         // Actualiza los puertos del switch según el número de puertos
         updatePortsForSwitch(switchToUpdateId);
 
         return this.switchRepository.save(switchToUpdateId);
-    }
-
-    @Override
-    public void delete(String name) {
-        var switchToDelete = this.switchRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Switch not found"));
-        this.switchRepository.delete(switchToDelete);
-
     }
 
     @Override

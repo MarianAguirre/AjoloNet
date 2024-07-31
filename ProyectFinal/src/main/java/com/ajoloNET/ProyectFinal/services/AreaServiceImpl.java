@@ -22,11 +22,6 @@ public class AreaServiceImpl implements AreaService{
     private final AreaRepository areaRepository;
     private final EndDeviceRepository endDeviceRepository;
 
-    @Override
-    public Area readByName(String name) {
-        return this.areaRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Area not found"));
-    }
 
     @Override
     public Optional<Area> findById(Long id) {
@@ -39,15 +34,6 @@ public class AreaServiceImpl implements AreaService{
         return this.areaRepository.save(area);
     }
 
-    @Override
-    public Area update(Area area, String name) {
-        var AreaToUpdate = this.areaRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Area not found"));
-        AreaToUpdate.setId(area.getId());
-        AreaToUpdate.setName(area.getName());
-        AreaToUpdate.setEndDevices(area.getEndDevices());
-        return this.areaRepository.save(AreaToUpdate);
-    }
 
     @Override
     public Area updateById(Area area, Long id) {
@@ -58,20 +44,6 @@ public class AreaServiceImpl implements AreaService{
         return this.areaRepository.save(AreaToUpdateId);
     }
 
-    @Override
-    public void delete(String name) {
-        var areaToDelete = this.areaRepository.findByName(name)
-                .orElseThrow(()->new NoSuchElementException("Area not found"));
-
-        // Desvincular manualmente los dispositivos finales
-        for (EndDevice endDevice : areaToDelete.getEndDevices()) {
-            endDevice.setArea(null);
-            this.endDeviceRepository.save(endDevice);
-        }
-
-        this.areaRepository.delete(areaToDelete);
-
-    }
 
     @Override
     public void deleteById(Long id) {
