@@ -1,83 +1,80 @@
-
-  <div class="row" style="width: 100%;">
-    <div class="col" style=" display: flex; flex-direction: column; align-items: center;">
-      <h1 style="text-align: center; margin-bottom: 5px;">Guia rapida</h1>
-      <div class="guia ">
-        <div class="card">
-          <h1 style="font-size: 18px;">1.Areas</h1>
-          <div class="card__content">
-            <p class="card__description">Es necesario tener alguna area creada para poder continuar con otras secciones,
-              para
-              ello simplemente se crea un area vacia.</p>
-          </div>
-        </div>
-        <div class="card">
-          <h1 style="font-size: 18px;">2. Racks</h1>
-          <div class="card__content">
-            <p class="card__description">Al igual que las areas se requiere tener creado por lo menos un rack para poder
-              continuar con la creacion de equipos.</p>
-          </div>
-        </div>
-        <div class="card">
-          <h1 style="font-size: 18px;">3. Equipos</h1>
-          <div class="card__content">
-            <p class="card__description">Dentro de esta seccion se podran observar los diferentes equipos que se tienen,
-              asi
-              mismo ver sus detalles, eliminarlos y crear nuevos equipos.</p>
-          </div>
-        </div>
-        <div class="card">
-          <h1 style="font-size: 18px;">4. Conexiones</h1>
-          <div class="card__content">
-            <p class="card__description">En esta area se crean las conexiones que tiene cada equipo a traves de sus
-              puertos</p>
-          </div>
-        </div>
-        <div class="card">
-          <h1 style="font-size: 18px;">5. Mantenimiento</h1>
-          <div class="card__content">
-            <p class="card__description">La ultima seccion se trata d elos mantenimientos donde se pueden crear
-              registros de los mantenimientos que se le han dado a un equipo a lo largo del tiempo</p>
-          </div>
+<div class="row" style="width: 100%;">
+  <div class="col" style=" display: flex; flex-direction: column; align-items: center;">
+    <h1 style="text-align: center; margin-bottom: 5px;">Guia rapida</h1>
+    <div class="guia ">
+      <div class="card">
+        <h1 style="font-size: 18px;">1.Areas</h1>
+        <div class="card__content" routerLink="/red/areas">
+          <p class="card__description">Es necesario tener alguna area creada para poder continuar con otras secciones,
+            para
+            ello simplemente se crea un area vacia.</p>
         </div>
       </div>
-    </div>
-    <div class="col" style=" display: flex; flex-direction: column; align-items: center;">
-      <h1>Secciones</h1>
-      <div style="display: flex;">
-        <div routerLink="/red/areas" style="margin: 0 12px 0 12px;" class="Areas"></div>
-        <div routerLink="/red/racks" style="margin: 0 12px 0 12px;" class="Areas"></div>
-        <div routerLink="/red/equipos" style="margin: 0 12px 0 12px;" class="Areas"></div>
-        <div routerLink="/red/conexiones" style="margin: 0 12px 0 12px;" class="Areas"></div>
-        <div routerLink="/red/mantenimiento" style="margin: 0 12px 0 12px;" class="Areas"></div>
-      </div>
-      <div style="display: flex; flex-direction: column;align-items: center; margin-top: 120px;">
-        <div style="display: flex; flex-direction: row;">
+      <div class="card">
+        <h1 style="font-size: 18px;">2. Racks</h1>
+        <div class="card__content" routerLink="/red/racks">
+          <p class="card__description">Al igual que las areas se requiere tener creado por lo menos un rack para poder
+            continuar con la creacion de equipos.</p>
         </div>
-        <div style="display: flex;align-items: center; ">
-          <div style=" display: flex; flex-direction: column; align-items: center; margin-right: 120px;">
-            <div>
-              <h1>Usuario</h1>
-            </div>
-            <div style="display: flex;">
-              <div class="circulo" routerLink="/red/perfil">
-                <div class="cabeza"></div>
-                <div class="cuerpo"></div>
-              </div>
-              <div>
-                <p>Nombre:{{user.firstname}}</p>
-                <p>Apellido:{{user.lastname}}</p>
-              </div>
-            </div>
-          </div>
-          <div style="margin: 0 0 35px 0">
-            <h1>Documentación</h1>
-            <div>
-              <pdf-general style="display: flex; justify-content: center;"></pdf-general>
-            </div>
-          </div>
+      </div>
+      <div class="card">
+        <h1 style="font-size: 18px;">3. Equipos</h1>
+        <div class="card__content" routerLink="/red/equipos">
+          <p class="card__description">Dentro de esta seccion se podran observar los diferentes equipos que se tienen,
+            asi
+            mismo ver sus detalles, eliminarlos y crear nuevos equipos.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h1 style="font-size: 18px;">4. Conexiones</h1>
+        <div class="card__content" routerLink="/red/conexiones">
+          <p class="card__description">En esta area se crean las conexiones que tiene cada equipo a traves de sus
+            puertos</p>
+        </div>
+      </div>
+      <div class="card">
+        <h1 style="font-size: 18px;">5. Mantenimiento</h1>
+        <div class="card__content" routerLink="/red/mantenimiento">
+          <p class="card__description">La ultima seccion se trata de los mantenimientos donde se pueden crear
+            registros de los mantenimientos que se le han dado a un equipo a lo largo del tiempo</p>
         </div>
       </div>
     </div>
   </div>
+  <div class="col" style=" display: flex; flex-direction: column; align-items: center;">
+    <div style="display: flex; flex-direction: column;align-items: center; margin-top: 120px;" class="secciones">
+      <div style="display: flex; flex-direction: row;">
+      </div>
+      <div style="display: flex;align-items: center; ">
+        <div style=" display: flex; flex-direction: column; align-items: center; margin-right: 120px;">
+          <div>
+            <h1>Usuario</h1>
+          </div>
+          <div style="display: flex;">
+            <div class="circulo" routerLink="/red/perfil">
+              <div class="cabeza"></div>
+              <div class="cuerpo"></div>
+            </div>
+            <div>
+              <p>Nombre:{{user.firstname}}</p>
+              <p>Apellido:{{user.lastname}}</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin: 0 0 35px 0">
+          <h1>Documentación</h1>
+          <div>
+            <pdf-general style="display: flex; justify-content: center;"></pdf-general>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex;flex-direction: column;align-items: center;">
+        <h1>Anotaciones</h1>
+        <textarea (keyup)="guardar()" rows="5" cols="30" pInputTextarea [(ngModel)]="value">
+          </textarea>
+      </div>
+      <br>
+    </div>
 
+  </div>
+</div>

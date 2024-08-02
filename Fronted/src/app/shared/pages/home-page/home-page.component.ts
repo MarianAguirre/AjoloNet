@@ -10,9 +10,11 @@ import { DataUser } from '../../../interfaces/user.interfaces';
 })
 export class HomePageComponent {
   constructor(private userService: UserService) { }
-  user!: DataUser;
-  ngOnInit(): void {
 
+  user!: DataUser;
+  value!: string;
+
+  ngOnInit(): void {
     this.userService.getUserData().subscribe(
       (response: DataUser) => {
         this.user = response; // Asignar directamente a user
@@ -21,5 +23,14 @@ export class HomePageComponent {
         console.error('Error al obtener los datos del usuario', error);
       }
     );
+    const storedValue = sessionStorage.getItem('texto');
+    if (storedValue) {
+      this.value = storedValue;
+    }
+
+  }
+
+  guardar(){
+    const texto = sessionStorage.setItem('texto',this.value)
   }
 }

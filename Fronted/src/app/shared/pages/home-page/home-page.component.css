@@ -1,4 +1,3 @@
-
 .card {
   position: relative;
   width: 70%;
@@ -76,48 +75,59 @@
 
 }
 
-.guia:hover{
-  animation: change-color 5s  linear infinite running;
+.guia:hover {
+  animation: change-color 5s linear infinite running;
 }
 
 @keyframes change-color {
-  0%{
-    border-color:  rgb(120, 190, 255);
+  0% {
+    border-color: rgb(120, 190, 255);
   }
-  10%{
+
+  10% {
     border-color: rgb(11, 255, 174);
   }
-  45%{
+
+  45% {
     border-color: rgb(161, 56, 247);
   }
-  90%{
+
+  90% {
     border-color: #fded0b;
   }
-  100%{
+
+  100% {
     border-color: blue;
   }
 }
 
-@keyframes color-change{
-  0%{
+@keyframes color-change {
+  0% {
     border-color: rgb(40, 40, 43);
   }
-  40%{
+
+  40% {
     border-color: #f057b5;
   }
-  80%{
+
+  80% {
     border-color: #ff0f0f;
+  }
+
+  100% {
+    border-color: white;
   }
 }
 
-.circulo{
+.circulo {
   background-color: black;
   border-radius: 100%;
   border-style: solid;
   height: 80px;
   width: 80px;
 }
-.cabeza{
+
+.cabeza {
   background-color: transparent;
   border-radius: 100%;
   border: 5px solid white;
@@ -126,7 +136,7 @@
   margin: 12px 0 0 18px
 }
 
-.cuerpo{
+.cuerpo {
   background-color: transparent;
   border-radius: 20%;
   border-top: 5px solid white;
@@ -135,13 +145,17 @@
   margin: 5px 0 0 14px
 }
 
-.circulo:hover{
-  animation: change-color 5s  linear infinite running;
+.circulo:hover {
+  animation: change-color 5s linear infinite running;
 }
 
-.Areas{
-  width: 100px;
-  height: 100px;
-  background-color: black;
-  position: relative;
+.secciones {
+  background-color: transparent;
+  width: 100%;
+  height: 120%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
 }
