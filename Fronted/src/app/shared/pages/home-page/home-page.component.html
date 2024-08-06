@@ -43,8 +43,6 @@
   </div>
   <div class="col" style=" display: flex; flex-direction: column; align-items: center;">
     <div style="display: flex; flex-direction: column;align-items: center; margin-top: 120px;" class="secciones">
-      <div style="display: flex; flex-direction: row;">
-      </div>
       <div style="display: flex;align-items: center; ">
         <div style=" display: flex; flex-direction: column; align-items: center; margin-right: 120px;">
           <div>
@@ -68,13 +66,24 @@
           </div>
         </div>
       </div>
-      <div style="display: flex;flex-direction: column;align-items: center;">
-        <h1>Anotaciones</h1>
-        <textarea (keyup)="guardar()" rows="5" cols="30" pInputTextarea [(ngModel)]="value">
-          </textarea>
+      <div style="display: flex;align-items: center; ">
+        <div style=" display: flex; flex-direction: column; align-items: center; margin-right: 120px;">
+          <div>
+            <h1>Anotaciones</h1>
+          </div>
+          <div style="display: flex;">
+            <textarea (keyup)="guardar()" rows="5" cols="30" pInputTextarea [(ngModel)]="value">
+            </textarea>
+          </div>
+        </div>
+        <div style="margin: 0 0 5px 0; display: flex; flex-direction: column; " >
+          <h1 >Descargar</h1>
+          <div style="display: flex; justify-content: center;">
+            <descargas></descargas>
+          </div>
+        </div>
       </div>
       <br>
     </div>
-
   </div>
 </div>

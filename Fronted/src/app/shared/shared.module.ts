@@ -41,6 +41,7 @@ import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
 import { RedRoutingModule } from './red-routing.module';
 import { TranslatePipe } from '../pipe/translate.pipe';
 import { TranslateService } from '@ngx-translate/core';
+import { DescargasComponent } from './components/descargas/descargas.component';
 
 
 
@@ -89,6 +90,7 @@ import { TranslateService } from '@ngx-translate/core';
     SelectRackComponent,
     TableConectionPageComponent,
     TranslatePipe,
+    DescargasComponent,
 
   ],
   providers: [TranslateService, { provide: LOCALE_ID, useValue: 'es' }]
