@@ -62,6 +62,8 @@ export class PdfGeneral implements OnInit {
     this.getLocalTime()
   }
 
+
+
   generatePDF(): void {
     const documentDefinition = this.getDocumentDefinition();
     pdfMake.createPdf(documentDefinition).download('Documentación.pdf');
@@ -144,33 +146,42 @@ export class PdfGeneral implements OnInit {
   getAreas() {
     return {
       table: {
-        widths: ['auto', 'auto'],
+        widths: ['auto', '*'],
         body: [
           [
-            { text: 'ID', style: 'tableHeader' },
-            { text: 'Areas existentes', style: 'tableHeader' },
+            { text: 'Área', style: 'tableHeader' },
+            { text: 'Dispositivos', style: 'tableHeader' },
           ],
-          ...this.areas.map(areas => [
-            areas.id || '',
-            areas.name || '',
+          ...this.areas.map(area => [
+            this.capitalizeText(area.name),
+            {
+              stack: [
+                ...area.endDevices.map(device => `${device.id} ${device.name}` )
+              ]
+            }
           ])
         ]
       }
     };
   }
-
   getRacks() {
     return {
       table: {
         widths: ['auto', 'auto'],
         body: [
           [
-            { text: 'ID', style: 'tableHeader' },
-            { text: 'Racks existentes', style: 'tableHeader' },
+            { text: 'Racks', style: 'tableHeader' },
+            { text: 'Dispositivos', style: 'tableHeader' },
           ],
           ...this.racks.map(racks => [
-            racks.id || '',
-            racks.name || '',
+            this.capitalizeText(racks.name),
+            {
+              stack: [
+                ...racks.routers.map(device => `${device.id} ${device.name}`),
+                ...racks.aSwitch.map(device => `${device.id} ${device.name}`),
+                ...racks.patchPanels.map(device => `${device.id} ${device.name}`),
+              ]
+            }
           ])
         ]
       }
@@ -237,5 +248,8 @@ export class PdfGeneral implements OnInit {
   getLocalTime(): void {
     const date = new Date();
     this.localtime = date.toLocaleString();
+  }
+  capitalizeText(text: string): string {
+    return text.replace(/\b\w/g, char => char.toUpperCase());
   }
 }
