@@ -72,30 +72,35 @@ export class PdfGeneral implements OnInit {
   getDocumentDefinition() {
     return {
       content: [
-        { text: 'Informe completo de infraestructura tecnológica', style: 'header' },
-        { text: `Este documento proporciona un registro exhaustivo de la infraestructura tecnológica de la empresa, incluyendo áreas, racks, equipos, conexiones y registros de mantenimiento.\n\n` },
-        { text: [{ text: `Fecha de generación del informe: `, style: 'subHeader' }, `${this.localtime}\n\n`] },
-        { columns: [{ text: 'Áreas', style: 'header' }, { text: 'Racks', style: 'header' }] },
-        { columns: [{ text: 'Descripción de los áreas', style: 'subHeader' }, { text: 'Descripción de los racks', style: 'subHeader' }] },
-        { columns: [this.getAreas(), this.getRacks()] },
+        { text: 'Informe Detallado de la Infraestructura Tecnológica', style: 'header' },
+        { text: `Este informe ofrece un registro completo y detallado de la infraestructura tecnológica de la empresa, abarcando áreas, racks, equipos, conexiones y registros de mantenimiento.\n\n` },
+        { text: [{ text: `Fecha de elaboración del informe: `, style: 'subHeader' }, `${this.localtime}\n\n`] },
+        { text: 'Áreas', style: 'header' },
+        { text: 'Descripción de las áreas', style: 'subHeader'},
+        this.getAreas(),
 
 
+        { text: 'Racks', style: 'header' },
+        { text: 'Descripción de los racks', style: 'subHeader'},
+        this.getRacks(),
 
         { text: '', pageBreak: 'after' },
 
 
         { text: `Equipos`, style: 'header' },
-        { text: 'Inventario de equipos', style: 'subHeader' },
+        { text: 'Inventario completo de los equipos ', style: 'subHeader' },
         this.getDispositivosTable(),
         { text: '', pageBreak: 'after' },
         { text: `\n Conexiones`, style: 'header' },
+        { text: 'Listado de todas las conexiones de red ', style: 'subHeader' },
         this.getConexiones(),
         { text: `\n Registro de mantenimiento`, style: 'header' },
+        { text: 'Detalles de los registros de mantenimiento realizados ', style: 'subHeader' },
         this.getMantenimiento(),
       ],
       styles: {
         header: {
-          fontSize: 18,
+          fontSize: 20,
           bold: true,
           margin: [0, 10, 0, 10]
         },
@@ -130,8 +135,8 @@ export class PdfGeneral implements OnInit {
           ],
           ...this.dispositivos.map(dispositivo => [
             dispositivo.id || 'N/A',
-            dispositivo.name || 'N/A',
-            dispositivo.deviceType || 'N/A',
+            this.capitalizeText(dispositivo.name) || 'N/A',
+            dispositivo.deviceType.toUpperCase() || 'N/A',
             dispositivo.numberOfPorts || 'N/A',
             dispositivo.poe ? 'Sí' : 'No',
             dispositivo.manageable ? 'Sí' : 'No',
@@ -146,24 +151,30 @@ export class PdfGeneral implements OnInit {
   getAreas() {
     return {
       table: {
-        widths: ['auto', '*'],
+        widths: ['auto', 'auto'],
         body: [
           [
             { text: 'Área', style: 'tableHeader' },
-            { text: 'Dispositivos', style: 'tableHeader' },
+            { text: 'Dispositivos', style: 'tableHeader' }
           ],
           ...this.areas.map(area => [
             this.capitalizeText(area.name),
             {
-              stack: [
-                ...area.endDevices.map(device => `${device.id} ${device.name}` )
-              ]
+              table: {
+                widths: ['auto', 'auto'],
+                body: [
+                  [{ }, {  }],
+                  ...area.endDevices.map(device => [device.id, this.capitalizeText(device.name)])
+                ]
+              },
+              layout: 'noBorders'
             }
           ])
         ]
       }
     };
   }
+
   getRacks() {
     return {
       table: {
@@ -176,11 +187,16 @@ export class PdfGeneral implements OnInit {
           ...this.racks.map(racks => [
             this.capitalizeText(racks.name),
             {
-              stack: [
-                ...racks.routers.map(device => `${device.id} ${device.name}`),
-                ...racks.aSwitch.map(device => `${device.id} ${device.name}`),
-                ...racks.patchPanels.map(device => `${device.id} ${device.name}`),
-              ]
+              table: {
+                widths: ['auto', 'auto'],
+                body: [
+                  [{ }, {  }],
+                  ...racks.routers.map(device => [device.id, this.capitalizeText(device.name)]),
+                  ...racks.aSwitch.map(device => [device.id, this.capitalizeText(device.name)]),
+                  ...racks.patchPanels.map(device => [device.id, this.capitalizeText(device.name)]),
+                ]
+              },
+              layout: 'noBorders'
             }
           ])
         ]
@@ -230,7 +246,7 @@ export class PdfGeneral implements OnInit {
           ],
           ...this.registros.map(registros => [
             registros.deviceId || '',
-            registros.deviceName || '',
+            this.capitalizeText(registros.deviceName) || '',
             registros.deviceType || '',
             registros.performedBy || '',
             registros.description || '',
@@ -250,6 +266,12 @@ export class PdfGeneral implements OnInit {
     this.localtime = date.toLocaleString();
   }
   capitalizeText(text: string): string {
-    return text.replace(/\b\w/g, char => char.toUpperCase());
+    if (!text) return text;
+    const result = text.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
+      return str.toUpperCase();
+    });
+
+    return result;
+
   }
 }
