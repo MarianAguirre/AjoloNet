@@ -1,8 +1,13 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { DataUser, Users } from '../../../interfaces/user.interfaces';
+import { DataUser, User, Users } from '../../../interfaces/user.interfaces';
 import { timer } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import Swal from 'sweetalert2';
+import { enavironments } from '../../../../environments/environments';
+import { FormBuilder, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { AccessService } from '../../../auth/services/access.service';
 
 @Component({
   selector: 'app-admin-page',
@@ -14,6 +19,7 @@ export class AdminPageComponent implements OnInit {
   Users: Users[] = [];
   Admins: Users[] = [];
   public userDialog: boolean = false;
+  public newUser: boolean = false;
   user: DataUser = {
     id: 0,
     username: '',
@@ -34,7 +40,7 @@ export class AdminPageComponent implements OnInit {
 
   passwordPlaceholder: string = '';
 
-  constructor(private userService: UserService, private cdr: ChangeDetectorRef) { }
+  constructor(private userService: UserService, private cdr: ChangeDetectorRef, private formBuilder: FormBuilder, private http: HttpClient, private accessSservice: AccessService, private router: Router) { }
 
   ngOnInit() {
     this.loadUsers()
@@ -155,5 +161,84 @@ export class AdminPageComponent implements OnInit {
     this.passwordPlaceholder = this.Usuarios.password || ''; // Guarda la contraseña actual para comparar
     this.Usuarios.password = ''; // Limpia el campo de la contraseña en el formulario
     this.userDialog = true;
+  }
+
+
+  public loginUrl = enavironments.loginUrl;
+
+  nuevoUsuario(){
+    this.newUser = true;
+  }
+
+
+  registerForm = this.formBuilder.group({
+    username: ['', [Validators.required]],
+    firstname: ['', [Validators.required]],
+    lastname: ['', [Validators.required]],
+    password: ['', Validators.required]
+  });
+
+  get username() {
+    return this.registerForm.controls.username;
+  }
+  get firstname() {
+    return this.registerForm.controls.firstname;
+  }
+  get lastname() {
+    return this.registerForm.controls.lastname;
+  }
+  get password() {
+    return this.registerForm.controls.password;
+  }
+
+  async save() {
+    if (this.registerForm.invalid) {
+      Swal.fire({
+        title: 'Faltan datos',
+        icon: 'error',
+        timer: 1000
+      });
+      timer(100).subscribe(() => this.newUser = false);
+      return;
+    }
+
+    const object: User = {
+      username: this.registerForm.value.username ?? '',
+      firstname: this.registerForm.value.firstname ?? '',
+      lastname: this.registerForm.value.lastname ?? '',
+      password: this.registerForm.value.password ?? ''
+    }
+    timer(100).subscribe(() => this.newUser = false);
+
+    const { value: accept } = await Swal.fire({
+      title: "¿Crear nuevo usuario?",
+      inputValue: 1,
+      text: 'Presione cualquier lugar fuera del dialogo para cancelar la operacion',
+      confirmButtonText: `
+        Si&nbsp;<i class="fa fa-arrow-right"></i>
+      `,
+    });
+
+    if (accept) {
+
+      this.accessSservice.registrarse(object).subscribe({
+
+
+        next: (data) => {
+          // sessionStorage.setItem("token", data.token)
+          Swal.fire({
+            title: 'Usuario creado con exito',
+            icon: 'success',
+            timer: 1000
+          })
+          this.registerForm.reset();
+          this.loadUsers();
+
+        },
+        error: (error) => {
+          console.log(error.message)
+        }
+      })
+    }
   }
 }

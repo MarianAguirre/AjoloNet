@@ -12,9 +12,9 @@ const routes: Routes = [
       {
         path: 'login', component: LoginPageComponent
       },
-      {
-        path: 'registrar', component: RegisterPageComponent
-      },
+      // {
+      //   path: 'registrar', component: RegisterPageComponent
+      // },
       {
         path: '**', redirectTo: 'login'
       }

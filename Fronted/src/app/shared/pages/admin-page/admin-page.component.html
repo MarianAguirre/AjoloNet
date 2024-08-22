@@ -1,6 +1,7 @@
 <div *ngIf="user.role === 'ADMIN'">
   <br>
   <h1 style="text-align: center;">Usuarios</h1>
+  <p style="text-align: right; margin: 0 15% 0 0;" (click)="nuevoUsuario()"><img src="assets/newuser.png" width="60px">Nuevo usuario</p>
   <br>
   <div>
     <p-pickList [source]="Users" [target]="Admins" sourceHeader="Users" targetHeader="Admins" [dragdrop]="false"
@@ -36,7 +37,7 @@
 </div>
 
 
-<p-dialog [(visible)]="userDialog" [style]="{ width: '450px' }" header="Detalles del equipo" [modal]="true"
+<p-dialog [(visible)]="userDialog" [style]="{ width: '450px' }" header="Detalles del usuario" [modal]="true"
   styleClass="p-fluid">
   <ng-template pTemplate="content">
     <div class="field">
@@ -85,4 +86,46 @@
       <button style="margin-top: 5%;" class="btn btn-outline-danger" (click)="deleteUsuario(Usuarios)">Eliminar</button>
     </div>
   </ng-template>
+</p-dialog>
+
+
+<p-dialog [(visible)]="newUser" [style]="{ width: '450px' }" header="Nuevo usuario" [modal]="true"
+styleClass="p-fluid">
+
+<form [formGroup]="registerForm" autocomplete="off">
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input formControlName="username" type=" text" class="form-control form-control-lg"
+      placeholder="Nombre de usuario " />
+    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
+      <div *ngIf="username.errors?.['required']"> El nombre de usuario es requerido </div>
+    </div>
+  </div>
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input formControlName="firstname" type=" text" class="form-control form-control-lg"
+      placeholder="Nombre" />
+    <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="text-danger">
+      <div *ngIf="firstname.errors?.['required']"> El nombre es requerido</div>
+    </div>
+  </div>
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input formControlName="lastname" type=" text" class="form-control form-control-lg"
+      placeholder="Apellido" />
+    <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="text-danger">
+      <div *ngIf="lastname.errors?.['required']"> El apellido es requerido</div>
+    </div>
+  </div>
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input formControlName="password" name="password" type="password" id="password"
+      class="form-control form-control-lg" placeholder="Contraseña" />
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+      <div *ngIf="password.errors?.['required']"> La contraseña es requerida</div>
+    </div>
+  </div>
+
+  <div >
+    <button class="btn btn-outline-success" type="submit" (click)="save()"> Crear cuenta
+      <span></span>
+    </button>
+  </div>
+</form>
 </p-dialog>
