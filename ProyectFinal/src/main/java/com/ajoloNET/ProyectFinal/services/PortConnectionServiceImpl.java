@@ -24,6 +24,7 @@ public class PortConnectionServiceImpl{
     private PatchPanelRepository patchPanelRepository;
     private EndDeviceRepository endDeviceRepository;
     private PortRepository portRepository;
+    private ServersRepository serversRepository;
 
     // Constructor
     public void PortConnectionService(
@@ -32,13 +33,15 @@ public class PortConnectionServiceImpl{
             SwitchRepository switchRepository,
             PatchPanelRepository patchPanelRepository,
             EndDeviceRepository endDeviceRepository,
-            PortRepository portRepository) {
+            PortRepository portRepository,
+            ServersRepository serversRepository) {
         this.portConnectionRepository = portConnectionRepository;
         this.routerRepository = routerRepository;
         this.switchRepository = switchRepository;
         this.patchPanelRepository = patchPanelRepository;
         this.endDeviceRepository = endDeviceRepository;
         this.portRepository = portRepository;
+        this.serversRepository = serversRepository;
     }
 
 
@@ -131,6 +134,9 @@ public class PortConnectionServiceImpl{
                 EndDevice endDevice = endDeviceRepository.findById(deviceId)
                         .orElseThrow(() -> new IllegalArgumentException("End Device not found"));
                 return portRepository.findByEndDevice(endDevice);
+            case SERVER:
+                Servers servers = serversRepository.findById(deviceId)
+                        .orElseThrow(()-> new IllegalArgumentException("Server not found"));
             default:
                 throw new IllegalArgumentException("Invalid device type");
         }

@@ -27,6 +27,8 @@ public class MaintenanceRecordService {
 
     private final EndDeviceRepository endDeviceRepository;
 
+    private final ServersRepository serversRepository;
+
     public MaintenanceRecord createMaintenanceRecord(DeviceType deviceType, Long deviceId, MaintenanceRecord record) {
         switch (deviceType) {
             case ROUTER:
@@ -41,6 +43,8 @@ public class MaintenanceRecordService {
             case END_DEVICE:
                 endDeviceRepository.findById(deviceId).orElseThrow(() -> new IllegalArgumentException("End Device not found"));
                 break;
+            case SERVER:
+                serversRepository.findById(deviceId).orElseThrow(()-> new IllegalArgumentException("Server not found"));
             default:
                 throw new IllegalArgumentException("Invalid device type");
         }

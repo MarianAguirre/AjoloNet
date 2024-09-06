@@ -25,7 +25,7 @@ public class EndDevice {
 
     @ManyToOne
     @JoinColumn(name = "area_id")
-    @JsonBackReference
+    @JsonBackReference(value = "end_device-area")
     private Area area;
 
     @Column(name = "number_of_ports", nullable = false)

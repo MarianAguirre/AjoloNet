@@ -30,6 +30,10 @@ public class Rack {
     @JsonManagedReference(value = "rack-router")
     private List<Router> routers;
 
+    @OneToMany(mappedBy = "rack", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "rack-server")
+    private List<Servers> servers;
+
 
     //Getters and Setters
     public Long getId() {
@@ -70,5 +74,13 @@ public class Rack {
 
     public void setRouters(List<Router> routers) {
         this.routers = routers;
+    }
+
+    public List<Servers> getServers() {
+        return servers;
+    }
+
+    public void setServers(List<Servers> servers) {
+        this.servers = servers;
     }
 }

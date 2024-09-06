@@ -2,7 +2,6 @@ package com.ajoloNET.ProyectFinal.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Setter;
 
 @Entity
 @Table(name = "physical_ports")
@@ -31,6 +30,11 @@ public class Port {
     @JoinColumn(name = "end_device_id")
     @JsonBackReference(value = "device-port")
     private EndDevice endDevice;
+
+    @ManyToOne
+    @JoinColumn(name = "servers_id")
+    @JsonBackReference(value = "server-port")
+    private Servers servers;
 
     @Column(name = "port_number")
     private int portNumber;
@@ -97,5 +101,13 @@ public class Port {
 
     public void setStatus(PortStatus status) {
         this.status = status;
+    }
+
+    public Servers getServers() {
+        return servers;
+    }
+
+    public void setServers(Servers servers) {
+        this.servers = servers;
     }
 }

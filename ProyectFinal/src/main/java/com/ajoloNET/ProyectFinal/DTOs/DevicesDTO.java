@@ -1,9 +1,6 @@
 package com.ajoloNET.ProyectFinal.DTOs;
 
-import com.ajoloNET.ProyectFinal.entities.EndDevice;
-import com.ajoloNET.ProyectFinal.entities.PatchPanel;
-import com.ajoloNET.ProyectFinal.entities.Router;
-import com.ajoloNET.ProyectFinal.entities.Switch;
+import com.ajoloNET.ProyectFinal.entities.*;
 
 import java.util.List;
 
@@ -12,6 +9,7 @@ public class DevicesDTO {
     private List<Switch> switches;
     private List<PatchPanel> patchPanels;
     private List<EndDevice> endDevices;
+    private List<Servers> servers;
 
     public List<Router> getRouters() {
         return routers;
@@ -47,5 +45,13 @@ public class DevicesDTO {
 
     public List<EndDevice> getEndDevices() {
         return endDevices;
+    }
+
+    public List<Servers> getServers() {
+        return servers;
+    }
+
+    public void setServers(List<Servers> servers) {
+        this.servers = servers;
     }
 }

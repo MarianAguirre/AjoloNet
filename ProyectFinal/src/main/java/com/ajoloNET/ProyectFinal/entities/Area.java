@@ -19,8 +19,12 @@ public class Area {
     private String name;
 
     @OneToMany(mappedBy = "area", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value = "end_device-area")
     private Set<EndDevice> endDevices;
+
+    @OneToMany(mappedBy = "area", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "server_area")
+    private Set<Servers> servers;
 
     //Getters and Setters
     public Long getId() {
@@ -45,5 +49,13 @@ public class Area {
 
     public void setEndDevices(Set<EndDevice> endDevices) {
         this.endDevices = endDevices;
+    }
+
+    public Set<Servers> getServers() {
+        return servers;
+    }
+
+    public void setServers(Set<Servers> servers) {
+        this.servers = servers;
     }
 }

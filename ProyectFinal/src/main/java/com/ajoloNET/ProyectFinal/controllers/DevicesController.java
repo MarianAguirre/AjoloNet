@@ -1,10 +1,7 @@
 package com.ajoloNET.ProyectFinal.controllers;
 
 import com.ajoloNET.ProyectFinal.DTOs.DevicesDTO;
-import com.ajoloNET.ProyectFinal.entities.EndDevice;
-import com.ajoloNET.ProyectFinal.entities.PatchPanel;
-import com.ajoloNET.ProyectFinal.entities.Router;
-import com.ajoloNET.ProyectFinal.entities.Switch;
+import com.ajoloNET.ProyectFinal.entities.*;
 import com.ajoloNET.ProyectFinal.services.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +27,7 @@ public class DevicesController {
     private final SwitchService switchService;
     private final PatchPanelService patchPanelService;
     private final EndDeviceService endDeviceService;
+    private final ServersService serversService;
     @Operation(summary = "Get all devices in the DB")
     @GetMapping
     public ResponseEntity<DevicesDTO> getAllDevices(){
@@ -54,6 +52,9 @@ public class DevicesController {
                 break;
             case "end_device":
                 endDeviceService.deleteById(deviceId);
+                break;
+            case "server":
+                serversService.deleteById(deviceId);
                 break;
             default:
                 return ResponseEntity.badRequest().build();
@@ -84,6 +85,10 @@ public class DevicesController {
                     EndDevice endDevice = convertToEndDevice(device);
                     EndDevice updatedEndDevice = endDeviceService.updateById(endDevice, deviceId);
                     return ResponseEntity.ok(updatedEndDevice);
+                case "server":
+                    Servers servers = convertToServer(device);
+                    Servers updatedServer = serversService.updateById(servers, deviceId);
+                    return ResponseEntity.ok(updatedServer);
                 default:
                     return ResponseEntity.badRequest().build();
             }
@@ -112,6 +117,11 @@ public class DevicesController {
     private EndDevice convertToEndDevice(Map<String, Object> device) {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.convertValue(device, EndDevice.class);
+    }
+
+    private Servers convertToServer(Map<String, Object> device){
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.convertValue(device, Servers.class);
     }
 }
 
