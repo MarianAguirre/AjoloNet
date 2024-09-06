@@ -106,4 +106,10 @@ export class AgregarEquipoComponent implements OnInit {
       (data) => { }
     );
   }
+  newServer(): void {
+    if (this.equipo.name.length === 0 || !this.opciones.includes(this.equipo.deviceType) || this.equipo.numberOfPorts === 0 || this.equipo.rackName.length === 0) return;
+    this.http.post<Device>(`${this.baseUrl}/servers/create`, this.equipo).subscribe(
+      (data) => { }
+    );
+  }
 }

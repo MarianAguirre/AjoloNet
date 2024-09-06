@@ -42,6 +42,7 @@ import { RedRoutingModule } from './red-routing.module';
 import { TranslatePipe } from '../pipe/translate.pipe';
 import { TranslateService } from '@ngx-translate/core';
 import { DescargasComponent } from './components/descargas/descargas.component';
+import { ServerPagesComponent } from './pages/server-pages/server-pages.component';
 
 
 
@@ -91,6 +92,7 @@ import { DescargasComponent } from './components/descargas/descargas.component';
     TableConectionPageComponent,
     TranslatePipe,
     DescargasComponent,
+    ServerPagesComponent,
 
   ],
   providers: [TranslateService, { provide: LOCALE_ID, useValue: 'es' }]

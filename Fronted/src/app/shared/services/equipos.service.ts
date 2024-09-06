@@ -1,4 +1,4 @@
-import { Area, Device, EndDevice, Rack } from './../../interfaces/Dispositivo';
+import { Area, Device, EndDevice, Rack, Server } from './../../interfaces/Dispositivo';
 import { catchError, map, Observable, of } from 'rxjs';
 import { enavironments } from '../../../environments/environments';
 import { HttpClient } from '@angular/common/http';
@@ -42,6 +42,9 @@ export class EquiposServices {
     );
   }
 
+
+
+
   // Equipos.component
   deleteDevice(id: string, deviceType: string): Observable<void> {
     console.log(id, deviceType)
@@ -52,6 +55,7 @@ export class EquiposServices {
   updateDevice(id: string, equipo: Device): Observable<void> {
     return this.http.put<void>(`${this.baseUrl}/Devices/${equipo.deviceType}/${id}`, equipo);
   }
+
 
 
   // Conection-page.component, Agregar-equipo.component
@@ -84,6 +88,8 @@ export class EquiposServices {
   getRacks(): Observable<Rack[]> {
     return this.http.get<Rack[]>(`${this.baseUrl}/rack`);
   }
+
+
 
   // Racks-page.component
   getDeviceRack(name: string): Observable<{ routers: Rack[], aSwitches: Rack[], patchPanels: Rack[] }> {

@@ -13,6 +13,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { RacksPageComponent } from './pages/racks-page/racks-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { TableConectionPageComponent } from './pages/table-conection-page/table-conection-page.component';
+import { ServerPagesComponent } from './pages/server-pages/server-pages.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,9 @@ const routes: Routes = [
       },
       {
         path: 'racks', component: RacksPageComponent
+      },
+      {
+        path: 'servidores', component: ServerPagesComponent
       },
       {
         path: '**', redirectTo: 'home'

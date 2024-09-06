@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Device } from '../../../interfaces/Dispositivo';
+import { Device, Server } from '../../../interfaces/Dispositivo';
 import { enavironments } from '../../../../environments/environments';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { timer } from 'rxjs';
+import { forkJoin, timer } from 'rxjs';
 import Swal from 'sweetalert2';
 import { DeviceDataService } from '../../services/device-data.service';
+import { MachinesServices } from '../../services/machines.service';
 
 @Component({
   selector: 'shared-equipos-pages',
@@ -14,7 +15,13 @@ import { DeviceDataService } from '../../services/device-data.service';
   styleUrl: './equipos.component.css'
 })
 export class EquiposComponent implements OnInit {
-  constructor(private equiposServices: EquiposServices, private http: HttpClient, private router: Router, private deviceDataService: DeviceDataService) { }
+  constructor(
+    private equiposServices: EquiposServices,
+    private http: HttpClient,
+    private router: Router,
+    private deviceDataService: DeviceDataService,
+    private machinesServices: MachinesServices
+  ) { }
 
   public areas: string[] = [];
   public baseUrl: string = enavironments.baseUrl;
@@ -26,6 +33,7 @@ export class EquiposComponent implements OnInit {
   public racks: string[] = [];
   public routers: Device[] = [];
   public switches: Device[] = [];
+  public server: Device[] = [];
 
 
   ngOnInit(): void {
@@ -41,20 +49,36 @@ export class EquiposComponent implements OnInit {
     this.equiposServices.getArea().subscribe((areas: string[]) => {
       this.areas = areas;
     });
+
   }
 
+
   loadDevices() {
-    this.equiposServices.getDevices().subscribe((data: any) => {
-      if (data && typeof data === 'object') {
-        this.routers = data.routers || [];
-        this.switches = data.switches || [];
-        this.patchPanels = data.patchPanels || [];
-        this.endDevices = data.endDevices || [];
-        this.dispositivos = [...this.routers, ...this.switches, ...this.patchPanels, ...this.endDevices];
+    forkJoin({
+      devices: this.equiposServices.getDevices(),
+      servers: this.machinesServices.getServers()
+    }).subscribe(({ devices, servers }) => {
+      // Verifica que los dispositivos sean un objeto válido
+      if (devices && typeof devices === 'object') {
+        // Combina todos los tipos de dispositivos
+        this.routers = devices.routers || [];
+        this.switches = devices.switches || [];
+        this.patchPanels = devices.patchPanels || [];
+        this.endDevices = devices.endDevices || [];
+
+        // Combina todos los dispositivos y servidores en un solo array
+        this.dispositivos = [
+          ...this.routers,
+          ...this.switches,
+          ...this.patchPanels,
+          ...this.endDevices,
+          ...servers
+        ];
       } else {
-        console.error('Error: data is not an object', data);
+        console.error('Error: data is not an object', devices);
       }
     });
+
   }
 
 
@@ -169,5 +193,49 @@ export class EquiposComponent implements OnInit {
   navigateToConnections(deviceType: string, deviceId: string) {
     this.deviceDataService.setDeviceData(deviceType, deviceId);
     this.router.navigate(['/red/conexiones/localizar-conexion']);
+  }
+
+  saveServer(): void {
+    if (!this.equipo.id) {
+      Swal.fire(
+        'Error',
+        'El ID del equipo es indefinido.',
+        'error'
+      );
+      return;
+    }
+    timer(100).subscribe(() => this.equipoDialog = false);
+    Swal.fire({
+      title: '¿Haz rellenado todos los campos?',
+      text: `Al actualizar un equipo debes asegurarte de rellenar los campos de rack/area y no dejar vacio`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, actualiza'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.machinesServices.updateServers(this.equipo.id!, this.equipo).subscribe(
+          () => {
+            this.equipoDialog = false;
+            this.dispositivos = this.dispositivos.map(d => d.id === this.equipo.id ? this.equipo : d);
+            Swal.fire(
+              'Actualizado!',
+              'El equipo ha sido actualizado.',
+              'success'
+            );
+            this.loadDevices();
+          },
+          (error: any) => {
+            Swal.fire(
+              'Error',
+              'Hubo un problema al actualizar el equipo.',
+              'error'
+            );
+          }
+        );
+      }
+      else { timer(100).subscribe(() => this.equipoDialog = true); }
+    });
   }
 }

@@ -96,11 +96,11 @@
     </div>
 
     <!-- Numero de ip y MAC-->
-    <div class="field" *ngIf="equipo.deviceType === 'switch' || equipo.deviceType === 'router' || equipo.deviceType === 'end_device'">
+    <div class="field" *ngIf="equipo.deviceType === 'switch' || equipo.deviceType === 'router' || equipo.deviceType === 'server' || equipo.deviceType === 'end_device' ">
       <label style="font-weight: bold;" for="ipAddress">Dirección ip</label>
       <input type="text" min="0" pInputText id="ipAddress" [(ngModel)]="equipo.ipAddress" required autofocus />
     </div>
-    <div class="field" *ngIf="equipo.deviceType === 'switch' || equipo.deviceType === 'router' || equipo.deviceType === 'end_device'">
+    <div class="field" *ngIf="equipo.deviceType === 'switch' || equipo.deviceType === 'router' || equipo.deviceType === 'end_device' || equipo.deviceType === 'server' ">
       <label style="font-weight: bold;" for="mac">Dirección MAC</label>
       <input type="text" pInputText id="mac" [(ngModel)]="equipo.mac" required autofocus />
     </div>
@@ -114,7 +114,7 @@
 
     <!-- Seleccion de rack para switch, router y parch panel -->
     <select-rack
-      *ngIf="equipo.deviceType === 'switch' || equipo.deviceType === 'router' || equipo.deviceType === 'patch_panel'"
+      *ngIf="equipo.deviceType === 'switch' || equipo.deviceType === 'router' || equipo.deviceType === 'patch_panel' || equipo.deviceType === 'server' "
       [deviceType]="equipo.deviceType" [racks]="racks" [(rackName)]="equipo.rackName"
       (navigateToRacks)="goRacks()"></select-rack>
 
@@ -128,11 +128,13 @@
       <button class="btn btn-info" (click)="goAreas()">Areas</button>
     </div>
 
+
     <br>
 
     <!-- Boton de guardar -->
     <div style="display: flex; justify-content: space-between;">
-      <button class="btn btn-outline-success" (click)="saveDevice()">Guardar</button>
+      <button *ngIf="equipo.deviceType === 'switch' || equipo.deviceType === 'router' || equipo.deviceType === 'patch_panel'" class="btn btn-outline-success" (click)="saveDevice()">Guardar</button>
+      <button *ngIf="equipo.deviceType === 'server' " class="btn btn-outline-success" (click)="saveServer()">Guardar</button>
       <button class="btn btn-info" (click)="navigateToConnections(equipo.deviceType, equipo.id)">Conexiones</button>
     </div>
   </ng-template>

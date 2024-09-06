@@ -12,7 +12,7 @@
       </select>
       <br>
       <input
-        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'"
+        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices' || equipo.deviceType === 'servers'"
         required type="text" name="name" [(ngModel)]="equipo.name" class="from-control mb-2"
         placeholder="Nombre del equipo">
       <br>
@@ -26,23 +26,20 @@
 
       <!-- Número de ip y MAC -->
       <p
-        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'">
+        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices' || equipo.deviceType === 'servers'">
         Dirección de Ip</p>
       <input
-        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'"
+        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices' || equipo.deviceType === 'servers'"
         required type="text" name="name" [(ngModel)]="equipo.ipAddress" class="from-control mb-2" placeholder="Ip">
 
       <p
-        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'">
+        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices' || equipo.deviceType === 'servers'">
         Dirección MAC</p>
       <input
-        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices'"
+        *ngIf="equipo.deviceType === 'routers' || equipo.deviceType === 'switches' || equipo.deviceType === 'endDevices' || equipo.deviceType === 'servers'"
         required type="text" name="name" [(ngModel)]="equipo.mac" class="from-control mb-2" placeholder="MAC">
 
       <!-- Opciones extra para el Switch -->
-      <!-- <p *ngIf="equipo.deviceType === 'switches'">VLANS</p>
-      <app-dynamic-vlans *ngIf="equipo.deviceType === 'switches'" class="from-control mb-2"
-        (vlansChange)="updateVlans($event)"></app-dynamic-vlans> -->
       <div *ngIf="equipo.deviceType === 'switches'">
         <div class="contenido">
           <p class="Text-checkbox">¿Es poe? </p><input required name="poe" [(ngModel)]="equipo.poe"
@@ -55,10 +52,10 @@
       </div>
 
       <!-- Seleccion de racks -->
-      <p *ngIf="equipo.deviceType === 'switches' || equipo.deviceType === 'patchPanels' || equipo.deviceType === 'routers' "
+      <p *ngIf="equipo.deviceType === 'switches' || equipo.deviceType === 'patchPanels' || equipo.deviceType === 'routers' || equipo.deviceType === 'servers'"
         class="from-control mb-2">Selecciona el rack</p>
       <div
-        *ngIf="equipo.deviceType === 'switches' || equipo.deviceType === 'patchPanels' || equipo.deviceType === 'routers' "
+        *ngIf="equipo.deviceType === 'switches' || equipo.deviceType === 'patchPanels' || equipo.deviceType === 'routers' || equipo.deviceType === 'servers'"
         class="area">
         <select class="mb-2 " [(ngModel)]="equipo.rackName" name="select">
           <option *ngFor="let rack of racks" [value]="rack">{{rack}}</option>
@@ -83,6 +80,8 @@
         style="margin-top: 1%;margin-left: 12px;" (click)="newDispositivo()">Guardar</button>
       <button *ngIf="equipo.deviceType === 'patchPanels'" type="submit" class="btn btn-success"
         style="margin-top: 1%;margin-left: 12px;" (click)="newPatch()">Guardar</button>
+        <button *ngIf="equipo.deviceType === 'servers'" type="submit" class="btn btn-success"
+        style="margin-top: 1%;margin-left: 12px;" (click)="newServer()">Guardar</button>
     </form>
   </div>
 
@@ -97,6 +96,7 @@
       <img *ngIf="equipo.deviceType === 'routers'" src="assets/router.png" width="256px" height="256px">
       <img *ngIf="equipo.deviceType === 'endDevices'" src="assets/found_9694708.png" width="256px" height="256px">
       <img *ngIf="equipo.deviceType === 'patchPanels'" src="assets/patch.png" width="256px" height="256px">
+      <img *ngIf="equipo.deviceType === 'servers'" src="assets/server.png" width="300px" height="300px" style="margin-top: 10%;">
     </div>
   </div>
   <div class="botones justify-content-end">

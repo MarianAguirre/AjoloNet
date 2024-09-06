@@ -1,0 +1,98 @@
+<h1 style="width: 80%; margin-left: 10%; margin-top: 1%; margin-bottom: 1%;color: #6e6e6e;">SERVIDORES
+</h1>
+<p-iconField iconPosition="left" [style]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
+<th style="width: 80%; margin-left: 20%; margin-top: 1%; margin-bottom: 1%;">
+  <div>
+    <button (click)="showDialog()" class="btn btn-outline-success">Agregar maquina a servidor</button>
+
+    <!-- Zona de creacion de areas -->
+    <p-dialog header="Agrega un nueva maquina" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+      <form [formGroup]="machinesForm" (ngSubmit)="onSubmit()">
+        <label>Servidor al que pertenece:</label>
+              <br>
+              <select id="serverId" formControlName="serverId">
+                <option *ngFor="let server of name" [value]="server.id">{{ server.name }}</option>
+              </select>
+              <br>
+        <label>Nombre de la maquina:</label>
+        <br>
+        <input style="width: 100%" id="name" formControlName="name" type="text">
+        <br>
+        <label>Direccion ip:</label>
+        <br>
+        <input style="width: 100%" id="ip" formControlName="ip" type="text">
+        <br>
+        <label>Descripción:</label>
+        <br>
+        <textarea style="width: 100%;" id="description" formControlName="description"></textarea>
+        <br>
+        <button type="submit" class="btn btn-success"
+          style="margin-top: 1%; width: 65%; margin-left: 20%;">Guardar</button>
+      </form>
+    </p-dialog>
+  </div>
+</th>
+</p-iconField>
+<p-table [value]="server" selectionMode="single" dataKey="id" [globalFilterFields]="[ 'name']"
+[tableStyle]="{'width':'80%','margin-left':'10%','margin-top':'1%', 'margin-bottom':'1%'}">
+
+<!-- Titulo de la tabla -->
+<ng-template pTemplate="caption">
+
+</ng-template>
+
+<!-- Encabezados de la tabla -->
+<ng-template pTemplate="header">
+  <tr>
+    <th pSortableColumn="name" style="width:30%">Servidor <p-sortIcon field="name" /></th>
+    <th style="width:15%">Nombre</th>
+    <th style="width:10%">Direccion Ip</th>
+    <th style="width:30%">Descripcion</th>
+    <th style="width:25%"></th>
+  </tr>
+</ng-template>
+
+<!-- Áreas desplegables -->
+<ng-template pTemplate="body" let-server let-expanded="expanded">
+  <tr>
+    <td>
+      <button type="button" pButton pRipple [pRowToggler]="server" class="p-button-text p-button-rounded p-button-plain"
+        (click)="loadMachines(server)" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+      {{server.name}}
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</ng-template>
+
+<!-- Filas de expansión para endDevices -->
+<ng-template pTemplate="rowexpansion" let-server>
+  <tr *ngFor="let machine of server.virtualMachines">
+    <td></td>
+    <td>{{machine.name}}</td>
+    <td>{{machine.ip}}</td>
+    <td>{{machine.description}}</td>
+    <td> <button (click)="deleteMachine(machine)" class="delete-button">
+        <svg class="delete-svgIcon" viewBox="0 0 448 512">
+          <path
+            d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
+          </path>
+        </svg>
+      </button></td>
+  </tr>
+
+  <tr class="p-rowgroup-footer">
+    <td colspan="4" style="text-align: right">Total de equipos:</td>
+    <td>{{server.virtualMachines.length}}</td>
+  </tr>
+</ng-template>
+
+<!-- Mensaje de cuando no hay areas -->
+<ng-template pTemplate="emptymessage">
+  <tr>
+    <td colspan="4">No se encontraron areas. </td>
+  </tr>
+</ng-template>
+</p-table>

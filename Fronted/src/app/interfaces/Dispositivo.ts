@@ -68,6 +68,27 @@ export interface Routers {
   deviceType: string;
 }
 
+export interface Server {
+  id:              number;
+  name:            string;
+  ports:           Port[];
+  numberOfPorts:   number;
+  deviceType:      string;
+  mac:             null;
+  ipAddress:       null;
+  rackName:        null;
+  virtualMachines: VirtualMachine[];
+}
+
+export interface VirtualMachine {
+  id:          number;
+  name:        string;
+  ip:          number;
+  description: null;
+}
+
+
+
 export interface Connections{
   sourceType  : string,
   sourceId  : string,

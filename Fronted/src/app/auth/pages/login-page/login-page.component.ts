@@ -48,7 +48,13 @@ export class LoginPageComponent {
 
     this.accessServices.login(objecto).subscribe({
       next: (data) => {
-        sessionStorage.setItem("token", data.token)
+         // Guarda solo el token en sessionStorage
+      sessionStorage.setItem('token', data.token);
+
+      setTimeout(() => {
+        sessionStorage.removeItem('token');
+        this.router.navigate(['/auth/login']);
+      }, 30 * 60 * 1000);
         this.router.navigate(['/red/home'])
       },
       error: (error) => {
