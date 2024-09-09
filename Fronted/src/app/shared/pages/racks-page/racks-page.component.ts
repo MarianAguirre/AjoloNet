@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { enavironments } from '../../../../environments/environments';
-import { EndDevice, Rack } from '../../../interfaces/Dispositivo';
+import { EndDevice, Rack, Server } from '../../../interfaces/Dispositivo';
 import { EquiposServices } from '../../services/equipos.service';
 import { HttpClient } from '@angular/common/http';
 import { timer } from 'rxjs';
@@ -47,6 +47,9 @@ export class RacksPageComponent implements OnInit {
   }
   getTotalPatch(rack: Rack): number {
     return rack.patchPanels.length;
+  }
+  getTotalServers(rack: Rack): number {
+    return rack.servers.length;
   }
 
   // Hace visible el cuadro de dialogo para los nuevos racks

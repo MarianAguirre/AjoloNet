@@ -36,6 +36,7 @@ export interface Rack {
   aSwitch: ASwitch[];
   patchPanels: PatchPanel[];
   routers: Routers[];
+  servers: Server[]
 }
 
 export interface ASwitch {

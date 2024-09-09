@@ -92,6 +92,15 @@
       <td>{{device.ipAddress}}</td>
       <td></td>
     </tr>
+    <tr *ngFor="let device of racks.servers">
+      <td></td>
+      <td>{{device.id}}</td>
+      <td>{{device.name}}</td>
+      <td>{{device.deviceType | camelCaseToTitleCase}}</td>
+      <td>{{device.numberOfPorts}}</td>
+      <td>{{device.ipAddress}}</td>
+      <td></td>
+    </tr>
     <tr *ngFor="let device of racks.patchPanels">
       <td></td>
       <td>{{device.id}}</td>
@@ -114,6 +123,10 @@
     <tr class="p-rowgroup-footer" style="font-size: 14px; margin-top: 1px;">
       <td colspan="6" style="text-align: right">Total de patch panels:</td>
       <td>{{getTotalPatch(racks)}} </td>
+    </tr>
+    <tr class="p-rowgroup-footer" style="font-size: 14px; margin-top: 1px;">
+      <td colspan="6" style="text-align: right">Total de servers:</td>
+      <td>{{getTotalServers(racks)}} </td>
     </tr>
   </ng-template>
 
