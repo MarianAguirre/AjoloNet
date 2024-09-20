@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  AjoloNet-app:
+    container_name: AjoloNet-api
+    image: ajolote-app:1.0.0
+    build: .
+    ports:
+      - 8001:8001
+    environment:
+      - DATABASE_URL=jdbc:postgresql://Ajolote-db:5432/AjoloNet
+      - DATABASE_USR=admin
+      - DATABASE_PASSWORD=secret
+    depends_on:
+      - Ajolote-db
+
+  Ajolote-db:
+    container_name: Ajolote-db
+    image: postgres:16.3
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: AjoloNet
