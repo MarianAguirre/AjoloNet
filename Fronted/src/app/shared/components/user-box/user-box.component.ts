@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { DataUser } from '../../../interfaces/user.interfaces';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -11,7 +10,7 @@ import { UserService } from '../../services/user.service';
 })
 export class SearchBoxComponent {
 
-  constructor(private cookie: CookieService, private router: Router, private userService: UserService) { }
+  constructor( private router: Router, private userService: UserService) { }
 
   user!: DataUser;
 

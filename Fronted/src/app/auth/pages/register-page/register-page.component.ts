@@ -1,6 +1,5 @@
 import { AccessService } from '../../services/access.service';
 import { Component } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { enavironments } from '../../../../environments/environments';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -17,7 +16,7 @@ export class RegisterPageComponent {
 
   public loginUrl = enavironments.loginUrl;
 
-  constructor(private cookie: CookieService, private formBuilder: FormBuilder, private http: HttpClient, private accessSservice: AccessService, private router: Router) { }
+  constructor( private formBuilder: FormBuilder, private http: HttpClient, private accessSservice: AccessService, private router: Router) { }
 
   registerForm = this.formBuilder.group({
     username: ['', [Validators.required]],

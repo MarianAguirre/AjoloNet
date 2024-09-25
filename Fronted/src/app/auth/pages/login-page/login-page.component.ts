@@ -1,6 +1,5 @@
 import { AccessService } from '../../services/access.service';
 import { Component } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Login } from '../../../interfaces/login.interfaces';
 import { Router } from '@angular/router';
@@ -13,7 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent {
-  constructor(private cookie: CookieService, private formBuilder: FormBuilder, private router: Router, private accessServices: AccessService) { }
+  constructor( private formBuilder: FormBuilder, private router: Router, private accessServices: AccessService) { }
 
   public loginForm = this.formBuilder.group({
     username: ["", [Validators.required]],
